@@ -159,7 +159,7 @@ export default function Nav() {
         {/* Background image */}
         <div className="absolute inset-0">
           <Image
-            src="/images/origin-story.jpg"
+            src="/images/menu-bg.jpg"
             alt=""
             fill
             className="object-contain object-center"
