@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/public/Nav'
 import PackOpeningIntro from '@/components/public/PackOpeningIntro'
-import { artistStats, songs, latestRelease, socialLinks, FEATURED_VIDEO_ID } from '@/data/content'
+import { artistStats, songs, latestRelease, socialLinks, FEATURED_VIDEO_ID, upcomingShows, products } from '@/data/content'
 import { createClient } from '@/lib/supabase/server'
 
 const fighterPhotos = [
@@ -16,12 +16,15 @@ const fighterPhotos = [
 
 export default async function HomePage() {
   const supabase = await createClient()
-  const { data: shows } = await supabase
+  const { data: supabaseShows } = await supabase
     .from('shows')
     .select('*')
     .eq('is_upcoming', true)
     .order('event_date', { ascending: true })
-    .limit(3)
+
+  const shows = [...upcomingShows, ...(supabaseShows ?? [])]
+    .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime())
+    .slice(0, 3)
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--color-brand-black)', color: 'var(--color-brand-white)' }}>
@@ -244,10 +247,14 @@ export default async function HomePage() {
           <p className="mt-3" style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.36rem', color: 'var(--color-brand-off)', letterSpacing: '0.06em', maxWidth: 400, margin: '0.75rem auto 0' }}>Tees · hoodies · parody trading cards · collectible stickers · limited drops. The rarest merch goes fast.</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px mb-8" style={{ background: 'var(--color-brand-gray-mid)', border: '1px solid var(--color-brand-gray-mid)' }}>
-          {['Big Man Blastoise Tee', 'Holographic Drop', 'PokéRage Hoodie', 'Collectible Card'].map((item) => (
-            <div key={item} className="aspect-square flex items-end p-4 group" style={{ background: 'var(--color-brand-gray)' }}>
-              <p style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--color-brand-off)', transition: 'color 0.2s' }} className="group-hover:!text-[var(--color-brand-white)]">{item}</p>
-            </div>
+          {products.slice(0, 4).map((p) => (
+            <a key={p.handle} href={`https://genwunnr.myshopify.com/products/${p.handle}`} target="_blank" rel="noopener noreferrer" className="relative aspect-square flex items-end p-4 group overflow-hidden" style={{ background: 'var(--color-brand-gray)' }}>
+              <Image src={p.image} alt={p.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
+              <div className="relative z-10 w-full" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%)', margin: '-1rem', padding: '1rem', paddingTop: '2rem' }}>
+                <p style={{ fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--color-brand-white)' }}>{p.title}</p>
+                <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.32rem', color: 'var(--color-brand-red)', letterSpacing: '0.06em', marginTop: '0.2rem' }}>{p.price}</p>
+              </div>
+            </a>
           ))}
         </div>
         <div className="text-center">

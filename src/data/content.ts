@@ -135,6 +135,58 @@ export const upcomingShows = [
   },
 ]
 
+export const products = [
+  {
+    handle: 'genwunner-metal-hoodie',
+    title: 'GENWUNNER METAL HOODIE',
+    tag: 'APPAREL · Hoodie',
+    price: '$60.00',
+    image: 'https://cdn.shopify.com/s/files/1/0738/1506/4880/files/9391710253766993108_2048.jpg?v=1761523638',
+  },
+  {
+    handle: 'the-very-best-world-tour-t-shirt-v2-black',
+    title: 'THE VERY BEST WORLD TOUR T-SHIRT',
+    tag: 'APPAREL · Tee',
+    price: '$35.00',
+    image: 'https://cdn.shopify.com/s/files/1/0738/1506/4880/files/7441099561744741924_2048.jpg?v=1761523700',
+  },
+  {
+    handle: 'spiked-pkmn-league-hat',
+    title: 'LEAGUE HAT',
+    tag: 'APPAREL · Hat',
+    price: '$70.00',
+    image: 'https://cdn.shopify.com/s/files/1/0738/1506/4880/files/DSC03227.jpg?v=1754254529',
+  },
+  {
+    handle: 'genwunner-propaganda-1',
+    title: 'GENWUNNER PROPAGANDA #1',
+    tag: 'POSTER · Art Print',
+    price: '$25.00',
+    image: 'https://cdn.shopify.com/s/files/1/0738/1506/4880/files/14555946579401676141_2048.jpg?v=1756697801',
+  },
+  {
+    handle: 'genwunner-propaganda-2',
+    title: 'GENWUNNER PROPAGANDA #2',
+    tag: 'POSTER · Art Print',
+    price: '$25.00',
+    image: 'https://cdn.shopify.com/s/files/1/0738/1506/4880/files/16102568642137737898_2048.jpg?v=1756697501',
+  },
+  {
+    handle: 'big-man-poster',
+    title: 'BIG MAN POSTER',
+    tag: 'POSTER · 18×24',
+    price: '$20.00',
+    image: 'https://cdn.shopify.com/s/files/1/0738/1506/4880/files/8925366859630817133_2048.jpg?v=1754255907',
+  },
+  {
+    handle: 'big-bad-poster',
+    title: 'BIG BAD POSTER',
+    tag: 'POSTER · 18×24',
+    price: '$20.00',
+    image: 'https://cdn.shopify.com/s/files/1/0738/1506/4880/files/10608558592984188498_2048.jpg?v=1754257300',
+  },
+]
+
 export const performanceVenues = [
   'Anime NYC', 'Anime Expo', 'MomoCon', 'Otakufest Miami',
   'GalaxyCon Raleigh', 'Anime Impulse OC', 'Collect-A-Con Charlotte',
