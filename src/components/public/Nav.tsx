@@ -162,8 +162,8 @@ export default function Nav() {
             src="/images/origin-story.jpg"
             alt=""
             fill
-            className="object-cover object-center"
-            style={{ opacity: 0.12 }}
+            className="object-contain object-center"
+            style={{ opacity: 0.18 }}
             priority
           />
           {/* Gradient vignette */}
