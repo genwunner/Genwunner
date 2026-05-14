@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { LayoutDashboard, FileText, Users, BarChart2, Megaphone, ShoppingBag, LogOut } from 'lucide-react'
+import { LayoutDashboard, FileText, Users, BarChart2, Megaphone, ShoppingBag } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import SignOutButton from '@/components/admin/SignOutButton'
 
 const navItems = [
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard },
@@ -39,12 +40,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           ))}
         </nav>
         <div className="p-4 border-t border-black/10">
-          <form action="/api/auth/signout" method="POST">
-            <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-black/40 hover:text-black hover:bg-black/10 transition-colors w-full">
-              <LogOut size={16} />
-              Sign Out
-            </button>
-          </form>
+          <SignOutButton />
         </div>
       </aside>
 
