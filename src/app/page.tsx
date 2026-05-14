@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Nav from '@/components/public/Nav'
 import { artistStats, songs, latestRelease, socialLinks, FEATURED_VIDEO_ID } from '@/data/content'
 import { createClient } from '@/lib/supabase/server'
@@ -17,40 +18,58 @@ export default async function HomePage() {
       <Nav />
 
       {/* ── HERO ── */}
-      <section className="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(250,204,21,0.08)_0%,_transparent_70%)]" />
-        <p className="text-yellow-400 text-xs uppercase tracking-[0.3em] font-bold mb-6">
-          Creator of Big Man Blastoise · PokéRage · Los Angeles
-        </p>
-        <h1 className="text-6xl sm:text-8xl md:text-[10rem] font-black tracking-tighter leading-none mb-4 relative">
-          GENWUNNER
-        </h1>
-        <p className="text-white/50 text-lg sm:text-xl font-medium mb-4 uppercase tracking-widest">
-          Enter the PokéRage Universe
-        </p>
-        <p className="text-white/30 text-sm max-w-md mb-10">
-          Big Man Blastoise lives here. 1B+ UGC views. 543K monthly listeners.
-          The sound of the mosh pit after choosing Squirtle.
-        </p>
-        <div className="flex flex-wrap gap-3 justify-center">
-          <a href={socialLinks.spotify} target="_blank" rel="noopener noreferrer"
-            className="bg-yellow-400 text-black font-black uppercase tracking-wide px-6 py-3 rounded-full hover:bg-yellow-300 transition-colors text-sm">
-            Stream Now
-          </a>
-          <Link href="/wunnerdex"
-            className="border border-yellow-400 text-yellow-400 font-black uppercase tracking-wide px-6 py-3 rounded-full hover:bg-yellow-400 hover:text-black transition-colors text-sm">
-            Join the Wunnerdex
-          </Link>
-          <Link href="/merch"
-            className="border border-white/30 text-white font-bold uppercase tracking-wide px-6 py-3 rounded-full hover:border-white hover:bg-white/10 transition-colors text-sm">
-            Unlock Rare Merch
-          </Link>
-          <Link href="/book"
-            className="border border-white/30 text-white font-bold uppercase tracking-wide px-6 py-3 rounded-full hover:border-white hover:bg-white/10 transition-colors text-sm">
-            Book Genwunner
-          </Link>
+      <section className="min-h-screen flex flex-col lg:flex-row items-center px-4 pt-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,_rgba(250,204,21,0.07)_0%,_transparent_60%)]" />
+
+        {/* Left — text */}
+        <div className="flex-1 flex flex-col items-center lg:items-start justify-center text-center lg:text-left z-10 py-20 lg:py-0 lg:pl-8 xl:pl-16 max-w-2xl mx-auto lg:mx-0">
+          <p className="text-yellow-400 text-xs uppercase tracking-[0.3em] font-bold mb-6">
+            Creator of Big Man Blastoise · PokéRage · Los Angeles
+          </p>
+          <h1 className="text-6xl sm:text-8xl font-black tracking-tighter leading-none mb-4">
+            GENWUNNER
+          </h1>
+          <p className="text-white/50 text-lg sm:text-xl font-medium mb-4 uppercase tracking-widest">
+            Enter the PokéRage Universe
+          </p>
+          <p className="text-white/30 text-sm max-w-md mb-10">
+            Big Man Blastoise lives here. 1B+ UGC views. 543K monthly listeners.
+            The sound of the mosh pit after choosing Squirtle.
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+            <a href={socialLinks.spotify} target="_blank" rel="noopener noreferrer"
+              className="bg-yellow-400 text-black font-black uppercase tracking-wide px-6 py-3 rounded-full hover:bg-yellow-300 transition-colors text-sm">
+              Stream Now
+            </a>
+            <Link href="/wunnerdex"
+              className="border border-yellow-400 text-yellow-400 font-black uppercase tracking-wide px-6 py-3 rounded-full hover:bg-yellow-400 hover:text-black transition-colors text-sm">
+              Join the Wunnerdex
+            </Link>
+            <Link href="/merch"
+              className="border border-white/30 text-white font-bold uppercase tracking-wide px-6 py-3 rounded-full hover:border-white hover:bg-white/10 transition-colors text-sm">
+              Unlock Rare Merch
+            </Link>
+            <Link href="/book"
+              className="border border-white/30 text-white font-bold uppercase tracking-wide px-6 py-3 rounded-full hover:border-white hover:bg-white/10 transition-colors text-sm">
+              Book Genwunner
+            </Link>
+          </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/20 text-xs uppercase tracking-widest">
+
+        {/* Right — hero photo */}
+        <div className="hidden lg:block relative h-screen w-[480px] xl:w-[560px] flex-shrink-0">
+          <Image
+            src="/images/hero-stage.jpg"
+            alt="Genwunner performing live"
+            fill
+            className="object-cover object-top"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+        </div>
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/20 text-xs uppercase tracking-widest hidden lg:block">
           scroll
         </div>
       </section>
@@ -62,6 +81,30 @@ export default async function HomePage() {
             <div key={stat.label} className="text-center flex-shrink-0">
               <p className="text-3xl sm:text-4xl font-black text-black tracking-tight">{stat.value}</p>
               <p className="text-black/60 text-xs uppercase tracking-wider font-semibold mt-1">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PHOTO STRIP ── */}
+      <section className="py-0 overflow-hidden">
+        <div className="flex gap-1">
+          {[
+            { src: '/images/strip-jacket.jpg', alt: 'Genwunner custom Pokémon denim jacket on stage' },
+            { src: '/images/strip-crowd.jpg', alt: 'Genwunner performing live, leaning into the crowd' },
+            { src: '/images/motion-stage.jpg', alt: 'Genwunner on stage — motion blur shot' },
+            { src: '/images/strip-cards.jpg', alt: 'Genwunner holding Pokémon cards, grinning' },
+            { src: '/images/strip-varsity.jpg', alt: 'Genwunner in Blastoise varsity jacket' },
+            { src: '/images/strip-reach.jpg', alt: 'Genwunner reaching toward the crowd on stage' },
+          ].map(({ src, alt }) => (
+            <div key={src} className="relative flex-1 aspect-[3/4] min-w-[140px] sm:min-w-0 overflow-hidden group">
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
             </div>
           ))}
         </div>
@@ -225,13 +268,26 @@ export default async function HomePage() {
 
       {/* ── WUNNERDEX SIGNUP ── */}
       <section className="py-20 px-4 bg-zinc-950">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-yellow-400 text-xs uppercase tracking-[0.3em] font-bold mb-4">Join the Movement</p>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tighter mb-4">JOIN THE WUNNERDEX</h2>
-          <p className="text-white/40 text-sm mb-10 max-w-md mx-auto">
-            Get drops, shows, secret links, and Big Man Blastoise sightings before the civilians.
-          </p>
-          <WunnerdexSignupForm />
+        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-12 items-center">
+          {/* Photo */}
+          <div className="relative w-full lg:w-80 xl:w-96 aspect-[3/4] rounded-2xl overflow-hidden flex-shrink-0 order-2 lg:order-1">
+            <Image
+              src="/images/strip-laugh.jpg"
+              alt="Genwunner laughing holding Pokémon packs"
+              fill
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent" />
+          </div>
+          {/* Form */}
+          <div className="flex-1 text-center lg:text-left order-1 lg:order-2">
+            <p className="text-yellow-400 text-xs uppercase tracking-[0.3em] font-bold mb-4">Join the Movement</p>
+            <h2 className="text-4xl sm:text-5xl font-black tracking-tighter mb-4">JOIN THE WUNNERDEX</h2>
+            <p className="text-white/40 text-sm mb-10 max-w-md lg:mx-0 mx-auto">
+              Get drops, shows, secret links, and Big Man Blastoise sightings before the civilians.
+            </p>
+            <WunnerdexSignupForm />
+          </div>
         </div>
       </section>
 
