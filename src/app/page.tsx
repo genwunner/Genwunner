@@ -48,22 +48,12 @@ export default async function HomePage() {
             The sound of the mosh pit after choosing Squirtle.
           </p>
           <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-            <a href={socialLinks.spotify} target="_blank" rel="noopener noreferrer"
-              className="bg-red-600 text-white font-black uppercase tracking-wide px-6 py-3 rounded-full hover:bg-red-500 transition-colors text-sm">
+            <a href={socialLinks.spotify} target="_blank" rel="noopener noreferrer" className="btn-primary">
               Stream Now
             </a>
-            <Link href="/wunnerdex"
-              className="border border-red-600 text-red-500 font-black uppercase tracking-wide px-6 py-3 rounded-full hover:bg-red-600 hover:text-white transition-colors text-sm">
-              Join the Wunnerdex
-            </Link>
-            <Link href="/merch"
-              className="border border-white/30 text-white font-bold uppercase tracking-wide px-6 py-3 rounded-full hover:border-white hover:bg-white/10 transition-colors text-sm">
-              Unlock Rare Merch
-            </Link>
-            <Link href="/book"
-              className="border border-white/30 text-white font-bold uppercase tracking-wide px-6 py-3 rounded-full hover:border-white hover:bg-white/10 transition-colors text-sm">
-              Book Genwunner
-            </Link>
+            <Link href="/wunnerdex" className="btn-outline">Join the Wunnerdex</Link>
+            <Link href="/merch" className="btn-outline">Unlock Rare Merch</Link>
+            <Link href="/book" className="btn-outline">Book Genwunner</Link>
           </div>
         </div>
 
@@ -86,12 +76,12 @@ export default async function HomePage() {
       </section>
 
       {/* ── STATS BAR ── */}
-      <section className="bg-red-600 py-6 overflow-x-auto">
+      <section className="py-6 overflow-x-auto" style={{ background: 'var(--color-brand-red)' }}>
         <div className="flex gap-8 md:gap-0 md:grid md:grid-cols-5 max-w-7xl mx-auto px-6 min-w-max md:min-w-0">
           {artistStats.map((stat) => (
             <div key={stat.label} className="text-center flex-shrink-0">
-              <p className="text-3xl sm:text-4xl font-black text-white tracking-tight">{stat.value}</p>
-              <p className="text-white/70 text-xs uppercase tracking-wider font-semibold mt-1">{stat.label}</p>
+              <p className="stat-number">{stat.value}</p>
+              <p className="stat-label">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -163,8 +153,7 @@ export default async function HomePage() {
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center text-center p-8">
               <p className="text-white/20 text-sm mb-4 uppercase tracking-widest">Video coming soon</p>
-              <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer"
-                className="bg-red-600 text-white font-black uppercase tracking-wide px-6 py-3 rounded-full hover:bg-red-500 transition-colors text-sm">
+              <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" className="btn-primary">
                 Watch on YouTube →
               </a>
             </div>
@@ -174,23 +163,17 @@ export default async function HomePage() {
 
       {/* ── LATEST RELEASE ── */}
       <section className="py-12 px-4">
-        <div className="max-w-5xl mx-auto bg-zinc-900 border border-white/10 rounded-2xl p-8 flex flex-col sm:flex-row items-center gap-6">
-          <div className="w-24 h-24 bg-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
+        <div className="max-w-5xl mx-auto brand-card p-8 flex flex-col sm:flex-row items-center gap-6">
+          <div className="w-24 h-24 flex items-center justify-center flex-shrink-0" style={{ background: 'var(--color-brand-red)' }}>
             <span className="font-black text-white text-xs text-center uppercase leading-tight px-2">Latest Drop</span>
           </div>
           <div className="flex-1 text-center sm:text-left">
-            <span className="text-red-500 text-xs uppercase tracking-widest font-bold">{latestRelease.label}</span>
-            <h3 className="text-2xl sm:text-3xl font-black tracking-tight mt-1">{latestRelease.title}</h3>
+            <p className="font-pixel text-[var(--color-brand-red)] mb-1">{latestRelease.label}</p>
+            <h3 className="text-2xl sm:text-3xl">{latestRelease.title}</h3>
           </div>
           <div className="flex gap-3">
-            <a href={latestRelease.spotify} target="_blank" rel="noopener noreferrer"
-              className="bg-white text-black font-black uppercase tracking-wide px-5 py-2.5 rounded-full hover:bg-red-500 hover:text-white transition-colors text-xs">
-              Spotify
-            </a>
-            <a href={latestRelease.apple} target="_blank" rel="noopener noreferrer"
-              className="border border-white/30 text-white font-bold uppercase tracking-wide px-5 py-2.5 rounded-full hover:bg-white/10 transition-colors text-xs">
-              Apple
-            </a>
+            <a href={latestRelease.spotify} target="_blank" rel="noopener noreferrer" className="btn-primary">Spotify</a>
+            <a href={latestRelease.apple} target="_blank" rel="noopener noreferrer" className="btn-outline">Apple</a>
           </div>
         </div>
       </section>
@@ -201,33 +184,23 @@ export default async function HomePage() {
         <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-center mb-12">THE DISCOGRAPHY</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {songs.map((song) => (
-            <div key={song.title} className="bg-zinc-900 border border-white/10 rounded-2xl p-6 flex flex-col gap-4 hover:border-red-600/50 transition-colors">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black uppercase tracking-widest text-red-500 bg-red-600/10 px-2 py-1 rounded-full">
-                  {song.tag}
-                </span>
-              </div>
+            <div key={song.title} className="brand-card p-6 flex flex-col gap-4">
+              <span className="font-pixel text-[var(--color-brand-red)] bg-[var(--color-brand-red)]/10 border border-[var(--color-brand-red)]/30 px-2 py-1 self-start">
+                {song.tag}
+              </span>
               <div>
-                <h3 className="font-black text-lg tracking-tight leading-tight">{song.title}</h3>
+                <h3 className="text-lg">{song.title}</h3>
                 <p className="text-white/40 text-xs mt-2 leading-relaxed">{song.lore}</p>
               </div>
               <div className="flex gap-2 mt-auto">
-                <a href={song.spotify} target="_blank" rel="noopener noreferrer"
-                  className="flex-1 bg-white/10 hover:bg-red-600 text-white text-xs font-bold uppercase tracking-wide py-2 rounded-full text-center transition-colors">
-                  Spotify
-                </a>
-                <a href={song.youtube} target="_blank" rel="noopener noreferrer"
-                  className="flex-1 bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wide py-2 rounded-full text-center transition-colors">
-                  YouTube
-                </a>
+                <a href={song.spotify} target="_blank" rel="noopener noreferrer" className="btn-primary flex-1 text-center text-xs py-2">Spotify</a>
+                <a href={song.youtube} target="_blank" rel="noopener noreferrer" className="btn-outline flex-1 text-center text-xs py-2">YouTube</a>
               </div>
             </div>
           ))}
         </div>
         <div className="text-center mt-8">
-          <Link href="/music" className="border border-white/30 text-white font-bold uppercase tracking-wide px-8 py-3 rounded-full hover:border-red-500 hover:text-red-500 transition-colors text-sm">
-            Full Discography →
-          </Link>
+          <Link href="/music" className="btn-outline">Full Discography →</Link>
         </div>
       </section>
 
@@ -256,8 +229,7 @@ export default async function HomePage() {
                     )}
                   </div>
                   {(show.ticket_url || show.rsvp_url) && (
-                    <a href={show.ticket_url || show.rsvp_url || '#'} target="_blank" rel="noopener noreferrer"
-                      className="bg-red-600 text-white font-black uppercase tracking-wide px-5 py-2.5 rounded-full hover:bg-red-500 transition-colors text-xs whitespace-nowrap">
+                    <a href={show.ticket_url || show.rsvp_url || '#'} target="_blank" rel="noopener noreferrer" className="btn-primary whitespace-nowrap">
                       RSVP →
                     </a>
                   )}
@@ -271,12 +243,8 @@ export default async function HomePage() {
             </div>
           )}
           <div className="text-center mt-8 flex gap-4 justify-center">
-            <Link href="/shows" className="border border-white/30 text-white font-bold uppercase tracking-wide px-6 py-3 rounded-full hover:border-red-500 hover:text-red-500 transition-colors text-sm">
-              All Shows →
-            </Link>
-            <Link href="/book" className="border border-red-600 text-red-500 font-bold uppercase tracking-wide px-6 py-3 rounded-full hover:bg-red-600 hover:text-white transition-colors text-sm">
-              Book Genwunner
-            </Link>
+            <Link href="/shows" className="btn-outline">All Shows →</Link>
+            <Link href="/book" className="btn-primary">Book Genwunner</Link>
           </div>
         </div>
       </section>
@@ -290,16 +258,13 @@ export default async function HomePage() {
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {['Big Man Blastoise Tee', 'Holographic Drop', 'PokéRage Hoodie', 'Collectible Card'].map((item) => (
-            <div key={item} className="bg-zinc-900 border border-white/10 rounded-2xl aspect-square flex items-end p-4 hover:border-red-600/50 transition-colors">
+            <div key={item} className="brand-card aspect-square flex items-end p-4">
               <p className="font-black text-sm uppercase tracking-tight text-white/60">{item}</p>
             </div>
           ))}
         </div>
         <div className="text-center">
-          <Link href="/merch"
-            className="bg-red-600 text-white font-black uppercase tracking-wide px-8 py-4 rounded-full hover:bg-red-500 transition-colors inline-block">
-            Shop the Drop →
-          </Link>
+          <Link href="/merch" className="btn-primary">Shop the Drop →</Link>
         </div>
       </section>
 
@@ -339,17 +304,14 @@ export default async function HomePage() {
       </section>
 
       {/* ── BOOKING CTA ── */}
-      <section className="py-20 px-4 bg-red-600">
+      <section className="py-20 px-4" style={{ background: 'var(--color-brand-red)' }}>
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-white/70 text-xs uppercase tracking-[0.3em] font-bold mb-4">Book Genwunner</p>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-white mb-4">
-            BRING THE POKÉPAGE TO YOUR EVENT
-          </h2>
+          <h2 className="text-4xl sm:text-5xl text-white mb-4">BRING THE POKÉPAGE TO YOUR EVENT</h2>
           <p className="text-white/70 text-sm mb-8 max-w-md mx-auto">
             Anime conventions · Gaming events · TCG shows · College shows · Brand activations · Fan meetups
           </p>
-          <Link href="/book"
-            className="bg-black text-white font-black uppercase tracking-wide px-8 py-4 rounded-full hover:bg-zinc-800 transition-colors inline-block">
+          <Link href="/book" className="btn-outline" style={{ borderColor: 'white', color: 'white' }}>
             Submit Booking Request →
           </Link>
         </div>
@@ -388,7 +350,7 @@ export default async function HomePage() {
                 { href: socialLinks.youtube, label: 'YouTube' },
               ].map(s => (
                 <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                  className="text-white/30 hover:text-red-500 text-xs font-bold uppercase tracking-wide transition-colors">
+                  className="nav-link text-xs opacity-30 hover:opacity-100">
                   {s.label}
                 </a>
               ))}
@@ -411,47 +373,28 @@ function WunnerdexSignupForm() {
   return (
     <form action="/api/wunnerdex" method="POST" className="space-y-4 text-left">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <input
-          type="email" name="email" required placeholder="Email *"
-          className="bg-zinc-900 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none focus:border-red-500 transition-colors"
-        />
-        <input
-          type="tel" name="phone" placeholder="Phone (optional)"
-          className="bg-zinc-900 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none focus:border-red-500 transition-colors"
-        />
+        <input type="email" name="email" required placeholder="Email *" className="brand-input" />
+        <input type="tel" name="phone" placeholder="Phone (optional)" className="brand-input" />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <input
-          type="text" name="city" required placeholder="Your City *"
-          className="bg-zinc-900 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none focus:border-red-500 transition-colors"
-        />
-        <input
-          type="text" name="favorite_pokemon" placeholder="Favorite Pokémon?"
-          className="bg-zinc-900 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none focus:border-red-500 transition-colors"
-        />
+        <input type="text" name="city" required placeholder="Your City *" className="brand-input" />
+        <input type="text" name="favorite_pokemon" placeholder="Favorite Pokémon?" className="brand-input" />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <select name="favorite_song"
-          className="bg-zinc-900 border border-white/20 rounded-xl px-4 py-3 text-sm text-white/60 outline-none focus:border-red-500 transition-colors">
+        <select name="favorite_song" className="brand-input">
           <option value="">Favorite Genwunner Song</option>
           <option>BLASTOISE!</option>
           <option>PSYDUCK!</option>
           <option>POKEFLUTE! ft. Shofu</option>
           <option>GENGAR</option>
         </select>
-        <input
-          type="text" name="social_handle" placeholder="Instagram / TikTok @"
-          className="bg-zinc-900 border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none focus:border-red-500 transition-colors"
-        />
+        <input type="text" name="social_handle" placeholder="Instagram / TikTok @" className="brand-input" />
       </div>
       <label className="flex items-center gap-3 text-sm text-white/60 cursor-pointer">
-        <input type="checkbox" name="want_in_city" value="true" className="accent-red-600 w-4 h-4" />
+        <input type="checkbox" name="want_in_city" value="true" className="accent-[var(--color-brand-red)] w-4 h-4" />
         I want Genwunner to do a show / pop-up in my city
       </label>
-      <button
-        type="submit"
-        className="w-full bg-red-600 text-white font-black uppercase tracking-widest py-4 rounded-full hover:bg-red-500 transition-colors text-sm"
-      >
+      <button type="submit" className="btn-primary w-full py-4">
         Register Now — Join the Wunnerdex
       </button>
       <p className="text-white/20 text-xs text-center">No spam. Just drops, shows, and Big Man Blastoise sightings.</p>

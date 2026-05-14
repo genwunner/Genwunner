@@ -20,25 +20,18 @@ export default function Nav() {
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-black text-white text-xl tracking-tighter hover:text-red-600 transition-colors">
+          <Link href="/" className="nav-link text-xl">
             GENWUNNER
           </Link>
 
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-6">
             {navLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-white/60 hover:text-white text-sm font-semibold uppercase tracking-wide transition-colors"
-              >
+              <Link key={link.href} href={link.href} className="nav-link text-sm opacity-60 hover:opacity-100">
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/wunnerdex"
-              className="bg-red-600 text-black text-sm font-black px-4 py-2 rounded-full hover:bg-red-500 transition-colors uppercase tracking-wide"
-            >
+            <Link href="/wunnerdex" className="btn-primary text-sm">
               Join the Wunnerdex
             </Link>
           </div>
@@ -57,7 +50,7 @@ export default function Nav() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block text-white/70 hover:text-white font-semibold uppercase tracking-wide py-3 border-b border-white/5"
+                className="nav-link block py-3 border-b border-white/5 opacity-70 hover:opacity-100"
               >
                 {link.label}
               </Link>
@@ -65,7 +58,7 @@ export default function Nav() {
             <Link
               href="/wunnerdex"
               onClick={() => setOpen(false)}
-              className="block bg-red-600 text-black font-black uppercase tracking-wide px-4 py-3 rounded-full text-center mt-4"
+              className="btn-primary block text-center mt-4"
             >
               Join the Wunnerdex
             </Link>
@@ -76,17 +69,17 @@ export default function Nav() {
       {/* Mobile Sticky Bottom Bar */}
       <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-black border-t border-white/10 grid grid-cols-4">
         <a href="https://open.spotify.com/artist/1IHBjpJTLFMBP9H6VBfroD" target="_blank" rel="noopener noreferrer"
-          className="flex flex-col items-center py-3 text-white/60 hover:text-white transition-colors">
-          <span className="text-xs font-bold uppercase tracking-wide">Stream</span>
+          className="flex flex-col items-center py-3 nav-link text-xs opacity-60 hover:opacity-100">
+          Stream
         </a>
-        <Link href="/merch" className="flex flex-col items-center py-3 text-white/60 hover:text-white transition-colors">
-          <span className="text-xs font-bold uppercase tracking-wide">Merch</span>
+        <Link href="/merch" className="flex flex-col items-center py-3 nav-link text-xs opacity-60 hover:opacity-100">
+          Merch
         </Link>
-        <Link href="/wunnerdex" className="flex flex-col items-center py-3 bg-red-600 text-black">
-          <span className="text-xs font-black uppercase tracking-wide">Join</span>
+        <Link href="/wunnerdex" className="flex flex-col items-center justify-center py-3 bg-[var(--color-brand-red)] nav-link text-xs text-white">
+          Join
         </Link>
-        <Link href="/book" className="flex flex-col items-center py-3 text-white/60 hover:text-white transition-colors">
-          <span className="text-xs font-bold uppercase tracking-wide">Book</span>
+        <Link href="/book" className="flex flex-col items-center py-3 nav-link text-xs opacity-60 hover:opacity-100">
+          Book
         </Link>
       </div>
     </>
