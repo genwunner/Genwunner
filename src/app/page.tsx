@@ -147,14 +147,7 @@ export default async function HomePage() {
           <h2 className="section-title" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>BIG MAN BLASTOISE</h2>
         </div>
         <div className="aspect-video w-full overflow-hidden border" style={{ background: 'var(--color-brand-gray)', borderColor: 'var(--color-brand-gray-mid)' }}>
-          {FEATURED_VIDEO_ID !== 'REPLACE_WITH_YOUTUBE_ID' ? (
-            <iframe src={`https://www.youtube.com/embed/${FEATURED_VIDEO_ID}`} title="Genwunner - Big Man Blastoise" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full" />
-          ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center text-center p-8">
-              <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: 'var(--color-brand-off)', marginBottom: '1rem', letterSpacing: '0.1em' }}>Broadcast incoming</p>
-              <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" className="btn-primary">Watch on YouTube →</a>
-            </div>
-          )}
+          <iframe src={`https://www.youtube.com/embed/${FEATURED_VIDEO_ID}`} title="Genwunner - Big Man Blastoise" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full" />
         </div>
       </section>
 
