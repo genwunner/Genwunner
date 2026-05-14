@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react'
 import SpinningPokeball from './SpinningPokeball'
 
 const navLinks = [
+  { href: '/',          label: 'Home',        sub: 'Main'      },
   { href: '/music',     label: 'Arsenal',     sub: 'Music'     },
   { href: '/shows',     label: 'City Raids',  sub: 'Shows'     },
   { href: '/merch',     label: 'Supply Drop', sub: 'Merch'     },
@@ -158,10 +159,10 @@ export default function Nav() {
         {/* Background image */}
         <div className="absolute inset-0">
           <Image
-            src="/images/hero-stage.jpg"
+            src="/images/origin-story.jpg"
             alt=""
             fill
-            className="object-cover object-top"
+            className="object-cover object-center"
             style={{ opacity: 0.12 }}
             priority
           />
@@ -234,7 +235,7 @@ export default function Nav() {
                     fontSize: 'clamp(2.5rem, 6vw, 5rem)',
                     letterSpacing: '0.04em',
                     textTransform: 'uppercase',
-                    color: pathname === link.href ? 'var(--color-brand-red)' : 'var(--color-brand-white)',
+                    color: (link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)) ? 'var(--color-brand-red)' : 'var(--color-brand-white)',
                     transition: 'color 0.15s',
                     lineHeight: 1.1,
                   }}

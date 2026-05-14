@@ -42,7 +42,7 @@ export const songs = [
   {
     title: 'PSYDUCK!',
     tag: 'PSYCHIC TYPE · Momentum',
-    cover: '/images/covers/pikachu.jpg',
+    cover: '/images/covers/psyduck.jpg',
     lore: '100K+ streams in under a month. Perpetually confused, permanently dangerous. PokéRage doesn\'t wait for anyone.',
     spotify: 'https://open.spotify.com/track/72NoCpzTiZeVBiAhyM5Rtf',
     apple: 'https://music.apple.com/us/artist/genwunner/1630027337',

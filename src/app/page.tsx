@@ -98,7 +98,7 @@ export default async function HomePage() {
               textShadow: '0 4px 60px rgba(0,0,0,0.8)',
             }}
           >
-            GEN<span style={{ color: 'var(--color-brand-red)', textShadow: '0 0 80px rgba(227,0,15,0.4)' }}>WUN</span>NER
+            GEN<span style={{ color: 'var(--color-brand-red)', textShadow: '0 0 80px rgba(227,0,15,0.4)' }}>WUNN</span>ER
           </h1>
 
           {/* Tagline */}
