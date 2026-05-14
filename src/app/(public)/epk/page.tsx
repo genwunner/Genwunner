@@ -3,6 +3,14 @@ import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
+interface Highlight {
+  id: string
+  title: string
+  body: string
+  category: string
+  sort_order: number
+}
+
 export default async function EPKPage() {
   const supabase = await createClient()
 
@@ -21,11 +29,11 @@ export default async function EPKPage() {
     .select('*')
     .order('sort_order')
 
-  const grouped = (highlights ?? []).reduce((acc, h) => {
+  const grouped = (highlights ?? []).reduce<Record<string, Highlight[]>>((acc, h) => {
     if (!acc[h.category]) acc[h.category] = []
-    acc[h.category].push(h)
+    acc[h.category].push(h as Highlight)
     return acc
-  }, {} as Record<string, typeof highlights>)
+  }, {})
 
   return (
     <div className="min-h-screen bg-black text-white">
