@@ -36,16 +36,16 @@ export default async function EPKPage() {
   }, {})
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-black">
       <div className="max-w-3xl mx-auto px-6 py-20">
         <div className="mb-12">
-          <p className="text-xs uppercase tracking-widest text-white/40 mb-2">Electronic Press Kit</p>
+          <p className="text-xs uppercase tracking-widest text-black/40 mb-2">Electronic Press Kit</p>
           <h1 className="text-5xl font-black tracking-tight">GENWUNNER</h1>
         </div>
 
         {Object.entries(grouped).map(([category, items]) => (
           <section key={category} className="mb-10">
-            <h2 className="text-xs uppercase tracking-widest text-white/40 mb-4 border-b border-white/10 pb-2">
+            <h2 className="text-xs uppercase tracking-widest text-black/40 mb-4 border-b border-black/10 pb-2">
               {category}
             </h2>
             <div className="space-y-4">
@@ -59,8 +59,8 @@ export default async function EPKPage() {
           </section>
         ))}
 
-        <div className="border-t border-white/10 pt-8 mt-12 text-center">
-          <p className="text-white/30 text-xs">For booking and press inquiries, contact via the form above.</p>
+        <div className="border-t border-black/10 pt-8 mt-12 text-center">
+          <p className="text-black/30 text-xs">For booking and press inquiries, contact via the form above.</p>
         </div>
       </div>
     </div>
