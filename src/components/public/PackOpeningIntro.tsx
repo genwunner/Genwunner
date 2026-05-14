@@ -1,123 +1,242 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
+
+const THRESHOLD = 600 // total scroll delta needed to open
 
 export default function PackOpeningIntro() {
   const [show, setShow] = useState(false)
-  const [phase, setPhase] = useState<'idle' | 'ripping' | 'done'>('idle')
+  const [rotation, setRotation] = useState(0)
+  const [phase, setPhase] = useState<'spinning' | 'settling' | 'opening' | 'done'>('spinning')
+  const accumulated = useRef(0)
+  const triggered = useRef(false)
+  const prevTouchY = useRef(0)
 
   useEffect(() => {
     if (!sessionStorage.getItem('genwunner-pack-opened')) {
       setShow(true)
+      document.body.style.overflow = 'hidden'
     }
+    return () => { document.body.style.overflow = '' }
   }, [])
 
-  const rip = () => {
-    if (phase !== 'idle') return
-    setPhase('ripping')
+  const openBall = useCallback(() => {
+    if (triggered.current) return
+    triggered.current = true
+    // Snap rotation to nearest clean multiple of 360 so the ball is upright when it opens
+    setRotation(r => Math.ceil(r / 360) * 360 || 360)
+    setPhase('settling')
+    setTimeout(() => setPhase('opening'), 480)
     setTimeout(() => {
       sessionStorage.setItem('genwunner-pack-opened', '1')
       setPhase('done')
-    }, 750)
-    setTimeout(() => setShow(false), 1400)
-  }
+      document.body.style.overflow = ''
+    }, 1050)
+    setTimeout(() => setShow(false), 1800)
+  }, [])
+
+  const addScroll = useCallback((delta: number) => {
+    if (triggered.current) return
+    accumulated.current += delta
+    const r = Math.min((accumulated.current / THRESHOLD) * 720, 720)
+    setRotation(r)
+    if (accumulated.current >= THRESHOLD) openBall()
+  }, [openBall])
+
+  useEffect(() => {
+    if (!show) return
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      addScroll(Math.abs(e.deltaY) * 1.1)
+    }
+    const onTouchStart = (e: TouchEvent) => {
+      prevTouchY.current = e.touches[0].clientY
+    }
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault()
+      const dy = prevTouchY.current - e.touches[0].clientY
+      prevTouchY.current = e.touches[0].clientY
+      addScroll(Math.abs(dy) * 2.8)
+    }
+    document.addEventListener('wheel', onWheel, { passive: false })
+    document.addEventListener('touchstart', onTouchStart, { passive: false })
+    document.addEventListener('touchmove', onTouchMove, { passive: false })
+    return () => {
+      document.removeEventListener('wheel', onWheel)
+      document.removeEventListener('touchstart', onTouchStart)
+      document.removeEventListener('touchmove', onTouchMove)
+    }
+  }, [show, addScroll])
 
   if (!show) return null
 
+  const progress = Math.min(accumulated.current / THRESHOLD, 1)
+  const isOpen = phase === 'opening' || phase === 'done'
+  const dispRotation = phase === 'settling' || isOpen
+    ? (Math.ceil(rotation / 360) * 360 || 360)
+    : rotation
+
+  const SIZE = 264
+  const HALF = SIZE / 2
+  const BAND = Math.round(SIZE * 0.092)
+  const BTN_OUTER = Math.round(SIZE * 0.21)
+  const BTN_INNER = Math.round(SIZE * 0.09)
+  const BORDER = Math.round(SIZE * 0.026)
+
   return (
     <div
-      onClick={rip}
-      className={`fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center cursor-pointer select-none transition-opacity duration-500 ${phase === 'done' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+      className={`fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center transition-opacity duration-700 ${phase === 'done' ? 'opacity-0 pointer-events-none' : ''}`}
     >
-      {/* Background radial */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(220,38,38,0.12)_0%,_transparent_65%)]" />
+      {/* Background glow — intensifies as you spin */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(220,38,38,0.14) 0%, transparent 65%)',
+          opacity: 0.4 + progress * 0.6,
+          transition: 'opacity 0.1s',
+        }}
+      />
 
-      {/* Pack */}
-      <div className="relative flex flex-col items-center" style={{ width: 220 }}>
-
-        {/* ── TOP HALF (Pokéball red) ── */}
-        <div
-          className="w-full rounded-t-3xl overflow-hidden border-2 border-b-0 border-white/20 transition-transform duration-700 ease-in-out"
-          style={{
-            height: 228,
-            background: 'linear-gradient(145deg, #dc2626 0%, #ef4444 45%, #b91c1c 100%)',
-            transform: phase === 'ripping' ? 'translateY(-130vh)' : 'translateY(0)',
-          }}
-        >
-          <div className="w-full h-full flex flex-col items-center justify-between py-6 px-5 relative">
-            {/* Shine */}
-            <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/15 to-transparent rounded-t-3xl" />
-            {/* Label */}
-            <p className="text-white/70 text-[9px] font-black uppercase tracking-[0.5em] z-10">PokéRage Series — Vol. I</p>
-            {/* Main name */}
-            <div className="text-center z-10">
-              <p className="text-white font-black leading-none tracking-tighter drop-shadow-lg" style={{ fontSize: 64 }}>GEN</p>
-              <p className="text-white font-black leading-none tracking-tighter drop-shadow-lg" style={{ fontSize: 64 }}>WUN</p>
-            </div>
-            {/* Stars */}
-            <p className="text-white/50 text-xs tracking-widest z-10">— ★ ★ ★ —</p>
-          </div>
-        </div>
-
-        {/* ── PERFORATED TEAR LINE ── */}
-        <div className="relative w-full flex items-center z-20" style={{ height: 18 }}>
-          {/* Left hole */}
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-black border-2 border-white/30" />
-          {/* Dashes */}
-          <div className="w-full flex gap-[3px] px-4">
-            {Array.from({ length: 30 }).map((_, i) => (
-              <div key={i} className="flex-1 h-[2px] bg-white/40" />
-            ))}
-          </div>
-          {/* Right hole */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-5 h-5 rounded-full bg-black border-2 border-white/30" />
-        </div>
-
-        {/* ── BOTTOM HALF (Pokéball black) ── */}
-        <div
-          className="w-full rounded-b-3xl overflow-hidden border-2 border-t-0 border-white/20 transition-transform duration-700 ease-in-out"
-          style={{
-            height: 228,
-            background: 'linear-gradient(145deg, #1c1c1c 0%, #0a0a0a 60%, #000000 100%)',
-            transform: phase === 'ripping' ? 'translateY(130vh)' : 'translateY(0)',
-          }}
-        >
-          <div className="w-full h-full flex flex-col items-center justify-between py-6 px-5 relative">
-            <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent" />
-            {/* Stats grid */}
-            <div className="grid grid-cols-2 gap-x-6 gap-y-2 z-10 text-center">
-              {[
-                { label: 'HP', value: '543K' },
-                { label: 'RAGE', value: '∞' },
-                { label: 'STREAMS', value: '6M+' },
-                { label: 'UGC', value: '1B+' },
-              ].map(({ label, value }) => (
-                <div key={label}>
-                  <p className="text-red-500 text-[9px] uppercase tracking-widest font-black">{label}</p>
-                  <p className="text-white font-black text-sm">{value}</p>
-                </div>
-              ))}
-            </div>
-            {/* Name bottom */}
-            <div className="text-center z-10">
-              <p className="text-white font-black leading-none tracking-tighter drop-shadow-lg" style={{ fontSize: 64 }}>NER</p>
-              <p className="text-red-500/70 text-[10px] uppercase tracking-[0.5em] font-bold mt-1">★ RARE HOLO ★</p>
-            </div>
-            {/* Bottom label */}
-            <p className="text-white/20 text-[8px] uppercase tracking-[0.4em] font-bold z-10">Los Angeles · Big Man Blastoise</p>
-          </div>
-        </div>
-
-      </div>
-
-      {/* CTA */}
-      <p
-        className={`mt-10 text-red-500 text-[11px] uppercase tracking-[0.6em] font-black transition-all duration-300 ${phase === 'ripping' ? 'opacity-0 translate-y-2' : 'animate-pulse'}`}
+      {/* ── SPINNING POKÉBALL ── */}
+      <button
+        onClick={openBall}
+        aria-label="Spin the Pokéball to enter"
+        className="relative focus:outline-none"
+        style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
       >
-        Rip It Open →
-      </p>
-      <p className={`mt-2 text-white/20 text-[9px] uppercase tracking-widest transition-opacity duration-300 ${phase === 'ripping' ? 'opacity-0' : ''}`}>
-        Click or tap anywhere
-      </p>
+        {/* Rotating ball — hidden once open */}
+        <div
+          style={{
+            display: isOpen ? 'none' : 'block',
+            transform: `rotate(${dispRotation}deg)`,
+            transition: phase === 'settling' ? 'transform 0.45s cubic-bezier(0.34,1.5,0.64,1)' : undefined,
+            filter: progress > 0.85 ? `drop-shadow(0 0 ${Math.round(12 * progress)}px rgba(220,38,38,0.6))` : undefined,
+          }}
+        >
+          <PokeballSVG size={SIZE} />
+        </div>
+
+        {/* ── SPLIT BALL — shown during open phase ── */}
+        {isOpen && (
+          <div style={{ position: 'relative', width: SIZE, height: SIZE }}>
+
+            {/* Top dome — flies upward */}
+            <div style={{
+              position: 'absolute', top: 0, left: 0, right: 0,
+              height: HALF, overflow: 'hidden',
+              transform: 'translateY(-210px)',
+              transition: 'transform 0.52s cubic-bezier(0.55,0,1,0.45)',
+            }}>
+              <svg width={SIZE} height={SIZE} viewBox="0 0 100 100">
+                <defs><clipPath id="top-clip"><rect x="0" y="0" width="100" height="50" /></clipPath></defs>
+                <circle cx="50" cy="50" r="46" fill="#DC2626" clipPath="url(#top-clip)" />
+                <circle cx="50" cy="50" r="46" fill="none" stroke="#000" strokeWidth="8" clipPath="url(#top-clip)" />
+                <ellipse cx="35" cy="28" rx="9" ry="5" fill="rgba(255,255,255,0.24)" clipPath="url(#top-clip)" />
+              </svg>
+            </div>
+
+            {/* Bottom dome — flies downward */}
+            <div style={{
+              position: 'absolute', bottom: 0, left: 0, right: 0,
+              height: HALF, overflow: 'hidden', display: 'flex', alignItems: 'flex-end',
+              transform: 'translateY(210px)',
+              transition: 'transform 0.52s cubic-bezier(0.55,0,1,0.45)',
+            }}>
+              <svg width={SIZE} height={SIZE} viewBox="0 0 100 100" style={{ flexShrink: 0 }}>
+                <defs><clipPath id="bot-clip"><rect x="0" y="50" width="100" height="50" /></clipPath></defs>
+                <circle cx="50" cy="50" r="46" fill="#ffffff" clipPath="url(#bot-clip)" />
+                <circle cx="50" cy="50" r="46" fill="none" stroke="#000" strokeWidth="8" clipPath="url(#bot-clip)" />
+              </svg>
+            </div>
+
+            {/* Center band — stays, fades */}
+            <div style={{
+              position: 'absolute', top: '50%', transform: 'translateY(-50%)',
+              left: 0, right: 0, height: BAND, background: '#000', zIndex: 5,
+            }} />
+
+            {/* Center button — glows red on open */}
+            <div style={{
+              position: 'absolute', top: '50%', left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: BTN_OUTER, height: BTN_OUTER, borderRadius: '50%',
+              background: '#fff', border: `${BORDER}px solid #000`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              zIndex: 10,
+              boxShadow: '0 0 20px 6px rgba(220,38,38,0.5)',
+            }}>
+              <div style={{ width: BTN_INNER, height: BTN_INNER, borderRadius: '50%', background: '#DC2626' }} />
+            </div>
+          </div>
+        )}
+      </button>
+
+      {/* ── PROGRESS + LABEL ── */}
+      <div
+        className="mt-12 flex flex-col items-center gap-3"
+        style={{
+          opacity: isOpen ? 0 : 1,
+          transition: 'opacity 0.3s',
+          pointerEvents: isOpen ? 'none' : 'auto',
+        }}
+      >
+        {/* Progress track */}
+        <div className="relative w-52 h-[2px] bg-white/10 rounded-full overflow-hidden">
+          <div
+            className="absolute inset-y-0 left-0 bg-red-600 rounded-full"
+            style={{ width: `${progress * 100}%`, transition: 'width 0.06s linear' }}
+          />
+        </div>
+        {/* Instruction text */}
+        <p
+          className="text-[11px] uppercase tracking-[0.55em] font-black"
+          style={{
+            color: progress > 0.9 ? '#DC2626' : 'rgba(255,255,255,0.4)',
+            transition: 'color 0.2s',
+            animation: progress < 0.05 ? 'pulse 2s infinite' : undefined,
+          }}
+        >
+          {progress === 0
+            ? 'Scroll to Spin'
+            : progress < 0.4
+            ? 'Keep Going...'
+            : progress < 0.8
+            ? 'Almost There...'
+            : 'Let Go!'}
+        </p>
+        {/* Skip */}
+        <button
+          onClick={openBall}
+          className="text-white/15 hover:text-white/35 text-[9px] uppercase tracking-widest font-bold mt-1 transition-colors"
+        >
+          Skip →
+        </button>
+      </div>
     </div>
+  )
+}
+
+function PokeballSVG({ size }: { size: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 100 100" style={{ display: 'block' }}>
+      <defs>
+        <clipPath id="pokeball-clip">
+          <circle cx="50" cy="50" r="46" />
+        </clipPath>
+      </defs>
+      {/* Top half — red */}
+      <rect x="0" y="0" width="100" height="50" fill="#DC2626" clipPath="url(#pokeball-clip)" />
+      {/* Bottom half — white */}
+      <rect x="0" y="50" width="100" height="50" fill="#ffffff" clipPath="url(#pokeball-clip)" />
+      {/* Center band */}
+      <rect x="0" y="45" width="100" height="10" fill="#000000" clipPath="url(#pokeball-clip)" />
+      {/* Outer ring */}
+      <circle cx="50" cy="50" r="46" fill="none" stroke="#000" strokeWidth="8" />
+      {/* Center button ring */}
+      <circle cx="50" cy="50" r="12" fill="#ffffff" stroke="#000" strokeWidth="5" />
+      {/* Center button fill */}
+      <circle cx="50" cy="50" r="5.5" fill="#e8e8e8" />
+      {/* Shine */}
+      <ellipse cx="35" cy="28" rx="9" ry="5" fill="rgba(255,255,255,0.26)" />
+    </svg>
   )
 }
