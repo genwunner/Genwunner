@@ -122,3 +122,112 @@ create policy "admin can manage content"
 create policy "admin can manage analytics"
   on content_analytics for all
   using (auth.role() = 'authenticated');
+
+-- ============================================================
+-- WUNNERDEX, BOOKINGS, SHOWS, FAN SUBMISSIONS
+-- Run this block in Supabase SQL Editor
+-- ============================================================
+
+-- Wunnerdex fan registry (extended fan signup)
+create table if not exists wunnerdex_signups (
+  id                uuid primary key default gen_random_uuid(),
+  email             text not null unique,
+  phone             text,
+  city              text not null,
+  favorite_pokemon  text,
+  favorite_song     text,
+  social_handle     text,
+  want_in_city      boolean default false,
+  created_at        timestamptz default now()
+);
+create index if not exists wunnerdex_city_idx on wunnerdex_signups (city);
+
+-- Booking inquiries
+create table if not exists bookings (
+  id                   uuid primary key default gen_random_uuid(),
+  name                 text not null,
+  company              text,
+  email                text not null,
+  phone                text,
+  event_city           text not null,
+  event_date           date,
+  venue                text,
+  event_type           text not null,
+  budget               text not null,
+  expected_attendance  text,
+  performance_length   text,
+  message              text,
+  status               text not null default 'new' check (status in ('new', 'reviewed', 'booked', 'declined')),
+  created_at           timestamptz default now()
+);
+
+-- Shows / Events
+create table if not exists shows (
+  id           uuid primary key default gen_random_uuid(),
+  title        text not null,
+  venue        text,
+  city         text not null,
+  event_date   timestamptz not null,
+  ticket_url   text,
+  rsvp_url     text,
+  is_upcoming  boolean not null default true,
+  event_type   text,  -- 'convention', 'show', 'popup', 'activation'
+  created_at   timestamptz default now()
+);
+create index if not exists shows_upcoming_idx on shows (is_upcoming, event_date);
+
+-- Fan submissions (art, edits, memes, sightings)
+create table if not exists fan_submissions (
+  id                   uuid primary key default gen_random_uuid(),
+  name                 text not null,
+  email                text not null,
+  social_handle        text,
+  submission_type      text,  -- 'fan art', 'edit', 'meme', 'sighting', 'cosplay', 'remix'
+  link                 text,
+  permission_to_repost boolean default false,
+  credit_name          text,
+  status               text not null default 'pending' check (status in ('pending', 'approved', 'featured', 'declined')),
+  created_at           timestamptz default now()
+);
+
+-- RLS for new tables
+alter table wunnerdex_signups enable row level security;
+alter table bookings enable row level security;
+alter table shows enable row level security;
+alter table fan_submissions enable row level security;
+
+-- Wunnerdex: anyone can sign up
+create policy "anyone can join wunnerdex"
+  on wunnerdex_signups for insert
+  with check (true);
+
+create policy "admin can manage wunnerdex"
+  on wunnerdex_signups for all
+  using (auth.role() = 'authenticated');
+
+-- Bookings: anyone can submit
+create policy "anyone can submit booking"
+  on bookings for insert
+  with check (true);
+
+create policy "admin can manage bookings"
+  on bookings for all
+  using (auth.role() = 'authenticated');
+
+-- Shows: public read, admin write
+create policy "public can view shows"
+  on shows for select
+  using (true);
+
+create policy "admin can manage shows"
+  on shows for all
+  using (auth.role() = 'authenticated');
+
+-- Fan submissions: anyone can submit
+create policy "anyone can submit fan content"
+  on fan_submissions for insert
+  with check (true);
+
+create policy "admin can manage fan submissions"
+  on fan_submissions for all
+  using (auth.role() = 'authenticated');

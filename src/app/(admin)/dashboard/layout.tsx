@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { LayoutDashboard, FileText, Users, BarChart2, Megaphone, ShoppingBag } from 'lucide-react'
+import { LayoutDashboard, FileText, Users, BarChart2, Megaphone, ShoppingBag, Calendar, BookOpen, Send, Globe } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import SignOutButton from '@/components/admin/SignOutButton'
@@ -7,10 +7,14 @@ import SignOutButton from '@/components/admin/SignOutButton'
 const navItems = [
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard },
   { href: '/dashboard/epk', label: 'EPK', icon: FileText },
-  { href: '/dashboard/fans', label: 'Fans', icon: Users },
+  { href: '/dashboard/fans', label: 'Fans / Wunnerdex', icon: Users },
+  { href: '/dashboard/shows', label: 'Shows', icon: Calendar },
+  { href: '/dashboard/bookings', label: 'Bookings', icon: BookOpen },
+  { href: '/dashboard/submissions', label: 'Fan Submissions', icon: Send },
   { href: '/dashboard/analytics', label: 'Analytics', icon: BarChart2 },
   { href: '/dashboard/content', label: 'Content', icon: Megaphone },
   { href: '/dashboard/merch', label: 'Merch', icon: ShoppingBag },
+  { href: '/', label: 'View Site', icon: Globe },
 ]
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
