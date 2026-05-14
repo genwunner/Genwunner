@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
-import { targetCities, performanceVenues } from '@/data/content'
+import { targetCities, performanceVenues, upcomingShows } from '@/data/content'
 
 export const dynamic = 'force-dynamic'
 export const metadata = { title: 'City Raids — Genwunner · Rocket Recruitment Regime' }
@@ -8,10 +8,15 @@ export const metadata = { title: 'City Raids — Genwunner · Rocket Recruitment
 export default async function ShowsPage() {
   const supabase = await createClient()
 
-  const [{ data: upcoming }, { data: past }] = await Promise.all([
+  const [{ data: supabaseUpcoming }, { data: past }] = await Promise.all([
     supabase.from('shows').select('*').eq('is_upcoming', true).order('event_date', { ascending: true }),
     supabase.from('shows').select('*').eq('is_upcoming', false).order('event_date', { ascending: false }).limit(10),
   ])
+
+  // Merge static shows with any Supabase shows, static first
+  const upcoming = [...upcomingShows, ...(supabaseUpcoming ?? [])].sort(
+    (a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime()
+  )
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--color-brand-black)', color: 'var(--color-brand-white)' }}>
@@ -28,7 +33,7 @@ export default async function ShowsPage() {
 
         <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: 'var(--color-brand-red)', letterSpacing: '0.1em', marginBottom: '1.25rem' }}>// Upcoming Raids</div>
 
-        {upcoming && upcoming.length > 0 ? (
+        {upcoming.length > 0 ? (
           <div style={{ borderTop: '1px solid var(--color-brand-gray-mid)', marginBottom: '4rem' }}>
             {upcoming.map((show: { id: string; event_date: string; city: string; title: string; venue?: string; event_type?: string; ticket_url?: string; rsvp_url?: string }) => (
               <div key={show.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-5 py-5 border-b" style={{ borderColor: 'var(--color-brand-gray-mid)' }}>
