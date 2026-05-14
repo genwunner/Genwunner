@@ -16,20 +16,20 @@ export default async function ShowsPage() {
   return (
     <div className="min-h-screen py-20 px-4">
       <div className="max-w-4xl mx-auto">
-        <p className="text-yellow-400 text-xs uppercase tracking-[0.3em] font-bold mb-4 text-center">Catch the Next Drop</p>
+        <p className="text-red-600 text-xs uppercase tracking-[0.3em] font-bold mb-4 text-center">Catch the Next Drop</p>
         <h1 className="text-5xl sm:text-7xl font-black tracking-tighter text-center mb-4">CITY RAIDS</h1>
         <p className="text-white/30 text-center text-sm mb-16 max-w-md mx-auto">
           Anime conventions · Gaming events · TCG shows · Fan activations · Pop-ups
         </p>
 
         {/* Upcoming */}
-        <h2 className="text-xs uppercase tracking-[0.3em] font-bold text-yellow-400 mb-6">Upcoming Shows</h2>
+        <h2 className="text-xs uppercase tracking-[0.3em] font-bold text-red-600 mb-6">Upcoming Shows</h2>
         {upcoming && upcoming.length > 0 ? (
           <div className="space-y-4 mb-16">
             {upcoming.map((show: { id: string; event_date: string; city: string; title: string; venue?: string; event_type?: string; ticket_url?: string; rsvp_url?: string }) => (
-              <div key={show.id} className="bg-zinc-900 border border-white/10 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 hover:border-yellow-400/40 transition-colors">
+              <div key={show.id} className="bg-zinc-900 border border-white/10 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 hover:border-red-600/40 transition-colors">
                 <div className="text-center sm:w-20 flex-shrink-0">
-                  <p className="text-yellow-400 font-black text-3xl leading-none">
+                  <p className="text-red-600 font-black text-3xl leading-none">
                     {new Date(show.event_date).toLocaleDateString('en-US', { day: '2-digit' })}
                   </p>
                   <p className="text-white/40 text-xs uppercase tracking-wider">
@@ -40,12 +40,12 @@ export default async function ShowsPage() {
                   <h3 className="font-black text-xl">{show.title}</h3>
                   <p className="text-white/50 text-sm mt-0.5">{show.city}{show.venue ? ` · ${show.venue}` : ''}</p>
                   {show.event_type && (
-                    <span className="text-xs text-yellow-400/70 uppercase tracking-wider">{show.event_type}</span>
+                    <span className="text-xs text-red-600/70 uppercase tracking-wider">{show.event_type}</span>
                   )}
                 </div>
                 {(show.ticket_url || show.rsvp_url) && (
                   <a href={show.ticket_url || show.rsvp_url || '#'} target="_blank" rel="noopener noreferrer"
-                    className="bg-yellow-400 text-black font-black uppercase tracking-wide px-5 py-2.5 rounded-full hover:bg-yellow-300 transition-colors text-xs whitespace-nowrap">
+                    className="bg-red-600 text-black font-black uppercase tracking-wide px-5 py-2.5 rounded-full hover:bg-red-500 transition-colors text-xs whitespace-nowrap">
                     Get Tickets →
                   </a>
                 )}
@@ -56,7 +56,7 @@ export default async function ShowsPage() {
           <div className="bg-zinc-900 border border-dashed border-white/20 rounded-2xl p-16 text-center mb-16">
             <p className="text-white/20 text-sm uppercase tracking-widest mb-2">Raids incoming.</p>
             <p className="text-white/15 text-xs">Join the Wunnerdex to get first alerts.</p>
-            <Link href="/wunnerdex" className="mt-6 inline-block bg-yellow-400 text-black font-black uppercase tracking-wide px-6 py-3 rounded-full hover:bg-yellow-300 transition-colors text-sm">
+            <Link href="/wunnerdex" className="mt-6 inline-block bg-red-600 text-black font-black uppercase tracking-wide px-6 py-3 rounded-full hover:bg-red-500 transition-colors text-sm">
               Join Wunnerdex →
             </Link>
           </div>
@@ -71,7 +71,7 @@ export default async function ShowsPage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {targetCities.map(city => (
               <Link key={city} href="/wunnerdex"
-                className="bg-black border border-white/10 hover:border-yellow-400 rounded-xl p-4 text-center font-black uppercase tracking-wide text-sm hover:text-yellow-400 transition-colors">
+                className="bg-black border border-white/10 hover:border-red-600 rounded-xl p-4 text-center font-black uppercase tracking-wide text-sm hover:text-red-600 transition-colors">
                 {city}
               </Link>
             ))}
@@ -109,7 +109,7 @@ export default async function ShowsPage() {
         </div>
 
         {/* Book CTA */}
-        <div className="mt-12 bg-yellow-400 rounded-2xl p-8 text-center">
+        <div className="mt-12 bg-red-600 rounded-2xl p-8 text-center">
           <h3 className="font-black text-2xl text-black tracking-tight mb-2">BOOK GENWUNNER FOR YOUR EVENT</h3>
           <p className="text-black/60 text-sm mb-6">Conventions · Gaming events · College shows · Brand activations</p>
           <Link href="/book" className="bg-black text-white font-black uppercase tracking-wide px-8 py-3 rounded-full hover:bg-zinc-800 transition-colors inline-block text-sm">

@@ -13,7 +13,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen py-20 px-4">
       <div className="max-w-3xl mx-auto">
-        <p className="text-yellow-400 text-xs uppercase tracking-[0.3em] font-bold mb-4 text-center">Get in Touch</p>
+        <p className="text-red-600 text-xs uppercase tracking-[0.3em] font-bold mb-4 text-center">Get in Touch</p>
         <h1 className="text-5xl sm:text-7xl font-black tracking-tighter text-center mb-4">CONTACT</h1>
         <p className="text-white/30 text-center text-sm mb-16 max-w-sm mx-auto">
           Use the right channel. We read everything.
@@ -27,11 +27,11 @@ export default function ContactPage() {
                 <p className="text-white/40 text-sm mt-1">{cat.desc}</p>
               </div>
               {cat.href ? (
-                <a href={cat.href} className="bg-yellow-400 text-black font-black uppercase tracking-wide px-5 py-2.5 rounded-full hover:bg-yellow-300 transition-colors text-xs whitespace-nowrap">
+                <a href={cat.href} className="bg-red-600 text-black font-black uppercase tracking-wide px-5 py-2.5 rounded-full hover:bg-red-500 transition-colors text-xs whitespace-nowrap">
                   {cat.cta}
                 </a>
               ) : (
-                <a href={`mailto:${cat.email}`} className="border border-white/20 text-white font-bold uppercase tracking-wide px-5 py-2.5 rounded-full hover:border-yellow-400 hover:text-yellow-400 transition-colors text-xs whitespace-nowrap">
+                <a href={`mailto:${cat.email}`} className="border border-white/20 text-white font-bold uppercase tracking-wide px-5 py-2.5 rounded-full hover:border-red-600 hover:text-red-600 transition-colors text-xs whitespace-nowrap">
                   Email →
                 </a>
               )}
@@ -41,7 +41,7 @@ export default function ContactPage() {
 
         <div className="mt-12 bg-zinc-900 border border-white/10 rounded-2xl p-8 text-center">
           <p className="text-white/40 text-sm uppercase tracking-widest mb-2">General Inquiries</p>
-          <a href="mailto:genwunnermgmt@gmail.com" className="text-yellow-400 font-black text-lg hover:text-yellow-300 transition-colors">
+          <a href="mailto:genwunnermgmt@gmail.com" className="text-red-600 font-black text-lg hover:text-red-500 transition-colors">
             genwunnermgmt@gmail.com
           </a>
         </div>

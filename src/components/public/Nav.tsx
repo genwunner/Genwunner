@@ -20,7 +20,7 @@ export default function Nav() {
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="font-black text-white text-xl tracking-tighter hover:text-yellow-400 transition-colors">
+          <Link href="/" className="font-black text-white text-xl tracking-tighter hover:text-red-600 transition-colors">
             GENWUNNER
           </Link>
 
@@ -37,7 +37,7 @@ export default function Nav() {
             ))}
             <Link
               href="/wunnerdex"
-              className="bg-yellow-400 text-black text-sm font-black px-4 py-2 rounded-full hover:bg-yellow-300 transition-colors uppercase tracking-wide"
+              className="bg-red-600 text-black text-sm font-black px-4 py-2 rounded-full hover:bg-red-500 transition-colors uppercase tracking-wide"
             >
               Join the Wunnerdex
             </Link>
@@ -65,7 +65,7 @@ export default function Nav() {
             <Link
               href="/wunnerdex"
               onClick={() => setOpen(false)}
-              className="block bg-yellow-400 text-black font-black uppercase tracking-wide px-4 py-3 rounded-full text-center mt-4"
+              className="block bg-red-600 text-black font-black uppercase tracking-wide px-4 py-3 rounded-full text-center mt-4"
             >
               Join the Wunnerdex
             </Link>
@@ -82,7 +82,7 @@ export default function Nav() {
         <Link href="/merch" className="flex flex-col items-center py-3 text-white/60 hover:text-white transition-colors">
           <span className="text-xs font-bold uppercase tracking-wide">Merch</span>
         </Link>
-        <Link href="/wunnerdex" className="flex flex-col items-center py-3 bg-yellow-400 text-black">
+        <Link href="/wunnerdex" className="flex flex-col items-center py-3 bg-red-600 text-black">
           <span className="text-xs font-black uppercase tracking-wide">Join</span>
         </Link>
         <Link href="/book" className="flex flex-col items-center py-3 text-white/60 hover:text-white transition-colors">
