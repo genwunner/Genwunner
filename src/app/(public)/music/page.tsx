@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { songs, socialLinks } from '@/data/content'
 
 export const metadata = { title: 'Music — Genwunner' }
@@ -30,8 +31,14 @@ export default function MusicPage() {
         <div className="space-y-4">
           {songs.map((song, i) => (
             <div key={song.title} className="brand-card p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <div className="w-14 h-14 bg-[var(--color-brand-red)] flex items-center justify-center flex-shrink-0">
-                <span className="font-black text-white text-xl">{String(i + 1).padStart(2, '0')}</span>
+              <div className="relative w-16 h-16 flex-shrink-0 overflow-hidden">
+                {song.cover ? (
+                  <Image src={song.cover} alt={song.title} fill className="object-cover" sizes="64px" />
+                ) : (
+                  <div className="w-full h-full bg-[var(--color-brand-red)] flex items-center justify-center">
+                    <span className="font-black text-white text-xl">{String(i + 1).padStart(2, '0')}</span>
+                  </div>
+                )}
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-1">

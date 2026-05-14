@@ -20,72 +20,118 @@ export default function WunnerdexPage() {
     })
 
     if (res.ok) setSubmitted(true)
-    else setError('Something went wrong. Try again.')
+    else setError('Transmission failed. Try again.')
     setLoading(false)
   }
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--color-brand-black)' }}>
         <div className="text-center max-w-md">
-          <div className="w-20 h-20 bg-[var(--color-brand-red)] flex items-center justify-center mx-auto mb-6">
-            <span className="font-black text-white text-2xl">!</span>
-          </div>
-          <h1 className="text-4xl mb-4">YOU&apos;RE IN THE WUNNERDEX</h1>
-          <p className="text-white/50 text-sm mb-8">
-            Expect drops, shows, secret links, and Big Man Blastoise sightings before the civilians.
-          </p>
-          <a href="/" className="btn-outline">Back to the Universe →</a>
+          <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6" style={{ background: 'var(--color-brand-red)', borderRadius: '50%', boxShadow: '0 0 40px rgba(227,0,15,0.4)', fontSize: '2rem' }}>⚡</div>
+          <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: 'var(--color-brand-red)', letterSpacing: '0.15em', marginBottom: '0.75rem' }}>// Enlistment Confirmed</p>
+          <h1 className="section-title mb-4" style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)' }}>OPERATIVE REGISTERED</h1>
+          <p style={{ fontSize: '0.88rem', color: 'var(--color-brand-off)', lineHeight: 1.75, marginBottom: '0.75rem' }}>Giovanni has your file. You&apos;re now in the Wunnerdex.</p>
+          <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.38rem', color: 'var(--color-brand-off)', letterSpacing: '0.08em', lineHeight: 2, marginBottom: '2rem' }}>Expect drops · city raid alerts · secret links<br />Big Man Blastoise sightings before the civilians.</p>
+          <a href="/" className="btn-outline">← Return to HQ</a>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen py-20 px-4">
+    <div className="min-h-screen py-20 px-4" style={{ background: 'var(--color-brand-black)', color: 'var(--color-brand-white)' }}>
       <div className="max-w-2xl mx-auto">
-        <p className="text-[var(--color-brand-red)] text-xs uppercase tracking-[0.3em] font-bold mb-4 text-center">Fan Registry</p>
-        <h1 className="text-5xl sm:text-7xl text-center mb-4">THE WUNNERDEX</h1>
-        <p className="text-white/40 text-center text-sm mb-4 max-w-md mx-auto">
-          Genwunner&apos;s fan registry. Register your trainer. Get drops, shows, secret links, and Big Man Blastoise sightings before the civilians.
-        </p>
-        <div className="flex flex-wrap gap-2 justify-center mb-12">
+
+        <div className="text-center mb-10">
+          <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: 'var(--color-brand-red)', letterSpacing: '0.15em', marginBottom: '0.75rem' }}>// 006 · GRUNT REGISTRATION</p>
+          <h1 className="section-title" style={{ fontSize: 'clamp(3rem, 10vw, 6rem)' }}>THE WUNNERDEX</h1>
+          <p className="mt-4" style={{ fontSize: '0.88rem', color: 'var(--color-brand-off)', lineHeight: 1.75, maxWidth: 420, margin: '1rem auto 0' }}>
+            Giovanni keeps records on every operative. Register your trainer data. Get drops, shows, secret links, and Big Man Blastoise sightings before the civilians.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-2 justify-center mb-10">
           {['Early merch access', 'City raid alerts', 'Secret links', 'Fan challenges', 'Unreleased previews'].map(perk => (
-            <span key={perk} className="font-pixel text-[var(--color-brand-red)] bg-[var(--color-brand-red)]/10 border border-[var(--color-brand-red)]/30 px-3 py-1.5">
-              {perk}
-            </span>
+            <span key={perk} style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.36rem', letterSpacing: '0.06em', color: 'var(--color-brand-red)', background: 'rgba(227,0,15,0.06)', border: '1px solid rgba(227,0,15,0.3)', padding: '0.3rem 0.65rem' }}>▶ {perk}</span>
           ))}
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input type="email" name="email" required placeholder="Email *" className="brand-input" />
-            <input type="tel" name="phone" placeholder="Phone (optional)" className="brand-input" />
+        <div style={{ background: 'radial-gradient(ellipse at 30% 20%, rgba(227,0,15,0.1) 0%, transparent 60%), #0e0505', border: '2px solid var(--color-brand-red)', borderRadius: 10, padding: '2rem', position: 'relative', boxShadow: '0 0 0 4px var(--color-brand-black), 0 0 0 5px var(--color-brand-gray-mid), 0 0 40px rgba(227,0,15,0.08)' }}>
+          <div style={{ position: 'absolute', top: 8, left: 8, right: 8, bottom: 8, border: '1px solid rgba(227,0,15,0.15)', borderRadius: 6, pointerEvents: 'none' }} />
+
+          <div className="flex items-center gap-3 mb-6">
+            <div style={{ width: 44, height: 44, background: 'var(--color-brand-red)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0, boxShadow: '0 0 20px rgba(227,0,15,0.4)' }}>⚡</div>
+            <div>
+              <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--color-brand-white)', lineHeight: 1 }}>GRUNT REG.</p>
+              <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.36rem', color: 'var(--color-brand-red)', letterSpacing: '0.08em', marginTop: 2 }}>// Wunnerdex · Team Rocket Database · Kanto Division</p>
+            </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input type="text" name="city" required placeholder="Your City *" className="brand-input" />
-            <input type="text" name="favorite_pokemon" placeholder="Favorite Pokémon?" className="brand-input" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <select name="favorite_song" className="brand-input">
-              <option value="">Favorite Genwunner Song</option>
-              <option>BLASTOISE!</option>
-              <option>PSYDUCK!</option>
-              <option>POKEFLUTE! ft. Shofu</option>
-              <option>GENGAR</option>
-            </select>
-            <input type="text" name="social_handle" placeholder="Instagram / TikTok @" className="brand-input" />
-          </div>
-          <label className="flex items-start gap-3 text-sm text-white/60 cursor-pointer p-4 brand-card hover:border-white/20">
-            <input type="checkbox" name="want_in_city" value="true" className="accent-[var(--color-brand-red)] w-4 h-4 mt-0.5 flex-shrink-0" />
-            <span>I want Genwunner to do a show / pop-up / city raid in my city</span>
-          </label>
-          {error && <p className="text-red-400 text-sm">{error}</p>}
-          <button type="submit" disabled={loading} className="btn-primary w-full py-4 disabled:opacity-60">
-            {loading ? 'Registering…' : 'Register Now — Join the Wunnerdex'}
-          </button>
-          <p className="text-white/20 text-xs text-center">No spam. Just drops, shows, and Big Man Blastoise sightings.</p>
-        </form>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="brand-label">Comms Channel (Email) *</label>
+                <input type="email" name="email" required placeholder="your@email.com" className="brand-input" />
+              </div>
+              <div>
+                <label className="brand-label">Secondary Comms (Phone)</label>
+                <input type="tel" name="phone" placeholder="Optional" className="brand-input" />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="brand-label">Home Territory *</label>
+                <input type="text" name="city" required placeholder="City, State / Country" className="brand-input" />
+              </div>
+              <div>
+                <label className="brand-label">Pokémon Specialty</label>
+                <input type="text" name="favorite_pokemon" placeholder="Favorite Pokémon?" className="brand-input" />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="brand-label">Favorite Mission</label>
+                <select name="favorite_song" className="brand-input">
+                  <option value="">Favorite Genwunner track...</option>
+                  <option>BLASTOISE!</option>
+                  <option>PSYDUCK!</option>
+                  <option>POKEFLUTE! ft. Shofu</option>
+                  <option>GENGAR</option>
+                </select>
+              </div>
+              <div>
+                <label className="brand-label">Field Handle</label>
+                <input type="text" name="social_handle" placeholder="Instagram / TikTok @" className="brand-input" />
+              </div>
+            </div>
+            <div>
+              <label className="brand-label">How did you find the Regime?</label>
+              <select name="origin" className="brand-input">
+                <option value="">Select origin story...</option>
+                <option>BLASTOISE! went viral</option>
+                <option>PSYDUCK! brought me in</option>
+                <option>Caught a live raid</option>
+                <option>Fellow grunt recruited me</option>
+                <option>TikTok / Social</option>
+                <option>Been here since GENGAR</option>
+              </select>
+            </div>
+            <label className="flex items-start gap-3 cursor-pointer p-4" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--color-brand-gray-mid)' }}>
+              <input type="checkbox" name="want_in_city" value="true" className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ accentColor: 'var(--color-brand-red)' }} />
+              <span style={{ fontSize: '0.82rem', color: 'var(--color-brand-off)', lineHeight: 1.65 }}>I want Genwunner to raid my city — deploy a show or pop-up to my territory</span>
+            </label>
+            {error && <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.38rem', color: '#f87171', letterSpacing: '0.06em' }}>⚠ {error}</p>}
+            <button type="submit" disabled={loading} className="btn-primary w-full py-4" style={{ opacity: loading ? 0.6 : 1 }}>
+              {loading ? 'Transmitting...' : '⚡ Report for Duty — Enlist in the Regime'}
+            </button>
+            <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.32rem', color: '#333', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 2 }}>
+              WUNNERDEX v1.0 · PROPERTY OF TEAM ROCKET · KANTO DIVISION<br />
+              GIOVANNI IS WATCHING · NO SPAM · JUST DROPS AND RAIDS
+            </p>
+          </form>
+        </div>
+
       </div>
     </div>
   )

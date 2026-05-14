@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────
+   GENWUNNER — Global Design System
+   PokéRage × 90s Pokémania × Team Rocket Rebellion
+   ───────────────────────────────────────────────── */
+
 :root {
   --background: #0a0a0a;
-  --foreground: #f5f5f5;
+  --foreground: #f0f0f0;
 }
 
 @theme inline {
@@ -13,80 +18,159 @@
   --font-display: var(--font-bebas-neue);
   --font-pixel: var(--font-press-start);
 
-  /* Brand palette */
-  --color-brand-black: #0a0a0a;
-  --color-brand-gray: #1a1a1a;
-  --color-brand-gray-mid: #2a2a2a;
-  --color-brand-red: #e3000f;
+  /* ── Core Brand Colors ── */
+  --color-brand-black:    #0a0a0a;
+  --color-brand-gray:     #141414;
+  --color-brand-gray-mid: #242424;
+  --color-brand-gray-hi:  #3a3a3a;
+
+  --color-brand-red:      #e3000f;
   --color-brand-red-dark: #a50009;
-  --color-brand-white: #f5f5f5;
-  --color-brand-accent: #ffcc00;
+  --color-brand-red-glow: #e3000f40;
+
+  --color-brand-white:    #f0f0f0;
+  --color-brand-off:      #777777;
+
+  /* ── 90s Pokémania Accents ── */
+  --color-brand-yellow:   #ffcc00;
+  --color-brand-blue:     #2a6df5;
+  --color-brand-gameboy:  #9bbc0f;
 }
 
-/* ─── Base ─────────────────────────────────────── */
+/* ─────────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.012) 2px,
+    rgba(255, 255, 255, 0.012) 4px
+  );
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ─────────────────────────────────────────────────
+   TYPOGRAPHY UTILITIES
+   ───────────────────────────────────────────────── */
+
+.font-pixel {
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+}
+
+.font-display {
   font-family: var(--font-display);
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
-/* ─── Utility Classes ───────────────────────────── */
-
-/* Pixel font — use sparingly: Wunnerdex, song lore, stat labels */
-.font-pixel {
-  font-family: var(--font-pixel);
-  font-size: 0.6rem;
-  line-height: 1.8;
+.section-title {
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-brand-white);
+  line-height: 1;
 }
 
-/* Section divider */
+.text-neon-red {
+  color: var(--color-brand-red);
+  text-shadow:
+    0 0 10px var(--color-brand-red-glow),
+    0 0 30px var(--color-brand-red-glow),
+    0 0 60px var(--color-brand-red-glow);
+}
+
+.text-muted {
+  color: var(--color-brand-off);
+}
+
+/* ─────────────────────────────────────────────────
+   LAYOUT
+   ───────────────────────────────────────────────── */
+
 .brand-rule {
   border: none;
-  border-top: 1px solid var(--color-brand-red);
-  margin: 2rem 0;
+  border-top: 1px solid rgba(227,0,15,0.4);
+  margin: 0 0 2.5rem 0;
 }
 
-/* ─── Buttons ───────────────────────────────────── */
+.section {
+  padding-block: clamp(3rem, 8vw, 6rem);
+}
+
+/* ─────────────────────────────────────────────────
+   BUTTONS
+   ───────────────────────────────────────────────── */
 
 .btn-primary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   background: var(--color-brand-red);
   color: var(--color-brand-white);
   font-family: var(--font-display);
   font-size: 1.1rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 0.65rem 1.75rem;
-  border-radius: 0;
   border: none;
+  border-radius: 0;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+  text-decoration: none;
 }
 
 .btn-primary:hover {
   background: var(--color-brand-red-dark);
+  box-shadow: 0 0 24px var(--color-brand-red-glow);
 }
 
 .btn-outline {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   background: transparent;
   color: var(--color-brand-white);
   font-family: var(--font-display);
   font-size: 1.1rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 0.65rem 1.75rem;
+  border: 1px solid var(--color-brand-gray-hi);
   border-radius: 0;
-  border: 1px solid var(--color-brand-white);
   cursor: pointer;
   transition: border-color 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+  text-decoration: none;
 }
 
 .btn-outline:hover {
@@ -94,42 +178,95 @@ h1, h2, h3 {
   color: var(--color-brand-red);
 }
 
-/* ─── Cards ─────────────────────────────────────── */
+.btn-sm {
+  font-size: 0.85rem;
+  padding: 0.4rem 1rem;
+}
+
+/* ─────────────────────────────────────────────────
+   CARDS
+   ───────────────────────────────────────────────── */
 
 .brand-card {
   background: var(--color-brand-gray);
   border: 1px solid var(--color-brand-gray-mid);
   border-radius: 0;
-  transition: border-color 0.15s ease;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .brand-card:hover {
   border-color: var(--color-brand-red);
 }
 
-/* ─── Forms ─────────────────────────────────────── */
+.card-holo {
+  background: var(--color-brand-gray);
+  border: 1px solid var(--color-brand-gray-mid);
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.card-holo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 20%,
+    rgba(255, 110, 199, 0.08) 35%,
+    rgba(255, 204, 0, 0.08) 50%,
+    rgba(42, 109, 245, 0.08) 65%,
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card-holo:hover::before { opacity: 1; }
+.card-holo:hover { border-color: var(--color-brand-yellow); }
+
+/* ─────────────────────────────────────────────────
+   FORMS
+   ───────────────────────────────────────────────── */
 
 .brand-input {
   background: var(--color-brand-gray);
   color: var(--color-brand-white);
   border: 1px solid var(--color-brand-gray-mid);
   border-radius: 0;
-  padding: 0.65rem 1rem;
+  padding: 0.7rem 1rem;
   font-family: var(--font-sans);
+  font-size: 0.95rem;
   width: 100%;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .brand-input:focus {
   outline: none;
   border-color: var(--color-brand-red);
+  box-shadow: 0 0 0 1px var(--color-brand-red);
 }
 
 .brand-input::placeholder {
-  color: #555;
+  color: #484848;
 }
 
-/* ─── Nav ───────────────────────────────────────── */
+.brand-label {
+  font-family: var(--font-pixel);
+  font-size: 0.42rem;
+  color: var(--color-brand-yellow);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+/* ─────────────────────────────────────────────────
+   NAV
+   ───────────────────────────────────────────────── */
 
 .nav-link {
   font-family: var(--font-display);
@@ -138,26 +275,55 @@ h1, h2, h3 {
   text-transform: uppercase;
   color: var(--color-brand-white);
   transition: color 0.15s ease;
+  text-decoration: none;
 }
 
-.nav-link:hover,
-.nav-link.active {
+.nav-link:hover {
   color: var(--color-brand-red);
 }
 
-/* ─── Stats ─────────────────────────────────────── */
+/* ─────────────────────────────────────────────────
+   STATS
+   ───────────────────────────────────────────────── */
 
 .stat-number {
   font-family: var(--font-display);
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
   line-height: 1;
   color: var(--color-brand-white);
 }
 
 .stat-label {
   font-family: var(--font-pixel);
-  font-size: 0.55rem;
-  color: var(--color-brand-accent);
+  font-size: 0.42rem;
+  color: var(--color-brand-yellow);
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  margin-top: 0.35rem;
+}
+
+/* ─────────────────────────────────────────────────
+   ANIMATIONS
+   ───────────────────────────────────────────────── */
+
+@keyframes ticker {
+  from { transform: translateX(100vw); }
+  to   { transform: translateX(-100%); }
+}
+
+/* ─────────────────────────────────────────────────
+   SCROLLBAR
+   ───────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--color-brand-black); }
+::-webkit-scrollbar-thumb { background: var(--color-brand-red); }
+
+/* ─────────────────────────────────────────────────
+   SELECTION
+   ───────────────────────────────────────────────── */
+
+::selection {
+  background: var(--color-brand-red);
+  color: var(--color-brand-white);
 }
