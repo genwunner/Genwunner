@@ -34,9 +34,9 @@ export default async function HomePage() {
           src="/images/hero-stage.jpg"
           alt="Genwunner performing live"
           fill
-          className="object-cover object-top"
+          className="object-cover"
+          style={{ zIndex: 0, objectPosition: 'center 15%' }}
           priority
-          style={{ zIndex: 0 }}
         />
 
         {/* Dark overlay */}
