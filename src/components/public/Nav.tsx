@@ -1,10 +1,11 @@
+// src/components/public/Nav.tsx
 'use client'
 
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
-import { X, Menu } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import SpinningPokeball from './SpinningPokeball'
 
 const navLinks = [
   { href: '/music',     label: 'Arsenal',     sub: 'Music'     },
@@ -13,30 +14,50 @@ const navLinks = [
   { href: '/wunnerdex', label: 'Enlist',      sub: 'Wunnerdex' },
   { href: '/book',      label: 'Deploy',      sub: 'Book'      },
   { href: '/epk',       label: 'Dossier',     sub: 'EPK'       },
+  { href: '/contact',   label: 'Intel',       sub: 'Contact'   },
+]
+
+const socials = [
+  { href: 'https://instagram.com/genwunnr',                              label: 'Instagram' },
+  { href: 'https://tiktok.com/@genwunnr',                                label: 'TikTok'    },
+  { href: 'https://youtube.com/@genwunnr',                               label: 'YouTube'   },
+  { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO',     label: 'Spotify'   },
+  { href: 'https://x.com/genwunnrr',                                     label: 'X / Twitter' },
 ]
 
 export default function Nav() {
-  const [open, setOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
+  // Close menu on route change
+  useEffect(() => { setMenuOpen(false) }, [pathname])
 
   return (
     <>
       {/* ── Transmission Ticker ── */}
       <div
-        className="fixed top-0 left-0 right-0 z-50 h-6 overflow-hidden flex items-center"
+        className="fixed top-0 left-0 right-0 z-50 h-6 overflow-hidden flex items-center justify-center gap-3"
         style={{ background: 'var(--color-brand-red)' }}
       >
+        {/* Spinning Pokéball sits dead-center in the ticker */}
+        <SpinningPokeball size={14} speed="5s" style={{ opacity: 0.9, flexShrink: 0 }} />
         <div
           style={{
             fontFamily: 'var(--font-pixel)',
-            fontSize: '0.38rem',
-            letterSpacing: '0.1em',
+            fontSize: '0.36rem',
+            letterSpacing: '0.12em',
             color: 'white',
             whiteSpace: 'nowrap',
             animation: 'ticker 35s linear infinite',
           }}
         >
-          ⚡ INCOMING TRANSMISSION FROM GIOVANNI &nbsp;·&nbsp;
+          INCOMING TRANSMISSION FROM GIOVANNI &nbsp;·&nbsp;
           THE REGIME IS RECRUITING &nbsp;·&nbsp;
           EU TOUR OCT 1–21 &nbsp;·&nbsp;
           BLUE + RED VERSION EPs — SUMMER 2026 &nbsp;·&nbsp;
@@ -44,21 +65,25 @@ export default function Nav() {
           PSYDUCK! GAINING TRACTION &nbsp;·&nbsp;
           ENLIST AT WUNNERDEX NOW &nbsp;·&nbsp;
           PALLET TOWN&apos;S MOST WANTED &nbsp;·&nbsp;
-          ⚡ INCOMING TRANSMISSION FROM GIOVANNI &nbsp;·&nbsp;
+          INCOMING TRANSMISSION FROM GIOVANNI &nbsp;·&nbsp;
           THE REGIME IS RECRUITING &nbsp;·&nbsp;
-          EU TOUR OCT 1–21 &nbsp;·&nbsp;
-          BLUE + RED VERSION EPs — SUMMER 2026 &nbsp;·&nbsp;
         </div>
+        <SpinningPokeball size={14} speed="5s" style={{ opacity: 0.9, flexShrink: 0 }} />
       </div>
 
-      {/* ── Main Nav ── */}
+      {/* ── Main Nav Bar ── */}
       <nav
-        className="fixed top-6 left-0 right-0 z-50 backdrop-blur-md border-b"
-        style={{ background: 'rgba(8,8,8,0.96)', borderColor: 'var(--color-brand-gray-mid)' }}
+        className="fixed top-6 left-0 right-0 z-50 border-b"
+        style={{
+          background: 'rgba(8,8,8,0.97)',
+          backdropFilter: 'blur(16px)',
+          borderColor: 'var(--color-brand-gray-mid)',
+        }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-5 h-14 flex items-center justify-between">
 
-          <Link href="/" className="flex items-center gap-3">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 z-10">
             <Image
               src="/images/logos/g1r-ball-white.png"
               alt="Genwunner"
@@ -71,7 +96,7 @@ export default function Nav() {
               className="hidden sm:block"
               style={{
                 fontFamily: 'var(--font-pixel)',
-                fontSize: '0.35rem',
+                fontSize: '0.32rem',
                 letterSpacing: '0.1em',
                 color: 'var(--color-brand-red)',
                 lineHeight: 1,
@@ -81,95 +106,202 @@ export default function Nav() {
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map(link => {
-              const active = pathname === link.href
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  style={{
-                    fontFamily: 'var(--font-pixel)',
-                    fontSize: '0.38rem',
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    color: active ? 'var(--color-brand-red)' : 'rgba(240,240,240,0.45)',
-                    border: `1px solid ${active ? 'var(--color-brand-red)' : 'transparent'}`,
-                    padding: '0.3rem 0.65rem',
-                    transition: 'color 0.15s, border-color 0.15s',
-                    display: 'block',
-                  }}
-                  className="hover:!text-[var(--color-brand-red)] hover:!border-[var(--color-brand-red)]"
-                >
-                  {link.label}
-                </Link>
-              )
-            })}
-            <Link href="/wunnerdex" className="btn-primary ml-3" style={{ fontSize: '0.85rem' }}>
-              ⚡ Enlist
-            </Link>
-          </div>
-
+          {/* MENU button */}
           <button
-            onClick={() => setOpen(!open)}
-            className="md:hidden p-1"
-            style={{ color: 'var(--color-brand-white)' }}
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="flex items-center gap-2 z-10 group"
             aria-label="Toggle menu"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem 0.5rem' }}
           >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            {menuOpen ? (
+              <span
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.4rem',
+                  letterSpacing: '0.15em',
+                  color: 'var(--color-brand-white)',
+                }}
+              >
+                CLOSE ✕
+              </span>
+            ) : (
+              <>
+                <SpinningPokeball size={18} speed="4s" />
+                <span
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '1.4rem',
+                    letterSpacing: '0.15em',
+                    color: 'var(--color-brand-white)',
+                    transition: 'color 0.15s',
+                  }}
+                  className="group-hover:!text-[var(--color-brand-red)]"
+                >
+                  MENU
+                </span>
+              </>
+            )}
+          </button>
+        </div>
+      </nav>
+
+      {/* ── Fullscreen Menu Overlay ── */}
+      <div
+        className="fixed inset-0 z-[200] flex flex-col"
+        style={{
+          background: 'var(--color-brand-black)',
+          opacity: menuOpen ? 1 : 0,
+          pointerEvents: menuOpen ? 'all' : 'none',
+          transition: 'opacity 0.25s ease',
+        }}
+      >
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero-stage.jpg"
+            alt=""
+            fill
+            className="object-cover object-top"
+            style={{ opacity: 0.12 }}
+            priority
+          />
+          {/* Gradient vignette */}
+          <div className="absolute inset-0" style={{
+            background: 'radial-gradient(ellipse at 70% 40%, rgba(227,0,15,0.08) 0%, transparent 60%)',
+          }} />
+        </div>
+
+        {/* Overlay nav bar */}
+        <div
+          className="relative z-10 flex items-center justify-between px-5 border-b"
+          style={{ height: 80, borderColor: 'var(--color-brand-gray-mid)' }}
+        >
+          <Link href="/" onClick={() => setMenuOpen(false)}>
+            <Image
+              src="/images/logos/g1r-ball-white.png"
+              alt="Genwunner"
+              width={100}
+              height={40}
+              className="h-8 w-auto object-contain"
+            />
+          </Link>
+          <button
+            onClick={() => setMenuOpen(false)}
+            style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+          >
+            <span style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.4rem',
+              letterSpacing: '0.15em',
+              color: 'var(--color-brand-white)',
+            }}>
+              CLOSE ✕
+            </span>
           </button>
         </div>
 
-        {open && (
+        {/* Nav links — main content */}
+        <div className="relative z-10 flex-1 flex flex-col justify-center px-8 md:px-16">
           <div
-            className="md:hidden border-t px-6 py-4"
-            style={{ background: 'var(--color-brand-black)', borderColor: 'var(--color-brand-gray-mid)' }}
+            style={{
+              fontFamily: 'var(--font-pixel)',
+              fontSize: '0.4rem',
+              color: 'var(--color-brand-red)',
+              letterSpacing: '0.15em',
+              marginBottom: '1.5rem',
+            }}
           >
-            {navLinks.map(link => (
+            // NAVIGATE THE REGIME
+          </div>
+
+          <nav className="flex flex-col">
+            {navLinks.map((link, i) => (
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setOpen(false)}
-                className="flex items-baseline justify-between py-3 border-b"
-                style={{ borderColor: 'var(--color-brand-gray-mid)' }}
+                onClick={() => setMenuOpen(false)}
+                className="group flex items-baseline justify-between border-b py-4 md:py-5"
+                style={{
+                  borderColor: 'var(--color-brand-gray-mid)',
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen ? 'translateY(0)' : 'translateY(12px)',
+                  transition: `opacity 0.3s ease ${i * 0.04 + 0.1}s, transform 0.3s ease ${i * 0.04 + 0.1}s`,
+                }}
               >
-                <span style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.5rem',
-                  letterSpacing: '0.05em',
-                  textTransform: 'uppercase',
-                  color: pathname === link.href ? 'var(--color-brand-red)' : 'var(--color-brand-white)',
-                }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                    color: pathname === link.href ? 'var(--color-brand-red)' : 'var(--color-brand-white)',
+                    transition: 'color 0.15s',
+                    lineHeight: 1.1,
+                  }}
+                  className="group-hover:!text-[var(--color-brand-red)]"
+                >
                   {link.label}
                 </span>
-                <span style={{
-                  fontFamily: 'var(--font-pixel)',
-                  fontSize: '0.34rem',
-                  letterSpacing: '0.08em',
-                  color: 'var(--color-brand-off)',
-                }}>
-                  {link.sub}
+                <span
+                  style={{
+                    fontFamily: 'var(--font-pixel)',
+                    fontSize: '0.38rem',
+                    color: 'var(--color-brand-off)',
+                    letterSpacing: '0.1em',
+                  }}
+                >
+                  {link.sub} →
                 </span>
               </Link>
             ))}
-            <Link
-              href="/wunnerdex"
-              onClick={() => setOpen(false)}
-              className="btn-primary block text-center mt-5 w-full"
-            >
-              ⚡ Enlist in the Regime
-            </Link>
-          </div>
-        )}
-      </nav>
+          </nav>
+        </div>
 
-      {/* Mobile sticky bottom bar */}
+        {/* Bottom — socials + enlist */}
+        <div
+          className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-8 md:px-16 py-6 border-t"
+          style={{ borderColor: 'var(--color-brand-gray-mid)' }}
+        >
+          <div className="flex flex-wrap gap-4">
+            {socials.map(s => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: 'var(--font-pixel)',
+                  fontSize: '0.38rem',
+                  color: 'var(--color-brand-off)',
+                  letterSpacing: '0.08em',
+                  transition: 'color 0.15s',
+                }}
+                className="hover:!text-[var(--color-brand-white)]"
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+          <Link
+            href="/wunnerdex"
+            onClick={() => setMenuOpen(false)}
+            className="btn-primary"
+          >
+            ⚡ Enlist in the Regime
+          </Link>
+        </div>
+      </div>
+
+      {/* ── Mobile Sticky Bottom Bar ── */}
       <div
         className="fixed bottom-0 left-0 right-0 z-50 md:hidden grid grid-cols-4 border-t"
-        style={{ background: 'var(--color-brand-black)', borderColor: 'var(--color-brand-gray-mid)' }}
+        style={{
+          background: 'var(--color-brand-black)',
+          borderColor: 'var(--color-brand-gray-mid)',
+        }}
       >
         {[
-          { href: 'https://open.spotify.com/artist/1IHBjpJTLFMBP9H6VBfroD', label: 'Stream',  external: true,  primary: false },
+          { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO', label: 'Stream',  external: true,  primary: false },
           { href: '/shows',     label: 'Raids',  external: false, primary: false },
           { href: '/wunnerdex', label: 'Enlist', external: false, primary: true  },
           { href: '/book',      label: 'Deploy', external: false, primary: false },
