@@ -41,6 +41,10 @@ export const metadata: Metadata = {
     title: "GENWUNNER: PokéRage",
     description: "Creator of Big Man Blastoise. The PokéRage movement.",
   },
+  icons: {
+    icon: '/images/logos/g1r-ball-white.png',
+    apple: '/images/logos/g1r-ball-white.png',
+  },
 };
 
 export default function RootLayout({
