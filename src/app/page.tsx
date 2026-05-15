@@ -114,8 +114,7 @@ export default async function HomePage() {
               height={224}
               priority
               style={{
-                width: '100%',
-                maxWidth: 'clamp(320px, 88vw, 960px)',
+                width: 'min(860px, 92vw)',
                 height: 'auto',
                 filter: 'drop-shadow(0 4px 40px rgba(0,0,0,0.7))',
               }}
