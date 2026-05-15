@@ -35,7 +35,7 @@ export default async function HomePage() {
           alt="Genwunner performing live"
           fill
           className="object-cover"
-          style={{ zIndex: 0, objectPosition: 'center 35%' }}
+          style={{ zIndex: 0, objectPosition: 'center 35%', transform: 'scale(0.75)', transformOrigin: 'center 35%' }}
           priority
         />
 
