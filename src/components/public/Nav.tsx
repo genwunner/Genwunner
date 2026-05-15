@@ -329,6 +329,8 @@ export default function Nav() {
           { href: '/wunnerdex', label: 'Enlist', external: false, primary: true  },
           { href: '/shows',     label: 'Raids',  external: false, primary: false },
         ].map(item => {
+          const isActive = !item.external && pathname.startsWith(item.href)
+          const highlighted = item.primary || isActive
           const style: React.CSSProperties = {
             fontFamily: 'var(--font-pixel)',
             fontSize: '0.34rem',
@@ -338,8 +340,9 @@ export default function Nav() {
             justifyContent: 'center',
             paddingTop: '0.75rem',
             paddingBottom: '0.75rem',
-            background: item.primary ? 'var(--color-brand-red)' : 'transparent',
-            color: item.primary ? 'white' : 'rgba(240,240,240,0.45)',
+            background: highlighted ? 'var(--color-brand-red)' : 'transparent',
+            color: highlighted ? 'white' : 'rgba(240,240,240,0.45)',
+            transition: 'background 0.15s, color 0.15s',
           }
           return item.external ? (
             <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" style={style}>
