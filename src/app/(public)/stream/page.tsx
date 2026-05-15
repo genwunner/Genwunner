@@ -1,7 +1,14 @@
 // src/app/(public)/stream/page.tsx
+import Link from 'next/link'
 import { socialLinks } from '@/data/content'
 
-export const metadata = { title: 'Stream | Genwunner' }
+export const metadata = { title: 'Stream | Genwunner · Rocket Recruitment Regime' }
+
+const platforms = [
+  { label: 'Apple Music', href: socialLinks.apple,   desc: 'Full catalog on Apple Music'    },
+  { label: 'YouTube',     href: socialLinks.youtube, desc: 'Videos, lives, and full tracks' },
+  { label: 'TikTok',      href: socialLinks.tiktok,  desc: 'Short form PokéRage content'    },
+]
 
 export default function StreamPage() {
   return (
@@ -9,7 +16,8 @@ export default function StreamPage() {
       style={{ background: 'var(--color-brand-black)', color: 'var(--color-brand-white)' }}>
       <div className="max-w-2xl mx-auto">
 
-        <div className="text-center mb-10">
+        {/* Header */}
+        <div className="text-center mb-12">
           <p style={{
             fontFamily: 'var(--font-pixel)',
             fontSize: '0.4rem',
@@ -17,7 +25,7 @@ export default function StreamPage() {
             letterSpacing: '0.15em',
             marginBottom: '0.75rem',
           }}>
-            // STREAM THE ARSENAL
+            // STREAM THE ARSENAL · ALL PLATFORMS
           </p>
           <h1 className="section-title" style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)' }}>
             STREAM
@@ -33,7 +41,7 @@ export default function StreamPage() {
           </p>
         </div>
 
-        {/* Spotify embed */}
+        {/* Spotify Embed */}
         <div style={{ border: '1px solid var(--color-brand-gray-mid)', marginBottom: '1rem' }}>
           <iframe
             src="https://open.spotify.com/embed/artist/653dGzLhl75ftFI0GsqQLO?utm_source=generator&theme=0"
@@ -47,38 +55,105 @@ export default function StreamPage() {
           />
         </div>
 
-        {/* Other platforms */}
-        <div className="mt-8 p-6" style={{
+        <div className="text-center mb-12">
+          <a
+            href={socialLinks.spotify}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary"
+          >
+            Open Full Spotify Profile →
+          </a>
+        </div>
+
+        {/* Other Platforms */}
+        <div style={{ borderTop: '1px solid var(--color-brand-gray-mid)' }}>
+          <p style={{
+            fontFamily: 'var(--font-pixel)',
+            fontSize: '0.4rem',
+            color: 'var(--color-brand-red)',
+            letterSpacing: '0.1em',
+            margin: '1.5rem 0 1rem',
+          }}>
+            // Also deployed on
+          </p>
+
+          {platforms.map((p, i) => (
+            <a
+              key={p.label}
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between py-4 border-b"
+              style={{ borderColor: 'var(--color-brand-gray-mid)' }}
+            >
+              <div className="flex items-baseline gap-4">
+                <span style={{
+                  fontFamily: 'var(--font-pixel)',
+                  fontSize: '0.38rem',
+                  color: 'var(--color-brand-red)',
+                  flexShrink: 0,
+                }}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <p
+                    className="group-hover:!text-[var(--color-brand-red)]"
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '1.4rem',
+                      letterSpacing: '0.05em',
+                      textTransform: 'uppercase',
+                      color: 'var(--color-brand-white)',
+                      transition: 'color 0.15s',
+                    }}
+                  >
+                    {p.label}
+                  </p>
+                  <p style={{
+                    fontFamily: 'var(--font-pixel)',
+                    fontSize: '0.32rem',
+                    color: 'var(--color-brand-off)',
+                    letterSpacing: '0.05em',
+                    marginTop: 2,
+                  }}>
+                    {p.desc}
+                  </p>
+                </div>
+              </div>
+              <span
+                className="group-hover:!text-[var(--color-brand-red)]"
+                style={{
+                  fontFamily: 'var(--font-pixel)',
+                  fontSize: '0.36rem',
+                  color: 'var(--color-brand-off)',
+                  transition: 'color 0.15s',
+                }}
+              >
+                →
+              </span>
+            </a>
+          ))}
+        </div>
+
+        {/* Arsenal CTA */}
+        <div className="mt-8 p-6 text-center" style={{
           background: 'var(--color-brand-gray)',
           border: '1px solid var(--color-brand-gray-mid)',
         }}>
           <p style={{
             fontFamily: 'var(--font-pixel)',
-            fontSize: '0.38rem',
+            fontSize: '0.36rem',
             color: 'var(--color-brand-off)',
-            letterSpacing: '0.1em',
+            letterSpacing: '0.08em',
             marginBottom: '1rem',
+            lineHeight: 2,
           }}>
-            // Also deployed on
+            See the full breakdown of each operative — lore, type, mission status
           </p>
-          <div className="flex flex-wrap gap-3">
-            {[
-              { label: 'Apple Music', href: socialLinks.apple },
-              { label: 'YouTube',     href: socialLinks.youtube },
-              { label: 'TikTok',      href: socialLinks.tiktok },
-            ].map(p => (
-              <a
-                key={p.label}
-                href={p.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-outline btn-sm"
-                style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.38rem' }}
-              >
-                {p.label} →
-              </a>
-            ))}
-          </div>
+          <Link href="/music" className="btn-outline">
+            View the Full Arsenal →
+          </Link>
         </div>
 
       </div>
