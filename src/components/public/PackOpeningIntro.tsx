@@ -267,7 +267,7 @@ function PokeballSVG({ size }: { size: number }) {
         {/* Button specular */}
         <ellipse cx="47" cy="47" rx="3" ry="2" fill="rgba(255,255,255,0.25)" />
       </svg>
-      {/* RRR logo image on upper dark half */}
+      {/* RRR logo — screen blend removes the black bg, only red Rs show */}
       <img
         src="/images/rrr-logo.jpg"
         alt="RRR"
@@ -281,7 +281,7 @@ function PokeballSVG({ size }: { size: number }) {
           objectFit: 'contain',
           userSelect: 'none',
           pointerEvents: 'none',
-          opacity: 0.92,
+          mixBlendMode: 'screen',
         }}
       />
     </div>
