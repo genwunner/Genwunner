@@ -159,17 +159,38 @@ export default function Nav() {
       >
         {/* Background image */}
         <div className="absolute inset-0">
-          <Image
-            src="/images/menu-bg.jpg"
-            alt=""
-            fill
-            className="object-contain object-center"
-            style={{ opacity: 0.18 }}
-            priority
-          />
-          {/* Gradient vignette */}
+          {/* Photo pushed to right, skewed, blurred */}
+          <div className="absolute inset-0" style={{ overflow: 'hidden' }}>
+            <div style={{
+              position: 'absolute',
+              top: '-5%',
+              right: '-5%',
+              bottom: '-5%',
+              width: '65%',
+              transform: 'skewX(-4deg)',
+              transformOrigin: 'top right',
+              filter: 'blur(1.5px)',
+            }}>
+              <Image
+                src="/images/menu-bg.jpg"
+                alt=""
+                fill
+                className="object-cover object-center"
+                style={{ opacity: 0.28 }}
+                priority
+              />
+            </div>
+          </div>
+          {/* Gradient: dark on left, fades out image on right edge and top/bottom */}
           <div className="absolute inset-0" style={{
-            background: 'radial-gradient(ellipse at 70% 40%, rgba(227,0,15,0.08) 0%, transparent 60%)',
+            background: 'linear-gradient(to right, var(--color-brand-black) 20%, rgba(8,8,8,0.85) 45%, rgba(8,8,8,0.4) 70%, rgba(8,8,8,0.6) 100%)',
+          }} />
+          <div className="absolute inset-0" style={{
+            background: 'linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, transparent 25%, transparent 70%, rgba(8,8,8,0.7) 100%)',
+          }} />
+          {/* Red glow on right */}
+          <div className="absolute inset-0" style={{
+            background: 'radial-gradient(ellipse at 85% 40%, rgba(227,0,15,0.1) 0%, transparent 55%)',
           }} />
         </div>
 
