@@ -86,19 +86,14 @@ export default function Nav() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 z-10">
-            <div style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '1.7rem',
-              letterSpacing: '0.06em',
-              color: 'var(--color-brand-red)',
-              background: '#0a0a0a',
-              border: '1px solid #2a2a2a',
-              padding: '0.05rem 0.4rem',
-              lineHeight: 1,
-              flexShrink: 0,
-            }}>
-              RRR
-            </div>
+            <Image
+              src="/images/rrr-logo.jpg"
+              alt="RRR"
+              width={48}
+              height={48}
+              style={{ flexShrink: 0, display: 'block' }}
+              priority
+            />
             <span
               className="hidden sm:block"
               style={{
@@ -204,18 +199,13 @@ export default function Nav() {
           style={{ height: 80, borderColor: 'var(--color-brand-gray-mid)' }}
         >
           <Link href="/" onClick={() => setMenuOpen(false)}>
-            <div style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '1.7rem',
-              letterSpacing: '0.06em',
-              color: 'var(--color-brand-red)',
-              background: '#0a0a0a',
-              border: '1px solid #2a2a2a',
-              padding: '0.05rem 0.4rem',
-              lineHeight: 1,
-            }}>
-              RRR
-            </div>
+            <Image
+              src="/images/rrr-logo.jpg"
+              alt="RRR"
+              width={48}
+              height={48}
+              style={{ display: 'block' }}
+            />
           </Link>
           <button
             onClick={() => setMenuOpen(false)}
