@@ -127,9 +127,17 @@ export default function PackOpeningIntro() {
               transition: 'transform 0.52s cubic-bezier(0.55,0,1,0.45)',
             }}>
               <svg width={SIZE} height={SIZE} viewBox="0 0 100 100">
-                <defs><clipPath id="top-clip"><rect x="0" y="0" width="100" height="50" /></clipPath></defs>
-                <circle cx="50" cy="50" r="46" fill="#0a0a0a" clipPath="url(#top-clip)" />
-                <circle cx="50" cy="50" r="46" fill="none" stroke="#333" strokeWidth="8" clipPath="url(#top-clip)" />
+                <defs>
+                  <clipPath id="top-clip"><rect x="0" y="0" width="100" height="50" /></clipPath>
+                  <radialGradient id="split-top-grad" cx="35%" cy="28%" r="70%">
+                    <stop offset="0%" stopColor="#3a3a3a" />
+                    <stop offset="40%" stopColor="#141414" />
+                    <stop offset="100%" stopColor="#050505" />
+                  </radialGradient>
+                </defs>
+                <circle cx="50" cy="50" r="46" fill="url(#split-top-grad)" clipPath="url(#top-clip)" />
+                <ellipse cx="34" cy="26" rx="15" ry="8" fill="rgba(255,255,255,0.08)" clipPath="url(#top-clip)" />
+                <circle cx="50" cy="50" r="46" fill="none" stroke="#444" strokeWidth="8" clipPath="url(#top-clip)" />
               </svg>
             </div>
 
@@ -141,9 +149,17 @@ export default function PackOpeningIntro() {
               transition: 'transform 0.52s cubic-bezier(0.55,0,1,0.45)',
             }}>
               <svg width={SIZE} height={SIZE} viewBox="0 0 100 100" style={{ flexShrink: 0 }}>
-                <defs><clipPath id="bot-clip"><rect x="0" y="50" width="100" height="50" /></clipPath></defs>
-                <circle cx="50" cy="50" r="46" fill="#ffffff" clipPath="url(#bot-clip)" />
-                <circle cx="50" cy="50" r="46" fill="none" stroke="#000" strokeWidth="8" clipPath="url(#bot-clip)" />
+                <defs>
+                  <clipPath id="bot-clip"><rect x="0" y="50" width="100" height="50" /></clipPath>
+                  <radialGradient id="split-bot-grad" cx="65%" cy="72%" r="65%">
+                    <stop offset="0%" stopColor="#ffffff" />
+                    <stop offset="55%" stopColor="#e0e0e0" />
+                    <stop offset="100%" stopColor="#c0c0c0" />
+                  </radialGradient>
+                </defs>
+                <circle cx="50" cy="50" r="46" fill="url(#split-bot-grad)" clipPath="url(#bot-clip)" />
+                <ellipse cx="67" cy="74" rx="13" ry="7" fill="rgba(255,255,255,0.22)" clipPath="url(#bot-clip)" />
+                <circle cx="50" cy="50" r="46" fill="none" stroke="#333" strokeWidth="8" clipPath="url(#bot-clip)" />
               </svg>
             </div>
 
@@ -215,6 +231,7 @@ export default function PackOpeningIntro() {
 }
 
 function PokeballSVG({ size }: { size: number }) {
+  const logoSize = Math.round(size * 0.52)
   return (
     <div style={{ position: 'relative', width: size, height: size, display: 'block' }}>
       <svg width={size} height={size} viewBox="0 0 100 100" style={{ display: 'block' }}>
@@ -222,36 +239,51 @@ function PokeballSVG({ size }: { size: number }) {
           <clipPath id="pokeball-clip">
             <circle cx="50" cy="50" r="46" />
           </clipPath>
+          <radialGradient id="pb-top" cx="35%" cy="28%" r="70%">
+            <stop offset="0%" stopColor="#3a3a3a" />
+            <stop offset="40%" stopColor="#141414" />
+            <stop offset="100%" stopColor="#050505" />
+          </radialGradient>
+          <radialGradient id="pb-bot" cx="65%" cy="72%" r="65%">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="55%" stopColor="#e0e0e0" />
+            <stop offset="100%" stopColor="#c0c0c0" />
+          </radialGradient>
         </defs>
-        {/* Top half — black */}
-        <rect x="0" y="0" width="100" height="50" fill="#0a0a0a" clipPath="url(#pokeball-clip)" />
-        {/* Bottom half — white */}
-        <rect x="0" y="50" width="100" height="50" fill="#f0f0f0" clipPath="url(#pokeball-clip)" />
+        {/* Top half — dark 3D gradient */}
+        <rect x="0" y="0" width="100" height="50" fill="url(#pb-top)" clipPath="url(#pokeball-clip)" />
+        {/* Bottom half — white 3D gradient */}
+        <rect x="0" y="50" width="100" height="50" fill="url(#pb-bot)" clipPath="url(#pokeball-clip)" />
+        {/* Gloss highlights */}
+        <ellipse cx="34" cy="26" rx="16" ry="9" fill="rgba(255,255,255,0.1)" clipPath="url(#pokeball-clip)" />
+        <ellipse cx="67" cy="74" rx="13" ry="7" fill="rgba(255,255,255,0.22)" clipPath="url(#pokeball-clip)" />
         {/* Center band */}
-        <rect x="0" y="45" width="100" height="10" fill="#1a1a1a" clipPath="url(#pokeball-clip)" />
+        <rect x="0" y="45" width="100" height="10" fill="#111" clipPath="url(#pokeball-clip)" />
         {/* Outer ring */}
-        <circle cx="50" cy="50" r="46" fill="none" stroke="#333" strokeWidth="8" />
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#444" strokeWidth="8" />
         {/* Center button */}
-        <circle cx="50" cy="50" r="13" fill="#1a1a1a" stroke="#333" strokeWidth="4" />
+        <circle cx="50" cy="50" r="13" fill="#1a1a1a" stroke="#444" strokeWidth="4" />
         <circle cx="50" cy="50" r="6" fill="#e3000f" />
+        {/* Button specular */}
+        <ellipse cx="47" cy="47" rx="3" ry="2" fill="rgba(255,255,255,0.25)" />
       </svg>
-      {/* RRR overlay on upper black half */}
-      <div style={{
-        position: 'absolute',
-        top: '18%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        fontFamily: 'var(--font-display)',
-        fontSize: size * 0.22,
-        color: '#e3000f',
-        letterSpacing: '0.06em',
-        lineHeight: 1,
-        userSelect: 'none',
-        pointerEvents: 'none',
-        whiteSpace: 'nowrap',
-      }}>
-        RRR
-      </div>
+      {/* RRR logo image on upper dark half */}
+      <img
+        src="/images/rrr-logo.jpg"
+        alt="RRR"
+        style={{
+          position: 'absolute',
+          top: '7%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: logoSize,
+          height: logoSize,
+          objectFit: 'contain',
+          userSelect: 'none',
+          pointerEvents: 'none',
+          opacity: 0.92,
+        }}
+      />
     </div>
   )
 }
