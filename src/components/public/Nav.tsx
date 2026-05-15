@@ -128,7 +128,7 @@ export default function Nav() {
               </span>
             ) : (
               <>
-                <SpinningPokeball size={18} speed="4s" />
+                <SpinningPokeball size={28} speed="4s" />
                 <span
                   style={{
                     fontFamily: 'var(--font-display)',
