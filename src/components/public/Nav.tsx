@@ -323,8 +323,8 @@ export default function Nav() {
         }}
       >
         {[
-          { href: '/stream',  label: 'Stream',  external: false, primary: false },
-          { href: '/discord', label: 'Discord', external: false, primary: false },
+          { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO', label: 'Stream',  external: true,  primary: false },
+          { href: 'https://discord.gg/6c28f8JXKV',                               label: 'Discord', external: true,  primary: false },
           { href: '/wunnerdex', label: 'Enlist', external: false, primary: true  },
           { href: '/shows',     label: 'Raids',  external: false, primary: false },
         ].map((item, _i, arr) => {
