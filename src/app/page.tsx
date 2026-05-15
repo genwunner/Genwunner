@@ -106,18 +106,20 @@ export default async function HomePage() {
           </div>
 
           {/* Wordmark */}
-          <h1
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(4rem, 13vw, 11rem)',
-              lineHeight: 0.88,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-              color: 'var(--color-brand-white)',
-              textShadow: '0 4px 60px rgba(0,0,0,0.8)',
-            }}
-          >
-            GEN<span style={{ color: 'var(--color-brand-red)', textShadow: '0 0 80px rgba(227,0,15,0.4)' }}>WUNN</span>R
+          <h1 style={{ lineHeight: 1 }}>
+            <Image
+              src="/images/genwunner-logo.png"
+              alt="GENWUNNER"
+              width={1152}
+              height={224}
+              priority
+              style={{
+                width: '100%',
+                maxWidth: '680px',
+                height: 'auto',
+                filter: 'drop-shadow(0 4px 40px rgba(0,0,0,0.7))',
+              }}
+            />
           </h1>
 
           {/* Tagline */}
