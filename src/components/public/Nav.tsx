@@ -159,35 +159,56 @@ export default function Nav() {
       >
         {/* Background image */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0" style={{ overflow: 'hidden' }}>
+
+          {/* Desktop: whole photo contained, skewed right */}
+          <div className="hidden md:block absolute inset-0" style={{ overflow: 'hidden' }}>
             <div style={{
               position: 'absolute',
-              top: '-5%',
-              right: '-3%',
-              bottom: '-5%',
-              width: '85%',
+              top: '-5%', right: '-3%', bottom: '-5%', width: '85%',
               transform: 'skewX(-3deg)',
               transformOrigin: 'top right',
               filter: 'blur(1px)',
             }}>
               <Image
                 src="/images/menu-bg.jpg"
-                alt=""
-                fill
-                className="object-cover"
-                style={{ opacity: 0.42, objectPosition: '35% 12%' }}
+                alt="" fill
+                className="object-contain"
+                style={{ opacity: 0.38, objectPosition: 'right center' }}
                 priority
               />
             </div>
           </div>
-          {/* Gradient left-to-right — softer so image shows on mobile */}
-          <div className="absolute inset-0" style={{
+
+          {/* Mobile: cover crop locked on face */}
+          <div className="md:hidden absolute inset-0" style={{ overflow: 'hidden' }}>
+            <div style={{
+              position: 'absolute',
+              top: '-5%', right: 0, bottom: '-5%', width: '70%',
+              transform: 'skewX(-3deg)',
+              transformOrigin: 'top right',
+            }}>
+              <Image
+                src="/images/menu-bg.jpg"
+                alt="" fill
+                className="object-cover"
+                style={{ opacity: 0.6, objectPosition: '35% 10%' }}
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Desktop gradient: heavy left fade */}
+          <div className="hidden md:block absolute inset-0" style={{
             background: 'linear-gradient(to right, var(--color-brand-black) 5%, rgba(8,8,8,0.75) 35%, rgba(8,8,8,0.2) 65%, rgba(8,8,8,0.45) 100%)',
           }} />
+          {/* Mobile gradient: narrower, lighter fade */}
+          <div className="md:hidden absolute inset-0" style={{
+            background: 'linear-gradient(to right, var(--color-brand-black) 0%, rgba(8,8,8,0.88) 28%, rgba(8,8,8,0.12) 52%, rgba(8,8,8,0.3) 100%)',
+          }} />
+
           <div className="absolute inset-0" style={{
             background: 'linear-gradient(to bottom, rgba(8,8,8,0.4) 0%, transparent 20%, transparent 75%, rgba(8,8,8,0.6) 100%)',
           }} />
-          {/* Red glow on right */}
           <div className="absolute inset-0" style={{
             background: 'radial-gradient(ellipse at 85% 40%, rgba(227,0,15,0.1) 0%, transparent 55%)',
           }} />
