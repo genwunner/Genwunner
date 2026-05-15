@@ -42,8 +42,8 @@ export const metadata: Metadata = {
     description: "Creator of Big Man Blastoise. The PokéRage movement.",
   },
   icons: {
-    icon: '/images/logos/g1r-ball-white.png',
-    apple: '/images/logos/g1r-ball-white.png',
+    icon: '/images/logos/rrr-logo-2.png',
+    apple: '/images/logos/rrr-logo-2.png',
   },
 };
 
