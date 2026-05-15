@@ -109,7 +109,7 @@ export default async function EPKPage() {
             color: 'var(--color-brand-red)',
             letterSpacing: '0.15em',
           }}>
-            — Kotaku
+            / Kotaku
           </p>
         </div>
 

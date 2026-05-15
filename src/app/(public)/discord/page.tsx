@@ -50,7 +50,7 @@ export default function DiscordPage() {
             rel="noopener noreferrer"
             className="btn-primary"
           >
-            ⚡ Join the Server →
+            🚀 Join the Server →
           </a>
         </div>
 

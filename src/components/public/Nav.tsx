@@ -62,7 +62,7 @@ export default function Nav() {
           INCOMING TRANSMISSION FROM GIOVANNI &nbsp;·&nbsp;
           THE REGIME IS RECRUITING &nbsp;·&nbsp;
           EU TOUR OCT 1–21 &nbsp;·&nbsp;
-          BLUE + RED VERSION EPs — SUMMER 2026 &nbsp;·&nbsp;
+          BLUE + RED VERSION EPs, SUMMER 2026 &nbsp;·&nbsp;
           BIG MAN BLASTOISE: 1B+ UGC VIEWS &nbsp;·&nbsp;
           PSYDUCK! GAINING TRACTION &nbsp;·&nbsp;
           ENLIST AT WUNNERDEX NOW &nbsp;·&nbsp;
@@ -174,8 +174,8 @@ export default function Nav() {
                 src="/images/menu-bg.jpg"
                 alt=""
                 fill
-                className="object-contain"
-                style={{ opacity: 0.38, objectPosition: 'right center' }}
+                className="object-cover"
+                style={{ opacity: 0.42, objectPosition: '35% 12%' }}
                 priority
               />
             </div>
@@ -309,7 +309,7 @@ export default function Nav() {
             onClick={() => setMenuOpen(false)}
             className="btn-primary"
           >
-            ⚡ Enlist in the Regime
+            🚀 Enlist in the Regime
           </Link>
         </div>
       </div>

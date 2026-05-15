@@ -28,7 +28,7 @@ export default function WunnerdexPage() {
     return (
       <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--color-brand-black)' }}>
         <div className="text-center max-w-md">
-          <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6" style={{ background: 'var(--color-brand-red)', borderRadius: '50%', boxShadow: '0 0 40px rgba(227,0,15,0.4)', fontSize: '2rem' }}>⚡</div>
+          <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6" style={{ background: 'var(--color-brand-red)', borderRadius: '50%', boxShadow: '0 0 40px rgba(227,0,15,0.4)', fontSize: '2rem' }}>🚀</div>
           <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: 'var(--color-brand-red)', letterSpacing: '0.15em', marginBottom: '0.75rem' }}>// Enlistment Confirmed</p>
           <h1 className="section-title mb-4" style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)' }}>OPERATIVE REGISTERED</h1>
           <p style={{ fontSize: '0.88rem', color: 'var(--color-brand-off)', lineHeight: 1.75, marginBottom: '0.75rem' }}>Giovanni has your file. You&apos;re now in the Wunnerdex.</p>
@@ -61,7 +61,7 @@ export default function WunnerdexPage() {
           <div style={{ position: 'absolute', top: 8, left: 8, right: 8, bottom: 8, border: '1px solid rgba(227,0,15,0.15)', borderRadius: 6, pointerEvents: 'none' }} />
 
           <div className="flex items-center gap-3 mb-6">
-            <div style={{ width: 44, height: 44, background: 'var(--color-brand-red)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0, boxShadow: '0 0 20px rgba(227,0,15,0.4)' }}>⚡</div>
+            <div style={{ width: 44, height: 44, background: 'var(--color-brand-red)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0, boxShadow: '0 0 20px rgba(227,0,15,0.4)' }}>🚀</div>
             <div>
               <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--color-brand-white)', lineHeight: 1 }}>GRUNT REG.</p>
               <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.36rem', color: 'var(--color-brand-red)', letterSpacing: '0.08em', marginTop: 2 }}>// Wunnerdex · RRR Database · Kanto Division</p>
@@ -119,11 +119,11 @@ export default function WunnerdexPage() {
             </div>
             <label className="flex items-start gap-3 cursor-pointer p-4" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--color-brand-gray-mid)' }}>
               <input type="checkbox" name="want_in_city" value="true" className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ accentColor: 'var(--color-brand-red)' }} />
-              <span style={{ fontSize: '0.82rem', color: 'var(--color-brand-off)', lineHeight: 1.65 }}>I want Genwunner to raid my city — deploy a show or pop-up to my territory</span>
+              <span style={{ fontSize: '0.82rem', color: 'var(--color-brand-off)', lineHeight: 1.65 }}>I want Genwunner to raid my city. Deploy a show or pop-up.</span>
             </label>
             {error && <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.38rem', color: '#f87171', letterSpacing: '0.06em' }}>⚠ {error}</p>}
             <button type="submit" disabled={loading} className="btn-primary w-full py-4" style={{ opacity: loading ? 0.6 : 1 }}>
-              {loading ? 'Transmitting...' : '⚡ Report for Duty — Enlist in the Regime'}
+              {loading ? 'Transmitting...' : '🚀 Report for Duty. Enlist in the Regime.'}
             </button>
             <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.32rem', color: '#333', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 2 }}>
               WUNNERDEX v1.0 · PROPERTY OF TEAM ROCKET · KANTO DIVISION<br />

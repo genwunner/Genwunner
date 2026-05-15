@@ -136,7 +136,7 @@ export default async function HomePage() {
 
           {/* CTAs */}
           <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-8">
-            <Link href="/wunnerdex" className="btn-primary">⚡ Enlist Now</Link>
+            <Link href="/wunnerdex" className="btn-primary">🚀 Enlist Now</Link>
             <a
               href={socialLinks.spotify}
               target="_blank"
@@ -475,7 +475,7 @@ export default async function HomePage() {
             className="btn-outline flex-shrink-0"
             style={{ borderColor: 'white', color: 'white' }}
           >
-            ⚡ Enter HQ →
+            🚀 Enter HQ →
           </a>
         </div>
       </section>
@@ -736,11 +736,11 @@ function WunnerdexSignupForm() {
           style={{ accentColor: 'var(--color-brand-red)' }}
         />
         <span style={{ fontSize: '0.82rem', color: 'var(--color-brand-off)', lineHeight: 1.6 }}>
-          I want Genwunner to raid my city — deploy a show or pop-up to my territory
+          I want Genwunner to raid my city. Deploy a show or pop-up.
         </span>
       </label>
       <button type="submit" className="btn-primary w-full py-4">
-        ⚡ Report for Duty — Enlist in the Wunnerdex
+        🚀 Report for Duty. Enlist in the Wunnerdex.
       </button>
       <p style={{
         fontFamily: 'var(--font-pixel)',

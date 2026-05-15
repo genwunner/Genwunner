@@ -69,7 +69,7 @@ export default function BookPage() {
               boxShadow: '0 0 40px rgba(227,0,15,0.4)',
               fontSize: '2rem',
             }}>
-            ⚡
+            🚀
           </div>
           <p style={{
             fontFamily: 'var(--font-pixel)',
@@ -275,7 +275,7 @@ export default function BookPage() {
               className="btn-primary w-full py-4"
               style={{ opacity: loading ? 0.6 : 1 }}
             >
-              {loading ? 'Transmitting...' : '⚡ Submit Deployment Request'}
+              {loading ? 'Transmitting...' : '🚀 Submit Deployment Request'}
             </button>
 
             <p style={{

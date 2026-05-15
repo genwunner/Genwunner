@@ -27,18 +27,18 @@ const pressStart = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
-  title: "GENWUNNER — Creator of Big Man Blastoise | PokéRage",
+  title: "GENWUNNER: Creator of Big Man Blastoise | PokéRage",
   description:
     "Genwunner is a Los Angeles-based PokéRage artist and creator of the viral Big Man Blastoise movement. 543K monthly listeners. Stream, join the Wunnerdex, and catch the chaos.",
   openGraph: {
-    title: "GENWUNNER — PokéRage",
+    title: "GENWUNNER: PokéRage",
     description: "Creator of Big Man Blastoise. 543K monthly listeners. The PokéRage movement starts here.",
     siteName: "GENWUNNER",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "GENWUNNER — PokéRage",
+    title: "GENWUNNER: PokéRage",
     description: "Creator of Big Man Blastoise. The PokéRage movement.",
   },
 };
