@@ -1,11 +1,11 @@
 // src/components/public/SpinningPokeball.tsx
-// Drop-in spinning Pokéball SVG — use anywhere
+// RRR ball — black/white with red center
 
 interface Props {
   size?: number
   className?: string
   style?: React.CSSProperties
-  speed?: string // e.g. '4s', '8s'
+  speed?: string
 }
 
 export default function SpinningPokeball({
@@ -27,29 +27,27 @@ export default function SpinningPokeball({
         ...style,
       }}
     >
-      {/* Clip to circle */}
       <defs>
         <clipPath id="pb-clip">
           <circle cx="50" cy="50" r="48" />
         </clipPath>
       </defs>
 
-      {/* Top half — red */}
-      <path d="M2 50 A48 48 0 0 1 98 50 Z" fill="#e3000f" clipPath="url(#pb-clip)" />
+      {/* Top half — black */}
+      <path d="M2 50 A48 48 0 0 1 98 50 Z" fill="#0a0a0a" clipPath="url(#pb-clip)" />
 
       {/* Bottom half — white */}
       <path d="M2 50 A48 48 0 0 0 98 50 Z" fill="#f0f0f0" clipPath="url(#pb-clip)" />
 
       {/* Outer circle */}
-      <circle cx="50" cy="50" r="48" fill="none" stroke="#0a0a0a" strokeWidth="4" />
+      <circle cx="50" cy="50" r="48" fill="none" stroke="#333333" strokeWidth="4" />
 
       {/* Center dividing line */}
-      <line x1="2" y1="50" x2="98" y2="50" stroke="#0a0a0a" strokeWidth="4" />
+      <line x1="2" y1="50" x2="98" y2="50" stroke="#333333" strokeWidth="4" />
 
-      {/* Center button ring */}
-      <circle cx="50" cy="50" r="14" fill="#0a0a0a" />
-      <circle cx="50" cy="50" r="9" fill="#f0f0f0" />
-      <circle cx="50" cy="50" r="4" fill="#cccccc" />
+      {/* Center button */}
+      <circle cx="50" cy="50" r="14" fill="#1a1a1a" stroke="#333333" strokeWidth="3" />
+      <circle cx="50" cy="50" r="7" fill="#e3000f" />
     </svg>
   )
 }

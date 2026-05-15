@@ -38,7 +38,7 @@ export default function MusicPage() {
             lineHeight: 2,
           }}>
             Each song a weapon. Each name an operative.<br />
-            Pokémon deployed on the campaign to spread Team Rocket&apos;s message across Kanto.
+            Pokémon deployed on the campaign to spread The Rocket&apos;s message across Kanto.
           </p>
         </div>
 

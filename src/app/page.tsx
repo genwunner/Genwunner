@@ -320,7 +320,7 @@ export default async function HomePage() {
               paddingLeft: '3.5rem',
             }}
           >
-            Active campaign — Genwunner spreading Team Rocket propaganda across Kanto and beyond
+            Active campaign — Genwunner spreading RRR propaganda across Kanto and beyond
           </p>
 
           {shows && shows.length > 0 ? (

@@ -128,9 +128,8 @@ export default function PackOpeningIntro() {
             }}>
               <svg width={SIZE} height={SIZE} viewBox="0 0 100 100">
                 <defs><clipPath id="top-clip"><rect x="0" y="0" width="100" height="50" /></clipPath></defs>
-                <circle cx="50" cy="50" r="46" fill="#DC2626" clipPath="url(#top-clip)" />
-                <circle cx="50" cy="50" r="46" fill="none" stroke="#000" strokeWidth="8" clipPath="url(#top-clip)" />
-                <ellipse cx="35" cy="28" rx="9" ry="5" fill="rgba(255,255,255,0.24)" clipPath="url(#top-clip)" />
+                <circle cx="50" cy="50" r="46" fill="#0a0a0a" clipPath="url(#top-clip)" />
+                <circle cx="50" cy="50" r="46" fill="none" stroke="#333" strokeWidth="8" clipPath="url(#top-clip)" />
               </svg>
             </div>
 
@@ -217,26 +216,42 @@ export default function PackOpeningIntro() {
 
 function PokeballSVG({ size }: { size: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 100 100" style={{ display: 'block' }}>
-      <defs>
-        <clipPath id="pokeball-clip">
-          <circle cx="50" cy="50" r="46" />
-        </clipPath>
-      </defs>
-      {/* Top half — red */}
-      <rect x="0" y="0" width="100" height="50" fill="#DC2626" clipPath="url(#pokeball-clip)" />
-      {/* Bottom half — white */}
-      <rect x="0" y="50" width="100" height="50" fill="#ffffff" clipPath="url(#pokeball-clip)" />
-      {/* Center band */}
-      <rect x="0" y="45" width="100" height="10" fill="#000000" clipPath="url(#pokeball-clip)" />
-      {/* Outer ring */}
-      <circle cx="50" cy="50" r="46" fill="none" stroke="#000" strokeWidth="8" />
-      {/* Center button ring */}
-      <circle cx="50" cy="50" r="12" fill="#ffffff" stroke="#000" strokeWidth="5" />
-      {/* Center button fill */}
-      <circle cx="50" cy="50" r="5.5" fill="#e8e8e8" />
-      {/* Shine */}
-      <ellipse cx="35" cy="28" rx="9" ry="5" fill="rgba(255,255,255,0.26)" />
-    </svg>
+    <div style={{ position: 'relative', width: size, height: size, display: 'block' }}>
+      <svg width={size} height={size} viewBox="0 0 100 100" style={{ display: 'block' }}>
+        <defs>
+          <clipPath id="pokeball-clip">
+            <circle cx="50" cy="50" r="46" />
+          </clipPath>
+        </defs>
+        {/* Top half — black */}
+        <rect x="0" y="0" width="100" height="50" fill="#0a0a0a" clipPath="url(#pokeball-clip)" />
+        {/* Bottom half — white */}
+        <rect x="0" y="50" width="100" height="50" fill="#f0f0f0" clipPath="url(#pokeball-clip)" />
+        {/* Center band */}
+        <rect x="0" y="45" width="100" height="10" fill="#1a1a1a" clipPath="url(#pokeball-clip)" />
+        {/* Outer ring */}
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#333" strokeWidth="8" />
+        {/* Center button */}
+        <circle cx="50" cy="50" r="13" fill="#1a1a1a" stroke="#333" strokeWidth="4" />
+        <circle cx="50" cy="50" r="6" fill="#e3000f" />
+      </svg>
+      {/* RRR overlay on upper black half */}
+      <div style={{
+        position: 'absolute',
+        top: '18%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        fontFamily: 'var(--font-display)',
+        fontSize: size * 0.22,
+        color: '#e3000f',
+        letterSpacing: '0.06em',
+        lineHeight: 1,
+        userSelect: 'none',
+        pointerEvents: 'none',
+        whiteSpace: 'nowrap',
+      }}>
+        RRR
+      </div>
+    </div>
   )
 }

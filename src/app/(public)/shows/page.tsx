@@ -27,7 +27,7 @@ export default async function ShowsPage() {
           <h1 className="section-title" style={{ fontSize: 'clamp(3rem, 10vw, 7rem)' }}>CITY RAIDS</h1>
           <p className="mt-4" style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.38rem', color: 'var(--color-brand-off)', letterSpacing: '0.08em', lineHeight: 2 }}>
             Anime conventions · Gaming events · TCG shows · Fan activations · Pop-ups<br />
-            Genwunner spreading Team Rocket propaganda across Kanto and beyond
+            Genwunner spreading Rocket Recruitment Regime propaganda across Kanto and beyond
           </p>
         </div>
 

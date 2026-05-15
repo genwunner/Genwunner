@@ -40,3 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 public/images/photos/
+
+# Local asset folders — large files, not needed in repo
+Gen fav photos 2026/
+G1r misc/
+Genwunner Released song cover art/

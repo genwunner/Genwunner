@@ -64,7 +64,7 @@ export default function WunnerdexPage() {
             <div style={{ width: 44, height: 44, background: 'var(--color-brand-red)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0, boxShadow: '0 0 20px rgba(227,0,15,0.4)' }}>⚡</div>
             <div>
               <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--color-brand-white)', lineHeight: 1 }}>GRUNT REG.</p>
-              <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.36rem', color: 'var(--color-brand-red)', letterSpacing: '0.08em', marginTop: 2 }}>// Wunnerdex · Team Rocket Database · Kanto Division</p>
+              <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.36rem', color: 'var(--color-brand-red)', letterSpacing: '0.08em', marginTop: 2 }}>// Wunnerdex · RRR Database · Kanto Division</p>
             </div>
           </div>
 

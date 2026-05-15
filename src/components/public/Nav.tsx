@@ -86,14 +86,19 @@ export default function Nav() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 z-10">
-            <Image
-              src="/images/logos/g1r-ball-white.png"
-              alt="Genwunner"
-              width={100}
-              height={40}
-              className="h-8 w-auto object-contain"
-              priority
-            />
+            <div style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.7rem',
+              letterSpacing: '0.06em',
+              color: 'var(--color-brand-red)',
+              background: '#0a0a0a',
+              border: '1px solid #2a2a2a',
+              padding: '0.05rem 0.4rem',
+              lineHeight: 1,
+              flexShrink: 0,
+            }}>
+              RRR
+            </div>
             <span
               className="hidden sm:block"
               style={{
@@ -199,13 +204,18 @@ export default function Nav() {
           style={{ height: 80, borderColor: 'var(--color-brand-gray-mid)' }}
         >
           <Link href="/" onClick={() => setMenuOpen(false)}>
-            <Image
-              src="/images/logos/g1r-ball-white.png"
-              alt="Genwunner"
-              width={100}
-              height={40}
-              className="h-8 w-auto object-contain"
-            />
+            <div style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.7rem',
+              letterSpacing: '0.06em',
+              color: 'var(--color-brand-red)',
+              background: '#0a0a0a',
+              border: '1px solid #2a2a2a',
+              padding: '0.05rem 0.4rem',
+              lineHeight: 1,
+            }}>
+              RRR
+            </div>
           </Link>
           <button
             onClick={() => setMenuOpen(false)}
@@ -323,8 +333,8 @@ export default function Nav() {
         }}
       >
         {[
-          { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO', label: 'Stream',  external: true,  primary: false },
-          { href: 'https://discord.gg/6c28f8JXKV', label: 'Discord', external: true,  primary: false },
+          { href: '/stream',  label: 'Stream',  external: false, primary: false },
+          { href: '/discord', label: 'Discord', external: false, primary: false },
           { href: '/wunnerdex', label: 'Enlist', external: false, primary: true  },
           { href: '/shows',     label: 'Raids',  external: false, primary: false },
         ].map((item, _i, arr) => {
