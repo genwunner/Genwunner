@@ -26,46 +26,65 @@ export default async function HomePage() {
 
       {/* ── SECTION 1: FULLSCREEN ENTRANCE ── */}
       <section
-        className="relative flex items-center justify-center overflow-hidden"
-        style={{ height: '100svh', minHeight: 600 }}
+        className="relative flex overflow-hidden"
+        style={{ height: '100svh', minHeight: 600, background: 'var(--color-brand-black)' }}
       >
-        {/* Full bleed background photo */}
-        <Image
-          src="/images/hero-stage.jpg"
-          alt="Genwunner performing live"
-          fill
-          className="object-cover"
-          style={{ zIndex: 0, objectPosition: 'center 35%', transform: 'scale(0.75)', transformOrigin: 'center 35%' }}
-          priority
-        />
+        {/* Photo — right side (desktop) */}
+        <div className="absolute right-0 top-0 bottom-0 hidden md:block" style={{ width: '50%' }}>
+          <Image
+            src="/images/hero-stage.jpg"
+            alt="Genwunner"
+            fill
+            className="object-cover object-top"
+            priority
+          />
+          {/* Blend left edge into black */}
+          <div className="absolute inset-0" style={{
+            background: 'linear-gradient(to right, var(--color-brand-black) 0%, rgba(8,8,8,0.5) 30%, transparent 60%)',
+          }} />
+          {/* Bottom fade */}
+          <div className="absolute inset-0" style={{
+            background: 'linear-gradient(to bottom, transparent 50%, var(--color-brand-black) 100%)',
+          }} />
+          {/* Subtle red tint */}
+          <div className="absolute inset-0" style={{
+            background: 'radial-gradient(ellipse at 80% 30%, rgba(227,0,15,0.07) 0%, transparent 60%)',
+          }} />
+        </div>
 
-        {/* Dark overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(8,8,8,0.35) 0%, rgba(8,8,8,0.55) 60%, rgba(8,8,8,0.92) 100%)',
-            zIndex: 1,
-          }}
-        />
+        {/* Photo — mobile background (faded) */}
+        <div className="absolute inset-0 md:hidden">
+          <Image
+            src="/images/hero-stage.jpg"
+            alt=""
+            fill
+            className="object-cover object-top"
+            style={{ opacity: 0.2 }}
+            priority
+          />
+          <div className="absolute inset-0" style={{
+            background: 'linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, rgba(8,8,8,0.75) 60%, rgba(8,8,8,0.97) 100%)',
+          }} />
+        </div>
 
         {/* Red atmosphere */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(227,0,15,0.1) 0%, transparent 70%)',
-            zIndex: 1,
-          }}
-        />
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse 50% 60% at 25% 50%, rgba(227,0,15,0.07) 0%, transparent 70%)',
+          zIndex: 1,
+        }} />
 
         {/* Floating Pokéballs */}
         <div className="absolute inset-0" style={{ zIndex: 2 }}>
           <FloatingPokeballs />
         </div>
 
-        {/* Center content */}
-        <div className="relative flex flex-col items-center justify-center text-center px-6" style={{ zIndex: 3 }}>
+        {/* Left content */}
+        <div
+          className="relative w-full md:w-[55%] flex flex-col justify-center items-center md:items-start text-center md:text-left px-6 md:px-16 lg:px-24"
+          style={{ zIndex: 3 }}
+        >
           {/* Classified tag */}
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-6 flex-wrap justify-center md:justify-start">
             <span style={{
               fontFamily: 'var(--font-pixel)',
               fontSize: '0.38rem',
@@ -90,7 +109,7 @@ export default async function HomePage() {
           <h1
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(5rem, 18vw, 14rem)',
+              fontSize: 'clamp(4rem, 13vw, 11rem)',
               lineHeight: 0.88,
               letterSpacing: '0.04em',
               textTransform: 'uppercase',
@@ -116,7 +135,7 @@ export default async function HomePage() {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-wrap gap-3 justify-center mt-8">
+          <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-8">
             <Link href="/wunnerdex" className="btn-primary">⚡ Enlist Now</Link>
             <a
               href={socialLinks.spotify}
