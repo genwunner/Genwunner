@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
   if (process.env.RESEND_API_KEY && process.env.RESEND_FROM_EMAIL) {
     await sendFanEmail({
       to: 'genwunnermgmt@gmail.com',
-      subject: `New Booking Inquiry: ${name} — ${event_city}`,
+      subject: `New Booking Inquiry from ${name} (${event_city})`,
       html: `
         <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;">
           <h2 style="margin-bottom:16px;">New Booking Inquiry</h2>

@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { songs, socialLinks } from '@/data/content'
 
-export const metadata = { title: 'Arsenal — Genwunner · Rocket Recruitment Regime' }
+export const metadata = { title: 'Arsenal | Genwunner' }
 
 const platforms = [
   { label: 'Spotify',     href: socialLinks.spotify },

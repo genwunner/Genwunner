@@ -1,5 +1,5 @@
 // src/app/(public)/discord/page.tsx
-export const metadata = { title: 'Discord — Genwunner · Rocket Recruitment Regime' }
+export const metadata = { title: 'Discord | Genwunner' }
 
 export default function DiscordPage() {
   return (

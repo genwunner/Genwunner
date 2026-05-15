@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
           </p>
           <div style="margin-top:32px;padding-top:24px;border-top:1px solid #222;">
             <p style="color:#666;font-size:12px;">Stay ready. The next raid could be in your city.</p>
-            <p style="color:#666;font-size:12px;margin-top:4px;">— Genwunner</p>
+            <p style="color:#666;font-size:12px;margin-top:4px;">Genwunner</p>
           </div>
         </div>
       `,

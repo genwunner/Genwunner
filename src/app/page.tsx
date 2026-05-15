@@ -202,7 +202,7 @@ export default async function HomePage() {
               paddingLeft: '3.5rem',
             }}
           >
-            Pokémon deployed on the Kanto campaign — each song a weapon, each name an operative
+            Pokémon deployed on the Kanto campaign. Each song a weapon, each name an operative.
           </p>
 
           <div
@@ -320,7 +320,7 @@ export default async function HomePage() {
               paddingLeft: '3.5rem',
             }}
           >
-            Active campaign — Genwunner spreading RRR propaganda across Kanto and beyond
+            Active campaign. Genwunner spreading RRR propaganda across Kanto and beyond.
           </p>
 
           {shows && shows.length > 0 ? (
@@ -530,9 +530,7 @@ export default async function HomePage() {
                 maxWidth: 440,
               }}
             >
-              Giovanni keeps records on every operative. Register in the Wunnerdex —
-              get drops, city raid alerts, secret links, and Big Man Blastoise sightings
-              before the civilians. Genwunner remembers who showed up early.
+              Giovanni keeps records on every operative. Register in the Wunnerdex: drops, city raid alerts, secret links, and Big Man Blastoise sightings before the civilians. Genwunner remembers who showed up early.
             </p>
             <WunnerdexSignupForm />
           </div>

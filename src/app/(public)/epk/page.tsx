@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { artistStats, socialLinks } from '@/data/content'
 
 export const dynamic = 'force-dynamic'
-export const metadata = { title: 'Dossier — Genwunner · Rocket Recruitment Regime' }
+export const metadata = { title: 'Dossier | Genwunner' }
 
 interface Highlight {
   id: string

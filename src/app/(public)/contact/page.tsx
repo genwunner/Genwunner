@@ -1,7 +1,7 @@
 // src/app/(public)/contact/page.tsx
 import Link from 'next/link'
 
-export const metadata = { title: 'Intel — Genwunner · Rocket Recruitment Regime' }
+export const metadata = { title: 'Intel | Genwunner' }
 
 const channels = [
   {

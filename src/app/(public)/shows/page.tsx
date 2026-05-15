@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { targetCities, performanceVenues, upcomingShows } from '@/data/content'
 
 export const dynamic = 'force-dynamic'
-export const metadata = { title: 'City Raids — Genwunner · Rocket Recruitment Regime' }
+export const metadata = { title: 'City Raids | Genwunner' }
 
 export default async function ShowsPage() {
   const supabase = await createClient()
@@ -65,7 +65,7 @@ export default async function ShowsPage() {
         <div className="p-8 mb-16" style={{ background: 'var(--color-brand-gray)', border: '1px solid var(--color-brand-gray-mid)' }}>
           <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: 'var(--color-brand-red)', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>// Territory Intelligence</div>
           <h2 className="section-title mb-2" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)' }}>Big Man Blastoise City Raids</h2>
-          <p style={{ fontSize: '0.82rem', color: 'var(--color-brand-off)', lineHeight: 1.7, marginBottom: '1.5rem', maxWidth: 480 }}>Fan activations dropping in these territories. Enlist under your city — the territory with the most Wunnerdex operatives gets the next raid.</p>
+          <p style={{ fontSize: '0.82rem', color: 'var(--color-brand-off)', lineHeight: 1.7, marginBottom: '1.5rem', maxWidth: 480 }}>Fan activations dropping in these territories. Enlist under your city. The territory with the most Wunnerdex operatives gets the next raid.</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {targetCities.map(city => (
               <Link key={city} href="/wunnerdex" className="p-4 text-center border transition-all duration-150" style={{ background: 'var(--color-brand-black)', borderColor: 'var(--color-brand-gray-mid)', fontFamily: 'var(--font-display)', fontSize: '1.1rem', letterSpacing: '0.05em', textTransform: 'uppercase', color: 'var(--color-brand-off)' }}>
@@ -77,7 +77,7 @@ export default async function ShowsPage() {
 
         {past && past.length > 0 && (
           <div className="mb-16">
-            <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: '#444', letterSpacing: '0.1em', marginBottom: '1.25rem' }}>// Past Operations — Territory Secured</div>
+            <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: '#444', letterSpacing: '0.1em', marginBottom: '1.25rem' }}>// Past Operations: Territory Secured</div>
             <div style={{ borderTop: '1px solid var(--color-brand-gray-mid)' }}>
               {past.map((show: { id: string; event_date: string; city: string; title: string }) => (
                 <div key={show.id} className="flex items-center gap-4 py-3 border-b" style={{ borderColor: 'var(--color-brand-gray-mid)' }}>

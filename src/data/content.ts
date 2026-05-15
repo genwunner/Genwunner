@@ -23,7 +23,7 @@ export const songs = [
     title: 'CHARIZARD!',
     tag: 'FIRE TYPE · Fan Favorite',
     cover: '/images/covers/charizard.jpg',
-    lore: 'The most beloved Pokémon gets the PokéRage treatment. Charizard doesn\'t lose — and neither does this one.',
+    lore: 'The most beloved Pokémon gets the PokéRage treatment. Charizard doesn\'t lose. Neither does this one.',
     spotify: 'https://open.spotify.com/track/0COIEkVI89pag3LCSZ2gn4',
     apple: 'https://music.apple.com/us/artist/genwunner/1630027337',
     youtube: 'https://youtube.com/@genwunner',
@@ -33,7 +33,7 @@ export const songs = [
     title: 'VENUSAUR!',
     tag: 'GRASS TYPE · Underrated',
     cover: '/images/covers/venusaur.jpg',
-    lore: 'The starter nobody picks. The song everyone sleeps on. Venusaur always had it — they just weren\'t ready.',
+    lore: 'The starter nobody picks. The song everyone sleeps on. Venusaur always had it. They just weren\'t ready.',
     spotify: 'https://open.spotify.com/track/3Zy2C2fdqUfZ8rciAdM1fG',
     apple: 'https://music.apple.com/us/artist/genwunner/1630027337',
     youtube: 'https://youtube.com/@genwunner',
@@ -97,7 +97,7 @@ export const upcomingShows = [
   {
     id: 'bit-1',
     event_date: '2026-10-02',
-    title: 'EU TOUR — BIRMINGHAM',
+    title: 'EU TOUR:BIRMINGHAM',
     city: 'Birmingham, UK',
     venue: 'O2 Institute2',
     event_type: 'Tour',
@@ -107,7 +107,7 @@ export const upcomingShows = [
   {
     id: 'bit-2',
     event_date: '2026-10-04',
-    title: 'EU TOUR — MANCHESTER',
+    title: 'EU TOUR:MANCHESTER',
     city: 'Manchester, UK',
     venue: 'Manchester Academy 3',
     event_type: 'Tour',
@@ -117,7 +117,7 @@ export const upcomingShows = [
   {
     id: 'bit-3',
     event_date: '2026-10-05',
-    title: 'EU TOUR — GLASGOW',
+    title: 'EU TOUR:GLASGOW',
     city: 'Glasgow, UK',
     venue: 'Glasgow Garage',
     event_type: 'Tour',
@@ -127,7 +127,7 @@ export const upcomingShows = [
   {
     id: 'bit-4',
     event_date: '2026-10-07',
-    title: 'EU TOUR — LONDON',
+    title: 'EU TOUR:LONDON',
     city: 'London, UK',
     venue: 'O2 Academy Islington',
     event_type: 'Tour',

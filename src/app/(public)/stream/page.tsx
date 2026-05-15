@@ -1,7 +1,7 @@
 // src/app/(public)/stream/page.tsx
 import { socialLinks } from '@/data/content'
 
-export const metadata = { title: 'Stream — Genwunner · Rocket Recruitment Regime' }
+export const metadata = { title: 'Stream | Genwunner' }
 
 export default function StreamPage() {
   return (
