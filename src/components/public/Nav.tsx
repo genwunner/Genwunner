@@ -24,6 +24,7 @@ const socials = [
   { href: 'https://youtube.com/@genwunnr',                               label: 'YouTube'   },
   { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO',     label: 'Spotify'   },
   { href: 'https://x.com/genwunnrr',                                     label: 'X / Twitter' },
+  { href: 'https://discord.gg/6c28f8JXKV',                               label: 'Discord'   },
 ]
 
 export default function Nav() {
@@ -303,9 +304,9 @@ export default function Nav() {
       >
         {[
           { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO', label: 'Stream',  external: true,  primary: false },
-          { href: '/shows',     label: 'Raids',  external: false, primary: false },
+          { href: 'https://discord.gg/6c28f8JXKV', label: 'Discord', external: true,  primary: false },
           { href: '/wunnerdex', label: 'Enlist', external: false, primary: true  },
-          { href: '/book',      label: 'Deploy', external: false, primary: false },
+          { href: '/shows',     label: 'Raids',  external: false, primary: false },
         ].map(item => {
           const style: React.CSSProperties = {
             fontFamily: 'var(--font-pixel)',

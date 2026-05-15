@@ -408,6 +408,59 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── DISCORD JOIN ── */}
+      <section
+        className="px-4 py-16"
+        style={{
+          background: 'var(--color-brand-red)',
+          borderTop: '1px solid var(--color-brand-red-dark)',
+          borderBottom: '1px solid var(--color-brand-red-dark)',
+        }}
+      >
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <p style={{
+              fontFamily: 'var(--font-pixel)',
+              fontSize: '0.38rem',
+              color: 'rgba(255,255,255,0.7)',
+              letterSpacing: '0.15em',
+              marginBottom: '0.5rem',
+            }}>
+              // THE REGIME HAS A HOME BASE
+            </p>
+            <h2 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+              color: 'white',
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase',
+              lineHeight: 1,
+            }}>
+              JOIN THE DISCORD
+            </h2>
+            <p style={{
+              fontFamily: 'var(--font-pixel)',
+              fontSize: '0.36rem',
+              color: 'rgba(255,255,255,0.65)',
+              letterSpacing: '0.06em',
+              lineHeight: 2,
+              marginTop: '0.5rem',
+            }}>
+              City raid alerts · classified drops · Giovanni&apos;s journal · direct line to the operative
+            </p>
+          </div>
+          <a
+            href="https://discord.gg/6c28f8JXKV"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline flex-shrink-0"
+            style={{ borderColor: 'white', color: 'white' }}
+          >
+            ⚡ Enter HQ →
+          </a>
+        </div>
+      </section>
+
       {/* ── SECTION 4: ENLISTMENT ── */}
       <section
         className="px-4 py-20"
@@ -545,6 +598,7 @@ export default async function HomePage() {
                 { href: socialLinks.instagram, label: 'Instagram'   },
                 { href: socialLinks.tiktok,    label: 'TikTok'      },
                 { href: socialLinks.youtube,   label: 'YouTube'     },
+                { href: socialLinks.discord,   label: 'Discord'     },
               ].map(s => (
                 <a
                   key={s.label}

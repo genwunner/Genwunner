@@ -90,6 +90,7 @@ export const socialLinks = {
   tiktok: 'https://tiktok.com/@genwunnr',
   youtube: 'https://youtube.com/@genwunnr',
   twitter: 'https://x.com/genwunnrr',
+  discord: 'https://discord.gg/6c28f8JXKV',
 }
 
 export const upcomingShows = [
