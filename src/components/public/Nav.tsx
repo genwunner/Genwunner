@@ -327,9 +327,10 @@ export default function Nav() {
           { href: 'https://discord.gg/6c28f8JXKV', label: 'Discord', external: true,  primary: false },
           { href: '/wunnerdex', label: 'Enlist', external: false, primary: true  },
           { href: '/shows',     label: 'Raids',  external: false, primary: false },
-        ].map(item => {
+        ].map((item, _i, arr) => {
+          const anyInternalActive = arr.some(i => !i.external && pathname.startsWith(i.href))
           const isActive = !item.external && pathname.startsWith(item.href)
-          const highlighted = item.primary || isActive
+          const highlighted = isActive || (item.primary && !anyInternalActive)
           const style: React.CSSProperties = {
             fontFamily: 'var(--font-pixel)',
             fontSize: '0.34rem',
