@@ -52,18 +52,18 @@ export default async function HomePage() {
           }} />
         </div>
 
-        {/* Photo — mobile background (faded) */}
+        {/* Photo — mobile background */}
         <div className="absolute inset-0 md:hidden">
           <Image
             src="/images/hero-stage.jpg"
             alt=""
             fill
             className="object-cover object-top"
-            style={{ opacity: 0.2 }}
+            style={{ opacity: 0.55 }}
             priority
           />
           <div className="absolute inset-0" style={{
-            background: 'linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, rgba(8,8,8,0.75) 60%, rgba(8,8,8,0.97) 100%)',
+            background: 'linear-gradient(to bottom, rgba(8,8,8,0.15) 0%, rgba(8,8,8,0.45) 55%, rgba(8,8,8,0.88) 100%)',
           }} />
         </div>
 

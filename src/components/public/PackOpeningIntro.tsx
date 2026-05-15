@@ -231,7 +231,7 @@ export default function PackOpeningIntro() {
 }
 
 function PokeballSVG({ size }: { size: number }) {
-  const logoSize = Math.round(size * 0.52)
+  const logoSize = Math.round(size * 0.48)
   return (
     <div style={{ position: 'relative', width: size, height: size, display: 'block' }}>
       <svg width={size} height={size} viewBox="0 0 100 100" style={{ display: 'block' }}>
@@ -239,41 +239,63 @@ function PokeballSVG({ size }: { size: number }) {
           <clipPath id="pokeball-clip">
             <circle cx="50" cy="50" r="46" />
           </clipPath>
-          <radialGradient id="pb-top" cx="35%" cy="28%" r="70%">
-            <stop offset="0%" stopColor="#3a3a3a" />
-            <stop offset="40%" stopColor="#141414" />
-            <stop offset="100%" stopColor="#050505" />
+          {/* Top half: light source upper-left → falls to near-black */}
+          <radialGradient id="pb-top" cx="30%" cy="22%" r="80%">
+            <stop offset="0%"   stopColor="#606060" />
+            <stop offset="20%"  stopColor="#222222" />
+            <stop offset="55%"  stopColor="#0d0d0d" />
+            <stop offset="100%" stopColor="#030303" />
           </radialGradient>
-          <radialGradient id="pb-bot" cx="65%" cy="72%" r="65%">
-            <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="55%" stopColor="#e0e0e0" />
-            <stop offset="100%" stopColor="#c0c0c0" />
+          {/* Bottom half: light from same source, hits upper-left of white dome */}
+          <radialGradient id="pb-bot" cx="30%" cy="58%" r="75%">
+            <stop offset="0%"   stopColor="#ffffff" />
+            <stop offset="35%"  stopColor="#eeeeee" />
+            <stop offset="100%" stopColor="#c2c2c2" />
           </radialGradient>
+          {/* Center button: subtle depth */}
+          <radialGradient id="pb-btn" cx="36%" cy="34%" r="68%">
+            <stop offset="0%"   stopColor="#383838" />
+            <stop offset="100%" stopColor="#0e0e0e" />
+          </radialGradient>
+          {/* Ring: lighter upper-left, darker lower-right */}
+          <linearGradient id="ring-grad" x1="4" y1="4" x2="96" y2="96" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stopColor="#6a6a6a" />
+            <stop offset="45%"  stopColor="#333333" />
+            <stop offset="100%" stopColor="#181818" />
+          </linearGradient>
         </defs>
-        {/* Top half — dark 3D gradient */}
-        <rect x="0" y="0" width="100" height="50" fill="url(#pb-top)" clipPath="url(#pokeball-clip)" />
-        {/* Bottom half — white 3D gradient */}
+
+        {/* Halves */}
+        <rect x="0" y="0"  width="100" height="50" fill="url(#pb-top)" clipPath="url(#pokeball-clip)" />
         <rect x="0" y="50" width="100" height="50" fill="url(#pb-bot)" clipPath="url(#pokeball-clip)" />
-        {/* Gloss highlights */}
-        <ellipse cx="34" cy="26" rx="16" ry="9" fill="rgba(255,255,255,0.1)" clipPath="url(#pokeball-clip)" />
-        <ellipse cx="67" cy="74" rx="13" ry="7" fill="rgba(255,255,255,0.22)" clipPath="url(#pokeball-clip)" />
+
+        {/* Specular — outer soft glow upper-left */}
+        <ellipse cx="31" cy="22" rx="16" ry="9"  fill="rgba(255,255,255,0.13)" clipPath="url(#pokeball-clip)" />
+        {/* Specular — tight bright core */}
+        <ellipse cx="26" cy="17" rx="8"  ry="4.5" fill="rgba(255,255,255,0.22)" clipPath="url(#pokeball-clip)" />
+        {/* Sheen on bottom dome */}
+        <ellipse cx="70" cy="75" rx="13" ry="6"  fill="rgba(255,255,255,0.30)" clipPath="url(#pokeball-clip)" />
+
         {/* Center band */}
-        <rect x="0" y="45" width="100" height="10" fill="#111" clipPath="url(#pokeball-clip)" />
-        {/* Outer ring */}
-        <circle cx="50" cy="50" r="46" fill="none" stroke="#444" strokeWidth="8" />
+        <rect x="0" y="44.5" width="100" height="11" fill="#0e0e0e" clipPath="url(#pokeball-clip)" />
+
+        {/* Outer ring — gradient makes it read as a curved surface */}
+        <circle cx="50" cy="50" r="46" fill="none" stroke="url(#ring-grad)" strokeWidth="8" />
+
         {/* Center button */}
-        <circle cx="50" cy="50" r="13" fill="#1a1a1a" stroke="#444" strokeWidth="4" />
-        <circle cx="50" cy="50" r="6" fill="#e3000f" />
+        <circle cx="50" cy="50" r="13" fill="url(#pb-btn)" stroke="#555" strokeWidth="3.5" />
+        <circle cx="50" cy="50" r="6"  fill="#e3000f" />
         {/* Button specular */}
-        <ellipse cx="47" cy="47" rx="3" ry="2" fill="rgba(255,255,255,0.25)" />
+        <ellipse cx="47.5" cy="47.5" rx="2.5" ry="1.8" fill="rgba(255,160,160,0.55)" />
       </svg>
+
       {/* RRR logo — screen blend removes the black bg, only red Rs show */}
       <img
         src="/images/rrr-logo.jpg"
         alt="RRR"
         style={{
           position: 'absolute',
-          top: '7%',
+          top: '8%',
           left: '50%',
           transform: 'translateX(-50%)',
           width: logoSize,
