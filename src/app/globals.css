@@ -337,6 +337,10 @@ body[data-intro-done] .site-content {
 }
 
 /* Hero: bottom-anchored on mobile, centered on desktop */
+.hero-section {
+  justify-content: flex-end;
+  padding-bottom: clamp(2.5rem, 6svh, 5rem);
+}
 @media (min-width: 768px) {
   .hero-section {
     justify-content: center;
