@@ -2,13 +2,10 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import SpinningPokeball from './SpinningPokeball'
 
 const navLinks = [
-  { href: '/',          label: 'Home',        sub: 'Main'      },
   { href: '/music',     label: 'Arsenal',     sub: 'Music'     },
   { href: '/shows',     label: 'City Raids',  sub: 'Shows'     },
   { href: '/merch',     label: 'Supply Drop', sub: 'Merch'     },
@@ -19,302 +16,294 @@ const navLinks = [
 ]
 
 const socials = [
-  { href: 'https://instagram.com/genwunnr',                              label: 'Instagram' },
-  { href: 'https://tiktok.com/@genwunnr',                                label: 'TikTok'    },
-  { href: 'https://youtube.com/@genwunnr',                               label: 'YouTube'   },
-  { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO',     label: 'Spotify'   },
-  { href: 'https://x.com/genwunnrr',                                     label: 'X / Twitter' },
-  { href: 'https://discord.gg/6c28f8JXKV',                               label: 'Discord'   },
+  { href: 'https://instagram.com/genwunnr',                          label: 'Instagram'   },
+  { href: 'https://tiktok.com/@genwunnr',                            label: 'TikTok'      },
+  { href: 'https://youtube.com/@genwunnr',                           label: 'YouTube'     },
+  { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO', label: 'Spotify'     },
+  { href: 'https://x.com/genwunnrr',                                 label: 'X / Twitter' },
+  { href: 'https://discord.gg/6c28f8JXKV',                           label: 'Discord'     },
 ]
+
+const TICKER_TEXT = [
+  'INCOMING TRANSMISSION FROM GIOVANNI',
+  'THE REGIME IS RECRUITING',
+  'EU TOUR OCT 1–21',
+  'BLUE + RED VERSION EPs — SUMMER 2026',
+  'BIG MAN BLASTOISE: 1B+ UGC VIEWS',
+  'PSYDUCK! GAINING TRACTION',
+  'ENLIST AT WUNNERDEX NOW',
+  "PALLET TOWN'S MOST WANTED",
+  'POKEFLUTE! FT. SHOFU — OUT NOW',
+].join(' · ')
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
-  // Close menu on route change
   useEffect(() => { setMenuOpen(false) }, [pathname])
+
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname.startsWith(href)
 
   return (
     <>
-      {/* ── Transmission Ticker ── */}
-      <div
-        className="fixed top-0 left-0 right-0 z-50 h-6 overflow-hidden flex items-center justify-center gap-3"
-        style={{ background: 'var(--color-brand-red)' }}
-      >
-        {/* Spinning Pokéball sits dead-center in the ticker */}
-        <SpinningPokeball size={14} speed="5s" style={{ opacity: 0.9, flexShrink: 0 }} />
-        <div
-          style={{
-            fontFamily: 'var(--font-pixel)',
-            fontSize: '0.36rem',
-            letterSpacing: '0.12em',
-            color: 'white',
-            whiteSpace: 'nowrap',
-            animation: 'ticker 35s linear infinite',
-          }}
-        >
-          INCOMING TRANSMISSION FROM GIOVANNI &nbsp;·&nbsp;
-          THE REGIME IS RECRUITING &nbsp;·&nbsp;
-          EU TOUR OCT 1–21 &nbsp;·&nbsp;
-          BLUE + RED VERSION EPs, SUMMER 2026 &nbsp;·&nbsp;
-          BIG MAN BLASTOISE: 1B+ UGC VIEWS &nbsp;·&nbsp;
-          PSYDUCK! GAINING TRACTION &nbsp;·&nbsp;
-          ENLIST AT WUNNERDEX NOW &nbsp;·&nbsp;
-          PALLET TOWN&apos;S MOST WANTED &nbsp;·&nbsp;
-          INCOMING TRANSMISSION FROM GIOVANNI &nbsp;·&nbsp;
-          THE REGIME IS RECRUITING &nbsp;·&nbsp;
+      {/* ── Ticker ── */}
+      <div style={{
+        background: '#0a0000',
+        borderBottom: '1px solid #1a0000',
+        height: 22,
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        position: 'fixed',
+        top: 0, left: 0, right: 0,
+        zIndex: 50,
+      }}>
+        <div style={{
+          fontFamily: "'Courier New', monospace",
+          fontSize: '0.48rem',
+          color: '#550000',
+          letterSpacing: '0.12em',
+          whiteSpace: 'nowrap',
+          animation: 'ticker 40s linear infinite',
+        }}>
+          &gt;&gt;&nbsp;{TICKER_TEXT}&nbsp;·&nbsp;&gt;&gt;&nbsp;{TICKER_TEXT}&nbsp;·&nbsp;
         </div>
-        <SpinningPokeball size={14} speed="5s" style={{ opacity: 0.9, flexShrink: 0 }} />
       </div>
 
-      {/* ── Main Nav Bar ── */}
-      <nav
-        className="fixed top-6 left-0 right-0 z-50 border-b"
-        style={{
-          background: 'rgba(8,8,8,0.97)',
-          backdropFilter: 'blur(16px)',
-          borderColor: 'var(--color-brand-gray-mid)',
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-5 h-14 flex items-center justify-between">
+      {/* ── Main Nav ── */}
+      <nav style={{
+        position: 'fixed',
+        top: 22,
+        left: 0, right: 0,
+        zIndex: 50,
+        background: '#000',
+        borderBottom: '1px solid #1a0000',
+        height: 58,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 1.5rem',
+      }}>
+        {/* Logo */}
+        <Link href="/" style={{
+          fontFamily: "'Courier New', monospace",
+          fontSize: 'clamp(0.85rem, 2vw, 1.1rem)',
+          fontWeight: 700,
+          color: '#e3000f',
+          letterSpacing: '0.15em',
+          textTransform: 'uppercase',
+          textShadow: '0 0 10px rgba(227,0,15,0.4)',
+          textDecoration: 'none',
+        }}>
+          GENWUNNER
+        </Link>
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 z-10">
-            <Image
-              src="/images/rrr-logo.jpg"
-              alt="RRR"
-              width={48}
-              height={48}
-              style={{ flexShrink: 0, display: 'block' }}
-              priority
-            />
-            <span
-              className="hidden sm:block"
+        {/* Desktop links */}
+        <div className="hidden md:flex" style={{ gap: '1.5rem', alignItems: 'center' }}>
+          {navLinks.map(link => (
+            <Link
+              key={link.href}
+              href={link.href}
               style={{
-                fontFamily: 'var(--font-pixel)',
-                fontSize: '0.32rem',
+                fontFamily: "'Courier New', monospace",
+                fontSize: '0.65rem',
+                fontWeight: 700,
                 letterSpacing: '0.1em',
-                color: 'var(--color-brand-red)',
-                lineHeight: 1,
+                textTransform: 'uppercase',
+                color: isActive(link.href) ? '#e3000f' : '#550000',
+                textDecoration: 'none',
+                transition: 'color 0.12s',
               }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e3000f'}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = isActive(link.href) ? '#e3000f' : '#550000'}
             >
-              Rocket Recruitment Regime · Kanto Division
-            </span>
+              {link.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Right side — CTA + menu toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <Link href="/wunnerdex" className="hidden md:inline-flex" style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: '0.62rem',
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            color: '#e3000f',
+            border: '1px solid #e3000f',
+            padding: '0.3rem 0.85rem',
+            textDecoration: 'none',
+            transition: 'background 0.12s, color 0.12s',
+          }}
+            onMouseEnter={e => {
+              ;(e.currentTarget as HTMLElement).style.background = '#e3000f'
+              ;(e.currentTarget as HTMLElement).style.color = '#000'
+            }}
+            onMouseLeave={e => {
+              ;(e.currentTarget as HTMLElement).style.background = 'transparent'
+              ;(e.currentTarget as HTMLElement).style.color = '#e3000f'
+            }}
+          >
+            [ ENLIST ]
           </Link>
 
-          {/* MENU button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex items-center gap-2 z-10 group"
-            aria-label="Toggle menu"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem 0.5rem' }}
+            style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: '0.65rem',
+              fontWeight: 700,
+              letterSpacing: '0.12em',
+              color: menuOpen ? '#e3000f' : '#550000',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '0.25rem 0.5rem',
+              transition: 'color 0.12s',
+            }}
           >
-            {menuOpen ? (
-              <span
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.4rem',
-                  letterSpacing: '0.15em',
-                  color: 'var(--color-brand-white)',
-                }}
-              >
-                CLOSE ✕
-              </span>
-            ) : (
-              <>
-                <Image
-                  src="/images/logos/rrr-logo-spin.png"
-                  alt="RRR"
-                  width={32}
-                  height={32}
-                  style={{
-                    animation: 'spin 4s linear infinite',
-                    flexShrink: 0,
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1.4rem',
-                    letterSpacing: '0.15em',
-                    color: 'var(--color-brand-white)',
-                    transition: 'color 0.15s',
-                  }}
-                  className="group-hover:!text-[var(--color-brand-red)]"
-                >
-                  MENU
-                </span>
-              </>
-            )}
+            {menuOpen ? '[ CLOSE ✕ ]' : '[ MENU ]'}
           </button>
         </div>
       </nav>
 
       {/* ── Fullscreen Menu Overlay ── */}
-      <div
-        className="fixed inset-0 z-[200] flex flex-col"
-        style={{
-          background: 'var(--color-brand-black)',
-          opacity: menuOpen ? 1 : 0,
-          pointerEvents: menuOpen ? 'all' : 'none',
-          transition: 'opacity 0.25s ease',
-        }}
-      >
-        {/* Background image */}
-        <div className="absolute inset-0">
-
-          {/* Desktop: whole photo contained, skewed right */}
-          <div className="hidden md:block absolute inset-0" style={{ overflow: 'hidden' }}>
-            <div style={{
-              position: 'absolute',
-              top: '-5%', right: '-3%', bottom: '-5%', width: '85%',
-              transform: 'skewX(-3deg)',
-              transformOrigin: 'top right',
-              filter: 'blur(1px)',
-            }}>
-              <Image
-                src="/images/menu-bg.jpg"
-                alt="" fill
-                className="object-contain"
-                style={{ opacity: 0.38, objectPosition: 'right center' }}
-                priority
-              />
-            </div>
-          </div>
-
-          {/* Mobile: cover crop locked on face */}
-          <div className="md:hidden absolute inset-0" style={{ overflow: 'hidden' }}>
-            <div style={{
-              position: 'absolute',
-              top: '-5%', right: 0, bottom: '-5%', width: '70%',
-              transform: 'skewX(-3deg)',
-              transformOrigin: 'top right',
-            }}>
-              <Image
-                src="/images/menu-bg.jpg"
-                alt="" fill
-                className="object-cover"
-                style={{ opacity: 0.6, objectPosition: '35% 10%' }}
-                priority
-              />
-            </div>
-          </div>
-
-          {/* Desktop gradient: heavy left fade */}
-          <div className="hidden md:block absolute inset-0" style={{
-            background: 'linear-gradient(to right, var(--color-brand-black) 5%, rgba(8,8,8,0.75) 35%, rgba(8,8,8,0.2) 65%, rgba(8,8,8,0.45) 100%)',
-          }} />
-          {/* Mobile gradient: narrower, lighter fade */}
-          <div className="md:hidden absolute inset-0" style={{
-            background: 'linear-gradient(to right, var(--color-brand-black) 0%, rgba(8,8,8,0.88) 28%, rgba(8,8,8,0.12) 52%, rgba(8,8,8,0.3) 100%)',
-          }} />
-
-          <div className="absolute inset-0" style={{
-            background: 'linear-gradient(to bottom, rgba(8,8,8,0.4) 0%, transparent 20%, transparent 75%, rgba(8,8,8,0.6) 100%)',
-          }} />
-          <div className="absolute inset-0" style={{
-            background: 'radial-gradient(ellipse at 85% 40%, rgba(227,0,15,0.1) 0%, transparent 55%)',
-          }} />
-        </div>
+      <div style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 200,
+        background: '#000',
+        opacity: menuOpen ? 1 : 0,
+        pointerEvents: menuOpen ? 'all' : 'none',
+        transition: 'opacity 0.2s ease',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+      }}>
+        {/* Scanlines on overlay */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 4px)',
+          pointerEvents: 'none',
+        }} />
 
         {/* Overlay nav bar */}
-        <div
-          className="relative z-10 flex items-center justify-between px-5 border-b"
-          style={{ height: 80, borderColor: 'var(--color-brand-gray-mid)' }}
-        >
-          <Link href="/" onClick={() => setMenuOpen(false)}>
-            <Image
-              src="/images/rrr-logo.jpg"
-              alt="RRR"
-              width={48}
-              height={48}
-              style={{ display: 'block' }}
-            />
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 1.5rem',
+          height: 80,
+          borderBottom: '1px solid #1a0000',
+          position: 'relative',
+          zIndex: 1,
+        }}>
+          <Link href="/" onClick={() => setMenuOpen(false)} style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: '1rem',
+            fontWeight: 700,
+            color: '#e3000f',
+            letterSpacing: '0.15em',
+            textShadow: '0 0 10px rgba(227,0,15,0.4)',
+            textDecoration: 'none',
+          }}>
+            GENWUNNER
           </Link>
           <button
             onClick={() => setMenuOpen(false)}
-            style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+            style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: '0.65rem',
+              fontWeight: 700,
+              letterSpacing: '0.12em',
+              color: '#e3000f',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+            }}
           >
-            <span style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '1.4rem',
-              letterSpacing: '0.15em',
-              color: 'var(--color-brand-white)',
-            }}>
-              CLOSE ✕
-            </span>
+            [ CLOSE ✕ ]
           </button>
         </div>
 
-        {/* Nav links — main content */}
-        <div className="relative z-10 flex-1 flex flex-col justify-center px-8 md:px-16">
-          <div
-            style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.4rem',
-              color: 'var(--color-brand-red)',
-              letterSpacing: '0.15em',
-              marginBottom: '1.5rem',
-            }}
-          >
+        {/* Nav links */}
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '0 2rem',
+          position: 'relative',
+          zIndex: 1,
+          borderBottom: '1px solid #0d0000',
+        }}>
+          <div style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: '0.5rem',
+            color: '#330000',
+            letterSpacing: '0.15em',
+            marginBottom: '1.5rem',
+          }}>
             // NAVIGATE THE REGIME
           </div>
 
-          <nav className="flex flex-col">
-            {navLinks.map((link, i) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="group flex items-baseline justify-between border-b py-4 md:py-5"
-                style={{
-                  borderColor: 'var(--color-brand-gray-mid)',
-                  opacity: menuOpen ? 1 : 0,
-                  transform: menuOpen ? 'translateY(0)' : 'translateY(12px)',
-                  transition: `opacity 0.3s ease ${i * 0.04 + 0.1}s, transform 0.3s ease ${i * 0.04 + 0.1}s`,
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(2.5rem, 6vw, 5rem)',
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
-                    color: (link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)) ? 'var(--color-brand-red)' : 'var(--color-brand-white)',
-                    transition: 'color 0.15s',
-                    lineHeight: 1.1,
-                  }}
-                  className="group-hover:!text-[var(--color-brand-red)]"
-                >
-                  {link.label}
-                </span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-pixel)',
-                    fontSize: '0.38rem',
-                    color: 'var(--color-brand-off)',
-                    letterSpacing: '0.1em',
-                  }}
-                >
-                  {link.sub} →
-                </span>
-              </Link>
-            ))}
-          </nav>
+          {navLinks.map((link, i) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                display: 'flex',
+                alignItems: 'baseline',
+                justifyContent: 'space-between',
+                borderBottom: '1px solid #0d0000',
+                padding: '1rem 0',
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? 'translateX(0)' : 'translateX(-8px)',
+                transition: `opacity 0.25s ease ${i * 0.04 + 0.05}s, transform 0.25s ease ${i * 0.04 + 0.05}s`,
+                textDecoration: 'none',
+              }}
+            >
+              <span style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: 'clamp(1.5rem, 5vw, 3rem)',
+                fontWeight: 700,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                color: isActive(link.href) ? '#e3000f' : '#880000',
+                transition: 'color 0.12s',
+                lineHeight: 1.1,
+              }}>
+                {link.label}
+              </span>
+              <span style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: '0.5rem',
+                color: '#330000',
+                letterSpacing: '0.1em',
+              }}>
+                // {link.sub} →
+              </span>
+            </Link>
+          ))}
         </div>
 
         {/* Bottom — socials + enlist */}
-        <div
-          className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-8 md:px-16 py-6 border-t"
-          style={{ borderColor: 'var(--color-brand-gray-mid)' }}
-        >
-          <div className="flex flex-wrap gap-4">
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column' as const,
+          gap: '1rem',
+          padding: '1.25rem 2rem',
+          position: 'relative',
+          zIndex: 1,
+        }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '1.25rem' }}>
             {socials.map(s => (
               <a
                 key={s.label}
@@ -322,13 +311,15 @@ export default function Nav() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  fontFamily: 'var(--font-pixel)',
-                  fontSize: '0.38rem',
-                  color: 'var(--color-brand-off)',
+                  fontFamily: "'Courier New', monospace",
+                  fontSize: '0.55rem',
+                  color: '#440000',
                   letterSpacing: '0.08em',
-                  transition: 'color 0.15s',
+                  transition: 'color 0.12s',
+                  textDecoration: 'none',
                 }}
-                className="hover:!text-[var(--color-brand-white)]"
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e3000f'}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#440000'}
               >
                 {s.label}
               </a>
@@ -337,42 +328,55 @@ export default function Nav() {
           <Link
             href="/wunnerdex"
             onClick={() => setMenuOpen(false)}
-            className="btn-primary"
+            style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: '0.65rem',
+              fontWeight: 700,
+              letterSpacing: '0.12em',
+              color: '#000',
+              background: '#e3000f',
+              border: '1px solid #e3000f',
+              padding: '0.6rem 1.5rem',
+              textDecoration: 'none',
+              display: 'inline-block',
+              alignSelf: 'flex-start',
+            }}
           >
-            🚀 Enlist in the Regime
+            [ ENLIST IN THE REGIME ]
           </Link>
         </div>
       </div>
 
       {/* ── Mobile Sticky Bottom Bar ── */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-50 md:hidden grid grid-cols-4 border-t"
+        className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
         style={{
-          background: 'var(--color-brand-black)',
-          borderColor: 'var(--color-brand-gray-mid)',
+          background: '#000',
+          borderTop: '1px solid #1a0000',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
         }}
       >
         {[
           { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO', label: 'Stream',  external: true,  primary: false },
-          { href: 'https://discord.gg/6c28f8JXKV',                               label: 'Discord', external: true,  primary: false },
-          { href: '/wunnerdex', label: 'Enlist', external: false, primary: true  },
-          { href: '/shows',     label: 'Raids',  external: false, primary: false },
-        ].map((item, _i, arr) => {
-          const anyInternalActive = arr.some(i => !i.external && pathname.startsWith(i.href))
-          const isActive = !item.external && pathname.startsWith(item.href)
-          const highlighted = isActive || (item.primary && !anyInternalActive)
+          { href: 'https://discord.gg/6c28f8JXKV',                           label: 'Discord', external: true,  primary: false },
+          { href: '/wunnerdex',                                               label: 'Enlist',  external: false, primary: true  },
+          { href: '/shows',                                                   label: 'Raids',   external: false, primary: false },
+        ].map(item => {
           const style: React.CSSProperties = {
-            fontFamily: 'var(--font-pixel)',
-            fontSize: '0.34rem',
+            fontFamily: "'Courier New', monospace",
+            fontSize: '0.44rem',
+            fontWeight: 700,
             letterSpacing: '0.06em',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             paddingTop: '0.75rem',
             paddingBottom: '0.75rem',
-            background: highlighted ? 'var(--color-brand-red)' : 'transparent',
-            color: highlighted ? 'white' : 'rgba(240,240,240,0.45)',
-            transition: 'background 0.15s, color 0.15s',
+            background: item.primary ? '#e3000f' : 'transparent',
+            color: item.primary ? '#000' : '#440000',
+            textDecoration: 'none',
+            textTransform: 'uppercase',
           }
           return item.external ? (
             <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" style={style}>

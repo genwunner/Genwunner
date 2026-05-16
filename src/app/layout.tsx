@@ -1,24 +1,10 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Bebas_Neue, Press_Start_2P } from "next/font/google";
+import { Press_Start_2P } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  variable: "--font-bebas-neue",
-  subsets: ["latin"],
-  display: "swap",
-});
-
+// Courier New is a system font — loaded via CSS, no Next.js import needed
+// Press Start 2P still used for pixel accent labels
 const pressStart = Press_Start_2P({
   weight: "400",
   variable: "--font-press-start",
@@ -55,15 +41,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`
-        ${geistSans.variable}
-        ${geistMono.variable}
-        ${bebasNeue.variable}
-        ${pressStart.variable}
-        h-full antialiased
-      `}
+      className={`${pressStart.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col" style={{ background: 'var(--color-brand-black)', color: 'var(--color-brand-white)' }}>
+      <body
+        className="min-h-full flex flex-col"
+        style={{ background: '#000', color: '#cc0000' }}
+      >
         {children}
       </body>
     </html>

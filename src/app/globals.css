@@ -1,71 +1,77 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────
-   GENWUNNER — Global Design System
-   PokéRage × 90s Pokémania × Team Rocket Rebellion
+   GENWUNNER — Terminal Design System
+   RRR × Team Rocket × Wunnlife Industries Terminal
    ───────────────────────────────────────────────── */
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #f0f0f0;
+  --background: #000000;
+  --foreground: #cc0000;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-bebas-neue);
-  --font-pixel: var(--font-press-start);
+  --font-sans:    var(--font-courier);
+  --font-mono:    var(--font-courier);
+  --font-display: var(--font-courier);
+  --font-pixel:   var(--font-press-start);
 
-  --color-brand-black:    #0a0a0a;
-  --color-brand-gray:     #141414;
-  --color-brand-gray-mid: #242424;
-  --color-brand-gray-hi:  #3a3a3a;
+  /* Terminal red palette — matches intro sequence */
+  --color-brand-black:     #000000;
+  --color-brand-surface:   #030000;
+  --color-brand-surface2:  #060000;
 
-  --color-brand-red:      #e3000f;
-  --color-brand-red-dark: #a50009;
-  --color-brand-red-glow: #e3000f40;
+  --color-brand-red:       #e3000f;   /* bright — RRR logo, CTAs */
+  --color-brand-red-mid:   #cc0000;   /* mid — headings, active */
+  --color-brand-red-dim:   #880000;   /* dim — secondary text */
+  --color-brand-red-dark:  #550000;   /* dark — borders, muted */
+  --color-brand-red-deep:  #1a0000;   /* deep — dividers */
+  --color-brand-red-abyss: #0a0000;   /* abyss — input bg */
 
-  --color-brand-white:    #f0f0f0;
-  --color-brand-off:      #777777;
+  --color-brand-highlight: #ff5555;   /* confirmed/highlight lines */
+  --color-brand-white:     #f0f0f0;   /* kept for terminal text on red bg */
 
-  --color-brand-yellow:   #ffcc00;
-  --color-brand-blue:     #2a6df5;
-  --color-brand-gameboy:  #9bbc0f;
+  /* Legacy aliases so existing components don't break */
+  --color-brand-gray:      #030000;
+  --color-brand-gray-mid:  #1a0000;
+  --color-brand-gray-hi:   #550000;
+  --color-brand-off:       #550000;
+  --color-brand-yellow:    #e3000f;   /* remapped to red */
 }
 
 /* ─────────────────────────────────────────────────
    BASE
    ───────────────────────────────────────────────── */
 
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
+  background: #000;
+  color: #cc0000;
+  font-family: 'Courier New', Courier, monospace;
   -webkit-font-smoothing: antialiased;
+  /* CRT scanlines */
   background-image: repeating-linear-gradient(
     0deg,
     transparent,
-    transparent 2px,
-    rgba(255, 255, 255, 0.012) 2px,
-    rgba(255, 255, 255, 0.012) 4px
+    transparent 3px,
+    rgba(0, 0, 0, 0.18) 3px,
+    rgba(0, 0, 0, 0.18) 4px
   );
 }
 
+/* Override heading defaults — everything monospace now */
 h1, h2, h3, h4 {
-  font-family: var(--font-display);
-  letter-spacing: 0.05em;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1.05;
+  color: #cc0000;
 }
 
 a {
@@ -78,37 +84,38 @@ a {
    ───────────────────────────────────────────────── */
 
 .font-pixel {
-  font-family: var(--font-pixel);
-  font-size: 0.55rem;
-  line-height: 1.9;
-  letter-spacing: 0.05em;
+  font-family: var(--font-press-start), 'Courier New', monospace;
+  font-size: 0.48rem;
+  line-height: 2;
+  letter-spacing: 0.06em;
 }
 
 .font-display {
-  font-family: var(--font-display);
-  letter-spacing: 0.05em;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.font-terminal {
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.06em;
 }
 
 .section-title {
-  font-family: var(--font-display);
-  letter-spacing: 0.05em;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-brand-white);
+  color: #cc0000;
   line-height: 1;
 }
 
-.text-neon-red {
-  color: var(--color-brand-red);
-  text-shadow:
-    0 0 10px var(--color-brand-red-glow),
-    0 0 30px var(--color-brand-red-glow),
-    0 0 60px var(--color-brand-red-glow);
-}
-
-.text-muted {
-  color: var(--color-brand-off);
-}
+.text-bright  { color: #e3000f; text-shadow: 0 0 8px rgba(227,0,15,0.5); }
+.text-mid     { color: #cc0000; }
+.text-dim     { color: #880000; }
+.text-muted   { color: #550000; }
+.text-deep    { color: #330000; }
 
 /* ─────────────────────────────────────────────────
    LAYOUT
@@ -116,40 +123,37 @@ a {
 
 .brand-rule {
   border: none;
-  border-top: 1px solid rgba(227,0,15,0.4);
-  margin: 0 0 2.5rem 0;
-}
-
-.section {
-  padding-block: clamp(3rem, 8vw, 6rem);
+  border-top: 1px solid #1a0000;
+  margin: 0 0 2rem 0;
 }
 
 /* ─────────────────────────────────────────────────
-   BUTTONS
+   BUTTONS — terminal bracket style
    ───────────────────────────────────────────────── */
 
 .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: var(--color-brand-red);
-  color: var(--color-brand-white);
-  font-family: var(--font-display);
-  font-size: 1.1rem;
+  background: #e3000f;
+  color: #000;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 0.65rem 1.75rem;
-  border: none;
+  padding: 0.6rem 1.5rem;
+  border: 1px solid #e3000f;
   border-radius: 0;
   cursor: pointer;
-  transition: background 0.15s ease, box-shadow 0.15s ease;
+  transition: background 0.12s, box-shadow 0.12s;
   white-space: nowrap;
   text-decoration: none;
 }
 
 .btn-primary:hover {
-  background: var(--color-brand-red-dark);
-  box-shadow: 0 0 24px var(--color-brand-red-glow);
+  background: #ff0000;
+  box-shadow: 0 0 20px rgba(227,0,15,0.5);
 }
 
 .btn-outline {
@@ -157,109 +161,91 @@ a {
   align-items: center;
   gap: 0.4rem;
   background: transparent;
-  color: var(--color-brand-white);
-  font-family: var(--font-display);
-  font-size: 1.1rem;
+  color: #880000;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 0.65rem 1.75rem;
-  border: 1px solid var(--color-brand-gray-hi);
+  padding: 0.6rem 1.5rem;
+  border: 1px solid #330000;
   border-radius: 0;
   cursor: pointer;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: border-color 0.12s, color 0.12s;
   white-space: nowrap;
   text-decoration: none;
 }
 
 .btn-outline:hover {
-  border-color: var(--color-brand-red);
-  color: var(--color-brand-red);
+  border-color: #e3000f;
+  color: #e3000f;
 }
 
 .btn-sm {
-  font-size: 0.85rem;
-  padding: 0.4rem 1rem;
+  font-size: 0.6rem;
+  padding: 0.35rem 0.85rem;
 }
 
 /* ─────────────────────────────────────────────────
-   CARDS
+   CARDS — terminal panel style
    ───────────────────────────────────────────────── */
 
 .brand-card {
-  background: var(--color-brand-gray);
-  border: 1px solid var(--color-brand-gray-mid);
+  background: #030000;
+  border: 1px solid #1a0000;
   border-radius: 0;
   overflow: hidden;
-  transition: border-color 0.2s ease;
-}
-
-.brand-card:hover {
-  border-color: var(--color-brand-red);
-}
-
-.card-holo {
-  background: var(--color-brand-gray);
-  border: 1px solid var(--color-brand-gray-mid);
-  border-radius: 0;
-  overflow: hidden;
+  transition: border-color 0.15s;
   position: relative;
-  transition: border-color 0.2s ease;
 }
 
-.card-holo::before {
+.brand-card::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    transparent 20%,
-    rgba(255, 110, 199, 0.08) 35%,
-    rgba(255, 204, 0, 0.08) 50%,
-    rgba(42, 109, 245, 0.08) 65%,
-    transparent 80%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: #e3000f;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.2s;
 }
 
-.card-holo:hover::before { opacity: 1; }
-.card-holo:hover { border-color: var(--color-brand-yellow); }
+.brand-card:hover { border-color: #e3000f; }
+.brand-card:hover::before { transform: scaleY(1); }
 
 /* ─────────────────────────────────────────────────
-   FORMS
+   FORMS — terminal input style
    ───────────────────────────────────────────────── */
 
 .brand-input {
-  background: var(--color-brand-gray);
-  color: var(--color-brand-white);
-  border: 1px solid var(--color-brand-gray-mid);
+  background: #0a0000;
+  color: #cc0000;
+  border: 1px solid #280000;
   border-radius: 0;
-  padding: 0.7rem 1rem;
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
+  padding: 0.5rem 0.75rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
   width: 100%;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.12s;
 }
 
 .brand-input:focus {
   outline: none;
-  border-color: var(--color-brand-red);
-  box-shadow: 0 0 0 1px var(--color-brand-red);
+  border-color: #e3000f;
+  box-shadow: 0 0 0 1px rgba(227,0,15,0.3);
 }
 
-.brand-input::placeholder {
-  color: #484848;
-}
+.brand-input::placeholder { color: #280000; }
 
 .brand-label {
-  font-family: var(--font-pixel);
-  font-size: 0.42rem;
-  color: var(--color-brand-yellow);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.55rem;
+  color: #ff5555;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   display: block;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
 }
 
 /* ─────────────────────────────────────────────────
@@ -267,37 +253,51 @@ a {
    ───────────────────────────────────────────────── */
 
 .nav-link {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 0.08em;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-brand-white);
-  transition: color 0.15s ease;
+  color: #550000;
+  transition: color 0.12s;
   text-decoration: none;
 }
 
-.nav-link:hover {
-  color: var(--color-brand-red);
-}
+.nav-link:hover { color: #e3000f; }
 
 /* ─────────────────────────────────────────────────
    STATS
    ───────────────────────────────────────────────── */
 
 .stat-number {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 700;
   line-height: 1;
-  color: var(--color-brand-white);
+  color: #ff5555;
+  letter-spacing: 0.04em;
 }
 
 .stat-label {
-  font-family: var(--font-pixel);
-  font-size: 0.42rem;
-  color: var(--color-brand-yellow);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.44rem;
+  color: #440000;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-top: 0.35rem;
+  letter-spacing: 0.08em;
+  margin-top: 0.3rem;
+}
+
+/* ─────────────────────────────────────────────────
+   TERMINAL DECORATORS
+   ───────────────────────────────────────────────── */
+
+.term-prefix {
+  color: #e3000f;
+  margin-right: 0.4rem;
+}
+
+.term-bracket {
+  color: #e3000f;
 }
 
 /* ─────────────────────────────────────────────────
@@ -314,19 +314,29 @@ a {
   to   { transform: rotate(360deg); }
 }
 
+@keyframes terminal-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes scanline-sweep {
+  from { top: -6px; }
+  to   { top: 100%; }
+}
+
 /* ─────────────────────────────────────────────────
    SCROLLBAR
    ───────────────────────────────────────────────── */
 
 ::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: var(--color-brand-black); }
-::-webkit-scrollbar-thumb { background: var(--color-brand-red); }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #e3000f; }
 
 /* ─────────────────────────────────────────────────
    SELECTION
    ───────────────────────────────────────────────── */
 
 ::selection {
-  background: var(--color-brand-red);
-  color: var(--color-brand-white);
+  background: #e3000f;
+  color: #000;
 }
