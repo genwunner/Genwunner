@@ -348,25 +348,27 @@ export default function Nav() {
         }}
       >
         {[
-          { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO', label: 'Stream',  external: true,  primary: false },
-          { href: 'https://discord.gg/6c28f8JXKV',                           label: 'Discord', external: true,  primary: false },
-          { href: '/wunnerdex',                                               label: 'Enlist',  external: false, primary: true  },
-          { href: '/shows',                                                   label: 'Raids',   external: false, primary: false },
+          { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO', label: 'Stream',  external: true  },
+          { href: 'https://discord.gg/6c28f8JXKV',                           label: 'Discord', external: true  },
+          { href: '/wunnerdex',                                               label: 'Enlist',  external: false },
+          { href: '/shows',                                                   label: 'Raids',   external: false },
         ].map(item => {
+          const active = !item.external && isActive(item.href)
           const style: React.CSSProperties = {
             fontFamily: "'Courier New', monospace",
-            fontSize: '0.44rem',
+            fontSize: '0.7rem',
             fontWeight: 700,
             letterSpacing: '0.06em',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            paddingTop: '0.75rem',
-            paddingBottom: '0.75rem',
-            background: item.primary ? '#e3000f' : 'transparent',
-            color: item.primary ? '#000' : '#440000',
+            paddingTop: '0.9rem',
+            paddingBottom: '0.9rem',
+            background: active ? '#e3000f' : 'transparent',
+            color: active ? '#000' : '#880000',
             textDecoration: 'none',
             textTransform: 'uppercase',
+            transition: 'background 0.12s, color 0.12s',
           }
           return item.external ? (
             <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" style={style}>

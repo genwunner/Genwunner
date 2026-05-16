@@ -188,41 +188,6 @@ export default async function HomePage() {
         ))}
       </div>
 
-      {/* ── TRANSMISSION BANNER ── */}
-      <div style={{
-        background: '#060000',
-        borderBottom: '1px solid #0d0000',
-        padding: '0.85rem 1.5rem',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '1rem',
-        flexWrap: 'wrap' as const,
-      }}>
-        <span style={{
-          fontFamily: '"Courier New", monospace',
-          fontSize: '0.55rem',
-          color: '#e3000f',
-          border: '1px solid #440000',
-          padding: '0.18rem 0.5rem',
-          letterSpacing: '0.1em',
-          whiteSpace: 'nowrap' as const,
-          flexShrink: 0,
-        }}>
-          // INCOMING
-        </span>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.7rem', color: '#aa0000', letterSpacing: '0.05em' }}>
-            EU TOUR 2026 — KANTO EXPANSION BEGINS OCT 2
-          </div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#770000', marginTop: '0.15rem', letterSpacing: '0.04em' }}>
-            &gt; Birmingham · Manchester · Glasgow · London · w/ Cam Steady &amp; NateWantsToBattle
-          </div>
-        </div>
-        <Link href="/shows" className="btn-outline" style={{ fontSize: '0.55rem', padding: '0.28rem 0.6rem', whiteSpace: 'nowrap' as const, flexShrink: 0 }}>
-          VIEW ALL RAIDS &gt;
-        </Link>
-      </div>
-
       {/* ── SECTION 2: ARSENAL ── */}
       <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
