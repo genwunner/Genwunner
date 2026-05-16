@@ -160,6 +160,8 @@ export default function Nav() {
           width: '38%',
           overflow: 'hidden',
           zIndex: 0,
+          opacity: menuOpen ? 1 : 0,
+          transition: 'opacity 0.5s ease 0.2s',
         }} className="hidden sm:block">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

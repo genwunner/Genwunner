@@ -30,9 +30,9 @@ function TermHead({
 
   return (
     <div style={{
-      fontFamily: '"Courier New", Courier, monospace',
+      fontFamily: 'var(--font-heading), "Courier New", Courier, monospace',
       fontSize,
-      fontWeight: 700,
+      fontWeight: 400,
       letterSpacing: '0.06em',
       textTransform: 'uppercase',
       lineHeight: 1.1,

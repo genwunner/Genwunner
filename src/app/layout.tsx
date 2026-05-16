@@ -1,13 +1,18 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
-import { Press_Start_2P } from "next/font/google";
+import { Press_Start_2P, Black_Ops_One } from "next/font/google";
 import "./globals.css";
 
-// Courier New is a system font — loaded via CSS, no Next.js import needed
-// Press Start 2P still used for pixel accent labels
 const pressStart = Press_Start_2P({
   weight: "400",
   variable: "--font-press-start",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const blackOps = Black_Ops_One({
+  weight: "400",
+  variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
 });
@@ -41,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${pressStart.variable} h-full`}
+      className={`${pressStart.variable} ${blackOps.variable} h-full`}
     >
       <body
         className="min-h-full flex flex-col"
