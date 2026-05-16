@@ -76,8 +76,6 @@ export default function PackOpeningIntro() {
     : rotation
 
   const SIZE = 264
-  const HALF = SIZE / 2
-  const BAND = Math.round(SIZE * 0.092)
   const BTN_OUTER = Math.round(SIZE * 0.21)
   const BTN_INNER = Math.round(SIZE * 0.09)
   const BORDER = Math.round(SIZE * 0.026)
@@ -109,74 +107,53 @@ export default function PackOpeningIntro() {
             display: isOpen ? 'none' : 'block',
             transform: `rotate(${dispRotation}deg)`,
             transition: phase === 'settling' ? 'transform 0.45s cubic-bezier(0.34,1.5,0.64,1)' : undefined,
-            filter: progress > 0.85 ? `drop-shadow(0 0 ${Math.round(12 * progress)}px rgba(220,38,38,0.6))` : undefined,
+            filter: progress > 0.85 ? `drop-shadow(0 0 ${Math.round(18 * progress)}px rgba(220,38,38,0.7))` : undefined,
           }}
         >
-          <PokeballSVG size={SIZE} />
+          <img
+            src="/images/rrr-ball-3d.png"
+            alt=""
+            width={SIZE}
+            height={SIZE}
+            style={{ display: 'block', userSelect: 'none', pointerEvents: 'none' }}
+          />
         </div>
 
         {/* ── SPLIT BALL — shown during open phase ── */}
         {isOpen && (
           <div style={{ position: 'relative', width: SIZE, height: SIZE }}>
 
-            {/* Top dome — flies upward */}
-            <div style={{
-              position: 'absolute', top: 0, left: 0, right: 0,
-              height: HALF, overflow: 'hidden',
-              transform: 'translateY(-210px)',
-              transition: 'transform 0.52s cubic-bezier(0.55,0,1,0.45)',
-            }}>
-              <svg width={SIZE} height={SIZE} viewBox="0 0 100 100">
-                <defs>
-                  <clipPath id="top-clip"><rect x="0" y="0" width="100" height="50" /></clipPath>
-                  <radialGradient id="split-top-grad" cx="65%" cy="28%" r="72%">
-                    <stop offset="0%"   stopColor="#787878" />
-                    <stop offset="18%"  stopColor="#2c2c2c" />
-                    <stop offset="50%"  stopColor="#0e0e0e" />
-                    <stop offset="100%" stopColor="#030303" />
-                  </radialGradient>
-                </defs>
-                <circle cx="50" cy="50" r="46" fill="url(#split-top-grad)" clipPath="url(#top-clip)" />
-                <ellipse cx="65" cy="24" rx="20" ry="12" fill="rgba(255,255,255,0.14)" clipPath="url(#top-clip)" />
-                <ellipse cx="70" cy="16" rx="5"  ry="2.5" fill="rgba(255,255,255,0.35)" clipPath="url(#top-clip)" />
-                <circle cx="50" cy="50" r="46" fill="none" stroke="#444" strokeWidth="8" clipPath="url(#top-clip)" />
-              </svg>
-            </div>
+            {/* Top half — clips to upper 50%, flies upward */}
+            <img
+              src="/images/rrr-ball-3d.png"
+              alt=""
+              width={SIZE}
+              height={SIZE}
+              style={{
+                position: 'absolute', top: 0, left: 0,
+                display: 'block',
+                clipPath: 'inset(0 0 50% 0)',
+                transform: 'translateY(-210px)',
+                transition: 'transform 0.52s cubic-bezier(0.55,0,1,0.45)',
+                userSelect: 'none', pointerEvents: 'none',
+              }}
+            />
 
-            {/* Bottom dome — flies downward */}
-            <div style={{
-              position: 'absolute', bottom: 0, left: 0, right: 0,
-              height: HALF, overflow: 'hidden', display: 'flex', alignItems: 'flex-end',
-              transform: 'translateY(210px)',
-              transition: 'transform 0.52s cubic-bezier(0.55,0,1,0.45)',
-            }}>
-              <svg width={SIZE} height={SIZE} viewBox="0 0 100 100" style={{ flexShrink: 0 }}>
-                <defs>
-                  <clipPath id="bot-clip"><rect x="0" y="50" width="100" height="50" /></clipPath>
-                  <radialGradient id="split-bot-grad" cx="50%" cy="72%" r="72%">
-                    <stop offset="0%"   stopColor="#f4f4f4" />
-                    <stop offset="40%"  stopColor="#e2e2e2" />
-                    <stop offset="75%"  stopColor="#c8c8c8" />
-                    <stop offset="100%" stopColor="#adadad" />
-                  </radialGradient>
-                  <linearGradient id="split-bot-ao" x1="0" y1="50" x2="0" y2="100" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%"   stopColor="rgba(0,0,0,0.42)" />
-                    <stop offset="30%"  stopColor="rgba(0,0,0,0.08)" />
-                    <stop offset="100%" stopColor="rgba(0,0,0,0)" />
-                  </linearGradient>
-                </defs>
-                <circle cx="50" cy="50" r="46" fill="url(#split-bot-grad)" clipPath="url(#bot-clip)" />
-                <circle cx="50" cy="50" r="46" fill="url(#split-bot-ao)"   clipPath="url(#bot-clip)" />
-                <ellipse cx="50" cy="80" rx="20" ry="9" fill="rgba(255,255,255,0.18)" clipPath="url(#bot-clip)" />
-                <circle cx="50" cy="50" r="46" fill="none" stroke="#333" strokeWidth="8" clipPath="url(#bot-clip)" />
-              </svg>
-            </div>
-
-            {/* Center band — stays, fades */}
-            <div style={{
-              position: 'absolute', top: '50%', transform: 'translateY(-50%)',
-              left: 0, right: 0, height: BAND, background: '#000', zIndex: 5,
-            }} />
+            {/* Bottom half — clips to lower 50%, flies downward */}
+            <img
+              src="/images/rrr-ball-3d.png"
+              alt=""
+              width={SIZE}
+              height={SIZE}
+              style={{
+                position: 'absolute', top: 0, left: 0,
+                display: 'block',
+                clipPath: 'inset(50% 0 0 0)',
+                transform: 'translateY(210px)',
+                transition: 'transform 0.52s cubic-bezier(0.55,0,1,0.45)',
+                userSelect: 'none', pointerEvents: 'none',
+              }}
+            />
 
             {/* Center button — glows red on open */}
             <div style={{
@@ -239,102 +216,3 @@ export default function PackOpeningIntro() {
   )
 }
 
-function PokeballSVG({ size }: { size: number }) {
-  const logoSize = Math.round(size * 0.44)
-  return (
-    <div style={{ position: 'relative', width: size, height: size, display: 'block' }}>
-      <svg width={size} height={size} viewBox="0 0 100 100" style={{ display: 'block' }}>
-        <defs>
-          <clipPath id="pokeball-clip">
-            <circle cx="50" cy="50" r="46" />
-          </clipPath>
-
-          {/* Top (dark) half — light source upper-right, like the reference */}
-          <radialGradient id="pb-top" cx="65%" cy="28%" r="72%">
-            <stop offset="0%"   stopColor="#787878" />
-            <stop offset="18%"  stopColor="#2c2c2c" />
-            <stop offset="50%"  stopColor="#0e0e0e" />
-            <stop offset="100%" stopColor="#030303" />
-          </radialGradient>
-
-          {/* Bottom (white) half — metallic silver, bright center, darkens toward edges */}
-          <radialGradient id="pb-bot" cx="50%" cy="72%" r="72%">
-            <stop offset="0%"   stopColor="#f4f4f4" />
-            <stop offset="40%"  stopColor="#e2e2e2" />
-            <stop offset="75%"  stopColor="#c8c8c8" />
-            <stop offset="100%" stopColor="#adadad" />
-          </radialGradient>
-
-          {/* Ambient occlusion: darkens the bottom half right at the equator */}
-          <linearGradient id="pb-bot-ao" x1="0" y1="50" x2="0" y2="100" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stopColor="rgba(0,0,0,0.42)" />
-            <stop offset="30%"  stopColor="rgba(0,0,0,0.08)" />
-            <stop offset="100%" stopColor="rgba(0,0,0,0)" />
-          </linearGradient>
-
-          {/* White button disc — convex bulge look */}
-          <radialGradient id="pb-btn-white" cx="40%" cy="38%" r="65%">
-            <stop offset="0%"   stopColor="#ffffff" />
-            <stop offset="60%"  stopColor="#e8e8e8" />
-            <stop offset="100%" stopColor="#cccccc" />
-          </radialGradient>
-
-          {/* Outer ring: gradient upper-right light */}
-          <linearGradient id="ring-grad" x1="96" y1="4" x2="4" y2="96" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stopColor="#686868" />
-            <stop offset="45%"  stopColor="#282828" />
-            <stop offset="100%" stopColor="#131313" />
-          </linearGradient>
-        </defs>
-
-        {/* ── TOP DOME ── */}
-        <rect x="0" y="0"  width="100" height="50" fill="url(#pb-top)" clipPath="url(#pokeball-clip)" />
-
-        {/* Specular — large soft bloom upper-right */}
-        <ellipse cx="65" cy="24" rx="20" ry="12" fill="rgba(255,255,255,0.14)" clipPath="url(#pokeball-clip)" />
-        {/* Specular — tight bright core */}
-        <ellipse cx="68" cy="19" rx="10" ry="5.5" fill="rgba(255,255,255,0.24)" clipPath="url(#pokeball-clip)" />
-        {/* Specular — very tight glint */}
-        <ellipse cx="70" cy="16" rx="5"  ry="2.5" fill="rgba(255,255,255,0.35)" clipPath="url(#pokeball-clip)" />
-
-        {/* ── BOTTOM DOME ── */}
-        <rect x="0" y="50" width="100" height="50" fill="url(#pb-bot)" clipPath="url(#pokeball-clip)" />
-        {/* AO shadow at equator */}
-        <rect x="0" y="50" width="100" height="50" fill="url(#pb-bot-ao)" clipPath="url(#pokeball-clip)" />
-        {/* Bottom dome sheen */}
-        <ellipse cx="50" cy="80" rx="20" ry="9" fill="rgba(255,255,255,0.18)" clipPath="url(#pokeball-clip)" />
-
-        {/* ── CENTER BAND ── thick and prominent like the reference */}
-        <rect x="0" y="43" width="100" height="14" fill="#0a0a0a" clipPath="url(#pokeball-clip)" />
-
-        {/* ── OUTER RING ── */}
-        <circle cx="50" cy="50" r="46" fill="none" stroke="url(#ring-grad)" strokeWidth="8" />
-
-        {/* ── CENTER BUTTON ── dark outer ring, white convex disc, red center */}
-        <circle cx="50" cy="50" r="14" fill="#0d0d0d" />
-        <circle cx="50" cy="50" r="10" fill="url(#pb-btn-white)" />
-        <circle cx="50" cy="50" r="4.5" fill="#e3000f" />
-        {/* Button glint */}
-        <ellipse cx="48" cy="47.5" rx="2.2" ry="1.4" fill="rgba(255,255,255,0.6)" />
-      </svg>
-
-      {/* RRR logo — screen blend removes black bg, only red Rs show */}
-      <img
-        src="/images/rrr-logo.jpg"
-        alt="RRR"
-        style={{
-          position: 'absolute',
-          top: '7%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: logoSize,
-          height: logoSize,
-          objectFit: 'contain',
-          userSelect: 'none',
-          pointerEvents: 'none',
-          mixBlendMode: 'screen',
-        }}
-      />
-    </div>
-  )
-}
