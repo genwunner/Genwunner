@@ -119,7 +119,7 @@ export default function Nav() {
 
         {/* Right side — spinning logo + menu toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <SpinningPokeball size={38} speed="4s" />
+          <SpinningPokeball size={38} speed="4s" className="hidden md:block" />
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             style={{

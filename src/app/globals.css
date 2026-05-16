@@ -336,6 +336,14 @@ body[data-intro-done] .site-content {
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* Hero: bottom-anchored on mobile, centered on desktop */
+@media (min-width: 768px) {
+  .hero-section {
+    justify-content: center;
+    padding-bottom: 0;
+  }
+}
+
 /* ─────────────────────────────────────────────────
    SCROLLBAR
    ───────────────────────────────────────────────── */

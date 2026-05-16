@@ -22,7 +22,6 @@ export default function SpinningPokeball({
       style={{
         animation: `spin ${speed} linear infinite`,
         flexShrink: 0,
-        display: 'block',
         ...style,
       }}
     />

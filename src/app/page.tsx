@@ -84,16 +84,18 @@ export default async function HomePage() {
       <Nav />
 
       {/* ── SECTION 1: HERO ── */}
-      <section style={{
-        minHeight: '100svh',
-        display: 'flex',
-        flexDirection: 'column' as const,
-        justifyContent: 'center',
-        padding: '0 clamp(1.5rem, 5vw, 4rem)',
-        borderBottom: '1px solid #1a0000',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
+      <section
+        className="hero-section"
+        style={{
+          minHeight: '100svh',
+          display: 'flex',
+          flexDirection: 'column' as const,
+          justifyContent: 'flex-end',
+          padding: '0 clamp(1.5rem, 5vw, 4rem) clamp(2.5rem, 6svh, 5rem)',
+          borderBottom: '1px solid #1a0000',
+          position: 'relative',
+          overflow: 'hidden',
+        }}>
         {/* Stage photo — desktop right side */}
         <div className="absolute right-0 top-0 bottom-0 hidden md:block" style={{ width: '42%' }}>
           <Image
@@ -115,7 +117,7 @@ export default async function HomePage() {
         {/* Stage photo — mobile */}
         <div className="absolute inset-0 md:hidden">
           <Image src="/images/hero-stage.jpg" alt="" fill className="object-cover object-top" priority />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.5) 50%, #000 85%)' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.3) 45%, rgba(0,0,0,0.85) 70%, #000 90%)' }} />
         </div>
 
         {/* Hero content */}
@@ -239,12 +241,9 @@ export default async function HomePage() {
               }}>
                 {song.lore}
               </p>
-              <div style={{ display: 'flex', gap: '0.35rem', marginTop: '0.65rem' }}>
-                <a href={song.spotify} target="_blank" rel="noopener noreferrer" className="btn-primary btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
-                  Spotify
-                </a>
-                <a href={song.youtube} target="_blank" rel="noopener noreferrer" className="btn-outline btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
-                  YouTube
+              <div style={{ marginTop: '0.65rem' }}>
+                <a href={song.hypeddit} target="_blank" rel="noopener noreferrer" className="btn-primary btn-sm" style={{ width: '100%', justifyContent: 'center' }}>
+                  [ STREAM ]
                 </a>
               </div>
             </div>
@@ -328,13 +327,13 @@ export default async function HomePage() {
         flexWrap: 'wrap' as const,
       }}>
         <div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: 'rgba(0,0,0,0.5)', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>
+          <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.55rem', color: 'rgba(0,0,0,0.5)', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>
             // THE REGIME HAS A HOME BASE
           </div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(1rem, 2.5vw, 1.6rem)', fontWeight: 700, color: '#000', letterSpacing: '0.08em', textTransform: 'uppercase', lineHeight: 1 }}>
+          <div style={{ fontFamily: 'var(--font-heading), "Courier New", Courier, monospace', fontWeight: 400, fontSize: 'clamp(1rem, 2.5vw, 1.6rem)', color: '#000', letterSpacing: '0.06em', textTransform: 'uppercase', lineHeight: 1 }}>
             JOIN THE DISCORD
           </div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: 'rgba(0,0,0,0.65)', letterSpacing: '0.06em', marginTop: '0.4rem', lineHeight: 1.8 }}>
+          <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.6rem', color: 'rgba(0,0,0,0.65)', letterSpacing: '0.06em', marginTop: '0.4rem', lineHeight: 1.8 }}>
             City raid alerts · classified drops · Giovanni&apos;s journal · direct line
           </div>
         </div>
