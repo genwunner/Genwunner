@@ -1,174 +1,155 @@
 'use client'
 
 // src/components/public/TerminalIntro.tsx
-// Rocket Recruitment Regime — Fallout-style terminal login sequence
+// RRR Terminal — Fallout-style, fullscreen, requires LAUNCH interaction
 
 import { useEffect, useState, useRef } from 'react'
 
-const BOOT_LINES = [
-  { text: 'ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL',   delay: 0,    dim: true  },
-  { text: 'ROCKET RECRUITMENT REGIME // KANTO DIV.',   delay: 120,  dim: false },
-  { text: 'TERMINAL v3.3.1 — CLASSIFIED ACCESS ONLY',  delay: 240,  dim: true  },
-  { text: '',                                           delay: 360,  dim: false },
-  { text: 'INITIALIZING SECURE CONNECTION...',          delay: 480,  dim: true  },
-  { text: 'ENCRYPTING CHANNEL........... [COMPLETE]',   delay: 700,  dim: true  },
-  { text: 'ROUTING THROUGH KANTO MAINFRAME...',         delay: 920,  dim: true  },
-  { text: '',                                           delay: 1050, dim: false },
+const SEQUENCE: {
+  text: string
+  delay: number
+  dim?: boolean
+  highlight?: boolean
+  logo?: boolean
+}[] = [
+  { text: 'ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL',       delay: 200,  dim: true  },
+  { text: 'ROCKET RECRUITMENT REGIME // KANTO DIVISION',   delay: 500,  dim: false },
+  { text: 'TERMINAL v3.3.1 ——— CLASSIFIED ACCESS ONLY',    delay: 800,  dim: true  },
+  { text: '',                                              delay: 1000              },
+  { text: 'INITIALIZING SECURE CONNECTION...',             delay: 1200, dim: true  },
+  { text: 'ENCRYPTING CHANNEL.............. [COMPLETE]',   delay: 1700, dim: true  },
+  { text: 'ROUTING THROUGH KANTO MAINFRAME...',            delay: 2100, dim: true  },
+  { text: 'ESTABLISHING OPERATIVE UPLINK...',              delay: 2500, dim: true  },
+  { text: '',                                              delay: 2900              },
+  { text: ' ██████╗ ██████╗ ██████╗',                     delay: 3100, logo: true },
+  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                    delay: 3250, logo: true },
+  { text: ' ██████╔╝██████╔╝██████╔╝',                    delay: 3400, logo: true },
+  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                    delay: 3550, logo: true },
+  { text: ' ██║  ██║██║  ██║██║  ██║',                    delay: 3700, logo: true },
+  { text: ' ╚═════╝ ╚═════╝ ╚═════╝',                     delay: 3850, logo: true },
+  { text: '',                                              delay: 4000              },
+  { text: '  ROCKET RECRUITMENT REGIME',                   delay: 4150              },
+  { text: '  RIGHT HAND OF GIOVANNI — EST. 2022',          delay: 4350, dim: true  },
+  { text: '',                                              delay: 4550              },
+  { text: '> VERIFYING OPERATIVE CREDENTIALS...',          delay: 4800, dim: true  },
+  { text: '> OPERATIVE ID ............. GENWUNNER',        delay: 5300              },
+  { text: '> ACCESS LEVEL ............. [CLASSIFIED]',     delay: 5700              },
+  { text: '> CLEARANCE ................ EXECUTIVE+',       delay: 6100              },
+  { text: '',                                              delay: 6400              },
+  { text: '> IDENTITY CONFIRMED.',                         delay: 6700, highlight: true },
+  { text: '> WELCOME, OPERATIVE.',                         delay: 7100, highlight: true },
+  { text: '> THE BOSS IS WATCHING.',                       delay: 7500, highlight: true },
+  { text: '',                                              delay: 7900              },
+  { text: '> KANTO MAINFRAME ACCESS GRANTED.',             delay: 8200              },
+  { text: '> REGIME SITE READY TO LOAD.',                  delay: 8700              },
+  { text: '',                                              delay: 9100              },
 ]
 
-const LOGO_LINES = [
-  { text: ' ██████╗ ██████╗ ██████╗ ',  delay: 0   },
-  { text: ' ██╔══██╗██╔══██╗██╔══██╗',  delay: 80  },
-  { text: ' ██████╔╝██████╔╝██████╔╝',  delay: 160 },
-  { text: ' ██╔══██╗██╔══██╗██╔══██╗',  delay: 240 },
-  { text: ' ██║  ██║██║  ██║██║  ██║',  delay: 320 },
-  { text: ' ╚═════╝ ╚═════╝ ╚═════╝ ',  delay: 400 },
-]
-
-const LOGO_FOOTER = [
-  { text: '  ROCKET RECRUITMENT REGIME',  delay: 520  },
-  { text: '  RIGHT HAND OF GIOVANNI',     delay: 640  },
-  { text: '',                             delay: 760  },
-]
-
-const LOGIN_LINES = [
-  { text: '> VERIFYING OPERATIVE CREDENTIALS...',           delay: 0    },
-  { text: '> OPERATIVE ID ............. GENWUNNER',         delay: 300  },
-  { text: '> ACCESS LEVEL ............. [CLASSIFIED]',      delay: 500  },
-  { text: '> CLEARANCE ................ EXECUTIVE+',        delay: 700  },
-  { text: '',                                               delay: 900  },
-  { text: '> IDENTITY CONFIRMED.',                          delay: 1000, highlight: true },
-  { text: '> WELCOME, OPERATIVE.',                          delay: 1200, highlight: true },
-  { text: '> THE BOSS IS WATCHING.',                        delay: 1400, highlight: true },
-  { text: '',                                               delay: 1600  },
-  { text: '> LOADING REGIME MAINFRAME...',                  delay: 1700  },
-  { text: '> [████████████████████] 100%',                  delay: 2100  },
-  { text: '',                                               delay: 2300  },
-  { text: '> INITIALIZING SITE. STAND BY.',                 delay: 2400, highlight: true },
-]
+const LAUNCH_DELAY = 9600
 
 export default function TerminalIntro() {
+  const [mounted, setMounted]       = useState(false)
   const [visible, setVisible]       = useState(true)
-  const [booting, setBooting]       = useState(false)
-  const [bootLines, setBootLines]   = useState<number[]>([])
-  const [logoLines, setLogoLines]   = useState<number[]>([])
-  const [loginLines, setLoginLines] = useState<number[]>([])
-  const [showLogo, setShowLogo]     = useState(false)
-  const [showLogin, setShowLogin]   = useState(false)
-  const [glitching, setGlitching]   = useState(false)
+  const [started, setStarted]       = useState(false)
+  const [shownLines, setShownLines] = useState<number[]>([])
+  const [showLaunch, setShowLaunch] = useState(false)
+  const [launching, setLaunching]   = useState(false)
   const [fadeOut, setFadeOut]       = useState(false)
-  const [flickered, setFlickered]   = useState(false)
-  const skipRef = useRef(false)
+  const skipRef   = useRef(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
-  function skip() {
-    skipRef.current = true
-    setFadeOut(true)
-    setTimeout(() => setVisible(false), 600)
-    sessionStorage.setItem('rrr-intro-seen', '1')
-  }
+  useEffect(() => { setMounted(true) }, [])
 
   useEffect(() => {
-    if (sessionStorage.getItem('rrr-intro-seen')) {
-      setVisible(false)
-      return
-    }
-    const t = setTimeout(() => {
-      setFlickered(true)
-      setTimeout(() => setBooting(true), 300)
-    }, 400)
+    if (!mounted) return
+    if (sessionStorage.getItem('rrr-intro-seen')) { setVisible(false); return }
+    const t = setTimeout(() => setStarted(true), 300)
     return () => clearTimeout(t)
-  }, [])
+  }, [mounted])
 
   useEffect(() => {
-    if (!booting) return
-    const timers = BOOT_LINES.map((line, i) =>
-      setTimeout(() => { if (!skipRef.current) setBootLines(prev => [...prev, i]) }, line.delay)
-    )
-    const logoStart = BOOT_LINES[BOOT_LINES.length - 1].delay + 200
-    const t = setTimeout(() => { if (!skipRef.current) setShowLogo(true) }, logoStart)
-    return () => { timers.forEach(clearTimeout); clearTimeout(t) }
-  }, [booting])
+    if (!started) return
+    const timers: ReturnType<typeof setTimeout>[] = []
+    SEQUENCE.forEach((line, i) => {
+      const t = setTimeout(() => {
+        if (skipRef.current) return
+        setShownLines(prev => [...prev, i])
+        scrollRef.current?.scrollTo({ top: 99999, behavior: 'smooth' })
+      }, line.delay)
+      timers.push(t)
+    })
+    const lt = setTimeout(() => { if (!skipRef.current) setShowLaunch(true) }, LAUNCH_DELAY)
+    timers.push(lt)
+    return () => timers.forEach(clearTimeout)
+  }, [started])
 
-  useEffect(() => {
-    if (!showLogo) return
-    const allLogoLines = [...LOGO_LINES, ...LOGO_FOOTER]
-    const timers = allLogoLines.map((line, i) =>
-      setTimeout(() => { if (!skipRef.current) setLogoLines(prev => [...prev, i]) }, line.delay)
-    )
-    const loginStart = LOGO_FOOTER[LOGO_FOOTER.length - 1].delay + 300
-    const t = setTimeout(() => { if (!skipRef.current) setShowLogin(true) }, loginStart)
-    return () => { timers.forEach(clearTimeout); clearTimeout(t) }
-  }, [showLogo])
-
-  useEffect(() => {
-    if (!showLogin) return
-    const timers = LOGIN_LINES.map((line, i) =>
-      setTimeout(() => { if (!skipRef.current) setLoginLines(prev => [...prev, i]) }, line.delay)
-    )
-    const glitchAt = LOGIN_LINES[LOGIN_LINES.length - 1].delay + 600
-    const t1 = setTimeout(() => {
-      if (!skipRef.current) setGlitching(true)
-      setTimeout(() => setGlitching(false), 400)
-    }, glitchAt)
-    const t2 = setTimeout(() => {
-      if (!skipRef.current) setFadeOut(true)
+  function handleLaunch() {
+    if (launching) return
+    setLaunching(true)
+    setShowLaunch(false)
+    setTimeout(() => {
+      setFadeOut(true)
       setTimeout(() => {
         setVisible(false)
         sessionStorage.setItem('rrr-intro-seen', '1')
       }, 800)
-    }, glitchAt + 600)
-    return () => { timers.forEach(clearTimeout); clearTimeout(t1); clearTimeout(t2) }
-  }, [showLogin])
+    }, 300)
+  }
 
+  function skip() {
+    skipRef.current = true
+    setFadeOut(true)
+    setTimeout(() => {
+      setVisible(false)
+      sessionStorage.setItem('rrr-intro-seen', '1')
+    }, 500)
+  }
+
+  if (!mounted) return <div style={{ position: 'fixed', inset: 0, background: '#000', zIndex: 9999 }} />
   if (!visible) return null
-
-  const allLogoLines = [...LOGO_LINES, ...LOGO_FOOTER]
 
   return (
     <>
       <style>{`
         @keyframes rrr-flicker {
           0%   { opacity:0; }
-          10%  { opacity:0.8; }
-          12%  { opacity:0.2; }
-          14%  { opacity:0.9; }
-          16%  { opacity:0.1; }
-          18%  { opacity:1; }
+          8%   { opacity:0.9; }
+          10%  { opacity:0.1; }
+          12%  { opacity:1; }
+          14%  { opacity:0.3; }
+          16%  { opacity:1; }
           100% { opacity:1; }
         }
-        @keyframes rrr-scanline {
-          from { transform:translateY(-100%); }
-          to   { transform:translateY(100vh); }
+        @keyframes rrr-scanmove {
+          from { top:-4px; }
+          to   { top:100%; }
         }
         @keyframes rrr-cursor {
-          0%,100% { opacity:1; } 50% { opacity:0; }
+          0%,49%   { opacity:1; }
+          50%,100% { opacity:0; }
         }
-        @keyframes rrr-glitch-h {
-          0%   { clip-path:inset(40% 0 60% 0); transform:translate(-4px,0); }
-          20%  { clip-path:inset(10% 0 85% 0); transform:translate(4px,0); }
-          40%  { clip-path:inset(70% 0 20% 0); transform:translate(-2px,0); }
-          60%  { clip-path:inset(30% 0 55% 0); transform:translate(2px,0); }
-          80%  { clip-path:inset(80% 0 5%  0); transform:translate(-3px,0); }
-          100% { clip-path:inset(50% 0 30% 0); transform:translate(0,0); }
+        @keyframes rrr-logo-pulse {
+          0%,100% { text-shadow:0 0 10px rgba(227,0,15,0.7),0 0 30px rgba(227,0,15,0.2); }
+          50%     { text-shadow:0 0 20px rgba(227,0,15,1),0 0 60px rgba(227,0,15,0.5); }
         }
-        @keyframes rrr-text-in {
-          from { opacity:0; transform:translateX(-4px); }
-          to   { opacity:1; transform:translateX(0); }
+        @keyframes rrr-launch-pulse {
+          0%,100% { box-shadow:0 0 10px rgba(227,0,15,0.5); border-color:#e3000f; }
+          50%     { box-shadow:0 0 30px rgba(227,0,15,0.9),0 0 60px rgba(227,0,15,0.3); border-color:#ff4444; }
         }
-        .rrr-terminal-text {
-          font-family: var(--font-pixel);
-          letter-spacing: 0.05em;
-          line-height: 1.9;
-          animation: rrr-text-in 0.1s ease both;
+        @keyframes rrr-launch-appear {
+          from { opacity:0; transform:translateY(8px); }
+          to   { opacity:1; transform:translateY(0); }
         }
-        .rrr-cursor {
-          display:inline-block;
-          width:0.6em;
-          height:1em;
-          background:#e3000f;
-          vertical-align:middle;
-          margin-left:2px;
-          animation:rrr-cursor 0.8s ease infinite;
+        @keyframes rrr-glitch {
+          0%   { transform:translate(-3px,0); filter:hue-rotate(0deg); }
+          25%  { transform:translate(3px,0);  filter:hue-rotate(90deg); }
+          50%  { transform:translate(-2px,0); filter:hue-rotate(0deg); }
+          75%  { transform:translate(2px,0);  filter:hue-rotate(45deg); }
+          100% { transform:translate(0,0);    filter:hue-rotate(0deg); }
+        }
+        @keyframes rrr-line-in {
+          from { opacity:0; }
+          to   { opacity:1; }
         }
       `}</style>
 
@@ -177,169 +158,179 @@ export default function TerminalIntro() {
         inset: 0,
         zIndex: 9999,
         background: '#000',
-        opacity: fadeOut ? 0 : flickered ? 1 : 0,
-        animation: flickered && !fadeOut ? 'rrr-flicker 0.5s ease forwards' : 'none',
+        opacity: fadeOut ? 0 : 1,
         transition: fadeOut ? 'opacity 0.8s ease' : 'none',
+        animation: started && !fadeOut ? 'rrr-flicker 0.6s ease forwards' : 'none',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
+        flexDirection: 'column',
       }}>
 
         {/* CRT scanlines */}
         <div style={{
           position: 'absolute', inset: 0,
-          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.18) 2px, rgba(0,0,0,0.18) 4px)',
-          pointerEvents: 'none', zIndex: 20,
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.22) 3px, rgba(0,0,0,0.22) 4px)',
+          pointerEvents: 'none', zIndex: 30,
         }} />
 
         {/* Scanline sweep */}
         <div style={{
-          position: 'absolute', left: 0, right: 0, height: 8,
-          background: 'linear-gradient(to bottom, transparent, rgba(227,0,15,0.03), transparent)',
-          animation: 'rrr-scanline 4s linear infinite',
-          pointerEvents: 'none', zIndex: 21,
+          position: 'absolute', left: 0, right: 0, height: 6,
+          background: 'linear-gradient(to bottom, transparent, rgba(227,0,15,0.04), transparent)',
+          animation: 'rrr-scanmove 5s linear infinite',
+          pointerEvents: 'none', zIndex: 31,
         }} />
 
-        {/* CRT vignette */}
+        {/* Vignette */}
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'radial-gradient(ellipse 85% 85% at 50% 50%, transparent 50%, rgba(0,0,0,0.75) 100%)',
-          pointerEvents: 'none', zIndex: 19,
+          background: 'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(0,0,0,0.8) 100%)',
+          pointerEvents: 'none', zIndex: 29,
         }} />
 
         {/* Phosphor glow */}
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(227,0,15,0.04) 0%, transparent 70%)',
-          pointerEvents: 'none', zIndex: 18,
+          background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(227,0,15,0.03) 0%, transparent 70%)',
+          pointerEvents: 'none', zIndex: 28,
         }} />
 
-        {/* Glitch layers */}
-        {glitching && (
-          <>
-            <div style={{
-              position: 'absolute', inset: 0,
-              background: 'rgba(227,0,15,0.06)',
-              animation: 'rrr-glitch-h 0.2s steps(1) infinite',
-              zIndex: 22, pointerEvents: 'none',
-            }} />
-            <div style={{
-              position: 'absolute', inset: 0,
-              background: 'rgba(0,0,80,0.08)',
-              animation: 'rrr-glitch-h 0.15s steps(1) 0.05s infinite',
-              zIndex: 22, pointerEvents: 'none',
-            }} />
-          </>
+        {/* Glitch on launch */}
+        {launching && (
+          <div style={{
+            position: 'absolute', inset: 0, zIndex: 40,
+            animation: 'rrr-glitch 0.3s steps(2) forwards',
+            background: 'rgba(227,0,15,0.05)',
+            pointerEvents: 'none',
+          }} />
         )}
 
         {/* Skip */}
         <button
           onClick={skip}
           style={{
-            position: 'absolute', top: 20, right: 20, zIndex: 200,
-            fontFamily: 'var(--font-pixel)', fontSize: '0.38rem',
-            color: 'rgba(227,0,15,0.35)', background: 'none',
-            border: '1px solid rgba(227,0,15,0.15)',
-            padding: '0.35rem 0.75rem', cursor: 'pointer', letterSpacing: '0.1em',
-            transition: 'color 0.15s, border-color 0.15s',
-          }}
-          onMouseEnter={e => {
-            ;(e.currentTarget as HTMLElement).style.color = 'rgba(227,0,15,0.8)'
-            ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(227,0,15,0.5)'
-          }}
-          onMouseLeave={e => {
-            ;(e.currentTarget as HTMLElement).style.color = 'rgba(227,0,15,0.35)'
-            ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(227,0,15,0.15)'
+            position: 'absolute', top: 20, right: 20, zIndex: 100,
+            fontFamily: 'var(--font-pixel)', fontSize: '0.5rem',
+            color: 'rgba(227,0,15,0.3)', background: 'none',
+            border: '1px solid rgba(227,0,15,0.12)',
+            padding: '0.4rem 0.9rem', cursor: 'pointer', letterSpacing: '0.1em',
           }}
         >
           [ SKIP ]
         </button>
 
         {/* Terminal content */}
-        <div style={{
-          width: '100%', maxWidth: 720,
-          padding: 'clamp(1.5rem, 5vw, 3rem)',
-          position: 'relative', zIndex: 10,
-          maxHeight: '100vh', overflowY: 'auto', scrollbarWidth: 'none',
-        }}>
+        <div
+          ref={scrollRef}
+          style={{
+            flex: 1, overflowY: 'auto', overflowX: 'hidden', scrollbarWidth: 'none',
+            padding: 'clamp(2rem, 5vw, 4rem) clamp(1.5rem, 6vw, 5rem)',
+            display: 'flex', flexDirection: 'column', justifyContent: 'flex-start',
+            position: 'relative', zIndex: 10,
+          }}
+        >
+          {shownLines.map(i => {
+            const line = SEQUENCE[i]
+            if (line.text === '') return <div key={i} style={{ height: '0.8rem' }} />
 
-          {bootLines.map(i => (
-            <TermLine key={`boot-${i}`} text={BOOT_LINES[i].text} dim={BOOT_LINES[i].dim} size="sm" />
-          ))}
+            const color = line.logo ? '#e3000f' : line.highlight ? '#ff5555' : line.dim ? '#6b0000' : '#cc0000'
+            const glow  = line.logo
+              ? '0 0 14px rgba(227,0,15,0.9), 0 0 40px rgba(227,0,15,0.3)'
+              : line.highlight
+              ? '0 0 10px rgba(255,85,85,0.7)'
+              : line.dim
+              ? 'none'
+              : '0 0 6px rgba(204,0,0,0.5)'
 
-          {showLogo && logoLines.map(i => {
-            const line = allLogoLines[i]
-            const isLogoBlock = i < LOGO_LINES.length
             return (
-              <TermLine
-                key={`logo-${i}`}
-                text={line.text}
-                logo={isLogoBlock}
-                size={isLogoBlock ? 'logo' : 'sm'}
-              />
+              <div
+                key={i}
+                style={{
+                  fontFamily: line.logo ? '"Courier New", monospace' : 'var(--font-pixel)',
+                  fontSize: line.logo ? 'clamp(0.5rem, 1.8vw, 0.9rem)' : 'clamp(0.5rem, 1.5vw, 0.7rem)',
+                  color,
+                  textShadow: glow,
+                  whiteSpace: 'pre',
+                  lineHeight: line.logo ? 1.25 : 2,
+                  letterSpacing: line.logo ? '0.02em' : '0.06em',
+                  animation: line.logo
+                    ? 'rrr-logo-pulse 2s ease infinite, rrr-line-in 0.08s ease both'
+                    : 'rrr-line-in 0.08s ease both',
+                }}
+              >
+                {line.text}
+              </div>
             )
           })}
 
-          {showLogin && loginLines.map(i => (
-            <TermLine
-              key={`login-${i}`}
-              text={LOGIN_LINES[i].text}
-              highlight={LOGIN_LINES[i].highlight}
-              size="sm"
-            />
-          ))}
+          {/* Blinking cursor */}
+          {started && !showLaunch && !launching && (
+            <div style={{
+              display: 'inline-block', width: '0.7rem', height: '1.1rem',
+              background: '#e3000f', verticalAlign: 'middle', marginTop: '0.4rem',
+              animation: 'rrr-cursor 0.9s step-end infinite',
+              boxShadow: '0 0 8px rgba(227,0,15,0.8)',
+            }} />
+          )}
 
-          {booting && !fadeOut && (
-            <div style={{ marginTop: 4 }}>
-              <span className="rrr-cursor" />
+          {/* LAUNCH */}
+          {showLaunch && (
+            <div style={{ marginTop: '2rem', animation: 'rrr-launch-appear 0.4s ease both' }}>
+              <div style={{
+                fontFamily: 'var(--font-pixel)',
+                fontSize: 'clamp(0.5rem, 1.5vw, 0.7rem)',
+                color: '#cc0000',
+                textShadow: '0 0 6px rgba(204,0,0,0.5)',
+                letterSpacing: '0.06em',
+                lineHeight: 2,
+                marginBottom: '1rem',
+              }}>
+                &gt; AWAITING OPERATIVE AUTHORIZATION TO PROCEED...
+              </div>
+
+              <button
+                onClick={handleLaunch}
+                style={{
+                  fontFamily: 'var(--font-pixel)',
+                  fontSize: 'clamp(0.65rem, 2vw, 1rem)',
+                  letterSpacing: '0.2em',
+                  color: '#e3000f',
+                  background: 'transparent',
+                  border: '2px solid #e3000f',
+                  padding: 'clamp(0.75rem, 2vw, 1.1rem) clamp(2rem, 5vw, 3.5rem)',
+                  cursor: 'pointer',
+                  textShadow: '0 0 10px rgba(227,0,15,0.8)',
+                  animation: 'rrr-launch-pulse 1.2s ease infinite',
+                  transition: 'background 0.15s, color 0.15s',
+                  display: 'block',
+                }}
+                onMouseEnter={e => {
+                  ;(e.currentTarget as HTMLElement).style.background = '#e3000f'
+                  ;(e.currentTarget as HTMLElement).style.color = '#000'
+                }}
+                onMouseLeave={e => {
+                  ;(e.currentTarget as HTMLElement).style.background = 'transparent'
+                  ;(e.currentTarget as HTMLElement).style.color = '#e3000f'
+                }}
+              >
+                [ LAUNCH ]
+              </button>
+
+              <div style={{
+                fontFamily: 'var(--font-pixel)',
+                fontSize: 'clamp(0.38rem, 1vw, 0.5rem)',
+                color: '#3a0000',
+                letterSpacing: '0.06em',
+                marginTop: '1rem',
+                lineHeight: 2,
+              }}>
+                PRESS LAUNCH TO ENTER THE REGIME MAINFRAME
+              </div>
             </div>
           )}
+
+          <div style={{ height: '2rem', flexShrink: 0 }} />
         </div>
       </div>
     </>
-  )
-}
-
-function TermLine({
-  text,
-  dim,
-  highlight,
-  logo,
-  size,
-}: {
-  text: string
-  dim?: boolean
-  highlight?: boolean
-  logo?: boolean
-  size: 'sm' | 'logo'
-}) {
-  if (text === '') return <div style={{ height: '1rem' }} />
-
-  const color = highlight ? '#ff4444' : logo ? '#e3000f' : dim ? '#660000' : '#cc0000'
-  const glow  = logo
-    ? '0 0 12px rgba(227,0,15,0.8), 0 0 30px rgba(227,0,15,0.3)'
-    : highlight
-    ? '0 0 8px rgba(255,68,68,0.6)'
-    : dim
-    ? 'none'
-    : '0 0 5px rgba(204,0,0,0.4)'
-
-  return (
-    <div
-      className="rrr-terminal-text"
-      style={{
-        fontSize: size === 'logo' ? 'clamp(0.32rem, 1.2vw, 0.55rem)' : '0.38rem',
-        color,
-        textShadow: glow,
-        whiteSpace: 'pre',
-        fontFamily: size === 'logo' ? 'monospace' : 'var(--font-pixel)',
-        letterSpacing: size === 'logo' ? '0.05em' : '0.06em',
-        lineHeight: size === 'logo' ? 1.3 : 1.9,
-        animation: 'rrr-text-in 0.08s ease both',
-      }}
-    >
-      {text}
-    </div>
   )
 }
