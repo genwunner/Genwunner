@@ -132,7 +132,7 @@ export default async function HomePage() {
           }}>
             <span style={{ color: '#e3000f' }}>⚠ CLASSIFIED</span>
             <span className="hidden md:inline">{' '}·{' '}</span>
-            <span className="block md:inline">OPERATIVE FILE #001 · KANTO DIVISION</span>
+            <span className="op-file">OPERATIVE FILE #001 · KANTO DIVISION</span>
           </div>
 
           <TermHead text="GENWUNNER" size="hero" cursor={true} highlight={true} />
@@ -405,7 +405,8 @@ export default async function HomePage() {
               ROCKET RECRUITMENT REGIME · KANTO DIVISION · EST. 2022
             </div>
             <div className="dt-foot" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#660000', lineHeight: 1.8, letterSpacing: '0.04em' }}>
-              Creator of PokéRage. Right hand of Giovanni.<br />
+              Creator of PokéRage.<br />
+              Right hand of Giovanni.<br />
               Pallet Town&apos;s most wanted.
             </div>
           </div>

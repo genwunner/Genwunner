@@ -336,6 +336,12 @@ body[data-intro-done] .site-content {
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* Classified tag: stacked on mobile, inline on desktop */
+.op-file { display: block; margin-top: 0.2rem; }
+@media (min-width: 768px) {
+  .op-file { display: inline; margin-top: 0; }
+}
+
 /* Desktop body text — bigger + brighter without touching mobile */
 @media (min-width: 768px) {
   .dt-body      { font-size: 0.85rem !important; color: #aa0000 !important; }
