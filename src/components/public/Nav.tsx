@@ -101,28 +101,16 @@ export default function Nav() {
             height={40}
             style={{ display: 'block', objectFit: 'contain' }}
           />
-          <span style={{ display: 'flex', flexDirection: 'column', gap: '0.05rem' }}>
-            <span style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: 'clamp(0.52rem, 1.4vw, 0.7rem)',
-              fontWeight: 700,
-              color: '#e3000f',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              lineHeight: 1.2,
-            }}>
-              Rocket Recruitment Regime
-            </span>
-            <span style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: 'clamp(0.42rem, 1vw, 0.55rem)',
-              color: '#550000',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              lineHeight: 1.2,
-            }}>
-              · Kanto Division
-            </span>
+          <span style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: 'clamp(0.48rem, 1.3vw, 0.65rem)',
+            fontWeight: 700,
+            color: '#e3000f',
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            lineHeight: 1,
+          }}>
+            Rocket Recruitment Regime · Kanto Division
           </span>
         </Link>
 
