@@ -1,7 +1,7 @@
 'use client'
 
 // src/components/public/TerminalIntro.tsx
-// RRR Terminal — Fallout-style, fullscreen, LAUNCH interaction, scatter exit
+// RRR Terminal — Fallout-style, fullscreen, LAUNCH + glitch blink-out exit
 
 import { useEffect, useState, useRef } from 'react'
 
@@ -12,62 +12,51 @@ const SEQUENCE: {
   highlight?: boolean
   logo?: boolean
 }[] = [
-  { text: 'WUNNLIFE INDUSTRIES (TM) TERMLINK PROTOCOL',  delay: 80,   dim: true      },
-  { text: 'ROCKET RECRUITMENT REGIME // KANTO DIVISION', delay: 180,  dim: false     },
-  { text: 'TERMINAL v1.1.1 ——— CLASSIFIED ACCESS ONLY',  delay: 280,  dim: true      },
-  { text: '',                                            delay: 380                   },
-  { text: 'INITIALIZING SECURE CONNECTION...',           delay: 480,  dim: true      },
-  { text: 'ENCRYPTING CHANNEL.............. [COMPLETE]', delay: 620,  dim: true      },
-  { text: 'ROUTING THROUGH KANTO MAINFRAME...',          delay: 760,  dim: true      },
-  { text: 'ESTABLISHING OPERATIVE UPLINK...',            delay: 900,  dim: true      },
-  { text: '',                                            delay: 1000                  },
-  { text: ' ██████╗ ██████╗ ██████╗',                   delay: 1100, logo: true     },
-  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                  delay: 1180, logo: true     },
-  { text: ' ██████╔╝██████╔╝██████╔╝',                  delay: 1260, logo: true     },
-  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                  delay: 1340, logo: true     },
-  { text: ' ██║  ██║██║  ██║██║  ██║',                  delay: 1420, logo: true     },
-  { text: ' ╚═════╝ ╚═════╝ ╚═════╝',                   delay: 1500, logo: true     },
-  { text: '',                                            delay: 1600                  },
-  { text: '  ROCKET RECRUITMENT REGIME',                 delay: 1700                  },
-  { text: '  RIGHT HAND OF GIOVANNI — EST. 2022',        delay: 1820, dim: true      },
-  { text: '',                                            delay: 1940                  },
-  { text: '> VERIFYING OPERATIVE CREDENTIALS...',        delay: 2060, dim: true      },
-  { text: '> OPERATIVE ID ............. GENWUNNER',      delay: 2220                  },
-  { text: '> ACCESS LEVEL ............. [CLASSIFIED]',   delay: 2380                  },
-  { text: '> CLEARANCE ................ EXECUTIVE+',     delay: 2540                  },
-  { text: '',                                            delay: 2660                  },
-  { text: '> IDENTITY CONFIRMED.',                       delay: 2780, highlight: true },
-  { text: '> WELCOME, OPERATIVE.',                       delay: 2940, highlight: true },
-  { text: '> THE BOSS IS WATCHING.',                     delay: 3100, highlight: true },
-  { text: '',                                            delay: 3220                  },
-  { text: '> KANTO MAINFRAME ACCESS GRANTED.',           delay: 3340                  },
-  { text: '> REGIME SITE READY TO LOAD.',                delay: 3500                  },
-  { text: '',                                            delay: 3620                  },
+  { text: 'WUNNLIFE INDUSTRIES (TM) TERMLINK PROTOCOL',  delay: 80,   dim: true       },
+  { text: 'ROCKET RECRUITMENT REGIME // KANTO DIVISION', delay: 180,  dim: false      },
+  { text: 'TERMINAL v1.1.1 ——— CLASSIFIED ACCESS ONLY',  delay: 280,  dim: true       },
+  { text: '',                                            delay: 380                    },
+  { text: 'INITIALIZING SECURE CONNECTION...',           delay: 480,  dim: true       },
+  { text: 'ENCRYPTING CHANNEL.............. [COMPLETE]', delay: 620,  dim: true       },
+  { text: 'ROUTING THROUGH KANTO MAINFRAME...',          delay: 760,  dim: true       },
+  { text: 'ESTABLISHING OPERATIVE UPLINK...',            delay: 900,  dim: true       },
+  { text: '',                                            delay: 1000                   },
+  { text: ' ██████╗ ██████╗ ██████╗',                   delay: 1100, logo: true      },
+  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                  delay: 1180, logo: true      },
+  { text: ' ██████╔╝██████╔╝██████╔╝',                  delay: 1260, logo: true      },
+  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                  delay: 1340, logo: true      },
+  { text: ' ██║  ██║██║  ██║██║  ██║',                  delay: 1420, logo: true      },
+  { text: ' ╚═════╝ ╚═════╝ ╚═════╝',                   delay: 1500, logo: true      },
+  { text: '',                                            delay: 1600                   },
+  { text: '  ROCKET RECRUITMENT REGIME',                 delay: 1700                   },
+  { text: '  RIGHT HAND OF GIOVANNI — EST. 2022',        delay: 1820, dim: true       },
+  { text: '',                                            delay: 1940                   },
+  { text: '> VERIFYING OPERATIVE CREDENTIALS...',        delay: 2060, dim: true       },
+  { text: '> OPERATIVE ID ............. GENWUNNER',      delay: 2220                   },
+  { text: '> ACCESS LEVEL ............. [CLASSIFIED]',   delay: 2380                   },
+  { text: '> CLEARANCE ................ EXECUTIVE+',     delay: 2540                   },
+  { text: '',                                            delay: 2660                   },
+  { text: '> IDENTITY CONFIRMED.',                       delay: 2780, highlight: true  },
+  { text: '> WELCOME, OPERATIVE.',                       delay: 2940, highlight: true  },
+  { text: '> THE BOSS IS WATCHING.',                     delay: 3100, highlight: true  },
+  { text: '',                                            delay: 3220                   },
+  { text: '> KANTO MAINFRAME ACCESS GRANTED.',           delay: 3340                   },
+  { text: '> REGIME SITE READY TO LOAD.',                delay: 3500                   },
+  { text: '',                                            delay: 3620                   },
 ]
 
 const LAUNCH_DELAY = 3900
 
-type ScatterChar = {
-  char: string
-  x: number
-  y: number
-  tx: number
-  ty: number
-  rot: number
-  delay: number
-  size: number
-}
-
 export default function TerminalIntro() {
-  const [mounted, setMounted]           = useState(false)
-  const [visible, setVisible]           = useState(true)
-  const [started, setStarted]           = useState(false)
-  const [shownLines, setShownLines]     = useState<number[]>([])
-  const [showLaunch, setShowLaunch]     = useState(false)
-  const [launching, setLaunching]       = useState(false)
-  const [scattering, setScattering]     = useState(false)
-  const [scatterChars, setScatterChars] = useState<ScatterChar[]>([])
-  const [fadeOut, setFadeOut]           = useState(false)
+  const [mounted, setMounted]         = useState(false)
+  const [visible, setVisible]         = useState(true)
+  const [started, setStarted]         = useState(false)
+  const [shownLines, setShownLines]   = useState<number[]>([])
+  const [showLaunch, setShowLaunch]   = useState(false)
+  const [launching, setLaunching]     = useState(false)
+  const [goneLines, setGoneLines]     = useState<Set<number>>(new Set())
+  const [glitchLines, setGlitchLines] = useState<Set<number>>(new Set())
+  const [fadeOut, setFadeOut]         = useState(false)
   const skipRef   = useRef(false)
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -101,26 +90,19 @@ export default function TerminalIntro() {
     setLaunching(true)
     setShowLaunch(false)
 
-    const allChars = SEQUENCE
-      .filter(l => l.text.trim() !== '')
-      .flatMap(l => l.text.split('').filter(c => c.trim() !== ''))
+    const lineIndices = shownLines.filter(i => SEQUENCE[i].text !== '')
+    const timers: ReturnType<typeof setTimeout>[] = []
 
-    const vw = window.innerWidth
-    const vh = window.innerHeight
-
-    const chars: ScatterChar[] = allChars.slice(0, 140).map(char => ({
-      char,
-      x: Math.random() * vw,
-      y: Math.random() * vh,
-      tx: (Math.random() - 0.5) * vw * 2.8,
-      ty: (Math.random() - 0.5) * vh * 2.8,
-      rot: (Math.random() - 0.5) * 800,
-      delay: Math.random() * 350,
-      size: 0.45 + Math.random() * 0.7,
-    }))
-
-    setScatterChars(chars)
-    setScattering(true)
+    lineIndices.forEach(i => {
+      const glitchAt = Math.random() * 600
+      const goneAt   = glitchAt + 80 + Math.random() * 120
+      const t1 = setTimeout(() => setGlitchLines(prev => new Set(prev).add(i)), glitchAt)
+      const t2 = setTimeout(() => {
+        setGlitchLines(prev => { const s = new Set(prev); s.delete(i); return s })
+        setGoneLines(prev => new Set(prev).add(i))
+      }, goneAt)
+      timers.push(t1, t2)
+    })
 
     setTimeout(() => {
       setFadeOut(true)
@@ -128,7 +110,7 @@ export default function TerminalIntro() {
         setVisible(false)
         sessionStorage.setItem('rrr-intro-seen', '1')
       }, 700)
-    }, 850)
+    }, 1000)
   }
 
   function skip() {
@@ -179,9 +161,11 @@ export default function TerminalIntro() {
           from { opacity:0; }
           to   { opacity:1; }
         }
-        @keyframes rrr-scatter {
-          0%   { opacity:1; transform:translate(0,0) rotate(0deg) scale(1); }
-          100% { opacity:0; transform:translate(var(--tx),var(--ty)) rotate(var(--rot)) scale(0.1); }
+        @keyframes rrr-glitch-flicker {
+          0%,100% { opacity:1; }
+          25%     { opacity:0.15; filter:brightness(2) hue-rotate(10deg); }
+          50%     { opacity:0.8; }
+          75%     { opacity:0.05; filter:brightness(3); }
         }
       `}</style>
 
@@ -227,29 +211,6 @@ export default function TerminalIntro() {
           pointerEvents: 'none', zIndex: 28,
         }} />
 
-        {/* Scatter characters */}
-        {scattering && scatterChars.map((sc, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              left: sc.x, top: sc.y,
-              fontFamily: '"Courier New", monospace',
-              fontSize: `${sc.size}rem`,
-              color: '#e3000f',
-              textShadow: '0 0 8px rgba(227,0,15,0.8)',
-              pointerEvents: 'none',
-              zIndex: 50,
-              ['--tx' as string]: `${sc.tx}px`,
-              ['--ty' as string]: `${sc.ty}px`,
-              ['--rot' as string]: `${sc.rot}deg`,
-              animation: `rrr-scatter 0.65s ease-in ${sc.delay}ms forwards`,
-            }}
-          >
-            {sc.char}
-          </div>
-        ))}
-
         {/* Skip */}
         <button
           onClick={skip}
@@ -284,16 +245,27 @@ export default function TerminalIntro() {
           }}
         >
           {shownLines.map(i => {
-            const line = SEQUENCE[i]
+            const line      = SEQUENCE[i]
+            const isGone    = goneLines.has(i)
+            const isGlitch  = glitchLines.has(i)
+
+            if (isGone) return <div key={i} style={{ height: line.text === '' ? '0.75rem' : undefined, opacity: 0 }} />
             if (line.text === '') return <div key={i} style={{ height: '0.75rem' }} />
 
             const isLogo      = !!line.logo
             const isHighlight = !!line.highlight
             const isDim       = !!line.dim
 
-            const color = isLogo ? '#e3000f' : isHighlight ? '#ff5555' : isDim ? '#6b0000' : '#cc0000'
-            const glow  = isLogo
-              ? '0 0 14px rgba(227,0,15,0.9),0 0 40px rgba(227,0,15,0.3)'
+            const color = isGlitch
+              ? '#ff0000'
+              : isLogo ? '#e3000f'
+              : isHighlight ? '#ff5555'
+              : isDim ? '#6b0000'
+              : '#cc0000'
+
+            const glow = isGlitch
+              ? '0 0 20px rgba(255,0,0,1), 0 0 40px rgba(255,0,0,0.5)'
+              : isLogo ? '0 0 14px rgba(227,0,15,0.9),0 0 40px rgba(227,0,15,0.3)'
               : isHighlight ? '0 0 10px rgba(255,85,85,0.7)'
               : isDim ? 'none'
               : '0 0 6px rgba(204,0,0,0.5)'
@@ -309,7 +281,10 @@ export default function TerminalIntro() {
                   whiteSpace: 'pre',
                   lineHeight: isLogo ? 1.25 : 2.1,
                   letterSpacing: isLogo ? '0.02em' : '0.06em',
-                  animation: isLogo
+                  transition: 'color 0.05s, text-shadow 0.05s',
+                  animation: isGlitch
+                    ? 'rrr-glitch-flicker 0.12s steps(1) infinite'
+                    : isLogo
                     ? 'rrr-logo-pulse 2s ease infinite, rrr-line-in 0.07s ease both'
                     : 'rrr-line-in 0.07s ease both',
                 }}
