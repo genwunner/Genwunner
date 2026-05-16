@@ -130,8 +130,8 @@ export default async function HomePage() {
             letterSpacing: '0.15em',
             marginBottom: '1.5rem',
           }}>
-            <span className="hidden md:inline" style={{ color: '#e3000f' }}>⚠ CLASSIFIED</span>
-            <span className="hidden md:inline">{' '}·{' '}</span>OPERATIVE FILE #001 · KANTO DIVISION
+            <span style={{ color: '#e3000f' }}>⚠ CLASSIFIED</span>
+            {' '}·{' '}OPERATIVE FILE #001 · KANTO DIVISION
           </div>
 
           <TermHead text="GENWUNNER" size="hero" cursor={true} highlight={true} />
@@ -230,7 +230,7 @@ export default async function HomePage() {
                 {song.tag}
               </div>
               <TermHead text={song.title} size="sm" color="#cc0000" />
-              <p style={{
+              <p className="hidden md:block" style={{
                 fontFamily: '"Courier New", monospace',
                 fontSize: '0.62rem',
                 color: '#880000',
