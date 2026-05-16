@@ -1,7 +1,7 @@
 'use client'
 
 // src/components/public/TerminalIntro.tsx
-// RRR Terminal — Fallout-style, fullscreen, requires LAUNCH interaction
+// RRR Terminal — Fallout-style, fullscreen, LAUNCH interaction, scatter exit
 
 import { useEffect, useState, useRef } from 'react'
 
@@ -12,49 +12,62 @@ const SEQUENCE: {
   highlight?: boolean
   logo?: boolean
 }[] = [
-  { text: 'ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL',       delay: 200,  dim: true  },
-  { text: 'ROCKET RECRUITMENT REGIME // KANTO DIVISION',   delay: 500,  dim: false },
-  { text: 'TERMINAL v3.3.1 ——— CLASSIFIED ACCESS ONLY',    delay: 800,  dim: true  },
-  { text: '',                                              delay: 1000              },
-  { text: 'INITIALIZING SECURE CONNECTION...',             delay: 1200, dim: true  },
-  { text: 'ENCRYPTING CHANNEL.............. [COMPLETE]',   delay: 1700, dim: true  },
-  { text: 'ROUTING THROUGH KANTO MAINFRAME...',            delay: 2100, dim: true  },
-  { text: 'ESTABLISHING OPERATIVE UPLINK...',              delay: 2500, dim: true  },
-  { text: '',                                              delay: 2900              },
-  { text: ' ██████╗ ██████╗ ██████╗',                     delay: 3100, logo: true },
-  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                    delay: 3250, logo: true },
-  { text: ' ██████╔╝██████╔╝██████╔╝',                    delay: 3400, logo: true },
-  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                    delay: 3550, logo: true },
-  { text: ' ██║  ██║██║  ██║██║  ██║',                    delay: 3700, logo: true },
-  { text: ' ╚═════╝ ╚═════╝ ╚═════╝',                     delay: 3850, logo: true },
-  { text: '',                                              delay: 4000              },
-  { text: '  ROCKET RECRUITMENT REGIME',                   delay: 4150              },
-  { text: '  RIGHT HAND OF GIOVANNI — EST. 2022',          delay: 4350, dim: true  },
-  { text: '',                                              delay: 4550              },
-  { text: '> VERIFYING OPERATIVE CREDENTIALS...',          delay: 4800, dim: true  },
-  { text: '> OPERATIVE ID ............. GENWUNNER',        delay: 5300              },
-  { text: '> ACCESS LEVEL ............. [CLASSIFIED]',     delay: 5700              },
-  { text: '> CLEARANCE ................ EXECUTIVE+',       delay: 6100              },
-  { text: '',                                              delay: 6400              },
-  { text: '> IDENTITY CONFIRMED.',                         delay: 6700, highlight: true },
-  { text: '> WELCOME, OPERATIVE.',                         delay: 7100, highlight: true },
-  { text: '> THE BOSS IS WATCHING.',                       delay: 7500, highlight: true },
-  { text: '',                                              delay: 7900              },
-  { text: '> KANTO MAINFRAME ACCESS GRANTED.',             delay: 8200              },
-  { text: '> REGIME SITE READY TO LOAD.',                  delay: 8700              },
-  { text: '',                                              delay: 9100              },
+  { text: 'WUNNLIFE INDUSTRIES (TM) TERMLINK PROTOCOL',  delay: 80,   dim: true      },
+  { text: 'ROCKET RECRUITMENT REGIME // KANTO DIVISION', delay: 180,  dim: false     },
+  { text: 'TERMINAL v1.1.1 ——— CLASSIFIED ACCESS ONLY',  delay: 280,  dim: true      },
+  { text: '',                                            delay: 380                   },
+  { text: 'INITIALIZING SECURE CONNECTION...',           delay: 480,  dim: true      },
+  { text: 'ENCRYPTING CHANNEL.............. [COMPLETE]', delay: 620,  dim: true      },
+  { text: 'ROUTING THROUGH KANTO MAINFRAME...',          delay: 760,  dim: true      },
+  { text: 'ESTABLISHING OPERATIVE UPLINK...',            delay: 900,  dim: true      },
+  { text: '',                                            delay: 1000                  },
+  { text: ' ██████╗ ██████╗ ██████╗',                   delay: 1100, logo: true     },
+  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                  delay: 1180, logo: true     },
+  { text: ' ██████╔╝██████╔╝██████╔╝',                  delay: 1260, logo: true     },
+  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                  delay: 1340, logo: true     },
+  { text: ' ██║  ██║██║  ██║██║  ██║',                  delay: 1420, logo: true     },
+  { text: ' ╚═════╝ ╚═════╝ ╚═════╝',                   delay: 1500, logo: true     },
+  { text: '',                                            delay: 1600                  },
+  { text: '  ROCKET RECRUITMENT REGIME',                 delay: 1700                  },
+  { text: '  RIGHT HAND OF GIOVANNI — EST. 2022',        delay: 1820, dim: true      },
+  { text: '',                                            delay: 1940                  },
+  { text: '> VERIFYING OPERATIVE CREDENTIALS...',        delay: 2060, dim: true      },
+  { text: '> OPERATIVE ID ............. GENWUNNER',      delay: 2220                  },
+  { text: '> ACCESS LEVEL ............. [CLASSIFIED]',   delay: 2380                  },
+  { text: '> CLEARANCE ................ EXECUTIVE+',     delay: 2540                  },
+  { text: '',                                            delay: 2660                  },
+  { text: '> IDENTITY CONFIRMED.',                       delay: 2780, highlight: true },
+  { text: '> WELCOME, OPERATIVE.',                       delay: 2940, highlight: true },
+  { text: '> THE BOSS IS WATCHING.',                     delay: 3100, highlight: true },
+  { text: '',                                            delay: 3220                  },
+  { text: '> KANTO MAINFRAME ACCESS GRANTED.',           delay: 3340                  },
+  { text: '> REGIME SITE READY TO LOAD.',                delay: 3500                  },
+  { text: '',                                            delay: 3620                  },
 ]
 
-const LAUNCH_DELAY = 9600
+const LAUNCH_DELAY = 3900
+
+type ScatterChar = {
+  char: string
+  x: number
+  y: number
+  tx: number
+  ty: number
+  rot: number
+  delay: number
+  size: number
+}
 
 export default function TerminalIntro() {
-  const [mounted, setMounted]       = useState(false)
-  const [visible, setVisible]       = useState(true)
-  const [started, setStarted]       = useState(false)
-  const [shownLines, setShownLines] = useState<number[]>([])
-  const [showLaunch, setShowLaunch] = useState(false)
-  const [launching, setLaunching]   = useState(false)
-  const [fadeOut, setFadeOut]       = useState(false)
+  const [mounted, setMounted]           = useState(false)
+  const [visible, setVisible]           = useState(true)
+  const [started, setStarted]           = useState(false)
+  const [shownLines, setShownLines]     = useState<number[]>([])
+  const [showLaunch, setShowLaunch]     = useState(false)
+  const [launching, setLaunching]       = useState(false)
+  const [scattering, setScattering]     = useState(false)
+  const [scatterChars, setScatterChars] = useState<ScatterChar[]>([])
+  const [fadeOut, setFadeOut]           = useState(false)
   const skipRef   = useRef(false)
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -87,13 +100,35 @@ export default function TerminalIntro() {
     if (launching) return
     setLaunching(true)
     setShowLaunch(false)
+
+    const allChars = SEQUENCE
+      .filter(l => l.text.trim() !== '')
+      .flatMap(l => l.text.split('').filter(c => c.trim() !== ''))
+
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+
+    const chars: ScatterChar[] = allChars.slice(0, 140).map(char => ({
+      char,
+      x: Math.random() * vw,
+      y: Math.random() * vh,
+      tx: (Math.random() - 0.5) * vw * 2.8,
+      ty: (Math.random() - 0.5) * vh * 2.8,
+      rot: (Math.random() - 0.5) * 800,
+      delay: Math.random() * 350,
+      size: 0.45 + Math.random() * 0.7,
+    }))
+
+    setScatterChars(chars)
+    setScattering(true)
+
     setTimeout(() => {
       setFadeOut(true)
       setTimeout(() => {
         setVisible(false)
         sessionStorage.setItem('rrr-intro-seen', '1')
-      }, 800)
-    }, 300)
+      }, 700)
+    }, 850)
   }
 
   function skip() {
@@ -121,7 +156,7 @@ export default function TerminalIntro() {
           100% { opacity:1; }
         }
         @keyframes rrr-scanmove {
-          from { top:-4px; }
+          from { top:-6px; }
           to   { top:100%; }
         }
         @keyframes rrr-cursor {
@@ -130,52 +165,50 @@ export default function TerminalIntro() {
         }
         @keyframes rrr-logo-pulse {
           0%,100% { text-shadow:0 0 10px rgba(227,0,15,0.7),0 0 30px rgba(227,0,15,0.2); }
-          50%     { text-shadow:0 0 20px rgba(227,0,15,1),0 0 60px rgba(227,0,15,0.5); }
+          50%     { text-shadow:0 0 22px rgba(227,0,15,1),0 0 60px rgba(227,0,15,0.5); }
         }
         @keyframes rrr-launch-pulse {
           0%,100% { box-shadow:0 0 10px rgba(227,0,15,0.5); border-color:#e3000f; }
-          50%     { box-shadow:0 0 30px rgba(227,0,15,0.9),0 0 60px rgba(227,0,15,0.3); border-color:#ff4444; }
+          50%     { box-shadow:0 0 32px rgba(227,0,15,0.95),0 0 70px rgba(227,0,15,0.3); border-color:#ff4444; }
         }
         @keyframes rrr-launch-appear {
-          from { opacity:0; transform:translateY(8px); }
+          from { opacity:0; transform:translateY(10px); }
           to   { opacity:1; transform:translateY(0); }
-        }
-        @keyframes rrr-glitch {
-          0%   { transform:translate(-3px,0); filter:hue-rotate(0deg); }
-          25%  { transform:translate(3px,0);  filter:hue-rotate(90deg); }
-          50%  { transform:translate(-2px,0); filter:hue-rotate(0deg); }
-          75%  { transform:translate(2px,0);  filter:hue-rotate(45deg); }
-          100% { transform:translate(0,0);    filter:hue-rotate(0deg); }
         }
         @keyframes rrr-line-in {
           from { opacity:0; }
           to   { opacity:1; }
         }
+        @keyframes rrr-scatter {
+          0%   { opacity:1; transform:translate(0,0) rotate(0deg) scale(1); }
+          100% { opacity:0; transform:translate(var(--tx),var(--ty)) rotate(var(--rot)) scale(0.1); }
+        }
       `}</style>
 
-      <div style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 9999,
-        background: '#000',
-        opacity: fadeOut ? 0 : 1,
-        transition: fadeOut ? 'opacity 0.8s ease' : 'none',
-        animation: started && !fadeOut ? 'rrr-flicker 0.6s ease forwards' : 'none',
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
-
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9999,
+          background: '#000',
+          opacity: fadeOut ? 0 : 1,
+          transition: fadeOut ? 'opacity 0.8s ease' : 'none',
+          animation: started && !fadeOut ? 'rrr-flicker 0.55s ease forwards' : 'none',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         {/* CRT scanlines */}
         <div style={{
           position: 'absolute', inset: 0,
-          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.22) 3px, rgba(0,0,0,0.22) 4px)',
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 4px)',
           pointerEvents: 'none', zIndex: 30,
         }} />
 
         {/* Scanline sweep */}
         <div style={{
           position: 'absolute', left: 0, right: 0, height: 6,
-          background: 'linear-gradient(to bottom, transparent, rgba(227,0,15,0.04), transparent)',
+          background: 'linear-gradient(to bottom, transparent, rgba(227,0,15,0.045), transparent)',
           animation: 'rrr-scanmove 5s linear infinite',
           pointerEvents: 'none', zIndex: 31,
         }} />
@@ -183,36 +216,58 @@ export default function TerminalIntro() {
         {/* Vignette */}
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(0,0,0,0.8) 100%)',
+          background: 'radial-gradient(ellipse 88% 88% at 50% 50%, transparent 38%, rgba(0,0,0,0.82) 100%)',
           pointerEvents: 'none', zIndex: 29,
         }} />
 
         {/* Phosphor glow */}
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(227,0,15,0.03) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 55% 48% at 50% 50%, rgba(227,0,15,0.035) 0%, transparent 70%)',
           pointerEvents: 'none', zIndex: 28,
         }} />
 
-        {/* Glitch on launch */}
-        {launching && (
-          <div style={{
-            position: 'absolute', inset: 0, zIndex: 40,
-            animation: 'rrr-glitch 0.3s steps(2) forwards',
-            background: 'rgba(227,0,15,0.05)',
-            pointerEvents: 'none',
-          }} />
-        )}
+        {/* Scatter characters */}
+        {scattering && scatterChars.map((sc, i) => (
+          <div
+            key={i}
+            style={{
+              position: 'absolute',
+              left: sc.x, top: sc.y,
+              fontFamily: '"Courier New", monospace',
+              fontSize: `${sc.size}rem`,
+              color: '#e3000f',
+              textShadow: '0 0 8px rgba(227,0,15,0.8)',
+              pointerEvents: 'none',
+              zIndex: 50,
+              ['--tx' as string]: `${sc.tx}px`,
+              ['--ty' as string]: `${sc.ty}px`,
+              ['--rot' as string]: `${sc.rot}deg`,
+              animation: `rrr-scatter 0.65s ease-in ${sc.delay}ms forwards`,
+            }}
+          >
+            {sc.char}
+          </div>
+        ))}
 
         {/* Skip */}
         <button
           onClick={skip}
           style={{
             position: 'absolute', top: 20, right: 20, zIndex: 100,
-            fontFamily: 'var(--font-pixel)', fontSize: '0.5rem',
+            fontFamily: 'var(--font-pixel)',
+            fontSize: 'clamp(0.4rem, 1.2vw, 0.55rem)',
             color: 'rgba(227,0,15,0.3)', background: 'none',
             border: '1px solid rgba(227,0,15,0.12)',
             padding: '0.4rem 0.9rem', cursor: 'pointer', letterSpacing: '0.1em',
+          }}
+          onMouseEnter={e => {
+            ;(e.currentTarget as HTMLElement).style.color = 'rgba(227,0,15,0.75)'
+            ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(227,0,15,0.4)'
+          }}
+          onMouseLeave={e => {
+            ;(e.currentTarget as HTMLElement).style.color = 'rgba(227,0,15,0.3)'
+            ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(227,0,15,0.12)'
           }}
         >
           [ SKIP ]
@@ -224,37 +279,39 @@ export default function TerminalIntro() {
           style={{
             flex: 1, overflowY: 'auto', overflowX: 'hidden', scrollbarWidth: 'none',
             padding: 'clamp(2rem, 5vw, 4rem) clamp(1.5rem, 6vw, 5rem)',
-            display: 'flex', flexDirection: 'column', justifyContent: 'flex-start',
+            display: 'flex', flexDirection: 'column',
             position: 'relative', zIndex: 10,
           }}
         >
           {shownLines.map(i => {
             const line = SEQUENCE[i]
-            if (line.text === '') return <div key={i} style={{ height: '0.8rem' }} />
+            if (line.text === '') return <div key={i} style={{ height: '0.75rem' }} />
 
-            const color = line.logo ? '#e3000f' : line.highlight ? '#ff5555' : line.dim ? '#6b0000' : '#cc0000'
-            const glow  = line.logo
-              ? '0 0 14px rgba(227,0,15,0.9), 0 0 40px rgba(227,0,15,0.3)'
-              : line.highlight
-              ? '0 0 10px rgba(255,85,85,0.7)'
-              : line.dim
-              ? 'none'
+            const isLogo      = !!line.logo
+            const isHighlight = !!line.highlight
+            const isDim       = !!line.dim
+
+            const color = isLogo ? '#e3000f' : isHighlight ? '#ff5555' : isDim ? '#6b0000' : '#cc0000'
+            const glow  = isLogo
+              ? '0 0 14px rgba(227,0,15,0.9),0 0 40px rgba(227,0,15,0.3)'
+              : isHighlight ? '0 0 10px rgba(255,85,85,0.7)'
+              : isDim ? 'none'
               : '0 0 6px rgba(204,0,0,0.5)'
 
             return (
               <div
                 key={i}
                 style={{
-                  fontFamily: line.logo ? '"Courier New", monospace' : 'var(--font-pixel)',
-                  fontSize: line.logo ? 'clamp(0.5rem, 1.8vw, 0.9rem)' : 'clamp(0.5rem, 1.5vw, 0.7rem)',
+                  fontFamily: isLogo ? '"Courier New", monospace' : 'var(--font-pixel)',
+                  fontSize: isLogo ? 'clamp(0.55rem, 2vw, 1rem)' : 'clamp(0.5rem, 1.5vw, 0.72rem)',
                   color,
                   textShadow: glow,
                   whiteSpace: 'pre',
-                  lineHeight: line.logo ? 1.25 : 2,
-                  letterSpacing: line.logo ? '0.02em' : '0.06em',
-                  animation: line.logo
-                    ? 'rrr-logo-pulse 2s ease infinite, rrr-line-in 0.08s ease both'
-                    : 'rrr-line-in 0.08s ease both',
+                  lineHeight: isLogo ? 1.25 : 2.1,
+                  letterSpacing: isLogo ? '0.02em' : '0.06em',
+                  animation: isLogo
+                    ? 'rrr-logo-pulse 2s ease infinite, rrr-line-in 0.07s ease both'
+                    : 'rrr-line-in 0.07s ease both',
                 }}
               >
                 {line.text}
@@ -265,24 +322,27 @@ export default function TerminalIntro() {
           {/* Blinking cursor */}
           {started && !showLaunch && !launching && (
             <div style={{
-              display: 'inline-block', width: '0.7rem', height: '1.1rem',
-              background: '#e3000f', verticalAlign: 'middle', marginTop: '0.4rem',
+              display: 'inline-block',
+              width: 'clamp(0.55rem, 1.5vw, 0.75rem)',
+              height: 'clamp(0.9rem, 2vw, 1.15rem)',
+              background: '#e3000f',
+              marginTop: '0.3rem',
               animation: 'rrr-cursor 0.9s step-end infinite',
-              boxShadow: '0 0 8px rgba(227,0,15,0.8)',
+              boxShadow: '0 0 10px rgba(227,0,15,0.9)',
             }} />
           )}
 
           {/* LAUNCH */}
           {showLaunch && (
-            <div style={{ marginTop: '2rem', animation: 'rrr-launch-appear 0.4s ease both' }}>
+            <div style={{ marginTop: '1.75rem', animation: 'rrr-launch-appear 0.4s ease both' }}>
               <div style={{
                 fontFamily: 'var(--font-pixel)',
-                fontSize: 'clamp(0.5rem, 1.5vw, 0.7rem)',
+                fontSize: 'clamp(0.5rem, 1.5vw, 0.72rem)',
                 color: '#cc0000',
                 textShadow: '0 0 6px rgba(204,0,0,0.5)',
                 letterSpacing: '0.06em',
-                lineHeight: 2,
-                marginBottom: '1rem',
+                lineHeight: 2.1,
+                marginBottom: '1.25rem',
               }}>
                 &gt; AWAITING OPERATIVE AUTHORIZATION TO PROCEED...
               </div>
@@ -300,16 +360,18 @@ export default function TerminalIntro() {
                   cursor: 'pointer',
                   textShadow: '0 0 10px rgba(227,0,15,0.8)',
                   animation: 'rrr-launch-pulse 1.2s ease infinite',
-                  transition: 'background 0.15s, color 0.15s',
+                  transition: 'background 0.12s, color 0.12s',
                   display: 'block',
                 }}
                 onMouseEnter={e => {
                   ;(e.currentTarget as HTMLElement).style.background = '#e3000f'
                   ;(e.currentTarget as HTMLElement).style.color = '#000'
+                  ;(e.currentTarget as HTMLElement).style.textShadow = 'none'
                 }}
                 onMouseLeave={e => {
                   ;(e.currentTarget as HTMLElement).style.background = 'transparent'
                   ;(e.currentTarget as HTMLElement).style.color = '#e3000f'
+                  ;(e.currentTarget as HTMLElement).style.textShadow = '0 0 10px rgba(227,0,15,0.8)'
                 }}
               >
                 [ LAUNCH ]
@@ -317,7 +379,7 @@ export default function TerminalIntro() {
 
               <div style={{
                 fontFamily: 'var(--font-pixel)',
-                fontSize: 'clamp(0.38rem, 1vw, 0.5rem)',
+                fontSize: 'clamp(0.36rem, 1vw, 0.48rem)',
                 color: '#3a0000',
                 letterSpacing: '0.06em',
                 marginTop: '1rem',
