@@ -95,7 +95,8 @@ export default async function EPKPage() {
             // INTERCEPTED CIVILIAN TRANSMISSION
           </p>
           <p style={{
-            fontFamily: 'var(--font-display)',
+            fontFamily: 'var(--font-heading), "Courier New", Courier, monospace',
+            fontWeight: 400,
             fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)',
             color: 'rgba(240,240,240,0.9)',
             lineHeight: 1.2,
