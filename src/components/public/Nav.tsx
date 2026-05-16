@@ -128,7 +128,16 @@ export default function Nav() {
               </span>
             ) : (
               <>
-                <SpinningPokeball size={28} speed="4s" />
+                <Image
+                  src="/images/logos/rrr-logo-spin.png"
+                  alt="RRR"
+                  width={32}
+                  height={32}
+                  style={{
+                    animation: 'spin 4s linear infinite',
+                    flexShrink: 0,
+                  }}
+                />
                 <span
                   style={{
                     fontFamily: 'var(--font-display)',
