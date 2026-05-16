@@ -171,6 +171,55 @@ export default function PackOpeningIntro() {
         )}
       </button>
 
+      {/* ── LIGHT FLASH — triggered on open ── */}
+      {isOpen && (
+        <>
+          {/* Full-screen white burst — classic Pokémon flash */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: 'white', animation: 'pokeScreenFlash 0.5s ease-out forwards', zIndex: 60 }}
+          />
+          {/* Radial glow from ball center */}
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              top: '50%', left: '50%',
+              marginLeft: -(SIZE * 2.5),
+              marginTop: -(SIZE * 2.5),
+              width: SIZE * 5,
+              height: SIZE * 5,
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(255,255,220,1) 0%, rgba(255,220,100,0.85) 18%, rgba(255,160,40,0.55) 40%, transparent 70%)',
+              animation: 'pokeRadialBurst 0.65s ease-out forwards',
+              zIndex: 55,
+            }}
+          />
+          {/* Light rays */}
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              top: '50%', left: '50%',
+              marginLeft: -(SIZE * 3),
+              marginTop: -(SIZE * 3),
+              width: SIZE * 6,
+              height: SIZE * 6,
+              background: `conic-gradient(
+                rgba(255,255,200,0.55) 0deg 8deg,   transparent 8deg 38deg,
+                rgba(255,255,200,0.45) 38deg 46deg,  transparent 46deg 83deg,
+                rgba(255,255,200,0.55) 83deg 91deg,  transparent 91deg 128deg,
+                rgba(255,255,200,0.45) 128deg 136deg, transparent 136deg 173deg,
+                rgba(255,255,200,0.55) 173deg 181deg, transparent 181deg 218deg,
+                rgba(255,255,200,0.45) 218deg 226deg, transparent 226deg 263deg,
+                rgba(255,255,200,0.55) 263deg 271deg, transparent 271deg 308deg,
+                rgba(255,255,200,0.45) 308deg 316deg, transparent 316deg 360deg
+              )`,
+              animation: 'pokeRaysBurst 0.6s ease-out forwards',
+              zIndex: 54,
+            }}
+          />
+        </>
+      )}
+
       {/* ── PROGRESS + LABEL ── */}
       <div
         className="mt-12 flex flex-col items-center gap-3"
@@ -212,7 +261,23 @@ export default function PackOpeningIntro() {
           Skip →
         </button>
       </div>
+      <style>{`
+        @keyframes pokeScreenFlash {
+          0%   { opacity: 0.88; }
+          20%  { opacity: 0.7; }
+          100% { opacity: 0; }
+        }
+        @keyframes pokeRadialBurst {
+          0%   { opacity: 0; transform: scale(0.04); }
+          12%  { opacity: 1; }
+          100% { opacity: 0; transform: scale(1); }
+        }
+        @keyframes pokeRaysBurst {
+          0%   { opacity: 0; transform: scale(0.04) rotate(0deg); }
+          18%  { opacity: 0.85; }
+          100% { opacity: 0; transform: scale(1) rotate(12deg); }
+        }
+      `}</style>
     </div>
   )
 }
-
