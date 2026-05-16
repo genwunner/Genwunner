@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/public/Nav'
-import PackOpeningIntro from '@/components/public/PackOpeningIntro'
+import HideoutIntro from '@/components/public/HideoutIntro'
 import FloatingPokeballs from '@/components/public/FloatingPokeballs'
 import { songs, socialLinks, upcomingShows } from '@/data/content'
 import { createClient } from '@/lib/supabase/server'
@@ -21,7 +21,7 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--color-brand-black)', color: 'var(--color-brand-white)' }}>
-      <PackOpeningIntro />
+      <HideoutIntro />
       <Nav />
 
       {/* ── SECTION 1: FULLSCREEN ENTRANCE ── */}
