@@ -45,7 +45,7 @@ function TermHead({
         display: 'flex',
         alignItems: 'center',
         background: highlight ? '#e3000f' : 'transparent',
-        color: highlight ? '#fff' : dim ? '#880000' : color,
+        color: highlight ? '#000' : dim ? '#880000' : color,
         padding: highlight ? '0.08em 0.18em' : undefined,
         textShadow: highlight || dim ? 'none' : '0 0 20px rgba(227,0,15,0.25)',
       }}>
@@ -114,8 +114,8 @@ export default async function HomePage() {
 
         {/* Stage photo — mobile */}
         <div className="absolute inset-0 md:hidden">
-          <Image src="/images/hero-stage.jpg" alt="" fill className="object-cover object-top" style={{ opacity: 0.2 }} priority />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, #000 75%)' }} />
+          <Image src="/images/hero-stage.jpg" alt="" fill className="object-cover object-top" priority />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.5) 50%, #000 85%)' }} />
         </div>
 
         {/* Hero content */}

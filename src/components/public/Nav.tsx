@@ -153,11 +153,39 @@ export default function Nav() {
         flexDirection: 'column',
         overflow: 'hidden',
       }}>
+        {/* Artist photo — right panel */}
+        <div style={{
+          position: 'absolute', right: 0, top: 0, bottom: 0,
+          width: '38%',
+          overflow: 'hidden',
+          zIndex: 0,
+        }} className="hidden sm:block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/hero-stage.jpg"
+            alt=""
+            style={{
+              width: '100%', height: '100%',
+              objectFit: 'cover', objectPosition: 'top center',
+            }}
+          />
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(to right, #000 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.15) 100%)',
+          }} />
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(to bottom, transparent 60%, #000 100%)',
+          }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(227,0,15,0.06)' }} />
+        </div>
+
         {/* Scanlines on overlay */}
         <div style={{
           position: 'absolute', inset: 0,
           backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 4px)',
           pointerEvents: 'none',
+          zIndex: 1,
         }} />
 
         {/* Overlay nav bar */}
