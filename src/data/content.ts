@@ -77,6 +77,13 @@ export const songs = [
   },
 ]
 
+export const pressQuotes = [
+  {
+    quote: 'Blastoise is finally winning a popularity contest over Charizard, and it rules.',
+    source: 'KOTAKU',
+  },
+]
+
 // Replace with actual YouTube video ID (e.g. 'dQw4w9WgXcQ')
 export const FEATURED_VIDEO_ID = 'eY_DBWkwSC4'
 

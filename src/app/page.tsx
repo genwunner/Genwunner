@@ -3,7 +3,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/public/Nav'
 import TerminalIntro from '@/components/public/TerminalIntro'
-import { songs, socialLinks, upcomingShows, artistStats } from '@/data/content'
+import { songs, socialLinks, upcomingShows, artistStats, pressQuotes } from '@/data/content'
+import PressTicker from '@/components/public/PressTicker'
 import { createClient } from '@/lib/supabase/server'
 
 function TermHead({
@@ -129,8 +130,8 @@ export default async function HomePage() {
             letterSpacing: '0.15em',
             marginBottom: '1.5rem',
           }}>
-            <span style={{ color: '#e3000f' }}>⚠ CLASSIFIED</span>
-            {' '}·{' '}OPERATIVE FILE #001 · KANTO DIVISION
+            <span className="hidden md:inline" style={{ color: '#e3000f' }}>⚠ CLASSIFIED</span>
+            <span className="hidden md:inline">{' '}·{' '}</span>OPERATIVE FILE #001 · KANTO DIVISION
           </div>
 
           <TermHead text="GENWUNNER" size="hero" cursor={true} highlight={true} />
@@ -203,7 +204,7 @@ export default async function HomePage() {
           </div>
           <TermHead text="THE ARSENAL" size="lg" cursor={true} />
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
-            &gt; Each song a weapon. Each name an operative. Pokémon deployed on the Kanto campaign.
+            &gt; <span className="hidden md:inline">Each song a weapon. Each name an operative. </span>Pokémon deployed on the Kanto campaign.
           </div>
         </div>
 
@@ -262,7 +263,7 @@ export default async function HomePage() {
           </div>
           <TermHead text="CITY RAIDS" size="lg" cursor={true} />
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
-            &gt; Spreading Team Rocket propaganda across Kanto and beyond
+            &gt; Spreading the RRR propaganda across Kanto and beyond
           </div>
         </div>
 
@@ -333,7 +334,7 @@ export default async function HomePage() {
             JOIN THE DISCORD
           </div>
           <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.6rem', color: 'rgba(0,0,0,0.65)', letterSpacing: '0.06em', marginTop: '0.4rem', lineHeight: 1.8 }}>
-            City raid alerts · classified drops · Giovanni&apos;s journal · direct line
+            City raid alerts · classified drops · Giovanni&apos;s journal
           </div>
         </div>
         <a href={socialLinks.discord} target="_blank" rel="noopener noreferrer" style={{
@@ -368,7 +369,7 @@ export default async function HomePage() {
         <div className="enlist-grid" style={{ display: 'grid', gap: '2rem', alignItems: 'start' }}>
           <div>
             <p style={{ fontFamily: '"Courier New", monospace', fontSize: '0.72rem', color: '#880000', lineHeight: 1.85, letterSpacing: '0.04em', marginBottom: '1rem' }}>
-              Register in the Wunnerdex.{' '}
+              <span className="hidden md:inline">Register in the Wunnerdex.{' '}</span>
               <span style={{ color: '#cc0000' }}>Genwunner remembers who showed up early.</span>
             </p>
             <div className="hidden md:block">
@@ -392,17 +393,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── PRESS QUOTE ── */}
-      <div style={{ padding: '1.75rem 1.5rem', borderBottom: '1px solid #1a0000', textAlign: 'center', background: '#030000' }}>
-        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#660000', letterSpacing: '0.12em', marginBottom: '0.65rem' }}>
-          // INTERCEPTED CIVILIAN TRANSMISSION
-        </div>
-        <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(0.75rem, 1.8vw, 1rem)', color: '#880000', letterSpacing: '0.05em', fontStyle: 'italic', lineHeight: 1.6 }}>
-          &ldquo;Blastoise is finally winning a popularity contest over Charizard, and it rules.&rdquo;
-        </div>
-        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#e3000f', letterSpacing: '0.18em', marginTop: '0.65rem' }}>
-          — KOTAKU
-        </div>
-      </div>
+      <PressTicker quotes={pressQuotes} />
 
       {/* ── FOOTER ── */}
       <footer style={{ padding: '2.5rem 1.5rem' }}>

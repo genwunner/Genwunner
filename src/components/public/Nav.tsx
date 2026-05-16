@@ -192,11 +192,11 @@ export default function Nav() {
           />
           <div style={{
             position: 'absolute', inset: 0,
-            background: 'linear-gradient(to right, #000 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.15) 100%)',
+            background: 'linear-gradient(to right, #000 0%, rgba(0,0,0,0.92) 25%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.15) 100%)',
           }} />
           <div style={{
             position: 'absolute', inset: 0,
-            background: 'linear-gradient(to bottom, transparent 60%, #000 100%)',
+            background: 'linear-gradient(to bottom, transparent 55%, #000 100%)',
           }} />
           <div style={{ position: 'absolute', inset: 0, background: 'rgba(227,0,15,0.06)' }} />
         </div>
