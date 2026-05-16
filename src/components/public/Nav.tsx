@@ -98,7 +98,7 @@ export default function Nav() {
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', textDecoration: 'none' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/rrr-logo.jpg"
+            src="/images/rrr-logo-transparent.png"
             alt="Genwunner"
             width={40}
             height={40}
@@ -225,7 +225,7 @@ export default function Nav() {
           }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/rrr-logo.jpg"
+              src="/images/rrr-logo-transparent.png"
               alt="Genwunner"
               width={40}
               height={40}
