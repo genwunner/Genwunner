@@ -64,14 +64,19 @@ export default function TerminalIntro() {
 
   useEffect(() => {
     if (!mounted) return
-    if (sessionStorage.getItem('rrr-intro-seen')) { setVisible(false); return }
+    if (sessionStorage.getItem('rrr-intro-seen')) {
+      setVisible(false)
+      return
+    }
     const t = setTimeout(() => setStarted(true), 300)
     return () => clearTimeout(t)
   }, [mounted])
 
+  // Stream lines in
   useEffect(() => {
     if (!started) return
     const timers: ReturnType<typeof setTimeout>[] = []
+
     SEQUENCE.forEach((line, i) => {
       const t = setTimeout(() => {
         if (skipRef.current) return
@@ -80,8 +85,12 @@ export default function TerminalIntro() {
       }, line.delay)
       timers.push(t)
     })
-    const lt = setTimeout(() => { if (!skipRef.current) setShowLaunch(true) }, LAUNCH_DELAY)
+
+    const lt = setTimeout(() => {
+      if (!skipRef.current) setShowLaunch(true)
+    }, LAUNCH_DELAY)
     timers.push(lt)
+
     return () => timers.forEach(clearTimeout)
   }, [started])
 
@@ -90,20 +99,30 @@ export default function TerminalIntro() {
     setLaunching(true)
     setShowLaunch(false)
 
+    // Each visible line gets a random glitch delay then blinks out
+    // Spread over ~800ms so they disappear haphazardly, not all at once
     const lineIndices = shownLines.filter(i => SEQUENCE[i].text !== '')
     const timers: ReturnType<typeof setTimeout>[] = []
 
     lineIndices.forEach(i => {
       const glitchAt = Math.random() * 600
       const goneAt   = glitchAt + 80 + Math.random() * 120
-      const t1 = setTimeout(() => setGlitchLines(prev => new Set(prev).add(i)), glitchAt)
+
+      // First: glitch flash (line flickers)
+      const t1 = setTimeout(() => {
+        setGlitchLines(prev => new Set(prev).add(i))
+      }, glitchAt)
+
+      // Then: disappear from position
       const t2 = setTimeout(() => {
         setGlitchLines(prev => { const s = new Set(prev); s.delete(i); return s })
         setGoneLines(prev => new Set(prev).add(i))
       }, goneAt)
+
       timers.push(t1, t2)
     })
 
+    // After all lines gone, fade to black
     setTimeout(() => {
       setFadeOut(true)
       setTimeout(() => {
@@ -111,6 +130,8 @@ export default function TerminalIntro() {
         sessionStorage.setItem('rrr-intro-seen', '1')
       }, 700)
     }, 1000)
+
+    return () => timers.forEach(clearTimeout)
   }
 
   function skip() {
@@ -122,10 +143,12 @@ export default function TerminalIntro() {
     }, 500)
   }
 
-  if (!mounted) return <div style={{ position: 'fixed', inset: 0, background: '#000', zIndex: 9999 }} />
+  if (!mounted) return (
+    <div style={{ position: 'fixed', inset: 0, background: '#000', zIndex: 9999 }} />
+  )
+
   if (!visible) return null
 
-  const showBall = shownLines.length > 0
 
   return (
     <>
@@ -163,6 +186,14 @@ export default function TerminalIntro() {
           from { opacity:0; }
           to   { opacity:1; }
         }
+        @keyframes rrr-glitch-blink {
+          0%   { opacity:1;   filter:brightness(1);    letter-spacing:0.06em; }
+          20%  { opacity:0.2; filter:brightness(2);    letter-spacing:0.12em; color:#ff0000; }
+          40%  { opacity:1;   filter:brightness(0.5);  letter-spacing:0.02em; }
+          60%  { opacity:0.1; filter:brightness(3);    letter-spacing:0.1em;  color:#660000; }
+          80%  { opacity:0.8; filter:brightness(1.5);  letter-spacing:0.08em; }
+          100% { opacity:0;   filter:brightness(0); }
+        }
         @keyframes rrr-glitch-flicker {
           0%,100% { opacity:1; }
           25%     { opacity:0.15; filter:brightness(2) hue-rotate(10deg); }
@@ -170,15 +201,27 @@ export default function TerminalIntro() {
           75%     { opacity:0.05; filter:brightness(3); }
         }
         @keyframes rrr-spin-slow {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
-        @keyframes rrr-ball-appear {
-          from { opacity:0; }
-          to   { opacity:1; }
+          0%   { transform: rotate(0deg); }
+          12%  { transform: rotate(0deg); }
+          13%  { transform: rotate(45deg); }
+          25%  { transform: rotate(45deg); }
+          26%  { transform: rotate(90deg); }
+          37%  { transform: rotate(90deg); }
+          38%  { transform: rotate(135deg); }
+          50%  { transform: rotate(135deg); }
+          51%  { transform: rotate(180deg); }
+          62%  { transform: rotate(180deg); }
+          63%  { transform: rotate(225deg); }
+          75%  { transform: rotate(225deg); }
+          76%  { transform: rotate(270deg); }
+          87%  { transform: rotate(270deg); }
+          88%  { transform: rotate(315deg); }
+          99%  { transform: rotate(315deg); }
+          100% { transform: rotate(360deg); }
         }
       `}</style>
 
+      {/* ── Master overlay ── */}
       <div
         style={{
           position: 'fixed',
@@ -192,8 +235,9 @@ export default function TerminalIntro() {
           flexDirection: 'column',
         }}
       >
-        {/* Pixel Pokéball — fades in after first line, right side */}
-        {showBall && (
+
+        {/* ── Pixelated spinning Pokéball — right side ── */}
+        {started && (
           <div style={{
             position: 'absolute',
             right: 'clamp(2rem, 8vw, 6rem)',
@@ -201,13 +245,10 @@ export default function TerminalIntro() {
             transform: 'translateY(-50%)',
             zIndex: 15,
             pointerEvents: 'none',
-            animation: 'rrr-ball-appear 1s 0.5s ease both',
-            opacity: 0,
           }}>
             <PixelPokeball glitching={goneLines.size > 0} />
           </div>
         )}
-
         {/* CRT scanlines */}
         <div style={{
           position: 'absolute', inset: 0,
@@ -215,7 +256,7 @@ export default function TerminalIntro() {
           pointerEvents: 'none', zIndex: 30,
         }} />
 
-        {/* Scanline sweep */}
+        {/* Moving scanline sweep */}
         <div style={{
           position: 'absolute', left: 0, right: 0, height: 6,
           background: 'linear-gradient(to bottom, transparent, rgba(227,0,15,0.045), transparent)',
@@ -223,14 +264,14 @@ export default function TerminalIntro() {
           pointerEvents: 'none', zIndex: 31,
         }} />
 
-        {/* Vignette */}
+        {/* CRT vignette */}
         <div style={{
           position: 'absolute', inset: 0,
           background: 'radial-gradient(ellipse 88% 88% at 50% 50%, transparent 38%, rgba(0,0,0,0.82) 100%)',
           pointerEvents: 'none', zIndex: 29,
         }} />
 
-        {/* Phosphor glow */}
+        {/* Red phosphor ambient */}
         <div style={{
           position: 'absolute', inset: 0,
           background: 'radial-gradient(ellipse 55% 48% at 50% 50%, rgba(227,0,15,0.035) 0%, transparent 70%)',
@@ -244,9 +285,11 @@ export default function TerminalIntro() {
             position: 'absolute', top: 20, right: 20, zIndex: 100,
             fontFamily: 'var(--font-pixel)',
             fontSize: 'clamp(0.4rem, 1.2vw, 0.55rem)',
-            color: 'rgba(227,0,15,0.3)', background: 'none',
+            color: 'rgba(227,0,15,0.3)',
+            background: 'none',
             border: '1px solid rgba(227,0,15,0.12)',
-            padding: '0.4rem 0.9rem', cursor: 'pointer', letterSpacing: '0.1em',
+            padding: '0.4rem 0.9rem',
+            cursor: 'pointer', letterSpacing: '0.1em',
           }}
           onMouseEnter={e => {
             ;(e.currentTarget as HTMLElement).style.color = 'rgba(227,0,15,0.75)'
@@ -260,20 +303,22 @@ export default function TerminalIntro() {
           [ SKIP ]
         </button>
 
-        {/* Terminal content */}
+        {/* ── Terminal content ── */}
         <div
           ref={scrollRef}
           style={{
-            flex: 1, overflowY: 'auto', overflowX: 'hidden', scrollbarWidth: 'none',
+            flex: 1,
+            overflowY: 'auto', overflowX: 'hidden',
+            scrollbarWidth: 'none',
             padding: 'clamp(2rem, 5vw, 4rem) clamp(1.5rem, 6vw, 5rem)',
             display: 'flex', flexDirection: 'column',
             position: 'relative', zIndex: 10,
           }}
         >
           {shownLines.map(i => {
-            const line     = SEQUENCE[i]
-            const isGone   = goneLines.has(i)
-            const isGlitch = glitchLines.has(i)
+            const line = SEQUENCE[i]
+            const isGone    = goneLines.has(i)
+            const isGlitch  = glitchLines.has(i)
 
             if (isGone) return <div key={i} style={{ height: line.text === '' ? '0.75rem' : undefined, opacity: 0 }} />
             if (line.text === '') return <div key={i} style={{ height: '0.75rem' }} />
@@ -282,16 +327,24 @@ export default function TerminalIntro() {
             const isHighlight = !!line.highlight
             const isDim       = !!line.dim
 
-            const color = isGlitch ? '#ff0000'
-              : isLogo ? '#e3000f'
-              : isHighlight ? '#ff5555'
-              : isDim ? '#6b0000'
+            const color = isGlitch
+              ? '#ff0000'
+              : isLogo
+              ? '#e3000f'
+              : isHighlight
+              ? '#ff5555'
+              : isDim
+              ? '#6b0000'
               : '#cc0000'
 
-            const glow = isGlitch ? '0 0 20px rgba(255,0,0,1), 0 0 40px rgba(255,0,0,0.5)'
-              : isLogo ? '0 0 14px rgba(227,0,15,0.9),0 0 40px rgba(227,0,15,0.3)'
-              : isHighlight ? '0 0 10px rgba(255,85,85,0.7)'
-              : isDim ? 'none'
+            const glow = isGlitch
+              ? '0 0 20px rgba(255,0,0,1), 0 0 40px rgba(255,0,0,0.5)'
+              : isLogo
+              ? '0 0 14px rgba(227,0,15,0.9),0 0 40px rgba(227,0,15,0.3)'
+              : isHighlight
+              ? '0 0 10px rgba(255,85,85,0.7)'
+              : isDim
+              ? 'none'
               : '0 0 6px rgba(204,0,0,0.5)'
 
             return (
@@ -299,7 +352,9 @@ export default function TerminalIntro() {
                 key={i}
                 style={{
                   fontFamily: isLogo ? '"Courier New", monospace' : 'var(--font-pixel)',
-                  fontSize: isLogo ? 'clamp(0.55rem, 2vw, 1rem)' : 'clamp(0.5rem, 1.5vw, 0.72rem)',
+                  fontSize: isLogo
+                    ? 'clamp(0.55rem, 2vw, 1rem)'
+                    : 'clamp(0.5rem, 1.5vw, 0.72rem)',
                   color,
                   textShadow: glow,
                   whiteSpace: 'pre',
@@ -333,7 +388,10 @@ export default function TerminalIntro() {
 
           {/* LAUNCH */}
           {showLaunch && (
-            <div style={{ marginTop: '1.75rem', animation: 'rrr-launch-appear 0.4s ease both' }}>
+            <div style={{
+              marginTop: '1.75rem',
+              animation: 'rrr-launch-appear 0.4s ease both',
+            }}>
               <div style={{
                 fontFamily: 'var(--font-pixel)',
                 fontSize: 'clamp(0.5rem, 1.5vw, 0.72rem)',
@@ -396,8 +454,11 @@ export default function TerminalIntro() {
   )
 }
 
-// ── Pixel Pokéball ────────────────────────────────────────
+// ── Pixelated Pokéball ────────────────────────────────────
+// Built as a pixel grid — red top, white bottom, black belt, center button
 function PixelPokeball({ glitching }: { glitching: boolean }) {
+  // 16x16 pixel grid
+  // 0 = black/transparent, 1 = red, 2 = white, 3 = dark (belt/outline)
   const grid = [
     [0,0,0,0,0,3,3,3,3,3,3,0,0,0,0,0],
     [0,0,0,3,3,1,1,1,1,1,1,3,3,0,0,0],
@@ -417,34 +478,35 @@ function PixelPokeball({ glitching }: { glitching: boolean }) {
     [0,0,0,0,0,3,3,3,3,3,3,0,0,0,0,0],
   ]
 
-  const px = 10
+  const px = 10 // pixel size in px — makes it ~160px wide
 
+  // All terminal red/dark — matches the letter color scheme
   const colorMap: Record<number, string> = {
     0: 'transparent',
-    1: '#e3000f',
-    2: '#c8c8c8',
-    3: '#111111',
-    4: '#333333',
+    1: '#cc0000',   // red — matches dim terminal text
+    2: '#6b0000',   // dark red — bottom half (like dim lines)
+    3: '#1a0000',   // very dark red — outline/belt
+    4: '#2a0000',   // belt highlight
   }
 
+  // During glitch exit
   const glitchColorMap: Record<number, string> = {
     0: 'transparent',
     1: '#ff0000',
-    2: '#888888',
-    3: '#222222',
-    4: '#444444',
+    2: '#990000',
+    3: '#220000',
+    4: '#330000',
   }
 
   const colors = glitching ? glitchColorMap : colorMap
 
   return (
     <div style={{
-      animation: `rrr-spin-slow ${glitching ? '0.8s' : '8s'} linear infinite`,
-      filter: glitching
-        ? 'drop-shadow(0 0 8px rgba(255,0,0,0.9))'
-        : 'drop-shadow(0 0 12px rgba(227,0,15,0.5)) drop-shadow(0 0 4px rgba(227,0,15,0.3))',
-      transition: 'filter 0.2s',
+      animation: `rrr-spin-slow ${glitching ? '1.5s' : '20s'} steps(1) infinite`,
+      filter: 'drop-shadow(0 0 6px rgba(204,0,0,0.6))',
+      imageRendering: 'pixelated',
     }}>
+      {/* Pixel grid */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: `repeat(16, ${px}px)`,
@@ -453,12 +515,20 @@ function PixelPokeball({ glitching }: { glitching: boolean }) {
       }}>
         {grid.map((row, r) =>
           row.map((cell, c) => {
+            // Center button area — rows 5-10, cols 5-10
+            const isCenter = r >= 5 && r <= 10 && c >= 5 && c <= 10
             const isCenterButton = r >= 6 && r <= 9 && c >= 6 && c <= 9
-            const isCenterRing   = r >= 5 && r <= 10 && c >= 5 && c <= 10 && !isCenterButton && cell !== 0
+            const isCenterOuter = isCenter && !isCenterButton && cell !== 0
 
             let bg = colors[cell]
-            if (isCenterButton && cell !== 0) bg = glitching ? '#555' : '#1a1a1a'
-            if (isCenterRing) bg = '#111'
+
+            // Center button styling
+            if (isCenterButton && cell !== 0) {
+              bg = glitching ? '#440000' : '#0a0000'
+            }
+            if (isCenterOuter) {
+              bg = '#120000'
+            }
 
             return (
               <div
@@ -467,7 +537,6 @@ function PixelPokeball({ glitching }: { glitching: boolean }) {
                   width: px,
                   height: px,
                   background: bg,
-                  boxShadow: cell !== 0 && !glitching ? 'inset 0 0 0 0.5px rgba(0,0,0,0.3)' : undefined,
                 }}
               />
             )
@@ -475,16 +544,15 @@ function PixelPokeball({ glitching }: { glitching: boolean }) {
         )}
       </div>
 
+      {/* RRR text below ball */}
       <div style={{
         textAlign: 'center',
         marginTop: 12,
         fontFamily: 'var(--font-pixel)',
         fontSize: '0.38rem',
-        color: glitching ? '#ff0000' : '#e3000f',
+        color: glitching ? '#ff0000' : '#cc0000',
         letterSpacing: '0.15em',
-        textShadow: glitching ? '0 0 10px rgba(255,0,0,1)' : '0 0 8px rgba(227,0,15,0.7)',
-        opacity: glitching ? 0.5 : 1,
-        transition: 'all 0.1s',
+        textShadow: '0 0 6px rgba(204,0,0,0.5)',
       }}>
         R·R·R
       </div>
