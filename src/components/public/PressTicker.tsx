@@ -30,7 +30,7 @@ export default function PressTicker({ quotes }: { quotes: Quote[] }) {
       <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#660000', letterSpacing: '0.12em', marginBottom: '0.65rem' }}>
         // INTERCEPTED CIVILIAN TRANSMISSION
       </div>
-      <div style={{
+      <div className="dt-lore" style={{
         fontFamily: '"Courier New", monospace',
         fontSize: 'clamp(0.75rem, 1.8vw, 1rem)',
         color: '#880000',

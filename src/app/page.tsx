@@ -203,7 +203,7 @@ export default async function HomePage() {
             // 001 · DEPLOYED OPERATIVES
           </div>
           <TermHead text="THE ARSENAL" size="lg" cursor={true} />
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
+          <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
             &gt; <span className="hidden md:inline">Each song a weapon. Each name an operative. </span>Pokémon deployed on the Kanto campaign.
           </div>
         </div>
@@ -230,7 +230,7 @@ export default async function HomePage() {
                 {song.tag}
               </div>
               <TermHead text={song.title} size="sm" color="#cc0000" />
-              <p className="hidden md:block" style={{
+              <p className="hidden md:block dt-lore" style={{
                 fontFamily: '"Courier New", monospace',
                 fontSize: '0.62rem',
                 color: '#880000',
@@ -262,7 +262,7 @@ export default async function HomePage() {
             // 002 · ACTIVE CAMPAIGN
           </div>
           <TermHead text="CITY RAIDS" size="lg" cursor={true} />
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
+          <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
             &gt; Spreading the RRR propaganda across Kanto and beyond
           </div>
         </div>
@@ -289,7 +289,7 @@ export default async function HomePage() {
               </div>
               <div style={{ flex: 1 }}>
                 <TermHead text={show.title} size="sm" color="#aa0000" />
-                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#770000', letterSpacing: '0.04em', marginTop: '0.2rem' }}>
+                <div className="dt-sub" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#770000', letterSpacing: '0.04em', marginTop: '0.2rem' }}>
                   // {show.city}{show.venue ? ` · ${show.venue}` : ''}
                 </div>
               </div>
@@ -301,7 +301,7 @@ export default async function HomePage() {
             </div>
           )) : (
             <div style={{ textAlign: 'center', padding: '2rem', border: '1px dashed #1a0000', marginTop: '1rem' }}>
-              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>
+              <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>
                 &gt; Raids incoming. Stand by.
               </div>
               <Link href="/wunnerdex" className="btn-primary">[ ENLIST FOR EARLY ALERTS ]</Link>
@@ -361,14 +361,14 @@ export default async function HomePage() {
             // 003 · GRUNT REGISTRATION
           </div>
           <TermHead text="THE BOSS IS WATCHING." size="lg" cursor={true} />
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
+          <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
             &gt; Giovanni keeps records on every operative
           </div>
         </div>
 
         <div className="enlist-grid" style={{ display: 'grid', gap: '2rem', alignItems: 'start' }}>
           <div>
-            <p style={{ fontFamily: '"Courier New", monospace', fontSize: '0.72rem', color: '#880000', lineHeight: 1.85, letterSpacing: '0.04em', marginBottom: '1rem' }}>
+            <p className="dt-body-hi" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.72rem', color: '#880000', lineHeight: 1.85, letterSpacing: '0.04em', marginBottom: '1rem' }}>
               <span className="hidden md:inline">Register in the Wunnerdex.{' '}</span>
               <span style={{ color: '#cc0000' }}>Genwunner remembers who showed up early.</span>
             </p>
@@ -381,7 +381,7 @@ export default async function HomePage() {
                 'Direct comms from the operative himself',
                 'Unlock #the-vault on Discord',
               ].map(perk => (
-                <div key={perk} style={{ fontFamily: '"Courier New", monospace', fontSize: '0.68rem', color: '#880000', display: 'flex', alignItems: 'flex-start', gap: '0.4rem', marginBottom: '0.5rem', lineHeight: 1.6, letterSpacing: '0.04em' }}>
+                <div key={perk} className="dt-sub" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.68rem', color: '#880000', display: 'flex', alignItems: 'flex-start', gap: '0.4rem', marginBottom: '0.5rem', lineHeight: 1.6, letterSpacing: '0.04em' }}>
                   <span style={{ color: '#e3000f', flexShrink: 0 }}>&gt;</span>
                   {perk}
                 </div>
@@ -403,7 +403,7 @@ export default async function HomePage() {
             <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.48rem', color: '#550000', letterSpacing: '0.08em', margin: '0.35rem 0 0.75rem' }}>
               ROCKET RECRUITMENT REGIME · KANTO DIVISION · EST. 2022
             </div>
-            <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#660000', lineHeight: 1.8, letterSpacing: '0.04em' }}>
+            <div className="dt-foot" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#660000', lineHeight: 1.8, letterSpacing: '0.04em' }}>
               Creator of PokéRage. Right hand of Giovanni.<br />
               Pallet Town&apos;s most wanted.<br />
               The regime is only getting started.
@@ -436,11 +436,11 @@ export default async function HomePage() {
             ]},
           ].map(col => (
             <div key={col.title}>
-              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.52rem', color: '#660000', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
+              <div className="dt-foot-col" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.52rem', color: '#660000', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
                 {col.title}
               </div>
               {col.links.map(link => (
-                <Link key={link.label} href={link.href} style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#660000', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', padding: '0.18rem 0', textDecoration: 'none' }}>
+                <Link key={link.label} href={link.href} className="dt-foot-link" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#660000', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', padding: '0.18rem 0', textDecoration: 'none' }}>
                   {link.label}
                 </Link>
               ))}
@@ -448,10 +448,10 @@ export default async function HomePage() {
           ))}
         </div>
         <div style={{ borderTop: '1px solid #0d0000', paddingTop: '1rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' as const, gap: '0.5rem' }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.44rem', color: '#550000', letterSpacing: '0.06em' }}>
+          <div className="dt-copy" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.44rem', color: '#550000', letterSpacing: '0.06em' }}>
             © {new Date().getFullYear()} ROCKET RECRUITMENT REGIME · KANTO DIVISION · ALL INTEL RESERVED TO GIOVANNI
           </div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.42rem', color: '#440000', letterSpacing: '0.05em' }}>
+          <div className="dt-copy" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.42rem', color: '#440000', letterSpacing: '0.05em' }}>
             NOT AFFILIATED WITH THE POKÉMON COMPANY
           </div>
         </div>

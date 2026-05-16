@@ -336,6 +336,18 @@ body[data-intro-done] .site-content {
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* Desktop body text — bigger + brighter without touching mobile */
+@media (min-width: 768px) {
+  .dt-body      { font-size: 0.85rem !important; color: #aa0000 !important; }
+  .dt-body-hi   { font-size: 0.85rem !important; color: #cc0000 !important; }
+  .dt-sub       { font-size: 0.72rem !important; color: #880000 !important; }
+  .dt-lore      { font-size: 0.72rem !important; color: #aa0000 !important; }
+  .dt-foot      { font-size: 0.72rem !important; color: #880000 !important; }
+  .dt-foot-link { font-size: 0.68rem !important; color: #770000 !important; }
+  .dt-foot-col  { font-size: 0.6rem  !important; color: #770000 !important; }
+  .dt-copy      { font-size: 0.52rem !important; color: #660000 !important; }
+}
+
 /* Enlist section: single column on mobile, two columns on desktop */
 .enlist-grid { grid-template-columns: 1fr; }
 @media (min-width: 768px) {
