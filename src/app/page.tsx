@@ -139,8 +139,8 @@ export default async function HomePage() {
             <TermHead text="ROCKET RECRUITMENT REGIME" size="md" dim={true} />
           </div>
 
-          {/* Dossier */}
-          <div style={{
+          {/* Dossier — hidden on mobile to keep text block short */}
+          <div className="hidden md:block" style={{
             borderLeft: '2px solid #440000',
             paddingLeft: '1rem',
             marginTop: '1.5rem',
