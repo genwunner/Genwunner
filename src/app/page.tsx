@@ -12,12 +12,14 @@ function TermHead({
   cursor = false,
   color = '#cc0000',
   dim,
+  highlight,
 }: {
   text: string
   size?: 'hero' | 'lg' | 'md' | 'sm'
   cursor?: boolean
   color?: string
   dim?: boolean
+  highlight?: boolean
 }) {
   const fontSize = {
     hero: 'clamp(2.2rem, 6vw, 5rem)',
@@ -33,27 +35,31 @@ function TermHead({
       fontWeight: 700,
       letterSpacing: '0.06em',
       textTransform: 'uppercase',
-      color: dim ? '#880000' : color,
       lineHeight: 1.1,
       display: 'flex',
-      alignItems: 'center',
-      gap: '0.15em',
+      alignItems: 'stretch',
+      gap: '0.12em',
       flexWrap: 'wrap' as const,
     }}>
-      <span style={{ textShadow: dim ? 'none' : '0 0 20px rgba(227,0,15,0.25)' }}>
+      <span style={{
+        display: 'flex',
+        alignItems: 'center',
+        background: highlight ? '#e3000f' : 'transparent',
+        color: highlight ? '#fff' : dim ? '#880000' : color,
+        padding: highlight ? '0.08em 0.18em' : undefined,
+        textShadow: highlight || dim ? 'none' : '0 0 20px rgba(227,0,15,0.25)',
+      }}>
         {text}
       </span>
       {cursor && (
         <span style={{
-          display: 'inline-block',
-          width: '0.55em',
-          height: '1em',
+          display: 'block',
+          width: highlight ? '0.55em' : '0.55em',
+          alignSelf: 'stretch',
           background: '#e3000f',
-          verticalAlign: 'middle',
-          marginLeft: '0.05em',
           flexShrink: 0,
           animation: 'terminal-blink 0.9s step-end infinite',
-          boxShadow: '0 0 8px rgba(227,0,15,0.7)',
+          boxShadow: '0 0 10px rgba(227,0,15,0.8)',
         }} />
       )}
     </div>
@@ -126,7 +132,7 @@ export default async function HomePage() {
             {' '}·{' '}OPERATIVE FILE #001 · KANTO DIVISION
           </div>
 
-          <TermHead text="GENWUNNER" size="hero" cursor={true} color="#ff5555" />
+          <TermHead text="GENWUNNER" size="hero" cursor={true} highlight={true} />
 
           <div style={{ marginTop: '0.5rem' }}>
             <TermHead text="ROCKET RECRUITMENT REGIME" size="md" dim={true} />
