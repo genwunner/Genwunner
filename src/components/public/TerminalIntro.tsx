@@ -21,12 +21,14 @@ const SEQUENCE: {
   { text: 'ROUTING THROUGH KANTO MAINFRAME...',          delay: 760,  dim: true       },
   { text: 'ESTABLISHING OPERATIVE UPLINK...',            delay: 900,  dim: true       },
   { text: '',                                            delay: 1000                   },
-  { text: ' ██████╗ ██████╗ ██████╗',                   delay: 1100, logo: true      },
-  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                  delay: 1180, logo: true      },
-  { text: ' ██████╔╝██████╔╝██████╔╝',                  delay: 1260, logo: true      },
-  { text: ' ██╔══██╗██╔══██╗██╔══██╗',                  delay: 1340, logo: true      },
-  { text: ' ██║  ██║██║  ██║██║  ██║',                  delay: 1420, logo: true      },
-  { text: ' ╚═════╝ ╚═════╝ ╚═════╝',                   delay: 1500, logo: true      },
+  { text: ' ██████╗ ██████╗ ██████╗   ▲    ',            delay: 1100, logo: true      },
+  { text: ' ██╔══██╗██╔══██╗██╔══██╗  ▲   ',             delay: 1180, logo: true      },
+  { text: ' ██████╔╝██████╔╝██████╔╝  ███  ',            delay: 1220, logo: true      },
+  { text: ' ██╔══██╗██╔══██╗██╔══██╗   █○█  ',           delay: 1260, logo: true      },
+  { text: ' ██████╔╝██████╔╝██████╔╝   ███  ',           delay: 1300, logo: true      },
+  { text: ' ██╔══██╗██╔══██╗██╔══██╗   █████',           delay: 1340, logo: true      },
+  { text: ' ██║  ██║██║  ██║██║  ██║    █   █',          delay: 1420, logo: true      },
+  { text: ' ╚═════╝ ╚═════╝ ╚═════╝     ▄█▄ ',          delay: 1500, logo: true      },
   { text: '',                                            delay: 1600                   },
   { text: '  ROCKET RECRUITMENT REGIME',                 delay: 1700                   },
   { text: '  RIGHT HAND OF GIOVANNI — EST. 2022',        delay: 1820, dim: true       },
@@ -200,6 +202,10 @@ export default function TerminalIntro() {
           50%     { opacity:0.8; }
           75%     { opacity:0.05; filter:brightness(3); }
         }
+        @keyframes rrr-spin-slow {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
       `}</style>
 
       {/* ── Master overlay ── */}
@@ -217,6 +223,19 @@ export default function TerminalIntro() {
         }}
       >
 
+        {/* ── Pixelated spinning Pokéball — right side ── */}
+        {started && (
+          <div style={{
+            position: 'absolute',
+            right: 'clamp(2rem, 8vw, 6rem)',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: 15,
+            pointerEvents: 'none',
+          }}>
+            <PixelPokeball glitching={goneLines.size > 0} />
+          </div>
+        )}
         {/* CRT scanlines */}
         <div style={{
           position: 'absolute', inset: 0,
@@ -422,3 +441,109 @@ export default function TerminalIntro() {
   )
 }
 
+// ── Pixelated Pokéball ────────────────────────────────────
+// Built as a pixel grid — red top, white bottom, black belt, center button
+function PixelPokeball({ glitching }: { glitching: boolean }) {
+  // 16x16 pixel grid
+  // 0 = black/transparent, 1 = red, 2 = white, 3 = dark (belt/outline)
+  // Outline-only — just the pixels that form the shape edge
+  // 0=transparent, 1=bright red (top arc), 2=white (bottom arc), 3=belt/center
+  const grid = [
+    [0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0],
+    [0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0],
+    [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [3,3,3,3,3,3,3,4,4,3,3,3,3,3,3,3],
+    [3,3,3,3,3,3,3,4,4,3,3,3,3,3,3,3],
+    [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+    [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+    [0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0],
+    [0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0],
+    [0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0],
+    [0,0,0,2,2,0,0,0,0,0,0,2,2,0,0,0],
+    [0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0],
+  ]
+
+  const px = 10 // pixel size in px — makes it ~160px wide
+
+  // Outline only — bright red top arc, white bottom arc, matches terminal colors
+  const colorMap: Record<number, string> = {
+    0: 'transparent',
+    1: '#e3000f',   // bright red — matches RRR logo text
+    2: '#ff5555',   // bright white-red — matches highlight lines
+    3: '#880000',   // belt — dim red
+    4: '#440000',   // center button — very dim
+  }
+
+  const glitchColorMap: Record<number, string> = {
+    0: 'transparent',
+    1: '#ff0000',
+    2: '#ff8888',
+    3: '#660000',
+    4: '#330000',
+  }
+
+  const colors = glitching ? glitchColorMap : colorMap
+
+  return (
+    <div style={{
+      animation: `rrr-spin-slow ${glitching ? '0.6s' : '5s'} linear infinite`,
+      filter: 'drop-shadow(0 0 8px rgba(227,0,15,0.7))',
+      imageRendering: 'pixelated',
+    }}>
+      {/* Pixel grid */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(16, ${px}px)`,
+        gridTemplateRows: `repeat(16, ${px}px)`,
+        gap: 0,
+      }}>
+        {grid.map((row, r) =>
+          row.map((cell, c) => {
+            // Center button area — rows 5-10, cols 5-10
+            const isCenter = r >= 5 && r <= 10 && c >= 5 && c <= 10
+            const isCenterButton = r >= 6 && r <= 9 && c >= 6 && c <= 9
+            const isCenterOuter = isCenter && !isCenterButton && cell !== 0
+
+            let bg = colors[cell]
+
+            // Center button styling
+            if (isCenterButton && cell !== 0) {
+              bg = glitching ? '#550000' : '#220000'
+            }
+            if (isCenterOuter) {
+              bg = '#330000'
+            }
+
+            return (
+              <div
+                key={`${r}-${c}`}
+                style={{
+                  width: px,
+                  height: px,
+                  background: bg,
+                }}
+              />
+            )
+          })
+        )}
+      </div>
+
+      {/* RRR text below ball */}
+      <div style={{
+        textAlign: 'center',
+        marginTop: 12,
+        fontFamily: 'var(--font-pixel)',
+        fontSize: '0.38rem',
+        color: glitching ? '#ff0000' : '#e3000f',
+        letterSpacing: '0.15em',
+        textShadow: '0 0 8px rgba(227,0,15,0.7)',
+      }}>
+        R·R·R
+      </div>
+    </div>
+  )
+}
