@@ -281,7 +281,7 @@ export default function TerminalIntro() {
             flex: 1,
             overflowY: 'auto', overflowX: 'hidden',
             scrollbarWidth: 'none',
-            padding: 'clamp(2rem, 5vw, 4rem) clamp(1.5rem, 6vw, 5rem)',
+            padding: 'clamp(4rem, 7vw, 5rem) clamp(1.5rem, 6vw, 5rem) 2rem',
             display: 'flex', flexDirection: 'column',
             position: 'relative', zIndex: 10,
           }}
