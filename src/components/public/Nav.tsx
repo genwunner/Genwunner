@@ -56,8 +56,9 @@ export default function Nav() {
     <>
       {/* ── Ticker ── */}
       <div style={{
-        background: '#e3000f',
-        height: 24,
+        background: '#0a0000',
+        borderBottom: '1px solid #1a0000',
+        height: 28,
         overflow: 'hidden',
         display: 'flex',
         alignItems: 'center',
@@ -67,9 +68,11 @@ export default function Nav() {
       }}>
         <div style={{
           fontFamily: "'Courier New', monospace",
-          fontSize: '0.52rem',
-          color: '#fff',
+          fontSize: '0.65rem',
+          fontWeight: 700,
+          color: '#e3000f',
           letterSpacing: '0.12em',
+          textShadow: '0 0 10px rgba(227,0,15,0.5)',
           whiteSpace: 'nowrap',
           animation: 'ticker 40s linear infinite',
         }}>
@@ -80,7 +83,7 @@ export default function Nav() {
       {/* ── Main Nav ── */}
       <nav style={{
         position: 'fixed',
-        top: 24,
+        top: 28,
         left: 0, right: 0,
         zIndex: 50,
         background: '#000',

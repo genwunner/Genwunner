@@ -21,7 +21,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       />
       <Nav />
       <IntroGuard />
-      <main className="site-content" style={{ paddingTop: 80 }}>
+      <main className="site-content" style={{ paddingTop: 86 }}>
         {children}
       </main>
       {/* Mobile bottom bar spacer */}
