@@ -1,28 +1,28 @@
 'use client'
 
 // src/components/public/HideoutIntro.tsx
-// Team Rocket Hideout — alley approach + steel bunker door
+// Team Rocket Hideout door intro — static shot, CMU wall, speakeasy window
 
 import { useEffect, useState, useRef } from 'react'
 
 type Phase =
   | 'logo'
-  | 'approach'   // camera slowly zooms toward the door (CSS scale)
-  | 'door'       // settled at door, knock prompt visible
-  | 'knocked'    // shaking + intercom dialogue
+  | 'door'       // static shot of door, knock prompt
+  | 'knocked'    // speakeasy slides open, eyes appear
   | 'typing'     // password types itself
   | 'granted'    // ACCESS GRANTED
-  | 'opening'    // door splits open, screen goes dark
+  | 'opening'    // door swings open, pans to black
   | 'done'
 
 const PASSWORD = 'BIGMANBLASTOISE'
 const CHAR_DELAY = 55
 
 export default function HideoutIntro() {
-  const [phase, setPhase]               = useState<Phase>('logo')
-  const [visible, setVisible]           = useState(true)
-  const [typed, setTyped]               = useState('')
+  const [phase, setPhase]           = useState<Phase>('logo')
+  const [visible, setVisible]       = useState(true)
+  const [typed, setTyped]           = useState('')
   const [dialogueLine, setDialogueLine] = useState(0)
+  const [eyeBlink, setEyeBlink]     = useState(false)
   const skipRef = useRef(false)
 
   function skip() {
@@ -33,34 +33,28 @@ export default function HideoutIntro() {
   }
 
   useEffect(() => {
-    if (sessionStorage.getItem('rrr-intro-seen')) {
-      setVisible(false)
-    }
+    if (sessionStorage.getItem('rrr-intro-seen')) setVisible(false)
   }, [])
 
-  // Logo → approach
+  // Logo → door
   useEffect(() => {
     if (phase !== 'logo' || !visible || skipRef.current) return
-    const t = setTimeout(() => setPhase('approach'), 1800)
+    const t = setTimeout(() => setPhase('door'), 2000)
     return () => clearTimeout(t)
   }, [phase, visible])
-
-  // Approach → door (zoom settles)
-  useEffect(() => {
-    if (phase !== 'approach' || skipRef.current) return
-    const t = setTimeout(() => setPhase('door'), 2200)
-    return () => clearTimeout(t)
-  }, [phase])
 
   function handleKnock() {
     if (phase !== 'door') return
     setPhase('knocked')
-    setTimeout(() => { if (!skipRef.current) setDialogueLine(1) }, 700)
-    setTimeout(() => { if (!skipRef.current) setDialogueLine(2) }, 1900)
-    setTimeout(() => { if (!skipRef.current) setPhase('typing')  }, 2900)
+    setTimeout(() => { if (!skipRef.current) setDialogueLine(1) }, 900)
+    setTimeout(() => { if (!skipRef.current) setEyeBlink(true)  }, 1400)
+    setTimeout(() => { if (!skipRef.current) setEyeBlink(false) }, 1600)
+    setTimeout(() => { if (!skipRef.current) setEyeBlink(true)  }, 1700)
+    setTimeout(() => { if (!skipRef.current) setEyeBlink(false) }, 1850)
+    setTimeout(() => { if (!skipRef.current) setDialogueLine(2) }, 2200)
+    setTimeout(() => { if (!skipRef.current) setPhase('typing') }, 3200)
   }
 
-  // Typing
   useEffect(() => {
     if (phase !== 'typing') return
     let i = 0
@@ -76,35 +70,31 @@ export default function HideoutIntro() {
     return () => clearInterval(interval)
   }, [phase])
 
-  // Granted → opening
   useEffect(() => {
     if (phase !== 'granted') return
-    const t = setTimeout(() => { if (!skipRef.current) setPhase('opening') }, 900)
+    const t = setTimeout(() => { if (!skipRef.current) setPhase('opening') }, 1000)
     return () => clearTimeout(t)
   }, [phase])
 
-  // Opening → done
   useEffect(() => {
     if (phase !== 'opening') return
     const t = setTimeout(() => {
       if (!skipRef.current) setPhase('done')
-      setTimeout(() => setVisible(false), 800)
+      setTimeout(() => setVisible(false), 700)
       sessionStorage.setItem('rrr-intro-seen', '1')
-    }, 1200)
+    }, 1400)
     return () => clearTimeout(t)
   }, [phase])
 
   if (!visible) return null
 
-  const showAlley    = phase !== 'logo'
-  const isApproach   = phase === 'approach'
-  const showKnock    = phase === 'door'
-  const showDialogue = ['knocked', 'typing', 'granted', 'opening'].includes(phase)
-  const isGranted    = ['granted', 'opening', 'done'].includes(phase)
-  const isOpening    = phase === 'opening'
-  const isDone       = phase === 'done'
-
-  const sceneScale = isApproach ? 'scale(1.5)' : showAlley ? 'scale(2.2)' : 'scale(1)'
+  const showDoor      = phase !== 'logo'
+  const showKnock     = phase === 'door'
+  const speakeasyOpen = ['knocked','typing','granted','opening'].includes(phase)
+  const isGranted     = ['granted','opening','done'].includes(phase)
+  const isOpening     = phase === 'opening'
+  const isDone        = phase === 'done'
+  const showDialogue  = ['knocked','typing','granted','opening'].includes(phase)
 
   return (
     <>
@@ -113,58 +103,54 @@ export default function HideoutIntro() {
           from { opacity:0; transform:translateY(8px); }
           to   { opacity:1; transform:translateY(0); }
         }
-        @keyframes rrr-shake {
-          0%,100% { transform:translateX(0) scale(2.2); }
-          15%      { transform:translateX(-5px) scale(2.2); }
-          30%      { transform:translateX(5px) scale(2.2); }
-          45%      { transform:translateX(-5px) scale(2.2); }
-          60%      { transform:translateX(5px) scale(2.2); }
-          80%      { transform:translateX(-2px) scale(2.2); }
-          90%      { transform:translateX(2px) scale(2.2); }
-        }
-        @keyframes rrr-blink {
+        @keyframes rrr-blink-cursor {
           0%,100% { opacity:1; } 50% { opacity:0; }
         }
         @keyframes rrr-pulse-red {
-          0%,100% { box-shadow:0 0 8px 2px rgba(227,0,15,0.7); }
-          50%      { box-shadow:0 0 20px 6px rgba(227,0,15,1); }
+          0%,100% { opacity:0.8; box-shadow:0 0 6px 2px rgba(227,0,15,0.6); }
+          50%      { opacity:1;   box-shadow:0 0 14px 4px rgba(227,0,15,1); }
         }
         @keyframes rrr-pulse-green {
-          0%,100% { box-shadow:0 0 8px 2px rgba(74,222,128,0.6); }
-          50%      { box-shadow:0 0 20px 6px rgba(74,222,128,1); }
+          0%,100% { box-shadow:0 0 8px 2px rgba(74,222,128,0.5); }
+          50%      { box-shadow:0 0 18px 5px rgba(74,222,128,0.9); }
         }
-        @keyframes rrr-door-left {
-          from { transform:translateX(0); }
-          to   { transform:translateX(-110%); }
-        }
-        @keyframes rrr-door-right {
-          from { transform:translateX(0); }
-          to   { transform:translateX(110%); }
+        @keyframes rrr-door-open {
+          0%   { transform: perspective(800px) rotateY(0deg); }
+          100% { transform: perspective(800px) rotateY(-85deg); }
         }
         @keyframes rrr-granted-flash {
           0%   { opacity:0; transform:scale(0.85); }
-          25%  { opacity:1; transform:scale(1.08); }
+          25%  { opacity:1; transform:scale(1.06); }
           80%  { opacity:1; transform:scale(1); }
           100% { opacity:0; }
         }
+        @keyframes rrr-pan-in {
+          0%   { transform:scale(1);   opacity:1; }
+          60%  { transform:scale(1.4); opacity:1; }
+          100% { transform:scale(1.4); opacity:0; }
+        }
+        @keyframes rrr-shake {
+          0%,100% { transform:translateX(0); }
+          20%     { transform:translateX(-6px); }
+          40%     { transform:translateX(6px); }
+          60%     { transform:translateX(-4px); }
+          80%     { transform:translateX(4px); }
+        }
         @keyframes rrr-stripe {
           from { background-position:0 0; }
-          to   { background-position:40px 0; }
+          to   { background-position:28px 0; }
         }
         @keyframes rrr-flicker {
-          0%,19%,21%,23%,25%,54%,56%,100% { opacity:1; }
-          20%,22%,24%,55%                  { opacity:0.4; }
+          0%,90%,100%  { opacity:1; }
+          92%           { opacity:0.5; }
+          94%           { opacity:1; }
+          96%           { opacity:0.3; }
+          98%           { opacity:1; }
         }
-        @keyframes rrr-darken {
-          from { opacity:0; }
-          to   { opacity:1; }
-        }
-        .rrr-shake-anim {
-          animation: rrr-shake 0.55s ease !important;
-        }
+        .rrr-door-shake { animation: rrr-shake 0.45s ease; }
       `}</style>
 
-      {/* Master overlay */}
+      {/* ── Master overlay ── */}
       <div style={{
         position: 'fixed',
         inset: 0,
@@ -172,7 +158,7 @@ export default function HideoutIntro() {
         overflow: 'hidden',
         background: '#000',
         opacity: isDone ? 0 : 1,
-        transition: isDone ? 'opacity 0.8s ease' : 'none',
+        transition: isDone ? 'opacity 0.7s ease' : 'none',
       }}>
 
         {/* Skip */}
@@ -181,7 +167,7 @@ export default function HideoutIntro() {
           style={{
             position: 'absolute',
             top: 20, right: 20,
-            zIndex: 100,
+            zIndex: 200,
             fontFamily: 'var(--font-pixel)',
             fontSize: '0.38rem',
             color: 'rgba(240,240,240,0.3)',
@@ -195,7 +181,7 @@ export default function HideoutIntro() {
           [ SKIP ]
         </button>
 
-        {/* PHASE 1: LOGO */}
+        {/* ── LOGO PHASE ── */}
         <div style={{
           position: 'absolute',
           inset: 0,
@@ -203,10 +189,9 @@ export default function HideoutIntro() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          opacity: showAlley ? 0 : 1,
-          transition: 'opacity 0.6s ease',
-          pointerEvents: showAlley ? 'none' : 'all',
-          background: '#000',
+          opacity: showDoor ? 0 : 1,
+          transition: 'opacity 0.7s ease',
+          pointerEvents: showDoor ? 'none' : 'all',
           zIndex: 10,
         }}>
           <div style={{ animation: 'rrr-fadein 0.8s ease both' }}>
@@ -225,37 +210,62 @@ export default function HideoutIntro() {
           </p>
         </div>
 
-        {/* ALLEY SCENE (phases 2+) */}
+        {/* ── DOOR SCENE ── */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          opacity: showAlley ? 1 : 0,
+          opacity: showDoor ? 1 : 0,
           transition: 'opacity 0.8s ease',
+          animation: isOpening ? 'rrr-pan-in 1.4s ease forwards' : 'none',
         }}>
 
-          <AlleyScene
-            sceneScale={sceneScale}
-            isApproach={isApproach}
-            phase={phase}
-            onKnock={handleKnock}
-            isGranted={isGranted}
-            isOpening={isOpening}
-          />
+          <CMUWall />
 
-          {/* Black flood when door opens */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(200,180,130,0.04) 0%, transparent 60%)',
+            pointerEvents: 'none',
+          }} />
+
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, rgba(0,0,0,0.75) 100%)',
+            pointerEvents: 'none',
+          }} />
+
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <HideoutDoor
+              phase={phase}
+              onKnock={handleKnock}
+              speakeasyOpen={speakeasyOpen}
+              isGranted={isGranted}
+              isOpening={isOpening}
+              eyeBlink={eyeBlink}
+              dialogueLine={dialogueLine}
+            />
+          </div>
+
           {isOpening && (
             <div style={{
               position: 'absolute',
               inset: 0,
               background: '#000',
-              zIndex: 50,
-              animation: 'rrr-darken 1s 0.3s ease forwards',
+              zIndex: 100,
+              animation: 'rrr-fadein 1s 0.6s ease forwards',
               opacity: 0,
               pointerEvents: 'none',
             }} />
           )}
 
-          {/* HUD overlay — dialogue + knock prompt */}
+          {/* ── HUD ── */}
           <div style={{
             position: 'absolute',
             inset: 0,
@@ -263,23 +273,21 @@ export default function HideoutIntro() {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'flex-end',
-            paddingBottom: 'clamp(2rem, 6vh, 4rem)',
-            zIndex: 40,
+            paddingBottom: 'clamp(1.5rem, 5vh, 3.5rem)',
+            zIndex: 50,
             pointerEvents: 'none',
           }}>
 
-            {/* Dialogue box */}
             {showDialogue && dialogueLine > 0 && (
               <div style={{
-                background: 'rgba(8,8,8,0.92)',
-                border: '1px solid #2a2a2a',
+                background: 'rgba(6,6,6,0.94)',
+                border: '1px solid #222',
                 borderLeft: '2px solid #e3000f',
                 padding: '0.75rem 1.25rem',
                 maxWidth: 360,
                 width: '90%',
                 animation: 'rrr-fadein 0.3s ease both',
-                marginBottom: '1rem',
-                pointerEvents: 'all',
+                marginBottom: '0.75rem',
               }}>
                 <p style={{
                   fontFamily: 'var(--font-pixel)',
@@ -287,9 +295,9 @@ export default function HideoutIntro() {
                   color: '#888',
                   letterSpacing: '0.06em',
                   lineHeight: 1.9,
-                  marginBottom: dialogueLine >= 2 ? '0.4rem' : 0,
+                  marginBottom: dialogueLine >= 2 ? '0.35rem' : 0,
                 }}>
-                  <span style={{ color: '#e3000f' }}>INTERCOM:</span>{' '}
+                  <span style={{ color: '#e3000f' }}>GRUNT:</span>{' '}
                   &ldquo;...who&apos;s there?&rdquo;
                 </p>
                 {dialogueLine >= 2 && (
@@ -300,9 +308,9 @@ export default function HideoutIntro() {
                     letterSpacing: '0.06em',
                     lineHeight: 1.9,
                     animation: 'rrr-fadein 0.3s ease both',
-                    marginBottom: (phase === 'typing' || isGranted) ? '0.4rem' : 0,
+                    marginBottom: (phase === 'typing' || isGranted) ? '0.35rem' : 0,
                   }}>
-                    <span style={{ color: '#e3000f' }}>INTERCOM:</span>{' '}
+                    <span style={{ color: '#e3000f' }}>GRUNT:</span>{' '}
                     &ldquo;...password?&rdquo;
                   </p>
                 )}
@@ -315,14 +323,13 @@ export default function HideoutIntro() {
                   }}>
                     &gt; {typed}
                     {phase === 'typing' && (
-                      <span style={{ animation: 'rrr-blink 0.7s infinite' }}>_</span>
+                      <span style={{ animation: 'rrr-blink-cursor 0.7s infinite' }}>_</span>
                     )}
                   </p>
                 )}
               </div>
             )}
 
-            {/* ACCESS GRANTED */}
             {phase === 'granted' && (
               <p style={{
                 fontFamily: 'var(--font-pixel)',
@@ -331,21 +338,19 @@ export default function HideoutIntro() {
                 letterSpacing: '0.2em',
                 animation: 'rrr-granted-flash 0.9s ease forwards',
                 textShadow: '0 0 20px rgba(74,222,128,0.9)',
-                marginBottom: '1rem',
+                marginBottom: '0.75rem',
               }}>
                 [ ACCESS GRANTED ]
               </p>
             )}
 
-            {/* Knock prompt */}
             {showKnock && (
               <p style={{
                 fontFamily: 'var(--font-pixel)',
                 fontSize: '0.42rem',
-                color: 'rgba(240,240,240,0.55)',
+                color: 'rgba(240,240,240,0.5)',
                 letterSpacing: '0.15em',
-                animation: 'rrr-blink 1.3s ease infinite',
-                pointerEvents: 'none',
+                animation: 'rrr-blink-cursor 1.3s ease infinite',
               }}>
                 &gt; KNOCK TO ENTER_
               </p>
@@ -357,424 +362,369 @@ export default function HideoutIntro() {
   )
 }
 
-// ── Alley Scene ─────────────────────────────────────────
-function AlleyScene({
-  sceneScale,
-  isApproach,
+// ── CMU Wall ─────────────────────────────────────────────
+function CMUWall() {
+  const blockW = 120
+  const blockH = 60
+  const cols   = Math.ceil((typeof window !== 'undefined' ? window.innerWidth  : 1920) / blockW + 2)
+  const rows   = Math.ceil((typeof window !== 'undefined' ? window.innerHeight : 1080) / blockH + 2)
+
+  return (
+    <div style={{
+      position: 'absolute',
+      inset: 0,
+      overflow: 'hidden',
+      background: '#b8b8b4',
+    }}>
+      {Array.from({ length: rows }).map((_, row) => (
+        <div key={row} style={{
+          display: 'flex',
+          height: blockH,
+          marginLeft: row % 2 === 0 ? 0 : -blockW / 2,
+        }}>
+          {Array.from({ length: cols }).map((_, col) => (
+            <div key={col} style={{
+              flexShrink: 0,
+              width: blockW,
+              height: blockH,
+              border: '2px solid #9a9a96',
+              background: (row + col) % 3 === 0
+                ? '#c0c0bc'
+                : (row + col) % 3 === 1
+                ? '#b4b4b0'
+                : '#bcbcb8',
+              boxSizing: 'border-box',
+              position: 'relative',
+              boxShadow: 'inset 1px 1px 3px rgba(255,255,255,0.15), inset -1px -1px 3px rgba(0,0,0,0.1)',
+            }}>
+              <div style={{
+                position: 'absolute',
+                inset: 4,
+                background: 'repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(0,0,0,0.015) 18px, rgba(0,0,0,0.015) 19px)',
+              }} />
+              <div style={{
+                position: 'absolute',
+                left: '30%', right: '30%',
+                top: 6, bottom: 6,
+                borderLeft: '1px solid rgba(0,0,0,0.05)',
+                borderRight: '1px solid rgba(0,0,0,0.05)',
+              }} />
+            </div>
+          ))}
+        </div>
+      ))}
+
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.08) 40%, rgba(0,0,0,0.3) 100%)',
+        pointerEvents: 'none',
+      }} />
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'radial-gradient(ellipse 90% 90% at 50% 50%, transparent 50%, rgba(0,0,0,0.25) 100%)',
+        pointerEvents: 'none',
+      }} />
+    </div>
+  )
+}
+
+// ── Hideout Door ─────────────────────────────────────────
+function HideoutDoor({
   phase,
   onKnock,
+  speakeasyOpen,
   isGranted,
   isOpening,
+  eyeBlink,
+  dialogueLine,
 }: {
-  sceneScale: string
-  isApproach: boolean
   phase: Phase
   onKnock: () => void
+  speakeasyOpen: boolean
   isGranted: boolean
   isOpening: boolean
+  eyeBlink: boolean
+  dialogueLine: number
 }) {
   const [shaking, setShaking] = useState(false)
 
   function handleClick() {
     if (phase !== 'door') return
     setShaking(true)
-    setTimeout(() => setShaking(false), 700)
+    setTimeout(() => setShaking(false), 500)
     onKnock()
   }
 
+  const doorColor      = '#2a2c30'
+  const doorHighlight  = '#363840'
+  const doorShadow     = '#1e2024'
+  const frameColor     = '#1a1c20'
+
   return (
-    <div style={{
-      position: 'absolute',
-      inset: 0,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-    }}>
-      {/* Scene wrapper — this zooms */}
-      <div
-        className={shaking ? 'rrr-shake-anim' : ''}
-        style={{
-          transform: sceneScale,
-          transformOrigin: 'center 55%',
-          transition: isApproach
-            ? 'transform 2s cubic-bezier(0.25, 0.1, 0.25, 1)'
-            : 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)',
-          width: '100%',
-          height: '100%',
-          position: 'relative',
-        }}
-      >
-        {/* Sky / top */}
+    <div style={{ width: 'clamp(220px, 28vw, 340px)', position: 'relative' }}>
+
+      {/* ── DOOR FRAME ── */}
+      <div style={{
+        background: frameColor,
+        padding: '6px 6px 8px 6px',
+        boxShadow: 'inset 0 4px 12px rgba(0,0,0,0.6), 0 4px 20px rgba(0,0,0,0.5)',
+        position: 'relative',
+      }}>
+
+        {/* Warning light */}
         <div style={{
           position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(to bottom, #0d0d0f 0%, #111116 35%, #0a0a0c 60%, #080808 100%)',
-        }} />
-
-        {/* Distant fog/haze */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'radial-gradient(ellipse 80% 40% at 50% 30%, rgba(30,20,20,0.6) 0%, transparent 70%)',
-        }} />
-
-        {/* Left alley wall */}
-        <div style={{
-          position: 'absolute',
-          left: 0, top: 0, bottom: 0,
-          width: '28%',
-          background: 'linear-gradient(to right, #0a0a0a 0%, #141414 70%, #1a1a1a 100%)',
-        }}>
-          {Array.from({ length: 18 }).map((_, i) => (
-            <div key={i} style={{
-              position: 'absolute', left: 0, right: 0,
-              top: `${(i + 1) * 5.5}%`, height: 1,
-              background: 'rgba(0,0,0,0.5)',
-            }} />
-          ))}
-          {Array.from({ length: 9 }).map((_, i) => (
-            <div key={i} style={{
-              position: 'absolute',
-              left: i % 2 === 0 ? '33%' : '66%',
-              top: `${i * 11}%`, width: 1, height: '5.5%',
-              background: 'rgba(0,0,0,0.4)',
-            }} />
-          ))}
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 100%)',
-          }} />
-          <div style={{
-            position: 'absolute',
-            top: '20%', right: 0, width: '60%', height: '30%',
-            background: 'radial-gradient(ellipse at right, rgba(227,0,15,0.06) 0%, transparent 70%)',
-          }} />
-        </div>
-
-        {/* Right alley wall */}
-        <div style={{
-          position: 'absolute',
-          right: 0, top: 0, bottom: 0,
-          width: '28%',
-          background: 'linear-gradient(to left, #0a0a0a 0%, #141414 70%, #1a1a1a 100%)',
-        }}>
-          {Array.from({ length: 18 }).map((_, i) => (
-            <div key={i} style={{
-              position: 'absolute', left: 0, right: 0,
-              top: `${(i + 1) * 5.5}%`, height: 1,
-              background: 'rgba(0,0,0,0.5)',
-            }} />
-          ))}
-          {Array.from({ length: 9 }).map((_, i) => (
-            <div key={i} style={{
-              position: 'absolute',
-              left: i % 2 === 0 ? '33%' : '66%',
-              top: `${i * 11 + 2}%`, width: 1, height: '5.5%',
-              background: 'rgba(0,0,0,0.4)',
-            }} />
-          ))}
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 100%)',
-          }} />
-          {/* Pipe */}
-          <div style={{
-            position: 'absolute',
-            left: '18%', top: '10%', bottom: '20%',
-            width: 8, background: '#1c1c1c', border: '1px solid #111',
-          }} />
-          <div style={{
-            position: 'absolute',
-            left: '18%', top: '38%',
-            width: 16, height: 12,
-            background: '#181818', border: '1px solid #111', borderRadius: 2,
-          }} />
-        </div>
-
-        {/* Floor — wet concrete perspective */}
-        <div style={{
-          position: 'absolute',
-          bottom: 0, left: '20%', right: '20%', height: '35%',
-          background: 'linear-gradient(to bottom, #111 0%, #0d0d0d 50%, #0a0a0a 100%)',
-          clipPath: 'polygon(0% 0%, 100% 0%, 110% 100%, -10% 100%)',
-        }}>
-          <div style={{
-            position: 'absolute',
-            bottom: '15%', left: '25%', right: '25%', height: '18%',
-            background: 'radial-gradient(ellipse, rgba(227,0,15,0.08) 0%, rgba(20,20,20,0.6) 60%, transparent 100%)',
-            borderRadius: '50%',
-          }} />
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} style={{
-              position: 'absolute', left: 0, right: 0,
-              top: `${20 + i * 15}%`, height: 1,
-              background: 'rgba(0,0,0,0.4)',
-            }} />
-          ))}
-        </div>
-
-        {/* Overhead bulb */}
-        <div style={{
-          position: 'absolute', top: '8%', left: '50%',
+          top: -18, left: '50%',
           transform: 'translateX(-50%)',
-          display: 'flex', flexDirection: 'column', alignItems: 'center',
-        }}>
-          <div style={{ width: 1, height: 30, background: '#2a2a2a' }} />
-          <div style={{
-            width: 10, height: 10, borderRadius: '50%',
-            background: isGranted ? '#ffe8a0' : '#c8a060',
-            boxShadow: isGranted
-              ? '0 0 20px 8px rgba(255,220,120,0.25)'
-              : '0 0 12px 4px rgba(180,130,60,0.2)',
-            animation: 'rrr-flicker 6s ease infinite',
-          }} />
-        </div>
-
-        {/* Light cone */}
-        <div style={{
-          position: 'absolute', top: '11%', left: '50%',
-          transform: 'translateX(-50%)',
-          width: '50%', height: '60%',
-          background: 'radial-gradient(ellipse 60% 80% at 50% 0%, rgba(180,130,60,0.07) 0%, transparent 70%)',
-          pointerEvents: 'none',
+          width: 14, height: 14,
+          borderRadius: '50%',
+          background: isGranted ? '#4ade80' : '#e3000f',
+          animation: isGranted
+            ? 'rrr-pulse-green 0.4s ease infinite'
+            : 'rrr-pulse-red 1.6s ease infinite',
+          border: '2px solid rgba(0,0,0,0.4)',
+          transition: 'background 0.3s',
+          zIndex: 10,
         }} />
 
-        {/* Trash */}
-        <div style={{
-          position: 'absolute', bottom: '28%', left: '22%',
-          width: 20, height: 28, background: '#111',
-          border: '1px solid #1a1a1a', borderRadius: '0 0 2px 2px',
-        }} />
-        <div style={{
-          position: 'absolute', bottom: '28%', left: '24%',
-          width: 14, height: 22, background: '#0e0e0e',
-          border: '1px solid #181818', borderRadius: '0 0 2px 2px',
-        }} />
-
-        {/* THE DOOR */}
-        <div style={{
-          position: 'absolute', left: '50%', top: '14%',
-          transform: 'translateX(-50%)',
-          width: '28%', minWidth: 160, maxWidth: 240, zIndex: 20,
-        }}>
-          <div style={{
-            background: '#1a1a1c',
-            border: '3px solid #111',
-            boxShadow: 'inset 0 0 20px rgba(0,0,0,0.8), 0 0 0 1px #0a0a0a',
-            padding: 4,
+        {/* ── THE DOOR ── */}
+        <div
+          className={shaking ? 'rrr-door-shake' : ''}
+          onClick={handleClick}
+          style={{
+            background: `linear-gradient(170deg, ${doorHighlight} 0%, ${doorColor} 40%, ${doorShadow} 100%)`,
+            cursor: phase === 'door' ? 'pointer' : 'default',
             position: 'relative',
+            userSelect: 'none',
+            transformOrigin: 'left center',
+            animation: isOpening ? 'rrr-door-open 1.2s ease forwards' : 'none',
+            boxShadow: 'inset 1px 0 4px rgba(255,255,255,0.04), inset -2px 0 8px rgba(0,0,0,0.4)',
+          }}
+        >
+          {/* Top panel — RRR insignia + speakeasy */}
+          <div style={{
+            borderBottom: `3px solid ${frameColor}`,
+            padding: '0.75rem',
+            position: 'relative',
+            minHeight: 90,
           }}>
-            {/* Warning light */}
             <div style={{
-              position: 'absolute', top: -14, left: '50%',
-              transform: 'translateX(-50%)',
-              width: 12, height: 12, borderRadius: '50%',
-              background: isGranted ? '#4ade80' : '#e3000f',
-              animation: isGranted
-                ? 'rrr-pulse-green 0.4s ease infinite'
-                : 'rrr-pulse-red 1.5s ease infinite',
-              border: '2px solid rgba(0,0,0,0.5)',
-              transition: 'background 0.3s',
+              position: 'absolute',
+              inset: 8,
+              boxShadow: 'inset 0 2px 6px rgba(0,0,0,0.5)',
+              border: `1px solid ${doorShadow}`,
+              background: `linear-gradient(160deg, ${doorShadow} 0%, ${doorColor} 100%)`,
             }} />
 
-            {/* Authorized plate */}
             <div style={{
-              background: '#111', border: '1px solid #222',
-              padding: '0.15rem 0.4rem', marginBottom: 4, textAlign: 'center',
+              position: 'relative',
+              zIndex: 2,
+              display: 'flex',
+              justifyContent: 'center',
+              paddingTop: 4,
             }}>
-              <p style={{
-                fontFamily: 'var(--font-pixel)', fontSize: '0.28rem',
-                color: '#e3000f', letterSpacing: '0.08em', lineHeight: 1.5,
-              }}>
-                AUTHORIZED ONLY
-              </p>
+              <RRRInsignia size={48} />
             </div>
 
-            {/* Door panels */}
-            <div style={{ position: 'relative', overflow: isOpening ? 'hidden' : 'visible' }}>
-
-              {/* Left panel */}
+            {/* Speakeasy window */}
+            <div style={{
+              position: 'absolute',
+              bottom: 10, left: '50%',
+              transform: 'translateX(-50%)',
+              width: 60, height: 22,
+              zIndex: 5,
+            }}>
               <div style={{
-                position: isOpening ? 'absolute' : 'relative',
-                left: 0, top: 0,
-                width: isOpening ? '50%' : '100%',
-                height: isOpening ? '100%' : 'auto',
-                animation: isOpening ? 'rrr-door-left 1s ease forwards' : 'none',
-                zIndex: 2,
+                width: '100%', height: '100%',
+                background: '#111',
+                border: `2px solid ${frameColor}`,
+                position: 'relative',
+                overflow: 'hidden',
               }}>
-                <SteelDoor
-                  side="left"
-                  isOpening={isOpening}
-                  onClick={handleClick}
-                  clickable={phase === 'door'}
-                />
-              </div>
-
-              {/* Right panel (split on open) */}
-              {isOpening && (
+                {/* Sliding panel */}
                 <div style={{
-                  position: 'absolute', right: 0, top: 0,
-                  width: '50%', height: '100%', overflow: 'hidden',
-                  animation: 'rrr-door-right 1s ease forwards',
+                  position: 'absolute',
+                  inset: 0,
+                  background: doorColor,
+                  transform: speakeasyOpen ? 'translateY(-100%)' : 'translateY(0)',
+                  transition: 'transform 0.4s ease',
+                  zIndex: 3,
+                }} />
+                {/* Eyes */}
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10,
+                  background: '#0a0505',
                   zIndex: 2,
                 }}>
-                  <div style={{
-                    position: 'absolute', right: 0, top: 0,
-                    width: '200%', height: '100%',
-                    transform: 'translateX(-50%)',
-                  }}>
-                    <SteelDoor
-                      side="right"
-                      isOpening={isOpening}
-                      onClick={() => {}}
-                      clickable={false}
-                    />
-                  </div>
+                  <Eye blink={eyeBlink} />
+                  <Eye blink={eyeBlink} />
                 </div>
-              )}
-
-              {/* Dark interior */}
-              {isOpening && (
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: '#000', zIndex: 1,
-                }} />
-              )}
-            </div>
-
-            {/* Clearance plate */}
-            <div style={{
-              background: '#0d0d0d', border: '1px solid #1a1a1a',
-              padding: '0.12rem 0.4rem', marginTop: 4, textAlign: 'center',
-            }}>
-              <p style={{
-                fontFamily: 'var(--font-pixel)', fontSize: '0.24rem',
-                color: '#333', letterSpacing: '0.06em',
-              }}>
-                GRUNT CLEARANCE REQUIRED
-              </p>
+              </div>
             </div>
           </div>
+
+          <HorizontalBarStrip doorColor={doorColor} frameColor={frameColor} />
+
+          {/* Middle panel — handle + keyhole */}
+          <div style={{
+            borderBottom: `3px solid ${frameColor}`,
+            padding: '0.75rem',
+            position: 'relative',
+            minHeight: 80,
+          }}>
+            <div style={{
+              position: 'absolute',
+              inset: 8,
+              boxShadow: 'inset 0 2px 6px rgba(0,0,0,0.5)',
+              border: `1px solid ${doorShadow}`,
+              background: `linear-gradient(160deg, ${doorShadow} 0%, ${doorColor} 100%)`,
+            }} />
+            <div style={{
+              position: 'absolute',
+              right: 14, top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 3,
+            }}>
+              <div style={{
+                width: 14, height: 36,
+                background: 'linear-gradient(to bottom, #888, #666, #888)',
+                border: '1px solid #444',
+                borderRadius: 3,
+                boxShadow: '0 2px 4px rgba(0,0,0,0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <div style={{
+                  width: 5, height: 7,
+                  background: '#111',
+                  borderRadius: '50% 50% 0 0',
+                  position: 'relative',
+                }}>
+                  <div style={{
+                    position: 'absolute',
+                    bottom: -3, left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 3, height: 4,
+                    background: '#111',
+                  }} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <HorizontalBarStrip doorColor={doorColor} frameColor={frameColor} />
+
+          {/* Bottom panel */}
+          <div style={{
+            padding: '0.75rem',
+            position: 'relative',
+            minHeight: 70,
+          }}>
+            <div style={{
+              position: 'absolute',
+              inset: 8,
+              boxShadow: 'inset 0 2px 6px rgba(0,0,0,0.5)',
+              border: `1px solid ${doorShadow}`,
+              background: `linear-gradient(160deg, ${doorShadow} 0%, ${doorColor} 100%)`,
+            }} />
+            <div style={{
+              position: 'absolute',
+              bottom: 0, left: 0, right: 0,
+              height: 14,
+              background: 'repeating-linear-gradient(45deg, rgba(227,0,15,0.65) 0px, rgba(227,0,15,0.65) 5px, #111 5px, #111 10px)',
+              animation: 'rrr-stripe 1s linear infinite',
+              backgroundSize: '28px 28px',
+            }} />
+          </div>
         </div>
+      </div>
 
-        {/* Vignette */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'radial-gradient(ellipse 70% 70% at 50% 50%, transparent 30%, rgba(0,0,0,0.7) 100%)',
-          pointerEvents: 'none',
-        }} />
-
-        {/* Bottom darkness */}
-        <div style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0, height: '20%',
-          background: 'linear-gradient(to top, #000 0%, transparent 100%)',
-          pointerEvents: 'none',
-        }} />
+      {/* Authorized plate */}
+      <div style={{
+        background: '#111',
+        border: '1px solid #1e1e1e',
+        padding: '0.25rem 0.5rem',
+        marginTop: 4,
+        textAlign: 'center',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.5)',
+      }}>
+        <p style={{
+          fontFamily: 'var(--font-pixel)',
+          fontSize: '0.3rem',
+          color: '#e3000f',
+          letterSpacing: '0.1em',
+        }}>
+          AUTHORIZED PERSONNEL ONLY · GRUNT CLEARANCE REQUIRED
+        </p>
       </div>
     </div>
   )
 }
 
-// ── Steel Door Panel ─────────────────────────────────────
-function SteelDoor({
-  side,
-  isOpening,
-  onClick,
-  clickable,
-}: {
-  side: 'left' | 'right'
-  isOpening: boolean
-  onClick: () => void
-  clickable: boolean
-}) {
+// ── Horizontal bar strip ──────────────────────────────────
+function HorizontalBarStrip({ doorColor: _dc, frameColor }: { doorColor: string; frameColor: string }) {
   return (
-    <div
-      onClick={clickable ? onClick : undefined}
-      style={{
-        background: 'linear-gradient(160deg, #7a7a7e 0%, #5a5a5e 25%, #4a4a4e 50%, #525256 75%, #6a6a6e 100%)',
-        border: '2px solid #3a3a3e',
-        boxShadow: 'inset 2px 2px 8px rgba(255,255,255,0.06), inset -2px -2px 8px rgba(0,0,0,0.5)',
-        cursor: clickable ? 'pointer' : 'default',
-        position: 'relative',
-        minHeight: 200,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '1rem 0.75rem',
-        gap: '0.75rem',
-        userSelect: 'none',
-      }}
-    >
-      {/* Panel seams */}
-      <div style={{
-        position: 'absolute', left: 8, right: 8, top: '33%', height: 2,
-        background: 'linear-gradient(to right, transparent, rgba(0,0,0,0.3), rgba(255,255,255,0.05), rgba(0,0,0,0.3), transparent)',
-      }} />
-      <div style={{
-        position: 'absolute', left: 8, right: 8, top: '66%', height: 2,
-        background: 'linear-gradient(to right, transparent, rgba(0,0,0,0.3), rgba(255,255,255,0.05), rgba(0,0,0,0.3), transparent)',
-      }} />
-
-      {/* Scratch marks */}
-      <div style={{
-        position: 'absolute', top: '20%', left: '30%',
-        width: 30, height: 1,
-        background: 'rgba(255,255,255,0.08)', transform: 'rotate(-15deg)',
-      }} />
-      <div style={{
-        position: 'absolute', top: '22%', left: '28%',
-        width: 20, height: 1,
-        background: 'rgba(255,255,255,0.05)', transform: 'rotate(-12deg)',
-      }} />
-
-      {/* Corner bolts */}
-      {[
-        { top: 10, left: 10 },
-        { top: 10, right: 10 },
-        { bottom: 10, left: 10 },
-        { bottom: 10, right: 10 },
-      ].map((pos, i) => (
+    <div style={{
+      height: 18,
+      background: frameColor,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+      borderTop: '1px solid #111',
+      borderBottom: '1px solid #111',
+    }}>
+      {[-35, 0, 35].map((offset, i) => (
         <div key={i} style={{
-          position: 'absolute', ...pos,
-          width: 8, height: 8, borderRadius: '50%',
-          background: 'radial-gradient(circle at 35% 35%, #888, #3a3a3a)',
-          border: '1px solid #2a2a2a',
-          boxShadow: '0 1px 2px rgba(0,0,0,0.5)',
+          position: 'absolute',
+          left: `calc(50% + ${offset}px - 18px)`,
+          width: 36, height: 8,
+          background: 'linear-gradient(to bottom, #666, #888, #666)',
+          border: '1px solid #444',
+          borderRadius: 2,
+          boxShadow: '0 1px 3px rgba(0,0,0,0.6)',
         }} />
       ))}
+    </div>
+  )
+}
 
-      {/* RRR insignia — left panel only */}
-      {side === 'left' && <RRRInsignia size={52} />}
-
-      {/* Intercom grille */}
-      <div style={{
-        position: 'absolute', right: 10, top: '42%',
-        transform: 'translateY(-50%)',
-        width: 16, background: '#3a3a3e',
-        border: '1px solid #2a2a2e',
-        padding: '4px 3px',
-        display: 'flex', flexDirection: 'column', gap: 2,
-      }}>
-        {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} style={{ height: 1.5, background: '#222', borderRadius: 1 }} />
-        ))}
+// ── Eye ───────────────────────────────────────────────────
+function Eye({ blink }: { blink: boolean }) {
+  return (
+    <div style={{
+      width: 14,
+      height: blink ? 2 : 8,
+      background: blink ? '#333' : 'transparent',
+      borderRadius: '50%',
+      border: blink ? 'none' : '1.5px solid #c8a060',
+      position: 'relative',
+      transition: 'height 0.06s ease, background 0.06s ease',
+      overflow: 'hidden',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+      {!blink && (
         <div style={{
-          width: 5, height: 5, borderRadius: '50%',
-          background: '#e3000f', margin: '3px auto 0',
-          boxShadow: '0 0 5px rgba(227,0,15,0.8)',
-        }} />
-      </div>
-
-      {/* Warning stripes */}
-      <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: 16,
-        background: 'repeating-linear-gradient(45deg, rgba(227,0,15,0.7) 0px, rgba(227,0,15,0.7) 6px, #1a1a1a 6px, #1a1a1a 12px)',
-        animation: 'rrr-stripe 1.2s linear infinite',
-        backgroundSize: '32px 32px',
-        opacity: 0.9,
-      }} />
+          width: 6, height: 6,
+          borderRadius: '50%',
+          background: '#8b4513',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <div style={{ width: 3, height: 3, borderRadius: '50%', background: '#111' }} />
+        </div>
+      )}
     </div>
   )
 }
@@ -789,7 +739,7 @@ function RRRInsignia({ size = 80 }: { size?: number }) {
         fontSize="40" fontWeight="900"
         fill="#e3000f" textAnchor="middle"
         transform="rotate(-18, 50, 32)"
-        style={{ filter: 'drop-shadow(0 0 5px rgba(227,0,15,0.5))' }}
+        style={{ filter: 'drop-shadow(0 0 4px rgba(227,0,15,0.5))' }}
       >R</text>
       <text
         x="25" y="80"
@@ -797,7 +747,7 @@ function RRRInsignia({ size = 80 }: { size?: number }) {
         fontSize="40" fontWeight="900"
         fill="#e3000f" textAnchor="middle"
         transform="rotate(12, 25, 74)"
-        style={{ filter: 'drop-shadow(0 0 5px rgba(227,0,15,0.5))' }}
+        style={{ filter: 'drop-shadow(0 0 4px rgba(227,0,15,0.5))' }}
       >R</text>
       <text
         x="75" y="80"
@@ -805,7 +755,7 @@ function RRRInsignia({ size = 80 }: { size?: number }) {
         fontSize="40" fontWeight="900"
         fill="#e3000f" textAnchor="middle"
         transform="rotate(-8, 75, 74)"
-        style={{ filter: 'drop-shadow(0 0 5px rgba(227,0,15,0.5))' }}
+        style={{ filter: 'drop-shadow(0 0 4px rgba(227,0,15,0.5))' }}
       >R</text>
     </svg>
   )
