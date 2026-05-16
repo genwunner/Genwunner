@@ -201,23 +201,8 @@ export default function TerminalIntro() {
           75%     { opacity:0.05; filter:brightness(3); }
         }
         @keyframes rrr-spin-slow {
-          0%   { transform: rotate(0deg); }
-          12%  { transform: rotate(0deg); }
-          13%  { transform: rotate(45deg); }
-          25%  { transform: rotate(45deg); }
-          26%  { transform: rotate(90deg); }
-          37%  { transform: rotate(90deg); }
-          38%  { transform: rotate(135deg); }
-          50%  { transform: rotate(135deg); }
-          51%  { transform: rotate(180deg); }
-          62%  { transform: rotate(180deg); }
-          63%  { transform: rotate(225deg); }
-          75%  { transform: rotate(225deg); }
-          76%  { transform: rotate(270deg); }
-          87%  { transform: rotate(270deg); }
-          88%  { transform: rotate(315deg); }
-          99%  { transform: rotate(315deg); }
-          100% { transform: rotate(360deg); }
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
         }
       `}</style>
 
@@ -396,7 +381,7 @@ export default function TerminalIntro() {
                 fontFamily: 'var(--font-pixel)',
                 fontSize: 'clamp(0.5rem, 1.5vw, 0.72rem)',
                 color: '#cc0000',
-                textShadow: '0 0 6px rgba(204,0,0,0.5)',
+                textShadow: '0 0 8px rgba(227,0,15,0.7)',
                 letterSpacing: '0.06em',
                 lineHeight: 2.1,
                 marginBottom: '1.25rem',
@@ -458,43 +443,43 @@ export default function TerminalIntro() {
 // Built as a pixel grid — red top, white bottom, black belt, center button
 function PixelPokeball({ glitching }: { glitching: boolean }) {
   // 16x16 pixel grid
-  // 0 = black/transparent, 1 = red, 2 = white, 3 = dark (belt/outline)
+  // Outline-only — just the pixels that form the shape edge
+  // 0=transparent, 1=bright red (top arc), 2=white (bottom arc), 3=belt/center
   const grid = [
-    [0,0,0,0,0,3,3,3,3,3,3,0,0,0,0,0],
-    [0,0,0,3,3,1,1,1,1,1,1,3,3,0,0,0],
-    [0,0,3,1,1,1,1,1,1,1,1,1,1,3,0,0],
-    [0,3,1,1,1,1,1,1,1,1,1,1,1,1,3,0],
-    [0,3,1,1,1,1,1,1,1,1,1,1,1,1,3,0],
-    [3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3],
-    [3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3],
+    [0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0],
+    [0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0],
+    [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [3,3,3,3,3,3,3,4,4,3,3,3,3,3,3,3],
     [3,3,3,3,3,3,3,4,4,3,3,3,3,3,3,3],
-    [3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3],
-    [3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3],
-    [0,3,2,2,2,2,2,2,2,2,2,2,2,2,3,0],
-    [0,3,2,2,2,2,2,2,2,2,2,2,2,2,3,0],
-    [0,0,3,2,2,2,2,2,2,2,2,2,2,3,0,0],
-    [0,0,0,3,3,2,2,2,2,2,2,3,3,0,0,0],
-    [0,0,0,0,0,3,3,3,3,3,3,0,0,0,0,0],
+    [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+    [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+    [0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0],
+    [0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0],
+    [0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0],
+    [0,0,0,2,2,0,0,0,0,0,0,2,2,0,0,0],
+    [0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0],
   ]
 
   const px = 10 // pixel size in px — makes it ~160px wide
 
-  // All terminal red/dark — matches the letter color scheme
+  // Outline only — bright red top arc, pink-red bottom arc, matches terminal colors
   const colorMap: Record<number, string> = {
     0: 'transparent',
-    1: '#cc0000',   // red — matches dim terminal text
-    2: '#6b0000',   // dark red — bottom half (like dim lines)
-    3: '#1a0000',   // very dark red — outline/belt
-    4: '#2a0000',   // belt highlight
+    1: '#e3000f',   // bright red — matches RRR logo text
+    2: '#ff5555',   // bright white-red — matches highlight lines
+    3: '#880000',   // belt — dim red
+    4: '#440000',   // center button — very dim
   }
 
-  // During glitch exit
   const glitchColorMap: Record<number, string> = {
     0: 'transparent',
     1: '#ff0000',
-    2: '#990000',
-    3: '#220000',
+    2: '#ff8888',
+    3: '#660000',
     4: '#330000',
   }
 
@@ -502,8 +487,8 @@ function PixelPokeball({ glitching }: { glitching: boolean }) {
 
   return (
     <div style={{
-      animation: `rrr-spin-slow ${glitching ? '1.5s' : '20s'} steps(1) infinite`,
-      filter: 'drop-shadow(0 0 6px rgba(204,0,0,0.6))',
+      animation: `rrr-spin-slow ${glitching ? '0.6s' : '5s'} linear infinite`,
+      filter: 'drop-shadow(0 0 8px rgba(227,0,15,0.7))',
       imageRendering: 'pixelated',
     }}>
       {/* Pixel grid */}
@@ -524,10 +509,10 @@ function PixelPokeball({ glitching }: { glitching: boolean }) {
 
             // Center button styling
             if (isCenterButton && cell !== 0) {
-              bg = glitching ? '#440000' : '#0a0000'
+              bg = glitching ? '#550000' : '#220000'
             }
             if (isCenterOuter) {
-              bg = '#120000'
+              bg = '#330000'
             }
 
             return (
@@ -550,9 +535,9 @@ function PixelPokeball({ glitching }: { glitching: boolean }) {
         marginTop: 12,
         fontFamily: 'var(--font-pixel)',
         fontSize: '0.38rem',
-        color: glitching ? '#ff0000' : '#cc0000',
+        color: glitching ? '#ff0000' : '#e3000f',
         letterSpacing: '0.15em',
-        textShadow: '0 0 6px rgba(204,0,0,0.5)',
+        textShadow: '0 0 8px rgba(227,0,15,0.7)',
       }}>
         R·R·R
       </div>
