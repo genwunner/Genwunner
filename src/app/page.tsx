@@ -117,8 +117,8 @@ export default async function HomePage() {
           {/* Classified tag */}
           <div style={{
             fontFamily: '"Courier New", monospace',
-            fontSize: '0.6rem',
-            color: '#550000',
+            fontSize: '0.65rem',
+            color: '#770000',
             letterSpacing: '0.15em',
             marginBottom: '1.5rem',
           }}>
@@ -134,26 +134,26 @@ export default async function HomePage() {
 
           {/* Dossier */}
           <div style={{
-            borderLeft: '2px solid #280000',
+            borderLeft: '2px solid #440000',
             paddingLeft: '1rem',
             marginTop: '1.5rem',
             maxWidth: 520,
           }}>
             <p style={{
               fontFamily: '"Courier New", monospace',
-              fontSize: '0.62rem',
-              color: '#550000',
+              fontSize: '0.8rem',
+              color: '#aa0000',
               lineHeight: 1.9,
               letterSpacing: '0.04em',
-              marginBottom: '0.5rem',
+              marginBottom: '0.6rem',
             }}>
               <span style={{ color: '#cc0000' }}>&gt; OPERATIVE: GENWUNNER.</span>{' '}
               Born Genesis Tajiri. Raised in Pallet Town. Joined Team Rocket instead of the Pokémon League.
             </p>
             <p style={{
               fontFamily: '"Courier New", monospace',
-              fontSize: '0.62rem',
-              color: '#440000',
+              fontSize: '0.8rem',
+              color: '#880000',
               lineHeight: 1.9,
               letterSpacing: '0.04em',
             }}>
@@ -200,7 +200,7 @@ export default async function HomePage() {
       }}>
         <span style={{
           fontFamily: '"Courier New", monospace',
-          fontSize: '0.5rem',
+          fontSize: '0.55rem',
           color: '#e3000f',
           border: '1px solid #440000',
           padding: '0.18rem 0.5rem',
@@ -211,14 +211,14 @@ export default async function HomePage() {
           // INCOMING
         </span>
         <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#880000', letterSpacing: '0.05em' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.7rem', color: '#aa0000', letterSpacing: '0.05em' }}>
             EU TOUR 2026 — KANTO EXPANSION BEGINS OCT 2
           </div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.44rem', color: '#440000', marginTop: '0.15rem', letterSpacing: '0.04em' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#770000', marginTop: '0.15rem', letterSpacing: '0.04em' }}>
             &gt; Birmingham · Manchester · Glasgow · London · w/ Cam Steady &amp; NateWantsToBattle
           </div>
         </div>
-        <Link href="/shows" className="btn-outline" style={{ fontSize: '0.5rem', padding: '0.28rem 0.6rem', whiteSpace: 'nowrap' as const, flexShrink: 0 }}>
+        <Link href="/shows" className="btn-outline" style={{ fontSize: '0.55rem', padding: '0.28rem 0.6rem', whiteSpace: 'nowrap' as const, flexShrink: 0 }}>
           VIEW ALL RAIDS &gt;
         </Link>
       </div>
@@ -226,11 +226,11 @@ export default async function HomePage() {
       {/* ── SECTION 2: ARSENAL ── */}
       <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.5rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
             // 001 · DEPLOYED OPERATIVES
           </div>
           <TermHead text="THE ARSENAL" size="lg" cursor={true} />
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.5rem', color: '#440000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
             &gt; Each song a weapon. Each name an operative. Pokémon deployed on the Kanto campaign.
           </div>
         </div>
@@ -246,8 +246,8 @@ export default async function HomePage() {
             <div key={song.title} className="brand-card" style={{ padding: '1rem' }}>
               <div style={{
                 fontFamily: '"Courier New", monospace',
-                fontSize: '0.42rem',
-                color: '#550000',
+                fontSize: '0.5rem',
+                color: '#770000',
                 letterSpacing: '0.06em',
                 border: '1px solid #1a0000',
                 padding: '0.14rem 0.35rem',
@@ -259,8 +259,8 @@ export default async function HomePage() {
               <TermHead text={song.title} size="sm" color="#cc0000" />
               <p style={{
                 fontFamily: '"Courier New", monospace',
-                fontSize: '0.46rem',
-                color: '#440000',
+                fontSize: '0.62rem',
+                color: '#880000',
                 lineHeight: 1.8,
                 marginTop: '0.35rem',
                 fontStyle: 'italic',
@@ -288,11 +288,11 @@ export default async function HomePage() {
       {/* ── SECTION 3: CITY RAIDS ── */}
       <section style={{ padding: '2.5rem 1.5rem', background: '#030000', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.5rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
             // 002 · ACTIVE CAMPAIGN
           </div>
           <TermHead text="CITY RAIDS" size="lg" cursor={true} />
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.5rem', color: '#440000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
             &gt; Spreading Team Rocket propaganda across Kanto and beyond
           </div>
         </div>
@@ -310,7 +310,7 @@ export default async function HomePage() {
               borderBottom: '1px solid #0a0000',
             }}>
               <div style={{ textAlign: 'center', minWidth: 52, flexShrink: 0 }}>
-                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.44rem', color: '#550000', letterSpacing: '0.1em' }}>
+                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#770000', letterSpacing: '0.1em' }}>
                   {new Date(show.event_date).toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}
                 </div>
                 <div style={{ fontFamily: '"Courier New", monospace', fontSize: '1.5rem', fontWeight: 700, color: '#cc0000', lineHeight: 1 }}>
@@ -319,19 +319,19 @@ export default async function HomePage() {
               </div>
               <div style={{ flex: 1 }}>
                 <TermHead text={show.title} size="sm" color="#aa0000" />
-                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.44rem', color: '#440000', letterSpacing: '0.04em', marginTop: '0.15rem' }}>
+                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#770000', letterSpacing: '0.04em', marginTop: '0.2rem' }}>
                   // {show.city}{show.venue ? ` · ${show.venue}` : ''}
                 </div>
               </div>
               {(show.ticket_url || show.rsvp_url) && (
-                <a href={show.ticket_url || show.rsvp_url || '#'} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ fontSize: '0.5rem', padding: '0.28rem 0.6rem', whiteSpace: 'nowrap' as const, flexShrink: 0 }}>
+                <a href={show.ticket_url || show.rsvp_url || '#'} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ fontSize: '0.55rem', padding: '0.28rem 0.6rem', whiteSpace: 'nowrap' as const, flexShrink: 0 }}>
                   GET TICKETS →
                 </a>
               )}
             </div>
           )) : (
             <div style={{ textAlign: 'center', padding: '2rem', border: '1px dashed #1a0000', marginTop: '1rem' }}>
-              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.5rem', color: '#440000', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>
+              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>
                 &gt; Raids incoming. Stand by.
               </div>
               <Link href="/wunnerdex" className="btn-primary">[ ENLIST FOR EARLY ALERTS ]</Link>
@@ -357,13 +357,13 @@ export default async function HomePage() {
         flexWrap: 'wrap' as const,
       }}>
         <div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.48rem', color: 'rgba(0,0,0,0.45)', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: 'rgba(0,0,0,0.5)', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>
             // THE REGIME HAS A HOME BASE
           </div>
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(1rem, 2.5vw, 1.6rem)', fontWeight: 700, color: '#000', letterSpacing: '0.08em', textTransform: 'uppercase', lineHeight: 1 }}>
             JOIN THE DISCORD
           </div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.48rem', color: 'rgba(0,0,0,0.5)', letterSpacing: '0.06em', marginTop: '0.4rem', lineHeight: 1.8 }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: 'rgba(0,0,0,0.65)', letterSpacing: '0.06em', marginTop: '0.4rem', lineHeight: 1.8 }}>
             City raid alerts · classified drops · Giovanni&apos;s journal · direct line
           </div>
         </div>
@@ -387,20 +387,20 @@ export default async function HomePage() {
       {/* ── SECTION 4: ENLISTMENT ── */}
       <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.5rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
             // 003 · GRUNT REGISTRATION
           </div>
           <TermHead text="THE BOSS IS WATCHING." size="lg" cursor={true} />
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.5rem', color: '#440000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
             &gt; Giovanni keeps records on every operative
           </div>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', alignItems: 'start' }}>
           <div>
-            <p style={{ fontFamily: '"Courier New", monospace', fontSize: '0.58rem', color: '#550000', lineHeight: 1.85, letterSpacing: '0.04em', marginBottom: '1rem' }}>
+            <p style={{ fontFamily: '"Courier New", monospace', fontSize: '0.72rem', color: '#880000', lineHeight: 1.85, letterSpacing: '0.04em', marginBottom: '1rem' }}>
               Register in the Wunnerdex.{' '}
-              <span style={{ color: '#aa0000' }}>Genwunner remembers who showed up early.</span>
+              <span style={{ color: '#cc0000' }}>Genwunner remembers who showed up early.</span>
             </p>
             {[
               'Early access to drops & collector editions',
@@ -410,7 +410,7 @@ export default async function HomePage() {
               'Direct comms from the operative himself',
               'Unlock #the-vault on Discord',
             ].map(perk => (
-              <div key={perk} style={{ fontFamily: '"Courier New", monospace', fontSize: '0.52rem', color: '#550000', display: 'flex', alignItems: 'flex-start', gap: '0.4rem', marginBottom: '0.45rem', lineHeight: 1.6, letterSpacing: '0.04em' }}>
+              <div key={perk} style={{ fontFamily: '"Courier New", monospace', fontSize: '0.68rem', color: '#880000', display: 'flex', alignItems: 'flex-start', gap: '0.4rem', marginBottom: '0.5rem', lineHeight: 1.6, letterSpacing: '0.04em' }}>
                 <span style={{ color: '#e3000f', flexShrink: 0 }}>&gt;</span>
                 {perk}
               </div>
@@ -422,13 +422,13 @@ export default async function HomePage() {
 
       {/* ── PRESS QUOTE ── */}
       <div style={{ padding: '1.75rem 1.5rem', borderBottom: '1px solid #1a0000', textAlign: 'center', background: '#030000' }}>
-        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.44rem', color: '#330000', letterSpacing: '0.12em', marginBottom: '0.65rem' }}>
+        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#660000', letterSpacing: '0.12em', marginBottom: '0.65rem' }}>
           // INTERCEPTED CIVILIAN TRANSMISSION
         </div>
-        <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(0.7rem, 1.8vw, 1rem)', color: '#880000', letterSpacing: '0.05em', fontStyle: 'italic', lineHeight: 1.6 }}>
+        <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(0.75rem, 1.8vw, 1rem)', color: '#880000', letterSpacing: '0.05em', fontStyle: 'italic', lineHeight: 1.6 }}>
           &ldquo;Blastoise is finally winning a popularity contest over Charizard, and it rules.&rdquo;
         </div>
-        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.5rem', color: '#e3000f', letterSpacing: '0.18em', marginTop: '0.65rem' }}>
+        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#e3000f', letterSpacing: '0.18em', marginTop: '0.65rem' }}>
           — KOTAKU
         </div>
       </div>
@@ -438,10 +438,10 @@ export default async function HomePage() {
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '2rem', marginBottom: '1.5rem' }}>
           <div>
             <TermHead text="GENWUNNER" size="md" color="#cc0000" />
-            <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.38rem', color: '#280000', letterSpacing: '0.08em', margin: '0.35rem 0 0.75rem' }}>
+            <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.48rem', color: '#550000', letterSpacing: '0.08em', margin: '0.35rem 0 0.75rem' }}>
               ROCKET RECRUITMENT REGIME · KANTO DIVISION · EST. 2022
             </div>
-            <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.48rem', color: '#2a0000', lineHeight: 1.8, letterSpacing: '0.04em' }}>
+            <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#660000', lineHeight: 1.8, letterSpacing: '0.04em' }}>
               Creator of PokéRage. Right hand of Giovanni.<br />
               Pallet Town&apos;s most wanted.<br />
               The regime is only getting started.
@@ -474,11 +474,11 @@ export default async function HomePage() {
             ]},
           ].map(col => (
             <div key={col.title}>
-              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.44rem', color: '#440000', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
+              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.52rem', color: '#660000', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
                 {col.title}
               </div>
               {col.links.map(link => (
-                <Link key={link.label} href={link.href} style={{ fontFamily: '"Courier New", monospace', fontSize: '0.58rem', color: '#330000', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', padding: '0.18rem 0', textDecoration: 'none' }}>
+                <Link key={link.label} href={link.href} style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#660000', letterSpacing: '0.05em', textTransform: 'uppercase', display: 'block', padding: '0.18rem 0', textDecoration: 'none' }}>
                   {link.label}
                 </Link>
               ))}
@@ -486,10 +486,10 @@ export default async function HomePage() {
           ))}
         </div>
         <div style={{ borderTop: '1px solid #0d0000', paddingTop: '1rem', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' as const, gap: '0.5rem' }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.34rem', color: '#1a0000', letterSpacing: '0.06em' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.44rem', color: '#550000', letterSpacing: '0.06em' }}>
             © {new Date().getFullYear()} ROCKET RECRUITMENT REGIME · KANTO DIVISION · ALL INTEL RESERVED TO GIOVANNI
           </div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.32rem', color: '#150000', letterSpacing: '0.05em' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.42rem', color: '#440000', letterSpacing: '0.05em' }}>
             NOT AFFILIATED WITH THE POKÉMON COMPANY
           </div>
         </div>
@@ -508,7 +508,7 @@ function WunnerdexForm() {
         <div style={{ width: 32, height: 32, background: '#e3000f', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', flexShrink: 0 }}>⚡</div>
         <div>
           <TermHead text="GRUNT REG." size="sm" color="#cc0000" />
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.36rem', color: '#440000', letterSpacing: '0.07em', marginTop: 2 }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.46rem', color: '#660000', letterSpacing: '0.07em', marginTop: 2 }}>
             // WUNNERDEX · TEAM ROCKET DATABASE
           </div>
         </div>
@@ -523,7 +523,7 @@ function WunnerdexForm() {
         <button type="submit" className="btn-primary" style={{ marginTop: '0.25rem', width: '100%', justifyContent: 'center' }}>
           [ REPORT FOR DUTY ]
         </button>
-        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.3rem', color: '#1a0000', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 1.8, marginTop: '0.2rem' }}>
+        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.4rem', color: '#550000', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 1.8, marginTop: '0.2rem' }}>
           WUNNERDEX v1.0 · NO SPAM · JUST DROPS AND RAIDS
         </div>
       </form>
