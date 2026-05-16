@@ -125,6 +125,8 @@ export default function TerminalIntro() {
   if (!mounted) return <div style={{ position: 'fixed', inset: 0, background: '#000', zIndex: 9999 }} />
   if (!visible) return null
 
+  const showBall = shownLines.length > 0
+
   return (
     <>
       <style>{`
@@ -167,6 +169,14 @@ export default function TerminalIntro() {
           50%     { opacity:0.8; }
           75%     { opacity:0.05; filter:brightness(3); }
         }
+        @keyframes rrr-spin-slow {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        @keyframes rrr-ball-appear {
+          from { opacity:0; }
+          to   { opacity:1; }
+        }
       `}</style>
 
       <div
@@ -182,6 +192,22 @@ export default function TerminalIntro() {
           flexDirection: 'column',
         }}
       >
+        {/* Pixel Pokéball — fades in after first line, right side */}
+        {showBall && (
+          <div style={{
+            position: 'absolute',
+            right: 'clamp(2rem, 8vw, 6rem)',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: 15,
+            pointerEvents: 'none',
+            animation: 'rrr-ball-appear 1s 0.5s ease both',
+            opacity: 0,
+          }}>
+            <PixelPokeball glitching={goneLines.size > 0} />
+          </div>
+        )}
+
         {/* CRT scanlines */}
         <div style={{
           position: 'absolute', inset: 0,
@@ -245,9 +271,9 @@ export default function TerminalIntro() {
           }}
         >
           {shownLines.map(i => {
-            const line      = SEQUENCE[i]
-            const isGone    = goneLines.has(i)
-            const isGlitch  = glitchLines.has(i)
+            const line     = SEQUENCE[i]
+            const isGone   = goneLines.has(i)
+            const isGlitch = glitchLines.has(i)
 
             if (isGone) return <div key={i} style={{ height: line.text === '' ? '0.75rem' : undefined, opacity: 0 }} />
             if (line.text === '') return <div key={i} style={{ height: '0.75rem' }} />
@@ -256,15 +282,13 @@ export default function TerminalIntro() {
             const isHighlight = !!line.highlight
             const isDim       = !!line.dim
 
-            const color = isGlitch
-              ? '#ff0000'
+            const color = isGlitch ? '#ff0000'
               : isLogo ? '#e3000f'
               : isHighlight ? '#ff5555'
               : isDim ? '#6b0000'
               : '#cc0000'
 
-            const glow = isGlitch
-              ? '0 0 20px rgba(255,0,0,1), 0 0 40px rgba(255,0,0,0.5)'
+            const glow = isGlitch ? '0 0 20px rgba(255,0,0,1), 0 0 40px rgba(255,0,0,0.5)'
               : isLogo ? '0 0 14px rgba(227,0,15,0.9),0 0 40px rgba(227,0,15,0.3)'
               : isHighlight ? '0 0 10px rgba(255,85,85,0.7)'
               : isDim ? 'none'
@@ -369,5 +393,101 @@ export default function TerminalIntro() {
         </div>
       </div>
     </>
+  )
+}
+
+// ── Pixel Pokéball ────────────────────────────────────────
+function PixelPokeball({ glitching }: { glitching: boolean }) {
+  const grid = [
+    [0,0,0,0,0,3,3,3,3,3,3,0,0,0,0,0],
+    [0,0,0,3,3,1,1,1,1,1,1,3,3,0,0,0],
+    [0,0,3,1,1,1,1,1,1,1,1,1,1,3,0,0],
+    [0,3,1,1,1,1,1,1,1,1,1,1,1,1,3,0],
+    [0,3,1,1,1,1,1,1,1,1,1,1,1,1,3,0],
+    [3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3],
+    [3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3],
+    [3,3,3,3,3,3,3,4,4,3,3,3,3,3,3,3],
+    [3,3,3,3,3,3,3,4,4,3,3,3,3,3,3,3],
+    [3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3],
+    [3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3],
+    [0,3,2,2,2,2,2,2,2,2,2,2,2,2,3,0],
+    [0,3,2,2,2,2,2,2,2,2,2,2,2,2,3,0],
+    [0,0,3,2,2,2,2,2,2,2,2,2,2,3,0,0],
+    [0,0,0,3,3,2,2,2,2,2,2,3,3,0,0,0],
+    [0,0,0,0,0,3,3,3,3,3,3,0,0,0,0,0],
+  ]
+
+  const px = 10
+
+  const colorMap: Record<number, string> = {
+    0: 'transparent',
+    1: '#e3000f',
+    2: '#c8c8c8',
+    3: '#111111',
+    4: '#333333',
+  }
+
+  const glitchColorMap: Record<number, string> = {
+    0: 'transparent',
+    1: '#ff0000',
+    2: '#888888',
+    3: '#222222',
+    4: '#444444',
+  }
+
+  const colors = glitching ? glitchColorMap : colorMap
+
+  return (
+    <div style={{
+      animation: `rrr-spin-slow ${glitching ? '0.8s' : '8s'} linear infinite`,
+      filter: glitching
+        ? 'drop-shadow(0 0 8px rgba(255,0,0,0.9))'
+        : 'drop-shadow(0 0 12px rgba(227,0,15,0.5)) drop-shadow(0 0 4px rgba(227,0,15,0.3))',
+      transition: 'filter 0.2s',
+    }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(16, ${px}px)`,
+        gridTemplateRows: `repeat(16, ${px}px)`,
+        gap: 0,
+      }}>
+        {grid.map((row, r) =>
+          row.map((cell, c) => {
+            const isCenterButton = r >= 6 && r <= 9 && c >= 6 && c <= 9
+            const isCenterRing   = r >= 5 && r <= 10 && c >= 5 && c <= 10 && !isCenterButton && cell !== 0
+
+            let bg = colors[cell]
+            if (isCenterButton && cell !== 0) bg = glitching ? '#555' : '#1a1a1a'
+            if (isCenterRing) bg = '#111'
+
+            return (
+              <div
+                key={`${r}-${c}`}
+                style={{
+                  width: px,
+                  height: px,
+                  background: bg,
+                  boxShadow: cell !== 0 && !glitching ? 'inset 0 0 0 0.5px rgba(0,0,0,0.3)' : undefined,
+                }}
+              />
+            )
+          })
+        )}
+      </div>
+
+      <div style={{
+        textAlign: 'center',
+        marginTop: 12,
+        fontFamily: 'var(--font-pixel)',
+        fontSize: '0.38rem',
+        color: glitching ? '#ff0000' : '#e3000f',
+        letterSpacing: '0.15em',
+        textShadow: glitching ? '0 0 10px rgba(255,0,0,1)' : '0 0 8px rgba(227,0,15,0.7)',
+        opacity: glitching ? 0.5 : 1,
+        transition: 'all 0.1s',
+      }}>
+        R·R·R
+      </div>
+    </div>
   )
 }
