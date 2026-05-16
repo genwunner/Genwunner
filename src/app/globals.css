@@ -336,6 +336,12 @@ body[data-intro-done] .site-content {
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* Enlist section: single column on mobile, two columns on desktop */
+.enlist-grid { grid-template-columns: 1fr; }
+@media (min-width: 768px) {
+  .enlist-grid { grid-template-columns: 1fr 1fr; }
+}
+
 /* Hero: bottom-anchored on mobile, centered on desktop */
 .hero-section {
   justify-content: flex-end;

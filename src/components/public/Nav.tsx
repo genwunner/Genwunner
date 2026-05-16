@@ -154,6 +154,24 @@ export default function Nav() {
         flexDirection: 'column',
         overflow: 'hidden',
       }}>
+        {/* Artist photo — mobile full-screen background */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          overflow: 'hidden',
+          zIndex: 0,
+          opacity: menuOpen ? 1 : 0,
+          transition: 'opacity 0.5s ease 0.2s',
+        }} className="block sm:hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/hero-stage.jpg"
+            alt=""
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
+          />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 50%, #000 85%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(227,0,15,0.05)' }} />
+        </div>
+
         {/* Artist photo — right panel */}
         <div style={{
           position: 'absolute', right: 0, top: 0, bottom: 0,

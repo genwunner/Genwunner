@@ -365,25 +365,27 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', alignItems: 'start' }}>
+        <div className="enlist-grid" style={{ display: 'grid', gap: '2rem', alignItems: 'start' }}>
           <div>
             <p style={{ fontFamily: '"Courier New", monospace', fontSize: '0.72rem', color: '#880000', lineHeight: 1.85, letterSpacing: '0.04em', marginBottom: '1rem' }}>
               Register in the Wunnerdex.{' '}
               <span style={{ color: '#cc0000' }}>Genwunner remembers who showed up early.</span>
             </p>
-            {[
-              'Early access to drops & collector editions',
-              'City Raid alerts before public announce',
-              'Classified mission intel from HQ',
-              'Exclusive Grunt status & Wunnerdex ID',
-              'Direct comms from the operative himself',
-              'Unlock #the-vault on Discord',
-            ].map(perk => (
-              <div key={perk} style={{ fontFamily: '"Courier New", monospace', fontSize: '0.68rem', color: '#880000', display: 'flex', alignItems: 'flex-start', gap: '0.4rem', marginBottom: '0.5rem', lineHeight: 1.6, letterSpacing: '0.04em' }}>
-                <span style={{ color: '#e3000f', flexShrink: 0 }}>&gt;</span>
-                {perk}
-              </div>
-            ))}
+            <div className="hidden md:block">
+              {[
+                'Early access to drops & collector editions',
+                'City Raid alerts before public announce',
+                'Classified mission intel from HQ',
+                'Exclusive Grunt status & Wunnerdex ID',
+                'Direct comms from the operative himself',
+                'Unlock #the-vault on Discord',
+              ].map(perk => (
+                <div key={perk} style={{ fontFamily: '"Courier New", monospace', fontSize: '0.68rem', color: '#880000', display: 'flex', alignItems: 'flex-start', gap: '0.4rem', marginBottom: '0.5rem', lineHeight: 1.6, letterSpacing: '0.04em' }}>
+                  <span style={{ color: '#e3000f', flexShrink: 0 }}>&gt;</span>
+                  {perk}
+                </div>
+              ))}
+            </div>
           </div>
           <WunnerdexForm />
         </div>
