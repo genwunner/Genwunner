@@ -311,9 +311,9 @@ export default function Nav() {
               }}
             >
               <span style={{
-                fontFamily: "'Courier New', monospace",
+                fontFamily: 'var(--font-heading), "Courier New", Courier, monospace',
                 fontSize: 'clamp(1.5rem, 5vw, 3rem)',
-                fontWeight: 700,
+                fontWeight: 400,
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
                 color: isActive(link.href) ? '#e3000f' : '#880000',
