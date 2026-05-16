@@ -63,7 +63,7 @@ export default function WunnerdexPage() {
           <div className="flex items-center gap-3 mb-6">
             <div style={{ width: 44, height: 44, background: 'var(--color-brand-red)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0, boxShadow: '0 0 20px rgba(227,0,15,0.4)' }}>🚀</div>
             <div>
-              <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--color-brand-white)', lineHeight: 1 }}>GRUNT REG.</p>
+              <p style={{ fontFamily: 'var(--font-heading), "Courier New", Courier, monospace', fontWeight: 400, fontSize: '1.8rem', color: 'var(--color-brand-white)', lineHeight: 1 }}>GRUNT REG.</p>
               <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.36rem', color: 'var(--color-brand-red)', letterSpacing: '0.08em', marginTop: 2 }}>// Wunnerdex · RRR Database · Kanto Division</p>
             </div>
           </div>
@@ -123,7 +123,7 @@ export default function WunnerdexPage() {
             </label>
             {error && <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.38rem', color: '#f87171', letterSpacing: '0.06em' }}>⚠ {error}</p>}
             <button type="submit" disabled={loading} className="btn-primary w-full py-4" style={{ opacity: loading ? 0.6 : 1 }}>
-              {loading ? 'Transmitting...' : '🚀 Report for Duty. Enlist in the Regime.'}
+              {loading ? 'Transmitting...' : '[ REPORT FOR DUTY ]'}
             </button>
             <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.32rem', color: '#333', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 2 }}>
               WUNNERDEX v1.0 · PROPERTY OF TEAM ROCKET · KANTO DIVISION<br />

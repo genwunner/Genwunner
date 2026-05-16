@@ -29,7 +29,7 @@ const SEQUENCE: {
   { text: ' ╚═════╝ ╚═════╝ ╚═════╝',                   delay: 1500, logo: true      },
   { text: '',                                            delay: 1600                   },
   { text: '  ROCKET RECRUITMENT REGIME',                 delay: 1700                   },
-  { text: '  RIGHT HAND OF GIOVANNI — EST. 2022',        delay: 1820, dim: true       },
+  { text: '  RIGHT HAND OF GIOVANNI — EST. 1996',        delay: 1820, dim: true       },
   { text: '',                                            delay: 1940                   },
   { text: '> VERIFYING OPERATIVE CREDENTIALS...',        delay: 2060, dim: true       },
   { text: '> OPERATIVE ID ............. GENWUNNER',      delay: 2220                   },

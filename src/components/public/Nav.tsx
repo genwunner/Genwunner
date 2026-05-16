@@ -283,16 +283,6 @@ export default function Nav() {
           zIndex: 1,
           borderBottom: '1px solid #0d0000',
         }}>
-          <div style={{
-            fontFamily: "'Courier New', monospace",
-            fontSize: '0.5rem',
-            color: '#330000',
-            letterSpacing: '0.15em',
-            marginBottom: '1.5rem',
-          }}>
-            // NAVIGATE THE REGIME
-          </div>
-
           {navLinks.map((link, i) => (
             <Link
               key={link.href}
@@ -352,14 +342,14 @@ export default function Nav() {
                 rel="noopener noreferrer"
                 style={{
                   fontFamily: "'Courier New', monospace",
-                  fontSize: '0.55rem',
-                  color: '#440000',
+                  fontSize: '0.72rem',
+                  color: '#880000',
                   letterSpacing: '0.08em',
                   transition: 'color 0.12s',
                   textDecoration: 'none',
                 }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e3000f'}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#440000'}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#880000'}
               >
                 {s.label}
               </a>

@@ -131,7 +131,8 @@ export default async function HomePage() {
             marginBottom: '1.5rem',
           }}>
             <span style={{ color: '#e3000f' }}>⚠ CLASSIFIED</span>
-            {' '}·{' '}OPERATIVE FILE #001 · KANTO DIVISION
+            <span className="hidden md:inline">{' '}·{' '}</span>
+            <span className="block md:inline">OPERATIVE FILE #001 · KANTO DIVISION</span>
           </div>
 
           <TermHead text="GENWUNNER" size="hero" cursor={true} highlight={true} />
@@ -405,8 +406,7 @@ export default async function HomePage() {
             </div>
             <div className="dt-foot" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#660000', lineHeight: 1.8, letterSpacing: '0.04em' }}>
               Creator of PokéRage. Right hand of Giovanni.<br />
-              Pallet Town&apos;s most wanted.<br />
-              The regime is only getting started.
+              Pallet Town&apos;s most wanted.
             </div>
           </div>
           {[
@@ -429,10 +429,9 @@ export default async function HomePage() {
               { href: socialLinks.twitter,   label: 'X / Twitter' },
             ]},
             { title: '// Operations', links: [
-              { href: '/book',             label: 'Book / Deploy' },
-              { href: '/epk',              label: 'Press / EPK'   },
-              { href: '/contact',          label: 'Management'    },
-              { href: socialLinks.discord, label: 'Discord HQ'    },
+              { href: '/book',    label: 'Book / Deploy' },
+              { href: '/epk',     label: 'Press / EPK'   },
+              { href: '/contact', label: 'Management'    },
             ]},
           ].map(col => (
             <div key={col.title}>
