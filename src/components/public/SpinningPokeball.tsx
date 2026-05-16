@@ -13,9 +13,8 @@ export default function SpinningPokeball({
   speed = '6s',
 }: Props) {
   return (
-    // invert(1) turns white bg → black, hue-rotate(180deg) flips cyan Rs back to red
     <img
-      src="/images/rrr-logo-2.jpg"
+      src="/images/true-rrr.png"
       alt=""
       width={size}
       height={size}
@@ -23,9 +22,7 @@ export default function SpinningPokeball({
       style={{
         animation: `spin ${speed} linear infinite`,
         flexShrink: 0,
-        borderRadius: '50%',
         display: 'block',
-        filter: 'invert(1) hue-rotate(180deg)',
         ...style,
       }}
     />

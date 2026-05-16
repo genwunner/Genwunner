@@ -101,16 +101,28 @@ export default function Nav() {
             height={40}
             style={{ display: 'block', objectFit: 'contain' }}
           />
-          <span style={{
-            fontFamily: "'Courier New', monospace",
-            fontSize: 'clamp(0.85rem, 2vw, 1.1rem)',
-            fontWeight: 700,
-            color: '#e3000f',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            textShadow: '0 0 10px rgba(227,0,15,0.4)',
-          }}>
-            GENWUNNER
+          <span style={{ display: 'flex', flexDirection: 'column', gap: '0.05rem' }}>
+            <span style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: 'clamp(0.52rem, 1.4vw, 0.7rem)',
+              fontWeight: 700,
+              color: '#e3000f',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              lineHeight: 1.2,
+            }}>
+              Rocket Recruitment Regime
+            </span>
+            <span style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: 'clamp(0.42rem, 1vw, 0.55rem)',
+              color: '#550000',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              lineHeight: 1.2,
+            }}>
+              · Kanto Division
+            </span>
           </span>
         </Link>
 
@@ -173,21 +185,34 @@ export default function Nav() {
           }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/logos/g1r-ball-white.png"
+              src="/images/rrr-logo.jpg"
               alt="Genwunner"
-              width={100}
+              width={40}
               height={40}
               style={{ display: 'block', objectFit: 'contain' }}
             />
-            <span style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: '1rem',
-              fontWeight: 700,
-              color: '#e3000f',
-              letterSpacing: '0.15em',
-              textShadow: '0 0 10px rgba(227,0,15,0.4)',
-            }}>
-              GENWUNNER
+            <span style={{ display: 'flex', flexDirection: 'column', gap: '0.05rem' }}>
+              <span style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                color: '#e3000f',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                lineHeight: 1.2,
+              }}>
+                Rocket Recruitment Regime
+              </span>
+              <span style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: '0.55rem',
+                color: '#550000',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                lineHeight: 1.2,
+              }}>
+                · Kanto Division
+              </span>
             </span>
           </Link>
           <button
