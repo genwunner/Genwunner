@@ -4,8 +4,10 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import SpinningPokeball from './SpinningPokeball'
 
 const navLinks = [
+  { href: '/',          label: 'Home',        sub: 'Main'      },
   { href: '/music',     label: 'Arsenal',     sub: 'Music'     },
   { href: '/shows',     label: 'City Raids',  sub: 'Shows'     },
   { href: '/merch',     label: 'Supply Drop', sub: 'Merch'     },
@@ -54,9 +56,8 @@ export default function Nav() {
     <>
       {/* ── Ticker ── */}
       <div style={{
-        background: '#0a0000',
-        borderBottom: '1px solid #1a0000',
-        height: 22,
+        background: '#e3000f',
+        height: 24,
         overflow: 'hidden',
         display: 'flex',
         alignItems: 'center',
@@ -67,9 +68,8 @@ export default function Nav() {
         <div style={{
           fontFamily: "'Courier New', monospace",
           fontSize: '0.48rem',
-          color: '#880000',
+          color: '#fff',
           letterSpacing: '0.1em',
-          textShadow: '0 0 8px rgba(136,0,0,0.6)',
           whiteSpace: 'nowrap',
           animation: 'ticker 40s linear infinite',
         }}>
@@ -80,7 +80,7 @@ export default function Nav() {
       {/* ── Main Nav ── */}
       <nav style={{
         position: 'fixed',
-        top: 22,
+        top: 24,
         left: 0, right: 0,
         zIndex: 50,
         background: '#000',
@@ -92,68 +92,31 @@ export default function Nav() {
         padding: '0 1.5rem',
       }}>
         {/* Logo */}
-        <Link href="/" style={{
-          fontFamily: "'Courier New', monospace",
-          fontSize: 'clamp(0.85rem, 2vw, 1.1rem)',
-          fontWeight: 700,
-          color: '#e3000f',
-          letterSpacing: '0.15em',
-          textTransform: 'uppercase',
-          textShadow: '0 0 10px rgba(227,0,15,0.4)',
-          textDecoration: 'none',
-        }}>
-          GENWUNNER
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', textDecoration: 'none' }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/logos/g1r-ball-white.png"
+            alt="Genwunner"
+            width={100}
+            height={40}
+            style={{ display: 'block', objectFit: 'contain' }}
+          />
+          <span style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: 'clamp(0.85rem, 2vw, 1.1rem)',
+            fontWeight: 700,
+            color: '#e3000f',
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            textShadow: '0 0 10px rgba(227,0,15,0.4)',
+          }}>
+            GENWUNNER
+          </span>
         </Link>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex" style={{ gap: '1.5rem', alignItems: 'center' }}>
-          {navLinks.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: '0.65rem',
-                fontWeight: 700,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                color: isActive(link.href) ? '#e3000f' : '#550000',
-                textDecoration: 'none',
-                transition: 'color 0.12s',
-              }}
-              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e3000f'}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = isActive(link.href) ? '#e3000f' : '#550000'}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-
-        {/* Right side — CTA + menu toggle */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Link href="/wunnerdex" className="hidden md:inline-flex" style={{
-            fontFamily: "'Courier New', monospace",
-            fontSize: '0.62rem',
-            fontWeight: 700,
-            letterSpacing: '0.1em',
-            color: '#e3000f',
-            border: '1px solid #e3000f',
-            padding: '0.3rem 0.85rem',
-            textDecoration: 'none',
-            transition: 'background 0.12s, color 0.12s',
-          }}
-            onMouseEnter={e => {
-              ;(e.currentTarget as HTMLElement).style.background = '#e3000f'
-              ;(e.currentTarget as HTMLElement).style.color = '#000'
-            }}
-            onMouseLeave={e => {
-              ;(e.currentTarget as HTMLElement).style.background = 'transparent'
-              ;(e.currentTarget as HTMLElement).style.color = '#e3000f'
-            }}
-          >
-            [ ENLIST ]
-          </Link>
-
+        {/* Right side — spinning logo + menu toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <SpinningPokeball size={20} speed="4s" />
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             style={{
@@ -206,15 +169,26 @@ export default function Nav() {
           zIndex: 1,
         }}>
           <Link href="/" onClick={() => setMenuOpen(false)} style={{
-            fontFamily: "'Courier New', monospace",
-            fontSize: '1rem',
-            fontWeight: 700,
-            color: '#e3000f',
-            letterSpacing: '0.15em',
-            textShadow: '0 0 10px rgba(227,0,15,0.4)',
-            textDecoration: 'none',
+            display: 'flex', alignItems: 'center', gap: '0.65rem', textDecoration: 'none',
           }}>
-            GENWUNNER
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/logos/g1r-ball-white.png"
+              alt="Genwunner"
+              width={100}
+              height={40}
+              style={{ display: 'block', objectFit: 'contain' }}
+            />
+            <span style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: '1rem',
+              fontWeight: 700,
+              color: '#e3000f',
+              letterSpacing: '0.15em',
+              textShadow: '0 0 10px rgba(227,0,15,0.4)',
+            }}>
+              GENWUNNER
+            </span>
           </Link>
           <button
             onClick={() => setMenuOpen(false)}
@@ -343,7 +317,7 @@ export default function Nav() {
               alignSelf: 'flex-start',
             }}
           >
-            [ ENLIST IN THE REGIME ]
+            ⚡ [ ENLIST IN THE REGIME ]
           </Link>
         </div>
       </div>

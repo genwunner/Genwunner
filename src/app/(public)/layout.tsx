@@ -1,5 +1,6 @@
 // src/app/(public)/layout.tsx
 import Nav from '@/components/public/Nav'
+import { IntroGuard } from '@/components/public/IntroGuard'
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -19,9 +20,10 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
         }}
       />
       <Nav />
-      <div style={{ paddingTop: 80 }}>
+      <IntroGuard />
+      <main className="site-content" style={{ paddingTop: 80 }}>
         {children}
-      </div>
+      </main>
       {/* Mobile bottom bar spacer */}
       <div style={{ height: '3.5rem' }} className="md:hidden" />
     </div>

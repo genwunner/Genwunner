@@ -66,6 +66,7 @@ export default function TerminalIntro() {
     if (!mounted) return
     if (sessionStorage.getItem('rrr-intro-seen')) {
       setVisible(false)
+      document.body.setAttribute('data-intro-done', '1')
       return
     }
     const t = setTimeout(() => setStarted(true), 300)
@@ -128,6 +129,7 @@ export default function TerminalIntro() {
       setTimeout(() => {
         setVisible(false)
         sessionStorage.setItem('rrr-intro-seen', '1')
+        document.body.setAttribute('data-intro-done', '1')
       }, 700)
     }, 1000)
 
@@ -140,6 +142,7 @@ export default function TerminalIntro() {
     setTimeout(() => {
       setVisible(false)
       sessionStorage.setItem('rrr-intro-seen', '1')
+      document.body.setAttribute('data-intro-done', '1')
     }, 500)
   }
 
