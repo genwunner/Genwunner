@@ -59,11 +59,11 @@ export default async function HomePage() {
             alt=""
             fill
             className="object-cover object-top"
-            style={{ opacity: 0.55 }}
+            style={{ opacity: 0.82 }}
             priority
           />
           <div className="absolute inset-0" style={{
-            background: 'linear-gradient(to bottom, rgba(8,8,8,0.15) 0%, rgba(8,8,8,0.45) 55%, rgba(8,8,8,0.88) 100%)',
+            background: 'linear-gradient(to bottom, rgba(8,8,8,0) 0%, rgba(8,8,8,0.1) 35%, rgba(8,8,8,0.72) 68%, rgba(8,8,8,0.95) 100%)',
           }} />
         </div>
 
@@ -80,7 +80,7 @@ export default async function HomePage() {
 
         {/* Left content */}
         <div
-          className="relative w-full md:w-[55%] flex flex-col justify-center items-center md:items-start text-center md:text-left px-6 md:px-16 lg:px-24"
+          className="relative w-full md:w-[55%] flex flex-col justify-end md:justify-center items-center md:items-start text-center md:text-left px-6 md:px-16 lg:px-24 pb-16 md:pb-0"
           style={{ zIndex: 3 }}
         >
           {/* Classified tag */}
