@@ -124,15 +124,16 @@ export default function Nav() {
             onClick={() => setMenuOpen(!menuOpen)}
             style={{
               fontFamily: "'Courier New', monospace",
-              fontSize: '0.65rem',
+              fontSize: 'clamp(0.42rem, 1.8vw, 0.65rem)',
               fontWeight: 700,
-              letterSpacing: '0.12em',
+              letterSpacing: 'clamp(0.04em, 0.4vw, 0.12em)',
               color: menuOpen ? '#e3000f' : '#550000',
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              padding: '0.25rem 0.5rem',
+              padding: '0.25rem 0.4rem',
               transition: 'color 0.12s',
+              whiteSpace: 'nowrap',
             }}
           >
             {menuOpen ? '[ CLOSE ✕ ]' : '[ MENU ]'}
@@ -373,19 +374,20 @@ export default function Nav() {
           background: '#000',
           borderTop: '1px solid #1a0000',
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: 'repeat(5, 1fr)',
         }}
       >
         {[
           { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO', label: 'Stream',  external: true  },
           { href: 'https://discord.gg/6c28f8JXKV',                           label: 'Discord', external: true  },
+          { href: '/',                                                         label: 'Home',    external: false },
           { href: '/wunnerdex',                                               label: 'Enlist',  external: false },
           { href: '/shows',                                                   label: 'Raids',   external: false },
         ].map(item => {
           const active = !item.external && isActive(item.href)
           const style: React.CSSProperties = {
             fontFamily: "'Courier New', monospace",
-            fontSize: '0.7rem',
+            fontSize: '0.58rem',
             fontWeight: 700,
             letterSpacing: '0.06em',
             display: 'flex',
