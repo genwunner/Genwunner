@@ -371,12 +371,22 @@ export default function Nav() {
             textTransform: 'uppercase',
             transition: 'background 0.12s, color 0.12s',
           }
+          const onEnter = (e: React.MouseEvent<HTMLElement>) => {
+            const el = e.currentTarget as HTMLElement
+            el.style.background = '#e3000f'
+            el.style.color = '#000'
+          }
+          const onLeave = (e: React.MouseEvent<HTMLElement>) => {
+            const el = e.currentTarget as HTMLElement
+            el.style.background = active ? '#e3000f' : 'transparent'
+            el.style.color = active ? '#000' : '#880000'
+          }
           return item.external ? (
-            <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" style={style}>
+            <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" style={style} onMouseEnter={onEnter} onMouseLeave={onLeave}>
               {item.label}
             </a>
           ) : (
-            <Link key={item.label} href={item.href} style={style}>
+            <Link key={item.label} href={item.href} style={style} onMouseEnter={onEnter} onMouseLeave={onLeave}>
               {item.label}
             </Link>
           )
