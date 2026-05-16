@@ -231,28 +231,16 @@ export default function Nav() {
               height={40}
               style={{ display: 'block', objectFit: 'contain' }}
             />
-            <span style={{ display: 'flex', flexDirection: 'column', gap: '0.05rem' }}>
-              <span style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                color: '#e3000f',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                lineHeight: 1.2,
-              }}>
-                Rocket Recruitment Regime
-              </span>
-              <span style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: '0.55rem',
-                color: '#550000',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                lineHeight: 1.2,
-              }}>
-                · Kanto Division
-              </span>
+            <span style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              color: '#e3000f',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              lineHeight: 1,
+            }}>
+              Rocket Recruitment Regime
             </span>
           </Link>
           <button
