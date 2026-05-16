@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/spotify/sync-listeners",
+      "schedule": "0 8 * * *"
+    }
+  ]
+}

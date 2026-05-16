@@ -67,8 +67,9 @@ export default function Nav() {
         <div style={{
           fontFamily: "'Courier New', monospace",
           fontSize: '0.48rem',
-          color: '#550000',
-          letterSpacing: '0.12em',
+          color: '#880000',
+          letterSpacing: '0.1em',
+          textShadow: '0 0 8px rgba(136,0,0,0.6)',
           whiteSpace: 'nowrap',
           animation: 'ticker 40s linear infinite',
         }}>

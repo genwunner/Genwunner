@@ -3,9 +3,70 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/public/Nav'
 import TerminalIntro from '@/components/public/TerminalIntro'
-import FloatingPokeballs from '@/components/public/FloatingPokeballs'
-import { songs, socialLinks, upcomingShows } from '@/data/content'
+import { songs, socialLinks, upcomingShows, artistStats } from '@/data/content'
 import { createClient } from '@/lib/supabase/server'
+
+// ── ASCII block headings — same characters as the terminal intro ──
+// Built from Courier New monospace block chars, not a font
+const ASCII = {
+  genwunner: [
+    ' ███████ ████████████   ██████    ██████   ███████   ███████   ██████████████████ ',
+    '████████ █████████████  ██████    ██████   ████████  ████████  ███████████████████',
+    '███  ████████  ██████ ██████ ██ ██████   █████████ █████████ ████████  ████████',
+    '███   ███████  ███████████████████████   █████████████████████████████  ████████',
+    '████████████████████ ████████████████████████ █████████ █████████████████  ███',
+    ' ███████ █████████████  █████ ████████  ███████ ███  ████████  ████████████████  ███',
+  ],
+  arsenal: [
+    ' ██████ ███████ ██████████████████   ███ ██████ ███     ',
+    '█████████████████████████████████████  █████████████     ',
+    '█████████████████████████████  ██████ ████████████████     ',
+    '█████████████████████████████  ███████████████████████     ',
+    '███  ██████  ██████████████████████ ████████  █████████████',
+    '███  ██████  ████████████████████  ████████  █████████████',
+  ],
+  cityRaids: [
+    ' ██████████████████████   ███    ███████  ██████ ██████████ ████████',
+    '████████████████████████ ████    █████████████████████████████████████',
+    '███     ███   ███    ███████     ████████████████████████  ███████████ ',
+    '███     ███   ███     █████      ████████████████████████  ███████████ ',
+    '█████████████   ███      ███       ███  ██████  ██████████████████████ ',
+    ' ██████████   ███      ███       ███  ██████  ███████████████ ████████ ',
+  ],
+  theBoss: [
+    '████████████  ███████████    ███████  ███████ ██████████████████',
+    '████████████  ███████████    █████████████████████████████████████',
+    '   ███   █████████████████      █████████   ███████████████████████',
+    '   ███   █████████████████      █████████   ███████████████████████',
+    '   ███   ███  █████████████    █████████████████████████████████████',
+    '   ███   ███  █████████████    ███████  ███████ ██████████████████',
+  ],
+}
+
+function ASCIIHeading({ lines, color = '#cc0000', dim = '#880000', scale = 1 }: {
+  lines: string[]
+  color?: string
+  dim?: string
+  scale?: number
+}) {
+  return (
+    <div style={{ overflow: 'hidden' }}>
+      {lines.map((line, i) => (
+        <div key={i} style={{
+          fontFamily: '"Courier New", Courier, monospace',
+          fontSize: `clamp(0.28rem, ${0.55 * scale}vw, ${0.65 * scale}rem)`,
+          color: i === 0 ? dim : i === lines.length - 1 ? dim : color,
+          whiteSpace: 'pre',
+          lineHeight: 1.25,
+          letterSpacing: '0.02em',
+          textShadow: `0 0 12px rgba(227,0,15,0.4)`,
+        }}>
+          {line}
+        </div>
+      ))}
+    </div>
+  )
+}
 
 export default async function HomePage() {
   const supabase = await createClient()
@@ -17,20 +78,26 @@ export default async function HomePage() {
 
   const shows = [...upcomingShows, ...(supabaseShows ?? [])]
     .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime())
-    .slice(0, 3)
+    .slice(0, 4)
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--color-brand-black)', color: 'var(--color-brand-white)' }}>
+    <div style={{ background: '#000', color: '#cc0000', minHeight: '100vh' }}>
       <TerminalIntro />
       <Nav />
 
-      {/* ── SECTION 1: FULLSCREEN ENTRANCE ── */}
-      <section
-        className="relative flex overflow-hidden"
-        style={{ height: '100svh', minHeight: 600, background: 'var(--color-brand-black)' }}
-      >
-        {/* Photo — right side (desktop) */}
-        <div className="absolute right-0 top-0 bottom-0 hidden md:block" style={{ width: '50%' }}>
+      {/* ── SECTION 1: HERO ── */}
+      <section style={{
+        minHeight: '100svh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '0 clamp(1.5rem, 5vw, 4rem)',
+        borderBottom: '1px solid #1a0000',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        {/* Photo — right side desktop */}
+        <div className="absolute right-0 top-0 bottom-0 hidden md:block" style={{ width: '42%' }}>
           <Image
             src="/images/hero-stage.jpg"
             alt="Genwunner"
@@ -38,547 +105,552 @@ export default async function HomePage() {
             className="object-cover object-top"
             priority
           />
-          {/* Blend left edge into black */}
           <div className="absolute inset-0" style={{
-            background: 'linear-gradient(to right, var(--color-brand-black) 0%, rgba(8,8,8,0.5) 30%, transparent 60%)',
+            background: 'linear-gradient(to right, #000 0%, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.2) 70%, transparent 100%)',
           }} />
-          {/* Bottom fade */}
           <div className="absolute inset-0" style={{
-            background: 'linear-gradient(to bottom, transparent 50%, var(--color-brand-black) 100%)',
+            background: 'linear-gradient(to bottom, transparent 50%, #000 100%)',
           }} />
-          {/* Subtle red tint */}
           <div className="absolute inset-0" style={{
-            background: 'radial-gradient(ellipse at 80% 30%, rgba(227,0,15,0.07) 0%, transparent 60%)',
+            background: 'rgba(227,0,15,0.05)',
+            mixBlendMode: 'multiply',
           }} />
         </div>
 
-        {/* Photo — mobile background */}
+        {/* Mobile photo */}
         <div className="absolute inset-0 md:hidden">
-          <Image
-            src="/images/hero-stage.jpg"
-            alt=""
-            fill
-            className="object-cover object-top"
-            style={{ opacity: 0.82 }}
-            priority
-          />
-          <div className="absolute inset-0" style={{
-            background: 'linear-gradient(to bottom, rgba(8,8,8,0) 0%, rgba(8,8,8,0.1) 35%, rgba(8,8,8,0.72) 68%, rgba(8,8,8,0.95) 100%)',
-          }} />
+          <Image src="/images/hero-stage.jpg" alt="" fill className="object-cover object-top" style={{ opacity: 0.25 }} priority />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, #000 80%)' }} />
         </div>
 
-        {/* Red atmosphere */}
-        <div className="absolute inset-0" style={{
-          background: 'radial-gradient(ellipse 50% 60% at 25% 50%, rgba(227,0,15,0.07) 0%, transparent 70%)',
-          zIndex: 1,
-        }} />
+        {/* Content */}
+        <div style={{ position: 'relative', zIndex: 3 }} className="max-w-full md:max-w-[62%]">
 
-        {/* Floating Pokéballs */}
-        <div className="absolute inset-0" style={{ zIndex: 2 }}>
-          <FloatingPokeballs />
-        </div>
-
-        {/* Left content */}
-        <div
-          className="relative w-full md:w-[55%] flex flex-col justify-end md:justify-center items-center md:items-start text-center md:text-left px-6 md:px-16 lg:px-24 pb-16 md:pb-0"
-          style={{ zIndex: 3 }}
-        >
-          {/* Classified tag */}
-          <div className="flex items-center gap-3 mb-6 flex-wrap justify-center md:justify-start">
-            <span style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.38rem',
-              letterSpacing: '0.15em',
-              color: 'var(--color-brand-red)',
-              border: '1px solid var(--color-brand-red)',
-              padding: '0.3rem 0.7rem',
-            }}>
-              ⚠ CLASSIFIED
-            </span>
-            <span style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.32rem',
-              letterSpacing: '0.08em',
-              color: 'rgba(240,240,240,0.4)',
-            }}>
-              OPERATIVE FILE #001 · KANTO DIVISION
-            </span>
+          {/* Tag line */}
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.6rem',
+            color: '#550000',
+            letterSpacing: '0.15em',
+            marginBottom: '2rem',
+          }}>
+            <span style={{ color: '#e3000f' }}>⚠ CLASSIFIED</span>
+            {' '}·{' '}OPERATIVE FILE #001 · KANTO DIVISION
           </div>
 
-          {/* Wordmark */}
-          <h1
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(4rem, 13vw, 11rem)',
-              lineHeight: 0.88,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-              color: 'var(--color-brand-white)',
-              textShadow: '0 4px 60px rgba(0,0,0,0.8)',
-            }}
-          >
-            GEN<span style={{ color: 'var(--color-brand-red)', textShadow: '0 0 80px rgba(227,0,15,0.4)' }}>WUNN</span>R
-          </h1>
+          {/* ASCII GENWUNNER heading */}
+          <ASCIIHeading lines={ASCII.genwunner} scale={1} />
 
-          {/* Tagline */}
-          <p
-            className="mt-4"
-            style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.42rem',
-              letterSpacing: '0.18em',
-              color: 'rgba(240,240,240,0.5)',
-              textTransform: 'uppercase',
-            }}
-          >
-            Creator of PokéRage · Right Hand of Giovanni · Pallet Town, Kanto
-          </p>
+          {/* Dossier copy */}
+          <div style={{
+            borderLeft: '2px solid #330000',
+            paddingLeft: '1rem',
+            marginTop: '1.5rem',
+            maxWidth: 520,
+          }}>
+            <p style={{
+              fontFamily: '"Courier New", monospace',
+              fontSize: '0.65rem',
+              color: '#660000',
+              lineHeight: 1.9,
+              letterSpacing: '0.04em',
+              marginBottom: '0.5rem',
+            }}>
+              <span style={{ color: '#cc0000' }}>&gt; OPERATIVE: GENWUNNER.</span>{' '}
+              Born Genesis Tajiri. Raised in Pallet Town alongside Ash Ketchum and Gary Oak.
+              Forsook the Pokémon League. Joined Team Rocket instead.
+            </p>
+            <p style={{
+              fontFamily: '"Courier New", monospace',
+              fontSize: '0.65rem',
+              color: '#550000',
+              lineHeight: 1.9,
+              letterSpacing: '0.04em',
+            }}>
+              <span style={{ color: '#cc0000' }}>&gt; MISSION:</span>{' '}
+              Conquer Kanto. One city at a time. One song at a time.
+              Creator of PokéRage. Right hand of Giovanni.
+            </p>
+          </div>
 
           {/* CTAs */}
-          <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-8">
-            <Link href="/wunnerdex" className="btn-primary">🚀 Enlist Now</Link>
-            <a
-              href={socialLinks.spotify}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline"
-            >
-              Stream the Arsenal
-            </a>
+          <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
+            <Link href="/wunnerdex" className="btn-primary">[ ENLIST NOW ]</Link>
+            <a href={socialLinks.spotify} target="_blank" rel="noopener noreferrer" className="btn-outline">[ STREAM THE ARSENAL ]</a>
+            <Link href="/shows" className="btn-outline">[ CITY RAIDS ]</Link>
           </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          style={{ zIndex: 3, animation: 'fadeUp 1s 1.5s ease both', opacity: 0 }}
-        >
-          <span style={{
-            fontFamily: 'var(--font-pixel)',
-            fontSize: '0.32rem',
-            color: 'rgba(240,240,240,0.3)',
-            letterSpacing: '0.15em',
-          }}>
-            scroll
-          </span>
-          <div style={{
-            width: 1,
-            height: 40,
-            background: 'linear-gradient(to bottom, rgba(227,0,15,0.6), transparent)',
-            animation: 'scrollPulse 2s ease-in-out infinite',
-          }} />
         </div>
       </section>
 
+      {/* ── STATS ── */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(5, 1fr)',
+        borderBottom: '1px solid #1a0000',
+      }}>
+        {artistStats.map((stat, i) => (
+          <div key={stat.label} style={{
+            padding: '1.25rem 1rem',
+            borderRight: i < artistStats.length - 1 ? '1px solid #0d0000' : 'none',
+          }}>
+            <div className="stat-number">{stat.value}</div>
+            <div className="stat-label">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── TRANSMISSION BANNER ── */}
+      <div style={{
+        background: '#060000',
+        borderBottom: '1px solid #1a0000',
+        padding: '0.85rem 1.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '1rem',
+        flexWrap: 'wrap',
+      }}>
+        <span style={{
+          fontFamily: '"Courier New", monospace',
+          fontSize: '0.5rem',
+          color: '#e3000f',
+          border: '1px solid #440000',
+          padding: '0.2rem 0.5rem',
+          letterSpacing: '0.1em',
+          whiteSpace: 'nowrap',
+          flexShrink: 0,
+        }}>
+          // INCOMING
+        </span>
+        <div style={{ flex: 1 }}>
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.6rem',
+            color: '#880000',
+            letterSpacing: '0.05em',
+          }}>
+            THE ROCKET RECRUITMENT REGIME TOUR — EU 2026
+          </div>
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.44rem',
+            color: '#440000',
+            marginTop: '0.2rem',
+            letterSpacing: '0.04em',
+          }}>
+            &gt; OCT 2 Birmingham · OCT 4 Manchester · OCT 5 Glasgow · OCT 7 London
+          </div>
+        </div>
+        <Link href="/shows" className="btn-outline" style={{ fontSize: '0.5rem', padding: '0.3rem 0.65rem', whiteSpace: 'nowrap', flexShrink: 0 }}>
+          VIEW ALL RAIDS &gt;
+        </Link>
+      </div>
+
       {/* ── SECTION 2: ARSENAL ── */}
-      <section
-        className="px-4 py-20"
-        style={{ borderTop: '1px solid var(--color-brand-gray-mid)' }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-baseline gap-4 mb-2">
-            <span style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.4rem',
-              color: 'var(--color-brand-red)',
-              letterSpacing: '0.1em',
-            }}>
-              // 001
-            </span>
-            <h2
-              className="section-title"
-              style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
-            >
-              The Arsenal
-            </h2>
+      <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.5rem',
+            color: '#e3000f',
+            letterSpacing: '0.1em',
+            marginBottom: '0.5rem',
+          }}>
+            // 001 · DEPLOYED OPERATIVES
           </div>
-          <p
-            className="mb-10"
-            style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.36rem',
-              color: 'var(--color-brand-off)',
-              letterSpacing: '0.06em',
-              paddingLeft: '3.5rem',
-            }}
-          >
-            Pokémon deployed on the Kanto campaign. Each song a weapon, each name an operative.
-          </p>
+          <ASCIIHeading lines={ASCII.arsenal} scale={0.85} />
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.5rem',
+            color: '#440000',
+            letterSpacing: '0.06em',
+            marginTop: '0.5rem',
+          }}>
+            &gt; Each song a weapon. Each name an operative.
+          </div>
+        </div>
 
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px"
-            style={{
-              background: 'var(--color-brand-gray-mid)',
-              border: '1px solid var(--color-brand-gray-mid)',
-            }}
-          >
-            {songs.map((song) => (
-              <div
-                key={song.title}
-                className="group p-6 flex flex-col gap-4"
-                style={{ background: 'var(--color-brand-gray)', position: 'relative' }}
-              >
-                {/* Red slash on hover */}
-                <div
-                  className="absolute left-0 top-0 bottom-0 w-0.5 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-bottom"
-                  style={{ background: 'var(--color-brand-red)' }}
-                />
-
-                <span style={{
-                  fontFamily: 'var(--font-pixel)',
-                  fontSize: '0.36rem',
-                  letterSpacing: '0.06em',
-                  color: 'var(--color-brand-red)',
-                  border: '1px solid rgba(227,0,15,0.3)',
-                  padding: '0.25rem 0.5rem',
-                  alignSelf: 'flex-start',
-                  background: 'rgba(227,0,15,0.06)',
-                }}>
-                  {song.tag}
-                </span>
-
-                <div>
-                  <h3 style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
-                  }}>
-                    {song.title}
-                  </h3>
-                  <p className="mt-2" style={{
-                    fontSize: '0.8rem',
-                    color: 'var(--color-brand-off)',
-                    lineHeight: 1.65,
-                    fontStyle: 'italic',
-                  }}>
-                    {song.lore}
-                  </p>
-                </div>
-
-                <div className="flex gap-2 mt-auto">
-                  <a
-                    href={song.spotify}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary btn-sm flex-1 text-center"
-                  >
-                    Spotify
-                  </a>
-                  <a
-                    href={song.youtube}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-outline btn-sm flex-1 text-center"
-                  >
-                    YouTube
-                  </a>
-                </div>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '1px',
+          background: '#0d0000',
+          border: '1px solid #0d0000',
+        }}>
+          {songs.map(song => (
+            <div key={song.title} className="brand-card" style={{ padding: '1rem' }}>
+              <div style={{
+                fontFamily: '"Courier New", monospace',
+                fontSize: '0.42rem',
+                color: '#660000',
+                letterSpacing: '0.06em',
+                border: '1px solid #1a0000',
+                padding: '0.15rem 0.35rem',
+                display: 'inline-block',
+                marginBottom: '0.5rem',
+              }}>
+                {song.tag}
               </div>
-            ))}
-          </div>
+              <div style={{
+                fontFamily: '"Courier New", monospace',
+                fontSize: 'clamp(0.85rem, 1.8vw, 1.2rem)',
+                fontWeight: 700,
+                color: '#cc0000',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                marginBottom: '0.4rem',
+              }}>
+                {song.title}
+              </div>
+              <p style={{
+                fontFamily: '"Courier New", monospace',
+                fontSize: '0.48rem',
+                color: '#440000',
+                lineHeight: 1.8,
+                fontStyle: 'italic',
+                letterSpacing: '0.03em',
+              }}>
+                {song.lore}
+              </p>
+              <div style={{ display: 'flex', gap: '0.35rem', marginTop: '0.65rem' }}>
+                <a href={song.spotify} target="_blank" rel="noopener noreferrer" className="btn-primary btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
+                  Spotify
+                </a>
+                <a href={song.youtube} target="_blank" rel="noopener noreferrer" className="btn-outline btn-sm" style={{ flex: 1, justifyContent: 'center' }}>
+                  YouTube
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
 
-          <div className="text-center mt-8">
-            <Link href="/music" className="btn-outline">Full Arsenal →</Link>
-          </div>
+        <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
+          <Link href="/music" className="btn-outline">[ FULL ARSENAL → ]</Link>
         </div>
       </section>
 
       {/* ── SECTION 3: CITY RAIDS ── */}
-      <section
-        className="px-4 py-20"
-        style={{
-          background: 'var(--color-brand-gray)',
-          borderTop: '1px solid var(--color-brand-gray-mid)',
-          borderBottom: '1px solid var(--color-brand-gray-mid)',
-        }}
-      >
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-baseline gap-4 mb-2">
-            <span style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.4rem',
-              color: 'var(--color-brand-red)',
-              letterSpacing: '0.1em',
-            }}>
-              // 002
-            </span>
-            <h2
-              className="section-title"
-              style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
-            >
-              City Raids
-            </h2>
+      <section style={{ padding: '2.5rem 1.5rem', background: '#030000', borderBottom: '1px solid #1a0000' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.5rem',
+            color: '#e3000f',
+            letterSpacing: '0.1em',
+            marginBottom: '0.5rem',
+          }}>
+            // 002 · ACTIVE CAMPAIGN
           </div>
-          <p
-            className="mb-10"
-            style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.36rem',
-              color: 'var(--color-brand-off)',
-              letterSpacing: '0.06em',
-              paddingLeft: '3.5rem',
-            }}
-          >
-            Active campaign. Genwunner spreading RRR propaganda across Kanto and beyond.
-          </p>
+          <ASCIIHeading lines={ASCII.cityRaids} scale={0.85} />
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.5rem',
+            color: '#440000',
+            letterSpacing: '0.06em',
+            marginTop: '0.5rem',
+          }}>
+            &gt; Genwunner spreading Team Rocket propaganda across Kanto and beyond
+          </div>
+        </div>
 
-          {shows && shows.length > 0 ? (
-            <div style={{ borderTop: '1px solid var(--color-brand-gray-mid)' }}>
-              {shows.map((show: {
-                id: string
-                event_date: string
-                city: string
-                title: string
-                venue?: string
-                event_type?: string
-                ticket_url?: string
-                rsvp_url?: string
-              }) => (
-                <div
-                  key={show.id}
-                  className="flex flex-col sm:flex-row items-start sm:items-center gap-5 py-5 border-b group"
-                  style={{ borderColor: 'var(--color-brand-gray-mid)' }}
-                >
-                  <div className="flex-shrink-0 text-center" style={{ minWidth: 72 }}>
-                    <p style={{
-                      fontFamily: 'var(--font-pixel)',
-                      fontSize: '0.38rem',
-                      color: 'var(--color-brand-red)',
-                      letterSpacing: '0.1em',
-                    }}>
-                      {new Date(show.event_date).toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}
-                    </p>
-                    <p style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: '2.8rem',
-                      lineHeight: 1,
-                      color: 'var(--color-brand-white)',
-                    }}>
-                      {new Date(show.event_date).toLocaleDateString('en-US', { day: '2-digit' })}
-                    </p>
-                  </div>
-
-                  <div className="flex-1">
-                    <h3 style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: 'clamp(1.2rem, 2.5vw, 1.6rem)',
-                      letterSpacing: '0.04em',
-                      textTransform: 'uppercase',
-                      color: 'var(--color-brand-white)',
-                    }}>
-                      {show.title}
-                    </h3>
-                    <p className="mt-1" style={{
-                      fontFamily: 'var(--font-pixel)',
-                      fontSize: '0.34rem',
-                      color: 'var(--color-brand-off)',
-                      letterSpacing: '0.05em',
-                    }}>
-                      // {show.city}{show.venue ? ` · ${show.venue}` : ''}{show.event_type ? ` · ${show.event_type}` : ''}
-                    </p>
-                  </div>
-
-                  {(show.ticket_url || show.rsvp_url) && (
-                    <a
-                      href={show.ticket_url || show.rsvp_url || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-primary"
-                      style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.38rem' }}
-                    >
-                      Get Tickets →
-                    </a>
-                  )}
+        <div style={{ borderTop: '1px solid #0a0000' }}>
+          {shows.length > 0 ? shows.map((show: {
+            id: string; event_date: string; city: string; title: string;
+            venue?: string; event_type?: string; ticket_url?: string; rsvp_url?: string
+          }) => (
+            <div key={show.id} style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1.25rem',
+              padding: '0.9rem 0',
+              borderBottom: '1px solid #0a0000',
+            }}>
+              <div style={{ textAlign: 'center', minWidth: 56, flexShrink: 0 }}>
+                <div style={{
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '0.46rem',
+                  color: '#660000',
+                  letterSpacing: '0.1em',
+                }}>
+                  {new Date(show.event_date).toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}
                 </div>
-              ))}
+                <div style={{
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '1.6rem',
+                  fontWeight: 700,
+                  color: '#cc0000',
+                  lineHeight: 1,
+                }}>
+                  {new Date(show.event_date).toLocaleDateString('en-US', { day: '2-digit' })}
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  color: '#aa0000',
+                  letterSpacing: '0.05em',
+                  textTransform: 'uppercase',
+                }}>
+                  {show.title}
+                </div>
+                <div style={{
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '0.46rem',
+                  color: '#440000',
+                  letterSpacing: '0.04em',
+                  marginTop: '0.15rem',
+                }}>
+                  // {show.city}{show.venue ? ` · ${show.venue}` : ''}
+                </div>
+              </div>
+              {(show.ticket_url || show.rsvp_url) && (
+                <a
+                  href={show.ticket_url || show.rsvp_url || '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline"
+                  style={{ fontSize: '0.5rem', padding: '0.3rem 0.65rem', whiteSpace: 'nowrap', flexShrink: 0 }}
+                >
+                  GET TICKETS →
+                </a>
+              )}
             </div>
-          ) : (
-            <div
-              className="text-center py-16 border"
-              style={{ borderColor: 'var(--color-brand-gray-mid)', borderStyle: 'dashed' }}
-            >
-              <p style={{
-                fontFamily: 'var(--font-pixel)',
-                fontSize: '0.4rem',
-                color: 'var(--color-brand-off)',
+          )) : (
+            <div style={{
+              textAlign: 'center',
+              padding: '2rem',
+              border: '1px dashed #1a0000',
+              marginTop: '1rem',
+            }}>
+              <div style={{
+                fontFamily: '"Courier New", monospace',
+                fontSize: '0.5rem',
+                color: '#440000',
                 letterSpacing: '0.1em',
-                marginBottom: '0.75rem',
+                marginBottom: '0.5rem',
               }}>
-                Raids incoming.
-              </p>
-              <p style={{
-                fontFamily: 'var(--font-pixel)',
-                fontSize: '0.34rem',
-                color: '#444',
-                letterSpacing: '0.06em',
-                marginBottom: '1.5rem',
-              }}>
-                Enlist in the Wunnerdex to receive first alerts.
-              </p>
-              <Link href="/wunnerdex" className="btn-primary">Enlist Now →</Link>
+                &gt; Raids incoming. Stand by.
+              </div>
+              <Link href="/wunnerdex" className="btn-primary">[ ENLIST FOR EARLY ALERTS ]</Link>
             </div>
           )}
+        </div>
 
-          <div className="flex flex-wrap gap-4 justify-center mt-10">
-            <Link href="/shows" className="btn-outline">All City Raids →</Link>
-            <Link href="/book" className="btn-primary">Deploy Genwunner</Link>
-          </div>
+        <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.25rem', flexWrap: 'wrap' }}>
+          <Link href="/shows" className="btn-outline">[ ALL CITY RAIDS → ]</Link>
+          <Link href="/book" className="btn-primary">[ DEPLOY GENWUNNER ]</Link>
         </div>
       </section>
 
-      {/* ── DISCORD JOIN ── */}
-      <section
-        className="px-4 py-16"
-        style={{
-          background: 'var(--color-brand-red)',
-          borderTop: '1px solid var(--color-brand-red-dark)',
-          borderBottom: '1px solid var(--color-brand-red-dark)',
-        }}
-      >
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <p style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.38rem',
-              color: 'rgba(255,255,255,0.7)',
-              letterSpacing: '0.15em',
-              marginBottom: '0.5rem',
-            }}>
-              // THE REGIME HAS A HOME BASE
-            </p>
-            <h2 style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-              color: 'white',
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-              lineHeight: 1,
-            }}>
-              JOIN THE DISCORD
-            </h2>
-            <p style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.36rem',
-              color: 'rgba(255,255,255,0.65)',
-              letterSpacing: '0.06em',
-              lineHeight: 2,
-              marginTop: '0.5rem',
-            }}>
-              City raid alerts · classified drops · Giovanni&apos;s journal · direct line to the operative
-            </p>
+      {/* ── DISCORD BANNER ── */}
+      <section style={{
+        background: '#e3000f',
+        padding: '2rem 1.5rem',
+        borderBottom: '1px solid #880000',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '1.5rem',
+        flexWrap: 'wrap',
+      }}>
+        <div>
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.48rem',
+            color: 'rgba(0,0,0,0.5)',
+            letterSpacing: '0.15em',
+            marginBottom: '0.4rem',
+          }}>
+            // THE REGIME HAS A HOME BASE
           </div>
-          <a
-            href="https://discord.gg/6c28f8JXKV"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline flex-shrink-0"
-            style={{ borderColor: 'white', color: 'white' }}
-          >
-            🚀 Enter HQ →
-          </a>
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: 'clamp(1rem, 2.5vw, 1.6rem)',
+            fontWeight: 700,
+            color: '#000',
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            lineHeight: 1,
+          }}>
+            JOIN THE DISCORD
+          </div>
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.48rem',
+            color: 'rgba(0,0,0,0.55)',
+            letterSpacing: '0.06em',
+            marginTop: '0.4rem',
+            lineHeight: 1.9,
+          }}>
+            City raid alerts · classified drops · Giovanni&apos;s journal · direct line
+          </div>
         </div>
+        <a
+          href={socialLinks.discord}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.65rem',
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            color: '#e3000f',
+            background: '#000',
+            border: '1px solid #000',
+            padding: '0.6rem 1.5rem',
+            textDecoration: 'none',
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
+          }}
+        >
+          [ ENTER HQ → ]
+        </a>
       </section>
 
       {/* ── SECTION 4: ENLISTMENT ── */}
-      <section
-        className="px-4 py-20"
-        style={{ borderBottom: '1px solid var(--color-brand-gray-mid)' }}
-      >
-        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-12 items-center">
-          {/* Photo */}
-          <div
-            className="relative w-full lg:w-80 xl:w-96 aspect-[3/4] overflow-hidden flex-shrink-0 order-2 lg:order-1"
-            style={{ border: '1px solid var(--color-brand-gray-mid)' }}
-          >
-            <Image
-              src="/images/strip-laugh.jpg"
-              alt="Genwunner laughing holding Pokémon packs"
-              fill
-              className="object-cover object-center"
-            />
-            <div
-              className="absolute inset-0"
-              style={{ background: 'linear-gradient(to top, rgba(8,8,8,0.6) 0%, transparent 50%)' }}
-            />
+      <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.5rem',
+            color: '#e3000f',
+            letterSpacing: '0.1em',
+            marginBottom: '0.5rem',
+          }}>
+            // 003 · GRUNT REGISTRATION
+          </div>
+          <ASCIIHeading lines={ASCII.theBoss} scale={0.85} />
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.5rem',
+            color: '#440000',
+            letterSpacing: '0.06em',
+            marginTop: '0.5rem',
+          }}>
+            &gt; Giovanni keeps records on every operative
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gap: '2rem', alignItems: 'start' }} className="grid grid-cols-1 md:grid-cols-2">
+          <div>
+            <p style={{
+              fontFamily: '"Courier New", monospace',
+              fontSize: '0.58rem',
+              color: '#550000',
+              lineHeight: 1.85,
+              letterSpacing: '0.04em',
+              marginBottom: '1rem',
+            }}>
+              Register in the Wunnerdex.{' '}
+              <span style={{ color: '#aa0000' }}>Genwunner remembers who showed up early.</span>
+            </p>
+            {[
+              'Early access to drops & collector editions',
+              'City Raid alerts before public announce',
+              'Classified mission intel from HQ',
+              'Exclusive Grunt status & Wunnerdex ID',
+              'Direct comms from the operative himself',
+              'Unlock #the-vault on Discord',
+            ].map(perk => (
+              <div key={perk} style={{
+                fontFamily: '"Courier New", monospace',
+                fontSize: '0.52rem',
+                color: '#660000',
+                letterSpacing: '0.05em',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '0.4rem',
+                marginBottom: '0.45rem',
+                lineHeight: 1.6,
+              }}>
+                <span style={{ color: '#e3000f', flexShrink: 0 }}>&gt;</span>
+                {perk}
+              </div>
+            ))}
           </div>
 
-          {/* Form */}
-          <div className="flex-1 order-1 lg:order-2">
-            <div className="flex items-baseline gap-4 mb-2">
-              <span style={{
-                fontFamily: 'var(--font-pixel)',
-                fontSize: '0.4rem',
-                color: 'var(--color-brand-red)',
-                letterSpacing: '0.1em',
-              }}>
-                // 003
-              </span>
-              <h2
-                className="section-title"
-                style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
-              >
-                THE BOSS IS<br />WATCHING.
-              </h2>
-            </div>
-            <p
-              className="mb-6 mt-3"
-              style={{
-                fontSize: '0.88rem',
-                color: 'var(--color-brand-off)',
-                lineHeight: 1.75,
-                maxWidth: 440,
-              }}
-            >
-              Giovanni keeps records on every operative. Register in the Wunnerdex: drops, city raid alerts, secret links, and Big Man Blastoise sightings before the civilians. Genwunner remembers who showed up early.
-            </p>
-            <WunnerdexSignupForm />
-          </div>
+          <WunnerdexSignupForm />
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer
-        className="py-14 px-4"
-        style={{
-          background: 'var(--color-brand-black)',
-          borderTop: '1px solid var(--color-brand-gray-mid)',
-        }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-10">
-            <div>
-              <p style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '2rem',
-                letterSpacing: '0.1em',
-                color: 'var(--color-brand-white)',
-              }}>
-                GENWUNNER
-              </p>
-              <p style={{
-                fontFamily: 'var(--font-pixel)',
-                fontSize: '0.34rem',
-                color: 'var(--color-brand-red)',
-                letterSpacing: '0.1em',
-                marginTop: '0.25rem',
-                marginBottom: '0.75rem',
-              }}>
-                Rocket Recruitment Regime · Kanto Division · Est. 2022
-              </p>
-              <p style={{
-                fontSize: '0.78rem',
-                color: 'var(--color-brand-off)',
-                lineHeight: 1.7,
-                maxWidth: 280,
-              }}>
-                Creator of PokéRage. Right hand of Giovanni. Pallet Town&apos;s most wanted.
-                The regime is only getting started.
-              </p>
-            </div>
+      {/* ── PRESS QUOTE ── */}
+      <div style={{
+        padding: '1.5rem',
+        borderBottom: '1px solid #1a0000',
+        textAlign: 'center',
+        background: '#030000',
+      }}>
+        <div style={{
+          fontFamily: '"Courier New", monospace',
+          fontSize: '0.46rem',
+          color: '#440000',
+          letterSpacing: '0.12em',
+          marginBottom: '0.75rem',
+        }}>
+          // INTERCEPTED CIVILIAN TRANSMISSION
+        </div>
+        <div style={{
+          fontFamily: '"Courier New", monospace',
+          fontSize: 'clamp(0.7rem, 1.8vw, 1rem)',
+          color: '#880000',
+          letterSpacing: '0.05em',
+          fontStyle: 'italic',
+          lineHeight: 1.6,
+        }}>
+          &ldquo;Blastoise is finally winning a popularity contest over Charizard, and it rules.&rdquo;
+        </div>
+        <div style={{
+          fontFamily: '"Courier New", monospace',
+          fontSize: '0.5rem',
+          color: '#e3000f',
+          letterSpacing: '0.18em',
+          marginTop: '0.65rem',
+        }}>
+          — KOTAKU
+        </div>
+      </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-1">
-              {[
+      {/* ── FOOTER ── */}
+      <footer style={{ padding: '2.5rem 1.5rem', borderTop: '1px solid #1a0000' }}>
+        <div style={{ gap: '2rem', marginBottom: '1.5rem' }} className="grid grid-cols-1 md:grid-cols-4">
+          <div>
+            <div style={{
+              fontFamily: '"Courier New", monospace',
+              fontSize: '1.1rem',
+              fontWeight: 700,
+              color: '#cc0000',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+            }}>
+              GENWUNNER
+            </div>
+            <div style={{
+              fontFamily: '"Courier New", monospace',
+              fontSize: '0.38rem',
+              color: '#330000',
+              letterSpacing: '0.08em',
+              margin: '0.25rem 0 0.75rem',
+            }}>
+              ROCKET RECRUITMENT REGIME · KANTO DIVISION · EST. 2022
+            </div>
+            <div style={{
+              fontFamily: '"Courier New", monospace',
+              fontSize: '0.5rem',
+              color: '#330000',
+              lineHeight: 1.8,
+              letterSpacing: '0.04em',
+            }}>
+              Creator of PokéRage. Right hand of Giovanni.<br />
+              Pallet Town&apos;s most wanted.<br />
+              The regime is only getting started.
+            </div>
+          </div>
+
+          {[
+            {
+              title: '// Navigate',
+              links: [
                 { href: '/music',     label: 'Arsenal'     },
                 { href: '/shows',     label: 'City Raids'  },
                 { href: '/merch',     label: 'Supply Drop' },
@@ -586,170 +658,171 @@ export default async function HomePage() {
                 { href: '/book',      label: 'Deploy'      },
                 { href: '/epk',       label: 'Dossier'     },
                 { href: '/contact',   label: 'Intel'       },
-                { href: '/login',     label: 'HQ Access'   },
-              ].map(link => (
+              ],
+            },
+            {
+              title: '// Transmissions',
+              links: [
+                { href: socialLinks.spotify,   label: 'Spotify'     },
+                { href: socialLinks.apple,     label: 'Apple Music' },
+                { href: socialLinks.youtube,   label: 'YouTube'     },
+                { href: socialLinks.tiktok,    label: 'TikTok'      },
+                { href: socialLinks.instagram, label: 'Instagram'   },
+                { href: socialLinks.discord,   label: 'Discord'     },
+                { href: socialLinks.twitter,   label: 'X / Twitter' },
+              ],
+            },
+            {
+              title: '// Operations',
+              links: [
+                { href: '/book',             label: 'Book / Deploy' },
+                { href: '/epk',              label: 'Press / EPK'   },
+                { href: '/contact',          label: 'Management'    },
+                { href: socialLinks.discord, label: 'Discord HQ'    },
+              ],
+            },
+          ].map(col => (
+            <div key={col.title}>
+              <div style={{
+                fontFamily: '"Courier New", monospace',
+                fontSize: '0.44rem',
+                color: '#550000',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                marginBottom: '0.65rem',
+              }}>
+                {col.title}
+              </div>
+              {col.links.map(link => (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1rem',
-                    letterSpacing: '0.05em',
+                    fontFamily: '"Courier New", monospace',
+                    fontSize: '0.6rem',
+                    color: '#380000',
+                    letterSpacing: '0.06em',
                     textTransform: 'uppercase',
-                    color: 'var(--color-brand-off)',
                     display: 'block',
-                    padding: '0.25rem 0',
-                    transition: 'color 0.15s',
+                    padding: '0.2rem 0',
+                    textDecoration: 'none',
+                    transition: 'color 0.12s',
                   }}
-                  className="hover:!text-[var(--color-brand-red)]"
                 >
                   {link.label}
                 </Link>
               ))}
             </div>
+          ))}
+        </div>
 
-            <div className="flex flex-col gap-2">
-              {[
-                { href: socialLinks.spotify,   label: 'Spotify'     },
-                { href: socialLinks.apple,     label: 'Apple Music' },
-                { href: socialLinks.instagram, label: 'Instagram'   },
-                { href: socialLinks.tiktok,    label: 'TikTok'      },
-                { href: socialLinks.youtube,   label: 'YouTube'     },
-                { href: socialLinks.discord,   label: 'Discord'     },
-              ].map(s => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1rem',
-                    letterSpacing: '0.05em',
-                    textTransform: 'uppercase',
-                    color: 'var(--color-brand-off)',
-                    transition: 'color 0.15s',
-                  }}
-                  className="hover:!text-[var(--color-brand-white)]"
-                >
-                  {s.label}
-                </a>
-              ))}
-            </div>
+        <div style={{
+          borderTop: '1px solid #0d0000',
+          paddingTop: '1rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '0.5rem',
+        }}>
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.35rem',
+            color: '#1e0000',
+            letterSpacing: '0.06em',
+            lineHeight: 1.8,
+          }}>
+            © {new Date().getFullYear()} ROCKET RECRUITMENT REGIME · KANTO DIVISION · ALL INTEL RESERVED TO GIOVANNI
           </div>
-
-          <div
-            className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-6"
-            style={{ borderTop: '1px solid var(--color-brand-gray-mid)' }}
-          >
-            <p style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.3rem',
-              color: '#333',
-              letterSpacing: '0.06em',
-              lineHeight: 2,
-            }}>
-              © {new Date().getFullYear()} ROCKET RECRUITMENT REGIME · KANTO DIVISION · ALL INTEL RESERVED TO GIOVANNI
-            </p>
-            <p style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.28rem',
-              color: '#2a2a2a',
-              letterSpacing: '0.06em',
-            }}>
-              NOT AFFILIATED WITH THE POKÉMON COMPANY
-            </p>
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.32rem',
+            color: '#150000',
+            letterSpacing: '0.05em',
+          }}>
+            NOT AFFILIATED WITH THE POKÉMON COMPANY
           </div>
         </div>
       </footer>
 
       {/* Mobile spacer */}
-      <div className="h-14 md:hidden" />
-
-      {/* Scroll indicator animation */}
-      <style>{`
-        @keyframes scrollPulse {
-          0%, 100% { opacity: 0.3; transform: scaleY(1); }
-          50%       { opacity: 1;   transform: scaleY(1.2); }
-        }
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(10px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+      <div style={{ height: '3.5rem' }} className="md:hidden" />
     </div>
   )
 }
 
 function WunnerdexSignupForm() {
   return (
-    <form action="/api/wunnerdex" method="POST" className="space-y-3 text-left">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <label className="brand-label">Comms Channel (Email) *</label>
-          <input type="email" name="email" required placeholder="your@email.com" className="brand-input" />
+    <div style={{
+      background: '#050000',
+      border: '1px solid #440000',
+      padding: '1.25rem',
+      position: 'relative',
+    }}>
+      {/* Inner border */}
+      <div style={{
+        position: 'absolute',
+        top: 5, left: 5, right: 5, bottom: 5,
+        border: '1px solid #1a0000',
+        pointerEvents: 'none',
+      }} />
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1rem' }}>
+        <div style={{
+          width: 34, height: 34,
+          background: '#e3000f',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '0.9rem',
+          flexShrink: 0,
+        }}>
+          ⚡
         </div>
         <div>
-          <label className="brand-label">Secondary Comms (Phone)</label>
-          <input type="tel" name="phone" placeholder="Optional" className="brand-input" />
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.85rem',
+            fontWeight: 700,
+            color: '#cc0000',
+            letterSpacing: '0.05em',
+            textTransform: 'uppercase',
+          }}>
+            GRUNT REG.
+          </div>
+          <div style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.38rem',
+            color: '#550000',
+            letterSpacing: '0.07em',
+          }}>
+            // WUNNERDEX · TEAM ROCKET DATABASE
+          </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <label className="brand-label">Home Territory *</label>
-          <input type="text" name="city" required placeholder="City, State" className="brand-input" />
+
+      <form action="/api/wunnerdex" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        <label className="brand-label">Trainer Name</label>
+        <input type="text" name="name" className="brand-input" placeholder="your name" />
+        <label className="brand-label">Home Territory</label>
+        <input type="text" name="city" className="brand-input" placeholder="city, state / country" />
+        <label className="brand-label">Comms Channel (Email) *</label>
+        <input type="email" name="email" required className="brand-input" placeholder="your@email.com" />
+        <button type="submit" className="btn-primary" style={{ marginTop: '0.25rem', width: '100%', justifyContent: 'center' }}>
+          [ REPORT FOR DUTY ]
+        </button>
+        <div style={{
+          fontFamily: '"Courier New", monospace',
+          fontSize: '0.32rem',
+          color: '#1e0000',
+          textAlign: 'center',
+          letterSpacing: '0.06em',
+          lineHeight: 1.8,
+          marginTop: '0.25rem',
+        }}>
+          WUNNERDEX v1.0 · NO SPAM · JUST DROPS AND RAIDS
         </div>
-        <div>
-          <label className="brand-label">Pokémon Specialty</label>
-          <input type="text" name="favorite_pokemon" placeholder="Favorite Pokémon?" className="brand-input" />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <label className="brand-label">Favorite Mission</label>
-          <select name="favorite_song" className="brand-input">
-            <option value="">Favorite Genwunner track...</option>
-            <option>BLASTOISE!</option>
-            <option>CHARIZARD!</option>
-            <option>VENUSAUR!</option>
-            <option>PSYDUCK!</option>
-            <option>HITMONCHAN!</option>
-            <option>GASTLY!</option>
-          </select>
-        </div>
-        <div>
-          <label className="brand-label">Field Handle</label>
-          <input type="text" name="social_handle" placeholder="Instagram / TikTok @" className="brand-input" />
-        </div>
-      </div>
-      <label
-        className="flex items-start gap-3 cursor-pointer p-4"
-        style={{ background: 'var(--color-brand-gray)', border: '1px solid var(--color-brand-gray-mid)' }}
-      >
-        <input
-          type="checkbox"
-          name="want_in_city"
-          value="true"
-          className="w-4 h-4 mt-0.5 flex-shrink-0"
-          style={{ accentColor: 'var(--color-brand-red)' }}
-        />
-        <span style={{ fontSize: '0.82rem', color: 'var(--color-brand-off)', lineHeight: 1.6 }}>
-          I want Genwunner to raid my city. Deploy a show or pop-up.
-        </span>
-      </label>
-      <button type="submit" className="btn-primary w-full py-4">
-        🚀 Report for Duty. Enlist in the Wunnerdex.
-      </button>
-      <p style={{
-        fontFamily: 'var(--font-pixel)',
-        fontSize: '0.3rem',
-        color: '#333',
-        textAlign: 'center',
-        letterSpacing: '0.06em',
-        lineHeight: 2,
-      }}>
-        No spam. Just drops, raids, and Big Man Blastoise sightings.
-      </p>
-    </form>
+      </form>
+    </div>
   )
 }
