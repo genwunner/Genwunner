@@ -95,9 +95,9 @@ export default function Nav() {
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', textDecoration: 'none' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/logos/g1r-ball-white.png"
+            src="/images/rrr-logo.jpg"
             alt="Genwunner"
-            width={100}
+            width={40}
             height={40}
             style={{ display: 'block', objectFit: 'contain' }}
           />
@@ -116,7 +116,7 @@ export default function Nav() {
 
         {/* Right side — spinning logo + menu toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <SpinningPokeball size={20} speed="4s" />
+          <SpinningPokeball size={38} speed="4s" />
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             style={{
