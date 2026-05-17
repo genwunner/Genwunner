@@ -251,9 +251,11 @@ export default async function HomePage() {
               {arsenalAscii[song.title] && (
                 <pre style={{
                   fontFamily: '"Courier New", Courier, monospace',
-                  fontSize: 'clamp(0.22rem, 0.45vw, 0.42rem)',
+                  fontSize: (song.title === 'BLASTOISE!' || song.title === 'PSYDUCK!')
+                    ? 'clamp(0.44rem, 0.9vw, 0.84rem)'
+                    : 'clamp(0.22rem, 0.45vw, 0.42rem)',
                   lineHeight: 1.2,
-                  color: '#550000',
+                  color: '#aa0000',
                   margin: '0.4rem 0',
                   whiteSpace: 'pre',
                   overflow: 'hidden',
