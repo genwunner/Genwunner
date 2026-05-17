@@ -140,7 +140,7 @@ export default function MusicPage() {
         </div>
 
         {/* ── Spotify Discography Embed ── */}
-        <div style={{ marginBottom: '3rem' }}>
+        <div style={{ marginBottom: '1.25rem' }}>
           <div style={{
             fontFamily: "'Courier New', monospace",
             fontSize: '0.55rem',
@@ -153,7 +153,7 @@ export default function MusicPage() {
           <iframe
             src={`https://open.spotify.com/embed/artist/${SPOTIFY_ARTIST_ID}?utm_source=generator&theme=0`}
             width="100%"
-            height="352"
+            height="450"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
             style={{ border: '1px solid #1a0000', display: 'block' }}
