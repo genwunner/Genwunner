@@ -1,8 +1,11 @@
 // src/app/(public)/music/page.tsx
+import Link from 'next/link'
 import Image from 'next/image'
 import { songs, socialLinks } from '@/data/content'
 
 export const metadata = { title: 'Arsenal | Genwunner' }
+
+const SPOTIFY_ARTIST_ID = '653dGzLhl75ftFI0GsqQLO'
 
 const platforms = [
   { label: 'Spotify',     href: socialLinks.spotify },
@@ -13,15 +16,15 @@ const platforms = [
 
 export default function MusicPage() {
   return (
-    <div className="min-h-screen" style={{ background: 'var(--color-brand-black)', color: 'var(--color-brand-white)' }}>
+    <div className="min-h-screen" style={{ background: '#000', color: '#cc0000' }}>
       <div className="max-w-6xl mx-auto px-4 py-20">
 
         {/* ── Header ── */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <p style={{
-            fontFamily: 'var(--font-pixel)',
-            fontSize: '0.4rem',
-            color: 'var(--color-brand-red)',
+            fontFamily: "'Courier New', monospace",
+            fontSize: '0.55rem',
+            color: '#e3000f',
             letterSpacing: '0.15em',
             marginBottom: '0.75rem',
           }}>
@@ -31,10 +34,10 @@ export default function MusicPage() {
             THE ARSENAL
           </h1>
           <p className="mt-4" style={{
-            fontFamily: 'var(--font-pixel)',
-            fontSize: '0.36rem',
-            color: 'var(--color-brand-off)',
-            letterSpacing: '0.08em',
+            fontFamily: "'Courier New', monospace",
+            fontSize: '0.72rem',
+            color: '#880000',
+            letterSpacing: '0.06em',
             lineHeight: 2,
           }}>
             Each song a weapon. Each name an operative.<br />
@@ -42,148 +45,128 @@ export default function MusicPage() {
           </p>
         </div>
 
-        {/* ── Stream Everywhere ── */}
-        <div className="flex flex-wrap gap-3 justify-center mb-16">
+        {/* ── Platform links ── */}
+        <div className="flex flex-wrap gap-3 justify-center mb-12">
           {platforms.map(p => (
             <a
               key={p.label}
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline"
-              style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem' }}
+              className="btn-outline btn-sm"
             >
               {p.label} →
             </a>
           ))}
         </div>
 
-        {/* ── Song Cards ── */}
-        <div style={{
-          borderTop: '1px solid var(--color-brand-gray-mid)',
-          display: 'flex',
-          flexDirection: 'column',
-        }}>
-          {songs.map((song, i) => (
-            <div
+        {/* ── Song Grid ── */}
+        <div
+          className="grid grid-cols-1 md:grid-cols-3"
+          style={{ gap: '1px', background: '#0d0000', border: '1px solid #0d0000', marginBottom: '3rem' }}
+        >
+          {songs.map(song => (
+            <a
               key={song.title}
-              className="group flex flex-col sm:flex-row items-start sm:items-center gap-6 py-6 border-b"
-              style={{ borderColor: 'var(--color-brand-gray-mid)', position: 'relative' }}
+              href={song.hypeddit}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+              style={{ display: 'block', background: '#030000', textDecoration: 'none', position: 'relative' }}
             >
-              {/* Red slash on hover */}
-              <div
-                className="absolute left-0 top-0 bottom-0 w-0.5 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-bottom"
-                style={{ background: 'var(--color-brand-red)' }}
-              />
-
-              {/* Track number / cover */}
-              <div className="relative flex-shrink-0 overflow-hidden"
-                style={{ width: 72, height: 72, border: '1px solid var(--color-brand-gray-mid)' }}>
-                {song.cover ? (
-                  <Image
-                    src={song.cover}
-                    alt={song.title}
-                    fill
-                    className="object-cover"
-                    sizes="72px"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center"
-                    style={{ background: 'var(--color-brand-gray)' }}>
-                    <span style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: '1.5rem',
-                      color: 'var(--color-brand-red)',
-                    }}>
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                  </div>
-                )}
+              {/* Cover art — full width, square */}
+              <div className="relative w-full" style={{ aspectRatio: '1 / 1' }}>
+                <Image
+                  src={song.cover}
+                  alt={song.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                {/* Red hover overlay */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+                  style={{ background: 'rgba(227,0,15,0.15)' }}
+                />
+                {/* Left red bar on hover */}
+                <div
+                  className="absolute left-0 top-0 bottom-0 scale-y-0 group-hover:scale-y-100 transition-transform duration-200 origin-bottom"
+                  style={{ width: 3, background: '#e3000f' }}
+                />
               </div>
 
               {/* Info */}
-              <div className="flex-1">
-                <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                  <h2 style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
-                    color: 'var(--color-brand-white)',
-                  }}>
-                    {song.title}
-                  </h2>
-                  <span style={{
-                    fontFamily: 'var(--font-pixel)',
-                    fontSize: '0.36rem',
-                    color: 'var(--color-brand-red)',
-                    border: '1px solid rgba(227,0,15,0.3)',
-                    padding: '0.2rem 0.5rem',
-                    background: 'rgba(227,0,15,0.06)',
-                    letterSpacing: '0.06em',
-                    whiteSpace: 'nowrap',
-                  }}>
-                    {song.tag}
-                  </span>
+              <div style={{ padding: '1rem', borderTop: '1px solid #0d0000' }}>
+                <div style={{
+                  fontFamily: "'Courier New', monospace",
+                  fontSize: '0.48rem',
+                  color: '#770000',
+                  letterSpacing: '0.06em',
+                  border: '1px solid #1a0000',
+                  padding: '0.12rem 0.35rem',
+                  display: 'inline-block',
+                  marginBottom: '0.5rem',
+                }}>
+                  {song.tag}
                 </div>
-                <p style={{
-                  fontSize: '0.82rem',
-                  color: 'var(--color-brand-off)',
-                  lineHeight: 1.65,
+                <div style={{
+                  fontFamily: 'var(--font-heading), "Courier New", Courier, monospace',
+                  fontWeight: 400,
+                  fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)',
+                  color: '#cc0000',
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  lineHeight: 1.1,
+                  marginBottom: '0.5rem',
+                  transition: 'color 0.12s',
+                }}
+                  className="group-hover:text-[#e3000f]"
+                >
+                  {song.title}
+                </div>
+                <p className="hidden md:block" style={{
+                  fontFamily: "'Courier New', monospace",
+                  fontSize: '0.65rem',
+                  color: '#880000',
+                  lineHeight: 1.7,
                   fontStyle: 'italic',
-                  maxWidth: 500,
+                  letterSpacing: '0.03em',
                 }}>
                   {song.lore}
                 </p>
               </div>
-
-              {/* Stream buttons */}
-              <div className="flex gap-2 flex-wrap sm:flex-nowrap flex-shrink-0">
-                <a href={song.spotify} target="_blank" rel="noopener noreferrer" className="btn-primary btn-sm">
-                  Spotify
-                </a>
-                <a href={song.apple} target="_blank" rel="noopener noreferrer" className="btn-outline btn-sm">
-                  Apple
-                </a>
-                <a href={song.youtube} target="_blank" rel="noopener noreferrer" className="btn-outline btn-sm">
-                  YouTube
-                </a>
-              </div>
-            </div>
+            </a>
           ))}
         </div>
 
-        {/* ── Full Catalog CTA ── */}
-        <div className="mt-16 p-8 text-center" style={{
-          background: 'var(--color-brand-gray)',
-          border: '1px solid var(--color-brand-gray-mid)',
-        }}>
-          <p style={{
-            fontFamily: 'var(--font-pixel)',
-            fontSize: '0.38rem',
-            color: 'var(--color-brand-off)',
-            letterSpacing: '0.1em',
+        {/* ── Spotify Discography Embed ── */}
+        <div style={{ marginBottom: '3rem' }}>
+          <div style={{
+            fontFamily: "'Courier New', monospace",
+            fontSize: '0.55rem',
+            color: '#e3000f',
+            letterSpacing: '0.12em',
             marginBottom: '1rem',
           }}>
-            // Full arsenal available on all platforms
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <a href={socialLinks.spotify} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              Open Spotify Profile →
-            </a>
-            <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" className="btn-outline">
-              YouTube Channel →
-            </a>
+            // STREAM THE FULL ARSENAL
           </div>
+          <iframe
+            src={`https://open.spotify.com/embed/artist/${SPOTIFY_ARTIST_ID}?utm_source=generator&theme=0`}
+            width="100%"
+            height="352"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            style={{ border: '1px solid #1a0000', display: 'block' }}
+          />
         </div>
 
         {/* ── Collector EPs Teaser ── */}
-        <div className="mt-4 p-8" style={{ background: 'var(--color-brand-red)' }}>
+        <div className="p-8" style={{ background: '#e3000f' }}>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <p style={{
-                fontFamily: 'var(--font-pixel)',
-                fontSize: '0.38rem',
+                fontFamily: "'Courier New', monospace",
+                fontSize: '0.5rem',
                 color: 'rgba(255,255,255,0.7)',
                 letterSpacing: '0.12em',
                 marginBottom: '0.4rem',
@@ -191,7 +174,8 @@ export default function MusicPage() {
                 // INCOMING · SUMMER 2026
               </p>
               <h3 style={{
-                fontFamily: 'var(--font-display)',
+                fontFamily: 'var(--font-heading), "Courier New", Courier, monospace',
+                fontWeight: 400,
                 fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
                 color: 'white',
                 letterSpacing: '0.05em',
@@ -200,8 +184,8 @@ export default function MusicPage() {
                 Blue Version + Red Version EPs
               </h3>
               <p style={{
-                fontFamily: 'var(--font-pixel)',
-                fontSize: '0.34rem',
+                fontFamily: "'Courier New', monospace",
+                fontSize: '0.55rem',
                 color: 'rgba(255,255,255,0.65)',
                 letterSpacing: '0.06em',
                 marginTop: '0.4rem',
@@ -210,13 +194,9 @@ export default function MusicPage() {
                 Gameboy cartridge USB · Holographic signed trainer card · Limit 2 per grunt
               </p>
             </div>
-            <a
-              href="/wunnerdex"
-              className="btn-outline flex-shrink-0"
-              style={{ borderColor: 'white', color: 'white' }}
-            >
+            <Link href="/wunnerdex" className="btn-outline flex-shrink-0" style={{ borderColor: 'white', color: 'white' }}>
               Enlist for Early Access →
-            </a>
+            </Link>
           </div>
         </div>
 

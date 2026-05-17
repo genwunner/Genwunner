@@ -376,7 +376,7 @@ export default function Nav() {
         }}
       >
         {[
-          { href: 'https://open.spotify.com/artist/653dGzLhl75ftFI0GsqQLO', label: 'Stream',  external: true  },
+          { href: '/music',                                                  label: 'Stream',  external: false },
           { href: 'https://discord.gg/6c28f8JXKV',                           label: 'Discord', external: true  },
           { href: '/',                                                         label: 'Home',    external: false },
           { href: '/wunnerdex',                                               label: 'Enlist',  external: false },
