@@ -5,6 +5,7 @@ import Nav from '@/components/public/Nav'
 import TerminalIntro from '@/components/public/TerminalIntro'
 import { songs, socialLinks, upcomingShows, artistStats, pressQuotes } from '@/data/content'
 import PressTicker from '@/components/public/PressTicker'
+import WunnerdexForm from '@/components/public/WunnerdexForm'
 import { createClient } from '@/lib/supabase/server'
 
 function TermHead({
@@ -462,33 +463,3 @@ export default async function HomePage() {
   )
 }
 
-function WunnerdexForm() {
-  return (
-    <div style={{ background: '#050000', border: '1px solid #440000', padding: '1.25rem', position: 'relative' }}>
-      <div style={{ position: 'absolute', top: 5, left: 5, right: 5, bottom: 5, border: '1px solid #180000', pointerEvents: 'none' }} />
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1rem' }}>
-        <div style={{ width: 32, height: 32, background: '#e3000f', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', flexShrink: 0 }}>⚡</div>
-        <div>
-          <TermHead text="GRUNT REG." size="sm" color="#cc0000" />
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.46rem', color: '#660000', letterSpacing: '0.07em', marginTop: 2 }}>
-            // WUNNERDEX · TEAM ROCKET DATABASE
-          </div>
-        </div>
-      </div>
-      <form action="/api/wunnerdex" method="POST" style={{ display: 'flex', flexDirection: 'column' as const, gap: '0.45rem' }}>
-        <label className="brand-label">Trainer Name</label>
-        <input type="text" name="name" className="brand-input" placeholder="your name" />
-        <label className="brand-label">Home Territory</label>
-        <input type="text" name="city" className="brand-input" placeholder="city, state / country" />
-        <label className="brand-label">Comms Channel (Email) *</label>
-        <input type="email" name="email" required className="brand-input" placeholder="your@email.com" />
-        <button type="submit" className="btn-primary" style={{ marginTop: '0.25rem', width: '100%', justifyContent: 'center' }}>
-          [ REPORT FOR DUTY ]
-        </button>
-        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.4rem', color: '#550000', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 1.8, marginTop: '0.2rem' }}>
-          WUNNERDEX v1.0 · NO SPAM · JUST DROPS AND RAIDS
-        </div>
-      </form>
-    </div>
-  )
-}

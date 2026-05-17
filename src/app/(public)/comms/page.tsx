@@ -8,8 +8,8 @@ import { useEffect, useState } from 'react'
 const SERVER_ID  = '1387304356810068110'
 
 const CHANNELS = [
-  { id: '1504614368732774441', label: '#team-rocket-hq',     desc: 'General — the crew'                          },
   { id: '1504613787632799744', label: "#giovanni's-journal", desc: 'Direct transmissions from Genwunner'         },
+  { id: '1504614368732774441', label: '#team-rocket-hq',     desc: 'General — the crew'                          },
   { id: '1504613383067013161', label: '#city-raids',         desc: 'Show announcements & raid reports'           },
   { id: '1504613417200124025', label: '#supply-drops',       desc: 'Merch drops & collector editions'            },
   { id: '1504613454261125280', label: '#grunt-intros',       desc: 'New operative introductions'                 },
@@ -148,7 +148,7 @@ export default function DiscordPage() {
                 textTransform: 'uppercase',
               }}
             >
-              [ JOIN THE REGIME ]
+              join the regime
             </a>
           </div>
         </div>

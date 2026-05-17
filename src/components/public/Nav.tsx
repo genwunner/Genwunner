@@ -376,7 +376,7 @@ export default function Nav() {
       >
         {[
           { href: '/music',                                                  label: 'Stream',  external: false },
-          { href: '/discord',                                                  label: 'Discord', external: false },
+          { href: '/comms',                                                    label: 'Discord', external: false },
           { href: '/',                                                         label: 'Home',    external: false },
           { href: '/wunnerdex',                                               label: 'Enlist',  external: false },
           { href: '/shows',                                                   label: 'Raids',   external: false },
