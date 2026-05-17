@@ -69,40 +69,58 @@ export default function TerminalIntro() {
     return audioCtxRef.current!
   }
 
-  function beep(freq: number, dur: number, type: OscillatorType = 'square', vol = 0.06, delayMs = 0) {
+  // White noise burst through a bandpass filter — sounds like a mechanical keypress
+  function makeClick(ctx: AudioContext, when: number, vol: number, freq: number, dur: number) {
     try {
-      const ctx = getAudioCtx()
-      const t = ctx.currentTime + delayMs / 1000
-      const osc = ctx.createOscillator()
+      const len = Math.ceil(ctx.sampleRate * dur)
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate)
+      const d   = buf.getChannelData(0)
+      for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1
+
+      const src = ctx.createBufferSource()
+      src.buffer = buf
+
+      const bpf = ctx.createBiquadFilter()
+      bpf.type = 'bandpass'
+      bpf.frequency.value = freq
+      bpf.Q.value = 3
+
       const gain = ctx.createGain()
-      osc.connect(gain)
+      gain.gain.setValueAtTime(vol, when)
+      gain.gain.exponentialRampToValueAtTime(0.0001, when + dur)
+
+      src.connect(bpf)
+      bpf.connect(gain)
       gain.connect(ctx.destination)
-      osc.type = type
-      osc.frequency.setValueAtTime(freq, t)
-      gain.gain.setValueAtTime(vol, t)
-      gain.gain.exponentialRampToValueAtTime(0.001, t + dur)
-      osc.start(t)
-      osc.stop(t + dur + 0.05)
+      src.start(when)
+      src.stop(when + dur + 0.01)
     } catch { /* ignore audio errors */ }
   }
 
   function playSound(kind: 'type' | 'logo' | 'highlight' | 'launch' | 'glitch') {
-    if (kind === 'type') {
-      beep(180 + Math.random() * 60, 0.04, 'square', 0.04)
-    } else if (kind === 'logo') {
-      beep(440, 0.06, 'square', 0.07)
-      beep(660, 0.05, 'square', 0.05, 70)
-    } else if (kind === 'highlight') {
-      beep(660, 0.08, 'square', 0.06)
-      beep(880, 0.10, 'square', 0.07, 80)
-    } else if (kind === 'launch') {
-      beep(220, 0.08, 'sawtooth', 0.07)
-      beep(330, 0.08, 'sawtooth', 0.07, 100)
-      beep(440, 0.10, 'square',   0.08, 200)
-      beep(880, 0.25, 'square',   0.09, 320)
-    } else if (kind === 'glitch') {
-      beep(Math.random() * 900 + 100, 0.04, 'sawtooth', 0.05)
-    }
+    try {
+      const ctx = getAudioCtx()
+      const t   = ctx.currentTime
+      if (kind === 'type') {
+        // Subtle mechanical keypress — slight random pitch variation per keystroke
+        makeClick(ctx, t, 0.18, 2800 + Math.random() * 800, 0.025)
+      } else if (kind === 'logo') {
+        // Slightly crisper click for the RRR logo lines
+        makeClick(ctx, t, 0.22, 3500, 0.03)
+      } else if (kind === 'highlight') {
+        // Double-click, rising pitch — confirmation sound
+        makeClick(ctx, t,        0.22, 4500, 0.03)
+        makeClick(ctx, t + 0.04, 0.18, 5500, 0.025)
+      } else if (kind === 'launch') {
+        // Rapid keypress burst, accelerating like someone hammering Enter
+        for (let i = 0; i < 7; i++) {
+          makeClick(ctx, t + i * 0.055, 0.15 + i * 0.015, 3000 + i * 300, 0.025)
+        }
+      } else if (kind === 'glitch') {
+        // Harsh snap at random frequency
+        makeClick(ctx, t, 0.22, 1000 + Math.random() * 6000, 0.018)
+      }
+    } catch { /* ignore audio errors */ }
   }
 
   useEffect(() => { setMounted(true) }, [])
