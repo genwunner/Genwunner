@@ -96,28 +96,28 @@ export default function MusicPage() {
               </div>
 
               {/* Info */}
-              <div style={{ padding: '1rem', borderTop: '1px solid #0d0000' }}>
+              <div style={{ padding: '0.6rem', borderTop: '1px solid #0d0000', textAlign: 'center' }}>
                 <div style={{
                   fontFamily: "'Courier New', monospace",
-                  fontSize: '0.48rem',
+                  fontSize: '0.38rem',
                   color: '#770000',
-                  letterSpacing: '0.06em',
+                  letterSpacing: '0.05em',
                   border: '1px solid #1a0000',
-                  padding: '0.12rem 0.35rem',
+                  padding: '0.1rem 0.25rem',
                   display: 'inline-block',
-                  marginBottom: '0.5rem',
+                  marginBottom: '0.35rem',
                 }}>
                   {song.tag}
                 </div>
                 <div style={{
                   fontFamily: 'var(--font-heading), "Courier New", Courier, monospace',
                   fontWeight: 400,
-                  fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)',
+                  fontSize: 'clamp(0.75rem, 2vw, 1.6rem)',
                   color: '#cc0000',
-                  letterSpacing: '0.06em',
+                  letterSpacing: '0.04em',
                   textTransform: 'uppercase',
                   lineHeight: 1.1,
-                  marginBottom: '0.5rem',
+                  marginBottom: '0.35rem',
                   transition: 'color 0.12s',
                 }}
                   className="group-hover:text-[#e3000f]"
@@ -131,6 +131,7 @@ export default function MusicPage() {
                   lineHeight: 1.7,
                   fontStyle: 'italic',
                   letterSpacing: '0.03em',
+                  textAlign: 'left',
                 }}>
                   {song.lore}
                 </p>

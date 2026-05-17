@@ -13,7 +13,6 @@ const navLinks = [
   { href: '/merch',     label: 'Supply Drop', sub: 'Merch'     },
   { href: '/wunnerdex', label: 'Enlist',      sub: 'Wunnerdex' },
   { href: '/book',      label: 'Deploy',      sub: 'Book'      },
-  { href: '/epk',       label: 'Dossier',     sub: 'EPK'       },
   { href: '/contact',   label: 'Intel',       sub: 'Contact'   },
 ]
 
@@ -377,7 +376,7 @@ export default function Nav() {
       >
         {[
           { href: '/music',                                                  label: 'Stream',  external: false },
-          { href: 'https://discord.gg/6c28f8JXKV',                           label: 'Discord', external: true  },
+          { href: '/discord',                                                  label: 'Discord', external: false },
           { href: '/',                                                         label: 'Home',    external: false },
           { href: '/wunnerdex',                                               label: 'Enlist',  external: false },
           { href: '/shows',                                                   label: 'Raids',   external: false },
