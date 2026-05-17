@@ -212,6 +212,7 @@ a {
 
 .brand-card:hover { border-color: #e3000f; }
 .brand-card:hover::before { transform: scaleY(1); }
+.arsenal-card:hover .arsenal-ascii { color: #cc0000; text-shadow: 0 0 6px rgba(204,0,0,0.35); }
 
 /* ─────────────────────────────────────────────────
    FORMS — terminal input style

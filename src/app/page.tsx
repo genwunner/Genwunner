@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Nav from '@/components/public/Nav'
 import TerminalIntro from '@/components/public/TerminalIntro'
 import { songs, socialLinks, upcomingShows, artistStats, pressQuotes } from '@/data/content'
+import { arsenalAscii } from '@/data/ascii'
 import PressTicker from '@/components/public/PressTicker'
 import WunnerdexForm from '@/components/public/WunnerdexForm'
 import { createClient } from '@/lib/supabase/server'
@@ -218,7 +219,7 @@ export default async function HomePage() {
           border: '1px solid #0d0000',
         }}>
           {songs.map(song => (
-            <div key={song.title} className="brand-card" style={{ padding: '1rem' }}>
+            <div key={song.title} className="brand-card arsenal-card" style={{ padding: '1rem' }}>
               <div style={{
                 fontFamily: '"Courier New", monospace',
                 fontSize: '0.5rem',
@@ -231,6 +232,23 @@ export default async function HomePage() {
               }}>
                 {song.tag}
               </div>
+              {arsenalAscii[song.title] && (
+                <pre style={{
+                  fontFamily: '"Courier New", Courier, monospace',
+                  fontSize: 'clamp(0.22rem, 0.45vw, 0.42rem)',
+                  lineHeight: 1.2,
+                  color: '#550000',
+                  margin: '0.4rem 0',
+                  whiteSpace: 'pre',
+                  overflow: 'hidden',
+                  textAlign: 'center',
+                  transition: 'color 0.2s',
+                }}
+                className="arsenal-ascii"
+                >
+                  {arsenalAscii[song.title]}
+                </pre>
+              )}
               <TermHead text={song.title} size="sm" color="#cc0000" />
               <p className="hidden md:block dt-lore" style={{
                 fontFamily: '"Courier New", monospace',
