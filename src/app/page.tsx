@@ -251,7 +251,7 @@ export default async function HomePage() {
                   )}
                 </div>
                 {arsenalAscii[song.title] && (
-                  <div style={{ height: 'clamp(7.5rem, 16.7vw, 15.5rem)', overflow: 'hidden', margin: '0.4rem 0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ height: 'clamp(7.5rem, 16.7vw, 15.5rem)', overflow: 'hidden', margin: '0.4rem 0', position: 'relative', flexShrink: 0 }}>
                     <pre style={{
                       fontFamily: '"Courier New", Courier, monospace',
                       fontSize: 'clamp(0.18rem, 0.42vw, 0.38rem)',
@@ -259,8 +259,10 @@ export default async function HomePage() {
                       color: '#aa0000',
                       margin: 0,
                       whiteSpace: 'pre',
-                      overflow: 'visible',
-                      textAlign: 'center',
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
                       transition: 'color 0.2s',
                     }}
                     className={`arsenal-ascii${song.title === 'PSYDUCK!' ? ' arsenal-art-psyduck' : song.title === 'BLASTOISE!' ? ' arsenal-art-blastoise' : ''}`}
