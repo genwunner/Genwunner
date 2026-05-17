@@ -62,7 +62,7 @@ export default function MusicPage() {
 
         {/* ── Song Grid ── */}
         <div
-          className="grid grid-cols-1 md:grid-cols-3"
+          className="grid grid-cols-3"
           style={{ gap: '1px', background: '#0d0000', border: '1px solid #0d0000', marginBottom: '3rem' }}
         >
           {songs.map(song => (
