@@ -218,74 +218,81 @@ export default async function HomePage() {
           background: '#0d0000',
           border: '1px solid #0d0000',
         }}>
-          {songs.map(song => (
-            <div key={song.title} className="brand-card arsenal-card" style={{ padding: '1rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.45rem' }}>
-                <div style={{
-                  fontFamily: '"Courier New", monospace',
-                  fontSize: '0.5rem',
-                  color: '#770000',
-                  letterSpacing: '0.06em',
-                  border: '1px solid #1a0000',
-                  padding: '0.14rem 0.35rem',
-                  display: 'inline-block',
-                }}>
-                  {song.tag}
-                </div>
-                {song.isNewest && (
+          {songs.map(song => {
+            const artFontSize =
+              song.title === 'PSYDUCK!'   ? 'clamp(0.44rem, 0.9vw, 0.84rem)'  :
+              song.title === 'BLASTOISE!' ? 'clamp(0.385rem, 0.79vw, 0.735rem)' :
+              'clamp(0.22rem, 0.45vw, 0.42rem)'
+
+            return (
+              <div key={song.title} className="brand-card arsenal-card" style={{ padding: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.55rem' }}>
                   <div style={{
                     fontFamily: '"Courier New", monospace',
-                    fontSize: '0.38rem',
-                    color: '#000',
-                    background: '#e3000f',
-                    padding: '0.14rem 0.4rem',
-                    letterSpacing: '0.08em',
-                    fontWeight: 700,
-                    animation: 'terminal-blink 1.2s step-end infinite',
+                    fontSize: '0.75rem',
+                    color: '#770000',
+                    letterSpacing: '0.06em',
+                    border: '1px solid #1a0000',
+                    padding: '0.18rem 0.45rem',
                     display: 'inline-block',
                   }}>
-                    ⚡ WILD GYARADOS APPEARED
+                    {song.tag}
+                  </div>
+                  {song.isNewest && (
+                    <div style={{
+                      fontFamily: '"Courier New", monospace',
+                      fontSize: '0.6rem',
+                      color: '#000',
+                      background: '#e3000f',
+                      padding: '0.18rem 0.5rem',
+                      letterSpacing: '0.08em',
+                      fontWeight: 700,
+                      animation: 'terminal-blink 1.2s step-end infinite',
+                      display: 'inline-block',
+                    }}>
+                      ⚡ WILD GYARADOS APPEARED
+                    </div>
+                  )}
+                </div>
+                {arsenalAscii[song.title] && (
+                  <div style={{ height: 'clamp(9rem, 16vw, 16rem)', overflow: 'hidden', margin: '0.4rem 0' }}>
+                    <pre style={{
+                      fontFamily: '"Courier New", Courier, monospace',
+                      fontSize: artFontSize,
+                      lineHeight: 1.2,
+                      color: '#aa0000',
+                      margin: 0,
+                      whiteSpace: 'pre',
+                      overflow: 'hidden',
+                      textAlign: 'center',
+                      transition: 'color 0.2s',
+                    }}
+                    className="arsenal-ascii"
+                    >
+                      {arsenalAscii[song.title]}
+                    </pre>
                   </div>
                 )}
+                <TermHead text={song.title} size="sm" color="#cc0000" />
+                <p className="hidden md:block dt-lore" style={{
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '0.85rem',
+                  color: '#880000',
+                  lineHeight: 1.7,
+                  marginTop: '0.4rem',
+                  fontStyle: 'italic',
+                  letterSpacing: '0.03em',
+                }}>
+                  {song.lore}
+                </p>
+                <div style={{ marginTop: '0.65rem' }}>
+                  <Link href="/music" className="btn-primary btn-sm" style={{ width: '100%', justifyContent: 'center' }}>
+                    [ STREAM ]
+                  </Link>
+                </div>
               </div>
-              {arsenalAscii[song.title] && (
-                <pre style={{
-                  fontFamily: '"Courier New", Courier, monospace',
-                  fontSize: (song.title === 'BLASTOISE!' || song.title === 'PSYDUCK!')
-                    ? 'clamp(0.44rem, 0.9vw, 0.84rem)'
-                    : 'clamp(0.22rem, 0.45vw, 0.42rem)',
-                  lineHeight: 1.2,
-                  color: '#aa0000',
-                  margin: '0.4rem 0',
-                  whiteSpace: 'pre',
-                  overflow: 'hidden',
-                  textAlign: 'center',
-                  transition: 'color 0.2s',
-                }}
-                className="arsenal-ascii"
-                >
-                  {arsenalAscii[song.title]}
-                </pre>
-              )}
-              <TermHead text={song.title} size="sm" color="#cc0000" />
-              <p className="hidden md:block dt-lore" style={{
-                fontFamily: '"Courier New", monospace',
-                fontSize: '0.62rem',
-                color: '#880000',
-                lineHeight: 1.8,
-                marginTop: '0.35rem',
-                fontStyle: 'italic',
-                letterSpacing: '0.03em',
-              }}>
-                {song.lore}
-              </p>
-              <div style={{ marginTop: '0.65rem' }}>
-                <Link href="/music" className="btn-primary btn-sm" style={{ width: '100%', justifyContent: 'center' }}>
-                  [ STREAM ]
-                </Link>
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
