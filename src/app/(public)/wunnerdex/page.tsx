@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function WunnerdexPage() {
-  const [submitted, setSubmitted] = useState(false)
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -19,24 +20,13 @@ export default function WunnerdexPage() {
       body: JSON.stringify(data),
     })
 
-    if (res.ok) setSubmitted(true)
-    else setError('Transmission failed. Try again.')
-    setLoading(false)
-  }
-
-  if (submitted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--color-brand-black)' }}>
-        <div className="text-center max-w-md">
-          <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6" style={{ background: 'var(--color-brand-red)', borderRadius: '50%', boxShadow: '0 0 40px rgba(227,0,15,0.4)', fontSize: '2rem' }}>🚀</div>
-          <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: 'var(--color-brand-red)', letterSpacing: '0.15em', marginBottom: '0.75rem' }}>// Enlistment Confirmed</p>
-          <h1 className="section-title mb-4" style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)' }}>OPERATIVE REGISTERED</h1>
-          <p style={{ fontSize: '0.88rem', color: 'var(--color-brand-off)', lineHeight: 1.75, marginBottom: '0.75rem' }}>Giovanni has your file. You&apos;re now in the Wunnerdex.</p>
-          <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.38rem', color: 'var(--color-brand-off)', letterSpacing: '0.08em', lineHeight: 2, marginBottom: '2rem' }}>Expect drops · city raid alerts · secret links<br />Big Man Blastoise sightings before the civilians.</p>
-          <a href="/" className="btn-outline">← Return to HQ</a>
-        </div>
-      </div>
-    )
+    if (res.ok) {
+      const json = await res.json()
+      router.push(json.redirect ?? '/wunnerdex/welcome')
+    } else {
+      setError('Transmission failed. Try again.')
+      setLoading(false)
+    }
   }
 
   return (
@@ -71,39 +61,43 @@ export default function WunnerdexPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
+                <label className="brand-label">Operative Name</label>
+                <input type="text" name="name" placeholder="Your name" className="brand-input" />
+              </div>
+              <div>
                 <label className="brand-label">Comms Channel (Email) *</label>
                 <input type="email" name="email" required placeholder="your@email.com" className="brand-input" />
               </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="brand-label">Secondary Comms (Phone)</label>
                 <input type="tel" name="phone" placeholder="Optional" className="brand-input" />
               </div>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="brand-label">Home Territory *</label>
                 <input type="text" name="city" required placeholder="City, State / Country" className="brand-input" />
               </div>
-              <div>
-                <label className="brand-label">Pokémon Specialty</label>
-                <input type="text" name="favorite_pokemon" placeholder="Favorite Pokémon?" className="brand-input" />
-              </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="brand-label">Favorite Mission</label>
-                <select name="favorite_song" className="brand-input">
-                  <option value="">Favorite Genwunner track...</option>
-                  <option>BLASTOISE!</option>
-                  <option>PSYDUCK!</option>
-                  <option>POKEFLUTE! ft. Shofu</option>
-                  <option>GENGAR</option>
-                </select>
+                <label className="brand-label">Pokémon Specialty</label>
+                <input type="text" name="favorite_pokemon" placeholder="Favorite Pokémon?" className="brand-input" />
               </div>
               <div>
                 <label className="brand-label">Field Handle</label>
                 <input type="text" name="social_handle" placeholder="Instagram / TikTok @" className="brand-input" />
               </div>
+            </div>
+            <div>
+              <label className="brand-label">Favorite Mission</label>
+              <select name="favorite_song" className="brand-input">
+                <option value="">Favorite Genwunner track...</option>
+                <option>BLASTOISE!</option>
+                <option>PSYDUCK!</option>
+                <option>POKEFLUTE! ft. Shofu</option>
+                <option>GENGAR</option>
+              </select>
             </div>
             <div>
               <label className="brand-label">How did you find the Regime?</label>

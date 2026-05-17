@@ -7,16 +7,61 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
+function wunnerdexWelcomeEmail({ name, city }: { name: string; city: string }) {
+  return `
+    <div style="background:#000;color:#cc0000;padding:40px;font-family:'Courier New',Courier,monospace;max-width:600px;margin:0 auto;">
+      <div style="border-bottom:1px solid #1a0000;padding-bottom:20px;margin-bottom:24px;">
+        <p style="font-size:0.5rem;color:#e3000f;letter-spacing:0.15em;margin:0 0 8px;">// ROCKET RECRUITMENT REGIME · KANTO DIVISION</p>
+        <h1 style="font-size:2rem;font-weight:700;color:#e3000f;letter-spacing:0.06em;text-transform:uppercase;margin:0;line-height:1.1;">
+          OPERATIVE REGISTERED
+        </h1>
+      </div>
+
+      <p style="font-size:0.75rem;color:#880000;letter-spacing:0.06em;margin:0 0 20px;">
+        OPERATIVE: <span style="color:#cc0000;">${name.toUpperCase()}</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+        TERRITORY: <span style="color:#cc0000;">${city.toUpperCase()}</span>
+      </p>
+
+      <p style="font-size:0.75rem;color:#770000;line-height:2;margin:0 0 24px;">
+        Your trainer data has been logged in the Wunnerdex. Giovanni has your file.
+        You are now an active operative of the Rocket Recruitment Regime.
+      </p>
+
+      <div style="border:1px solid #1a0000;padding:20px;margin-bottom:24px;">
+        <p style="font-size:0.5rem;color:#e3000f;letter-spacing:0.12em;margin:0 0 12px;">// YOUR ORDERS</p>
+        <ul style="list-style:none;padding:0;margin:0;font-size:0.7rem;color:#880000;line-height:2.2;">
+          <li>▶ City raid alerts — you hear first</li>
+          <li>▶ Early merch access before civilians</li>
+          <li>▶ Secret drops & unreleased intel</li>
+          <li>▶ Giovanni's journal — classified updates</li>
+          <li>▶ Fan challenges & field missions</li>
+        </ul>
+      </div>
+
+      <p style="font-size:0.65rem;color:#550000;line-height:2;margin:0 0 24px;">
+        Stay ready. The next raid could be in your city.
+      </p>
+
+      <div style="border-top:1px solid #1a0000;padding-top:20px;">
+        <p style="font-size:0.45rem;color:#330000;letter-spacing:0.08em;margin:0;line-height:2;">
+          WUNNERDEX v1.0 · PROPERTY OF TEAM ROCKET · KANTO DIVISION<br />
+          GIOVANNI IS WATCHING · NO SPAM · JUST DROPS AND RAIDS
+        </p>
+      </div>
+    </div>
+  `
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  const { email, phone, city, favorite_pokemon, favorite_song, social_handle, want_in_city } = body
+  const { name, email, phone, city, favorite_pokemon, favorite_song, social_handle, want_in_city } = body
 
   if (!email || !city) {
     return NextResponse.json({ error: 'Email and city are required' }, { status: 400 })
   }
 
-  // Save to wunnerdex_signups
   const { error } = await supabase.from('wunnerdex_signups').insert({
+    name: name || null,
     email,
     phone: phone || null,
     city,
@@ -30,7 +75,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'DB error' }, { status: 500 })
   }
 
-  // Also save to fans table for unified fan tracking
   await supabase.from('fans').insert({
     email,
     phone: phone || null,
@@ -38,35 +82,17 @@ export async function POST(req: NextRequest) {
     source: 'wunnerdex',
   }).then(() => {})
 
-  // Send welcome email
   if (process.env.RESEND_API_KEY) {
     await sendFanEmail({
       to: email,
-      subject: 'YOU\'RE IN THE WUNNERDEX 🎮',
-      html: `
-        <div style="background:#000;color:#fff;padding:40px;font-family:sans-serif;max-width:600px;margin:0 auto;">
-          <h1 style="font-size:32px;font-weight:900;letter-spacing:-1px;margin-bottom:8px;">WELCOME TO THE WUNNERDEX</h1>
-          <p style="color:#999;font-size:14px;margin-bottom:24px;">PokéRage Universe · Genwunner</p>
-          <p style="font-size:16px;line-height:1.6;margin-bottom:16px;">
-            Your trainer has been registered. You now have early access to drops, shows, secret links,
-            and Big Man Blastoise sightings before the civilians.
-          </p>
-          <p style="color:#facc15;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">
-            City registered: ${city}
-          </p>
-          <div style="margin-top:32px;padding-top:24px;border-top:1px solid #222;">
-            <p style="color:#666;font-size:12px;">Stay ready. The next raid could be in your city.</p>
-            <p style="color:#666;font-size:12px;margin-top:4px;">Genwunner</p>
-          </div>
-        </div>
-      `,
+      subject: 'OPERATIVE REGISTERED — WELCOME TO THE ROCKET RECRUITMENT REGIME',
+      html: wunnerdexWelcomeEmail({ name: name || 'OPERATIVE', city }),
     }).catch(() => {})
   }
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true, redirect: '/wunnerdex/welcome' })
 }
 
-// Handle legacy form POST (from homepage form with method="POST")
 export async function GET() {
   return NextResponse.redirect(new URL('/wunnerdex', process.env.NEXT_PUBLIC_SITE_URL!))
 }
