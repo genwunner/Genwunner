@@ -255,7 +255,7 @@ export default async function HomePage() {
                   )}
                 </div>
                 {arsenalAscii[song.title] && (
-                  <div style={{ height: 'clamp(9rem, 16vw, 16rem)', overflow: 'hidden', margin: '0.4rem 0' }}>
+                  <div style={{ height: 'clamp(9rem, 16vw, 16rem)', overflow: 'hidden', margin: '0.4rem 0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <pre style={{
                       fontFamily: '"Courier New", Courier, monospace',
                       fontSize: artFontSize,
