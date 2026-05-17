@@ -220,17 +220,33 @@ export default async function HomePage() {
         }}>
           {songs.map(song => (
             <div key={song.title} className="brand-card arsenal-card" style={{ padding: '1rem' }}>
-              <div style={{
-                fontFamily: '"Courier New", monospace',
-                fontSize: '0.5rem',
-                color: '#770000',
-                letterSpacing: '0.06em',
-                border: '1px solid #1a0000',
-                padding: '0.14rem 0.35rem',
-                display: 'inline-block',
-                marginBottom: '0.45rem',
-              }}>
-                {song.tag}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.45rem' }}>
+                <div style={{
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '0.5rem',
+                  color: '#770000',
+                  letterSpacing: '0.06em',
+                  border: '1px solid #1a0000',
+                  padding: '0.14rem 0.35rem',
+                  display: 'inline-block',
+                }}>
+                  {song.tag}
+                </div>
+                {song.isNewest && (
+                  <div style={{
+                    fontFamily: '"Courier New", monospace',
+                    fontSize: '0.38rem',
+                    color: '#000',
+                    background: '#e3000f',
+                    padding: '0.14rem 0.4rem',
+                    letterSpacing: '0.08em',
+                    fontWeight: 700,
+                    animation: 'terminal-blink 1.2s step-end infinite',
+                    display: 'inline-block',
+                  }}>
+                    ⚡ WILD GYARADOS APPEARED
+                  </div>
+                )}
               </div>
               {arsenalAscii[song.title] && (
                 <pre style={{
