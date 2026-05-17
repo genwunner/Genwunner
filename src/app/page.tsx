@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/public/Nav'
 import TerminalIntro from '@/components/public/TerminalIntro'
-import { songs, socialLinks, upcomingShows, artistStats, pressQuotes } from '@/data/content'
+import { songs, socialLinks, upcomingShows, artistStats, pressQuotes, products } from '@/data/content'
 import { arsenalAscii } from '@/data/ascii'
 import PressTicker from '@/components/public/PressTicker'
 import WunnerdexForm from '@/components/public/WunnerdexForm'
@@ -219,13 +219,9 @@ export default async function HomePage() {
           border: '1px solid #0d0000',
         }}>
           {songs.map(song => {
-            const artFontSize =
-              song.title === 'PSYDUCK!'   ? 'clamp(0.44rem, 0.9vw, 0.84rem)'  :
-              song.title === 'BLASTOISE!' ? 'clamp(0.385rem, 0.79vw, 0.735rem)' :
-              'clamp(0.22rem, 0.45vw, 0.42rem)'
 
             return (
-              <div key={song.title} className="brand-card arsenal-card" style={{ padding: '1rem' }}>
+              <div key={song.title} className="brand-card arsenal-card" style={{ padding: '1rem', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.55rem' }}>
                   <div style={{
                     fontFamily: '"Courier New", monospace',
@@ -255,15 +251,15 @@ export default async function HomePage() {
                   )}
                 </div>
                 {arsenalAscii[song.title] && (
-                  <div style={{ height: 'clamp(9rem, 16vw, 16rem)', overflow: 'hidden', margin: '0.4rem 0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ height: 'clamp(7.5rem, 16.7vw, 15.5rem)', overflow: 'hidden', margin: '0.4rem 0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <pre style={{
                       fontFamily: '"Courier New", Courier, monospace',
-                      fontSize: artFontSize,
+                      fontSize: 'clamp(0.18rem, 0.42vw, 0.38rem)',
                       lineHeight: 1.2,
                       color: '#aa0000',
                       margin: 0,
                       whiteSpace: 'pre',
-                      overflow: 'hidden',
+                      overflow: 'visible',
                       textAlign: 'center',
                       transition: 'color 0.2s',
                     }}
@@ -285,7 +281,7 @@ export default async function HomePage() {
                 }}>
                   {song.lore}
                 </p>
-                <div style={{ marginTop: '0.65rem' }}>
+                <div style={{ marginTop: 'auto', paddingTop: '0.65rem' }}>
                   <Link href="/music" className="btn-primary btn-sm" style={{ width: '100%', justifyContent: 'center' }}>
                     [ STREAM ]
                   </Link>
@@ -399,11 +395,75 @@ export default async function HomePage() {
         </a>
       </section>
 
+      {/* ── SECTION 3: SUPPLY DROP ── */}
+      <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+            // 003 · SUPPLY DROP
+          </div>
+          <TermHead text="SUPPLY DROP" size="lg" cursor={true} />
+          <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
+            &gt; Official Regime gear. Represent the RRR.
+          </div>
+        </div>
+
+        <div
+          className="grid grid-cols-2 sm:grid-cols-3"
+          style={{ gap: '1px', background: '#0d0000', border: '1px solid #0d0000', marginBottom: '1.25rem' }}
+        >
+          {products.slice(0, 6).map(p => (
+            <a
+              key={p.handle}
+              href={`https://genwunnr.myshopify.com/products/${p.handle}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group brand-card"
+              style={{ display: 'block', textDecoration: 'none', padding: 0 }}
+            >
+              <div style={{ position: 'relative', aspectRatio: '1 / 1', overflow: 'hidden' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+                  style={{ background: 'rgba(227,0,15,0.15)' }}
+                />
+                <div
+                  className="absolute left-0 top-0 bottom-0 scale-y-0 group-hover:scale-y-100 transition-transform duration-200 origin-bottom"
+                  style={{ width: 3, background: '#e3000f' }}
+                />
+              </div>
+              <div style={{ padding: '0.6rem', borderTop: '1px solid #0d0000', textAlign: 'center' }}>
+                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.38rem', color: '#770000', letterSpacing: '0.05em', border: '1px solid #1a0000', padding: '0.1rem 0.25rem', display: 'inline-block', marginBottom: '0.3rem' }}>
+                  {p.tag}
+                </div>
+                <div
+                  className="group-hover:text-[#e3000f]"
+                  style={{ fontFamily: 'var(--font-heading), "Courier New", Courier, monospace', fontWeight: 400, fontSize: 'clamp(0.6rem, 1.6vw, 1.1rem)', color: '#cc0000', letterSpacing: '0.04em', textTransform: 'uppercase', lineHeight: 1.1, marginBottom: '0.25rem', transition: 'color 0.12s' }}
+                >
+                  {p.title}
+                </div>
+                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#e3000f', fontWeight: 700, letterSpacing: '0.06em' }}>
+                  {p.price}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div style={{ textAlign: 'center' }}>
+          <a href="https://genwunnr.myshopify.com" target="_blank" rel="noopener noreferrer" className="btn-outline">[ FULL SUPPLY DROP → ]</a>
+        </div>
+      </section>
+
       {/* ── SECTION 4: ENLISTMENT ── */}
       <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
-            // 003 · GRUNT REGISTRATION
+            // 004 · GRUNT REGISTRATION
           </div>
           <TermHead text="THE BOSS IS WATCHING." size="lg" cursor={true} />
           <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>

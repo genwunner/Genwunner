@@ -343,6 +343,15 @@ body[data-intro-done] .site-content {
   .op-file { display: inline; margin-top: 0; }
 }
 
+/* Mobile body text — bump up from tiny inline-style defaults */
+@media (max-width: 767px) {
+  .dt-body      { font-size: 0.72rem !important; color: #aa0000 !important; }
+  .dt-body-hi   { font-size: 0.72rem !important; color: #cc0000 !important; }
+  .dt-sub       { font-size: 0.65rem !important; color: #880000 !important; }
+  .dt-lore      { font-size: 0.65rem !important; color: #aa0000 !important; }
+  .dt-foot      { font-size: 0.65rem !important; color: #880000 !important; }
+}
+
 /* Desktop body text — bigger + brighter without touching mobile */
 @media (min-width: 768px) {
   .dt-body      { font-size: 0.85rem !important; color: #aa0000 !important; }

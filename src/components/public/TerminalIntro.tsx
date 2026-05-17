@@ -57,8 +57,53 @@ export default function TerminalIntro() {
   const [goneLines, setGoneLines]     = useState<Set<number>>(new Set())
   const [glitchLines, setGlitchLines] = useState<Set<number>>(new Set())
   const [fadeOut, setFadeOut]         = useState(false)
-  const skipRef   = useRef(false)
-  const scrollRef = useRef<HTMLDivElement>(null)
+  const skipRef     = useRef(false)
+  const scrollRef   = useRef<HTMLDivElement>(null)
+  const audioCtxRef = useRef<AudioContext | null>(null)
+
+  function getAudioCtx() {
+    if (!audioCtxRef.current) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      audioCtxRef.current = new ((window as any).AudioContext || (window as any).webkitAudioContext)()
+    }
+    return audioCtxRef.current!
+  }
+
+  function beep(freq: number, dur: number, type: OscillatorType = 'square', vol = 0.06, delayMs = 0) {
+    try {
+      const ctx = getAudioCtx()
+      const t = ctx.currentTime + delayMs / 1000
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.type = type
+      osc.frequency.setValueAtTime(freq, t)
+      gain.gain.setValueAtTime(vol, t)
+      gain.gain.exponentialRampToValueAtTime(0.001, t + dur)
+      osc.start(t)
+      osc.stop(t + dur + 0.05)
+    } catch { /* ignore audio errors */ }
+  }
+
+  function playSound(kind: 'type' | 'logo' | 'highlight' | 'launch' | 'glitch') {
+    if (kind === 'type') {
+      beep(180 + Math.random() * 60, 0.04, 'square', 0.04)
+    } else if (kind === 'logo') {
+      beep(440, 0.06, 'square', 0.07)
+      beep(660, 0.05, 'square', 0.05, 70)
+    } else if (kind === 'highlight') {
+      beep(660, 0.08, 'square', 0.06)
+      beep(880, 0.10, 'square', 0.07, 80)
+    } else if (kind === 'launch') {
+      beep(220, 0.08, 'sawtooth', 0.07)
+      beep(330, 0.08, 'sawtooth', 0.07, 100)
+      beep(440, 0.10, 'square',   0.08, 200)
+      beep(880, 0.25, 'square',   0.09, 320)
+    } else if (kind === 'glitch') {
+      beep(Math.random() * 900 + 100, 0.04, 'sawtooth', 0.05)
+    }
+  }
 
   useEffect(() => { setMounted(true) }, [])
 
@@ -83,6 +128,11 @@ export default function TerminalIntro() {
         if (skipRef.current) return
         setShownLines(prev => [...prev, i])
         scrollRef.current?.scrollTo({ top: 99999, behavior: 'smooth' })
+        if (line.text !== '') {
+          if (line.logo) playSound('logo')
+          else if (line.highlight) playSound('highlight')
+          else playSound('type')
+        }
       }, line.delay)
       timers.push(t)
     })
@@ -99,6 +149,7 @@ export default function TerminalIntro() {
     if (launching) return
     setLaunching(true)
     setShowLaunch(false)
+    playSound('launch')
 
     // Each visible line gets a random glitch delay then blinks out
     // Spread over ~800ms so they disappear haphazardly, not all at once
@@ -112,6 +163,7 @@ export default function TerminalIntro() {
       // First: glitch flash (line flickers)
       const t1 = setTimeout(() => {
         setGlitchLines(prev => new Set(prev).add(i))
+        playSound('glitch')
       }, glitchAt)
 
       // Then: disappear from position
