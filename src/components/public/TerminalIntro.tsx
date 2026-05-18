@@ -71,9 +71,10 @@ export default function TerminalIntro() {
   function getAudioCtx() {
     if (!audioCtxRef.current) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      audioCtxRef.current = new ((window as any).AudioContext || (window as any).webkitAudioContext)()
+      const ctx = new ((window as any).AudioContext || (window as any).webkitAudioContext)() as AudioContext
       // Try to resume immediately — works if user navigated from another page
-      audioCtxRef.current.resume().catch(() => {})
+      ctx.resume().catch(() => {})
+      audioCtxRef.current = ctx
     }
     return audioCtxRef.current!
   }
