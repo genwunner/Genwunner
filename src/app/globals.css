@@ -228,6 +228,10 @@ a {
   .arsenal-art-gyarados  { font-size: 0.145rem !important; }
   .arsenal-art-venusaur  { font-size: 0.155rem !important; }
 
+  /* Brighter art on mobile for all operatives except Blastoise */
+  .arsenal-ascii                         { color: #cc0000 !important; }
+  .arsenal-ascii.arsenal-art-blastoise   { color: #aa0000 !important; }
+
   /* Utility: hides an element even when an inline display style is present */
   .mobile-hidden { display: none !important; }
 
