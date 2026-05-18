@@ -288,9 +288,9 @@ export default async function HomePage() {
                   {song.lore}
                 </p>
                 <div style={{ marginTop: 'auto', paddingTop: '0.65rem' }}>
-                  <Link href="/music" className="btn-primary btn-sm" style={{ width: '100%', justifyContent: 'center' }}>
+                  <a href={song.hypeddit} target="_blank" rel="noopener noreferrer" className="btn-primary btn-sm" style={{ width: '100%', justifyContent: 'center' }}>
                     [ STREAM ]
-                  </Link>
+                  </a>
                 </div>
               </div>
             )
