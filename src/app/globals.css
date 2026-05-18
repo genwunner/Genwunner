@@ -231,12 +231,17 @@ a {
   /* Utility: hides an element even when an inline display style is present */
   .mobile-hidden { display: none !important; }
 
-  /* Pin the tag/badge row to a fixed height so all cards in a row stay equal */
+  /* Pin the tag/badge row to a fixed height so all cards in a row stay equal.
+     1.8rem = enough for 2 wrapped lines at 0.44rem font — see classes below. */
   .arsenal-card-header {
     height: 1.8rem;
     overflow: hidden;
     flex-shrink: 0;
   }
+
+  /* Shrink tag + badge text so they wrap to ≤2 lines and stay inside 1.8rem */
+  .arsenal-card-tag-text { font-size: 0.44rem !important; }
+  .arsenal-newest-badge  { font-size: 0.44rem !important; padding: 0.15rem 0.38rem !important; }
 }
 
 /* Per-operative desktop art sizes — mobile stays at the uniform base */
