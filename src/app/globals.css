@@ -220,6 +220,12 @@ a {
     height: auto !important;
     aspect-ratio: 1 / 1 !important;
   }
+
+  /* Per-operative mobile sizes — narrow arts scale up, wide arts scale down */
+  .arsenal-art-blastoise { font-size: 0.24rem !important; }
+  .arsenal-art-psyduck   { font-size: 0.24rem !important; }
+  .arsenal-art-gengar    { font-size: 0.145rem !important; }
+  .arsenal-art-gyarados  { font-size: 0.145rem !important; }
 }
 
 /* Per-operative desktop art sizes — mobile stays at the uniform base */
@@ -386,6 +392,15 @@ body[data-intro-done] .site-content {
 .enlist-grid { grid-template-columns: 1fr; }
 @media (min-width: 768px) {
   .enlist-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Discord banner: stack + center on mobile, row on desktop */
+@media (max-width: 767px) {
+  .discord-banner-section {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
 }
 
 /* Hero: bottom-anchored on mobile, centered on desktop */

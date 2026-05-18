@@ -57,14 +57,23 @@ export default function TerminalIntro() {
   const [goneLines, setGoneLines]     = useState<Set<number>>(new Set())
   const [glitchLines, setGlitchLines] = useState<Set<number>>(new Set())
   const [fadeOut, setFadeOut]         = useState(false)
+  const [muted, setMuted]             = useState(false)
   const skipRef     = useRef(false)
+  const mutedRef    = useRef(false)
   const scrollRef   = useRef<HTMLDivElement>(null)
   const audioCtxRef = useRef<AudioContext | null>(null)
+
+  function toggleMute() {
+    mutedRef.current = !mutedRef.current
+    setMuted(mutedRef.current)
+  }
 
   function getAudioCtx() {
     if (!audioCtxRef.current) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       audioCtxRef.current = new ((window as any).AudioContext || (window as any).webkitAudioContext)()
+      // Try to resume immediately — works if user navigated from another page
+      audioCtxRef.current.resume().catch(() => {})
     }
     return audioCtxRef.current!
   }
@@ -98,6 +107,7 @@ export default function TerminalIntro() {
   }
 
   function playSound(kind: 'type' | 'logo' | 'highlight' | 'launch' | 'glitch') {
+    if (mutedRef.current) return
     try {
       const ctx = getAudioCtx()
       const t   = ctx.currentTime
@@ -124,6 +134,26 @@ export default function TerminalIntro() {
   }
 
   useEffect(() => { setMounted(true) }, [])
+
+  // Resume AudioContext on first user interaction (browser autoplay policy)
+  useEffect(() => {
+    if (!mounted) return
+    function unlock() {
+      try {
+        const ctx = getAudioCtx()
+        if (ctx.state === 'suspended') ctx.resume().catch(() => {})
+      } catch {}
+    }
+    document.addEventListener('click',      unlock, { once: true })
+    document.addEventListener('keydown',    unlock, { once: true })
+    document.addEventListener('touchstart', unlock, { once: true, passive: true })
+    return () => {
+      document.removeEventListener('click',      unlock)
+      document.removeEventListener('keydown',    unlock)
+      document.removeEventListener('touchstart', unlock)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mounted])
 
   useEffect(() => {
     if (!mounted) return
@@ -319,30 +349,53 @@ export default function TerminalIntro() {
           pointerEvents: 'none', zIndex: 28,
         }} />
 
-        {/* Skip */}
-        <button
-          onClick={skip}
-          style={{
-            position: 'absolute', top: 20, right: 20, zIndex: 100,
-            fontFamily: 'var(--font-pixel)',
-            fontSize: 'clamp(0.4rem, 1.2vw, 0.55rem)',
-            color: 'rgba(227,0,15,0.3)',
-            background: 'none',
-            border: '1px solid rgba(227,0,15,0.12)',
-            padding: '0.4rem 0.9rem',
-            cursor: 'pointer', letterSpacing: '0.1em',
-          }}
-          onMouseEnter={e => {
-            ;(e.currentTarget as HTMLElement).style.color = 'rgba(227,0,15,0.75)'
-            ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(227,0,15,0.4)'
-          }}
-          onMouseLeave={e => {
-            ;(e.currentTarget as HTMLElement).style.color = 'rgba(227,0,15,0.3)'
-            ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(227,0,15,0.12)'
-          }}
-        >
-          [ SKIP ]
-        </button>
+        {/* Mute + Skip */}
+        <div style={{ position: 'absolute', top: 20, right: 20, zIndex: 100, display: 'flex', gap: '0.5rem' }}>
+          <button
+            onClick={toggleMute}
+            style={{
+              fontFamily: 'var(--font-pixel)',
+              fontSize: 'clamp(0.4rem, 1.2vw, 0.55rem)',
+              color: muted ? 'rgba(227,0,15,0.55)' : 'rgba(227,0,15,0.3)',
+              background: 'none',
+              border: '1px solid rgba(227,0,15,0.12)',
+              padding: '0.4rem 0.9rem',
+              cursor: 'pointer', letterSpacing: '0.1em',
+            }}
+            onMouseEnter={e => {
+              ;(e.currentTarget as HTMLElement).style.color = 'rgba(227,0,15,0.75)'
+              ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(227,0,15,0.4)'
+            }}
+            onMouseLeave={e => {
+              ;(e.currentTarget as HTMLElement).style.color = muted ? 'rgba(227,0,15,0.55)' : 'rgba(227,0,15,0.3)'
+              ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(227,0,15,0.12)'
+            }}
+          >
+            {muted ? '[ UNMUTE ]' : '[ MUTE ]'}
+          </button>
+          <button
+            onClick={skip}
+            style={{
+              fontFamily: 'var(--font-pixel)',
+              fontSize: 'clamp(0.4rem, 1.2vw, 0.55rem)',
+              color: 'rgba(227,0,15,0.3)',
+              background: 'none',
+              border: '1px solid rgba(227,0,15,0.12)',
+              padding: '0.4rem 0.9rem',
+              cursor: 'pointer', letterSpacing: '0.1em',
+            }}
+            onMouseEnter={e => {
+              ;(e.currentTarget as HTMLElement).style.color = 'rgba(227,0,15,0.75)'
+              ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(227,0,15,0.4)'
+            }}
+            onMouseLeave={e => {
+              ;(e.currentTarget as HTMLElement).style.color = 'rgba(227,0,15,0.3)'
+              ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(227,0,15,0.12)'
+            }}
+          >
+            [ SKIP ]
+          </button>
+        </div>
 
         {/* ── Terminal content ── */}
         <div

@@ -223,7 +223,7 @@ export default async function HomePage() {
             return (
               <div key={song.title} className="brand-card arsenal-card" style={{ padding: '1rem', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.55rem' }}>
-                  <div style={{
+                  <div className={song.isNewest ? 'hidden md:inline-block' : undefined} style={{
                     fontFamily: '"Courier New", monospace',
                     fontSize: '0.75rem',
                     color: '#770000',
@@ -356,14 +356,14 @@ export default async function HomePage() {
           )}
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.25rem', flexWrap: 'wrap' as const }}>
+        <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1.25rem', flexWrap: 'wrap' as const, justifyContent: 'center' }}>
           <Link href="/shows" className="btn-outline">[ ALL CITY RAIDS → ]</Link>
           <Link href="/book" className="btn-primary">[ DEPLOY GENWUNNER ]</Link>
         </div>
       </section>
 
       {/* ── DISCORD BANNER ── */}
-      <section style={{
+      <section className="discord-banner-section" style={{
         background: '#e3000f',
         padding: '2rem 1.5rem',
         borderBottom: '1px solid #880000',
@@ -373,14 +373,14 @@ export default async function HomePage() {
         gap: '1.5rem',
         flexWrap: 'wrap' as const,
       }}>
-        <div>
+        <div className="discord-banner-text">
           <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.55rem', color: 'rgba(0,0,0,0.5)', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>
             // THE REGIME HAS A HOME BASE
           </div>
           <div style={{ fontFamily: 'var(--font-heading), "Courier New", Courier, monospace', fontWeight: 400, fontSize: 'clamp(1rem, 2.5vw, 1.6rem)', color: '#000', letterSpacing: '0.06em', textTransform: 'uppercase', lineHeight: 1 }}>
             JOIN THE DISCORD
           </div>
-          <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.6rem', color: 'rgba(0,0,0,0.65)', letterSpacing: '0.06em', marginTop: '0.4rem', lineHeight: 1.8 }}>
+          <div style={{ fontFamily: "'Courier New', monospace", fontSize: 'clamp(0.75rem, 2vw, 0.85rem)', color: 'rgba(0,0,0,0.65)', letterSpacing: '0.06em', marginTop: '0.4rem', lineHeight: 1.8 }}>
             City raid alerts · classified drops · Giovanni&apos;s journal
           </div>
         </div>

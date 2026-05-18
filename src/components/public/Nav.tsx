@@ -13,6 +13,7 @@ const navLinks = [
   { href: '/merch',     label: 'Supply Drop', sub: 'Merch'     },
   { href: '/wunnerdex', label: 'Enlist',      sub: 'Wunnerdex' },
   { href: '/book',      label: 'Deploy',      sub: 'Book'      },
+  { href: '/comms',     label: 'Comms',       sub: 'Discord'   },
   { href: '/contact',   label: 'Intel',       sub: 'Contact'   },
 ]
 
