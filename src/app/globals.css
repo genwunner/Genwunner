@@ -214,8 +214,10 @@ a {
 .brand-card:hover::before { transform: scaleY(1); }
 .arsenal-card:hover .arsenal-ascii { color: #e3000f; text-shadow: 0 0 8px rgba(227,0,15,0.5); }
 
-/* Restore larger desktop sizes for Blastoise + Psyduck without breaking mobile */
+/* Per-operative desktop art sizes — mobile stays at the uniform base */
 @media (min-width: 768px) {
+  .arsenal-art-charizard { font-size: clamp(0.28rem,  0.62vw, 0.56rem)  !important; }
+  .arsenal-art-venusaur  { font-size: clamp(0.28rem,  0.62vw, 0.56rem)  !important; }
   .arsenal-art-blastoise { font-size: clamp(0.385rem, 0.79vw, 0.735rem) !important; }
   .arsenal-art-psyduck   { font-size: clamp(0.44rem,  0.9vw,  0.84rem)  !important; }
 }

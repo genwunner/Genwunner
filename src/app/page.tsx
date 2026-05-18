@@ -262,7 +262,12 @@ export default async function HomePage() {
                       flexShrink: 0,
                       transition: 'color 0.2s',
                     }}
-                    className={`arsenal-ascii${song.title === 'PSYDUCK!' ? ' arsenal-art-psyduck' : song.title === 'BLASTOISE!' ? ' arsenal-art-blastoise' : ''}`}
+                    className={`arsenal-ascii${
+                        song.title === 'PSYDUCK!'    ? ' arsenal-art-psyduck'    :
+                        song.title === 'BLASTOISE!'  ? ' arsenal-art-blastoise'  :
+                        song.title === 'CHARIZARD!'  ? ' arsenal-art-charizard'  :
+                        song.title === 'VENUSAUR!'   ? ' arsenal-art-venusaur'   : ''
+                      }`}
                     >
                       {arsenalAscii[song.title]}
                     </pre>
