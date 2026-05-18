@@ -443,9 +443,6 @@ export default async function HomePage() {
                 />
               </div>
               <div style={{ padding: '0.6rem', borderTop: '1px solid #0d0000', textAlign: 'center' }}>
-                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.38rem', color: '#770000', letterSpacing: '0.05em', border: '1px solid #1a0000', padding: '0.1rem 0.25rem', display: 'inline-block', marginBottom: '0.3rem' }}>
-                  {p.tag}
-                </div>
                 <div
                   className="group-hover:text-[#e3000f]"
                   style={{ fontFamily: 'var(--font-heading), "Courier New", Courier, monospace', fontWeight: 400, fontSize: 'clamp(0.6rem, 1.6vw, 1.1rem)', color: '#cc0000', letterSpacing: '0.04em', textTransform: 'uppercase', lineHeight: 1.1, marginBottom: '0.25rem', transition: 'color 0.12s' }}
