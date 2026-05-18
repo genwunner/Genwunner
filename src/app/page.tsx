@@ -207,7 +207,7 @@ export default async function HomePage() {
           </div>
           <TermHead text="THE ARSENAL" size="lg" cursor={true} />
           <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
-            &gt; <span className="hidden md:inline">Each song a weapon. Each name an operative. </span>Pokémon deployed on the Kanto campaign.
+            &gt; Each song a weapon. Each name an operative. Propaganda deployed on the Kanto campaign.
           </div>
         </div>
 
@@ -310,7 +310,7 @@ export default async function HomePage() {
           </div>
           <TermHead text="CITY RAIDS" size="lg" cursor={true} />
           <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
-            &gt; Spreading the RRR propaganda across Kanto and beyond
+            &gt; Expanding the regime&apos;s reach across Kanto and beyond
           </div>
         </div>
 
