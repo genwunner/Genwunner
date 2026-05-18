@@ -266,7 +266,9 @@ export default async function HomePage() {
                         song.title === 'PSYDUCK!'    ? ' arsenal-art-psyduck'    :
                         song.title === 'BLASTOISE!'  ? ' arsenal-art-blastoise'  :
                         song.title === 'CHARIZARD!'  ? ' arsenal-art-charizard'  :
-                        song.title === 'VENUSAUR!'   ? ' arsenal-art-venusaur'   : ''
+                        song.title === 'VENUSAUR!'   ? ' arsenal-art-venusaur'   :
+                        song.title === 'GENGAR!'     ? ' arsenal-art-gengar'     :
+                        song.title === 'GYARADOS!'   ? ' arsenal-art-gyarados'   : ''
                       }`}
                     >
                       {arsenalAscii[song.title]}

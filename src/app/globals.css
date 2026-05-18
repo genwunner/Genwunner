@@ -216,8 +216,10 @@ a {
 
 /* Per-operative desktop art sizes — mobile stays at the uniform base */
 @media (min-width: 768px) {
-  .arsenal-art-charizard { font-size: clamp(0.24rem,  0.44vw, 0.40rem)  !important; }
-  .arsenal-art-venusaur  { font-size: clamp(0.24rem,  0.44vw, 0.40rem)  !important; }
+  .arsenal-art-gengar    { font-size: clamp(0.26rem,  0.52vw, 0.46rem)  !important; }
+  .arsenal-art-gyarados  { font-size: clamp(0.26rem,  0.52vw, 0.46rem)  !important; }
+  .arsenal-art-charizard { font-size: clamp(0.26rem,  0.52vw, 0.46rem)  !important; }
+  .arsenal-art-venusaur  { font-size: clamp(0.26rem,  0.52vw, 0.46rem)  !important; }
   .arsenal-art-blastoise { font-size: clamp(0.385rem, 0.79vw, 0.735rem) !important; }
   .arsenal-art-psyduck   { font-size: clamp(0.44rem,  0.9vw,  0.84rem)  !important; }
 }
