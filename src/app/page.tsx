@@ -222,8 +222,8 @@ export default async function HomePage() {
 
             return (
               <div key={song.title} className="brand-card arsenal-card" style={{ padding: '1rem', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.55rem' }}>
-                  <div className={song.isNewest ? 'hidden md:inline-block' : undefined} style={{
+                <div className="arsenal-card-header" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.55rem' }}>
+                  <div className={song.isNewest ? 'mobile-hidden' : undefined} style={{
                     fontFamily: '"Courier New", monospace',
                     fontSize: '0.75rem',
                     color: '#770000',

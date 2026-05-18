@@ -226,6 +226,17 @@ a {
   .arsenal-art-psyduck   { font-size: 0.24rem !important; }
   .arsenal-art-gengar    { font-size: 0.145rem !important; }
   .arsenal-art-gyarados  { font-size: 0.145rem !important; }
+  .arsenal-art-venusaur  { font-size: 0.155rem !important; }
+
+  /* Utility: hides an element even when an inline display style is present */
+  .mobile-hidden { display: none !important; }
+
+  /* Pin the tag/badge row to a fixed height so all cards in a row stay equal */
+  .arsenal-card-header {
+    height: 1.8rem;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
 }
 
 /* Per-operative desktop art sizes — mobile stays at the uniform base */
