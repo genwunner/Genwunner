@@ -381,7 +381,7 @@ export default async function HomePage() {
             JOIN THE DISCORD
           </div>
           <div style={{ fontFamily: "'Courier New', monospace", fontSize: 'clamp(0.75rem, 2vw, 0.85rem)', color: 'rgba(0,0,0,0.65)', letterSpacing: '0.06em', marginTop: '0.4rem', lineHeight: 1.8 }}>
-            City raid alerts · classified drops · Giovanni&apos;s journal
+            City raid alerts · classified drops<span className="block md:inline"> · Giovanni&apos;s journal</span>
           </div>
         </div>
         <a href={socialLinks.discord} target="_blank" rel="noopener noreferrer" style={{
