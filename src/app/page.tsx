@@ -262,6 +262,7 @@ export default async function HomePage() {
                       position: 'absolute',
                       top: '50%',
                       left: '50%',
+                      width: 'max-content',
                       transform: 'translate(-50%, -50%)',
                       transition: 'color 0.2s',
                     }}
