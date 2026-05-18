@@ -214,6 +214,14 @@ a {
 .brand-card:hover::before { transform: scaleY(1); }
 .arsenal-card:hover .arsenal-ascii { color: #e3000f; text-shadow: 0 0 8px rgba(227,0,15,0.5); }
 
+/* Mobile: square art windows instead of fixed-height rectangles */
+@media (max-width: 767px) {
+  .arsenal-art-container {
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+}
+
 /* Per-operative desktop art sizes — mobile stays at the uniform base */
 @media (min-width: 768px) {
   .arsenal-art-gengar    { font-size: clamp(0.26rem,  0.52vw, 0.46rem)  !important; }
