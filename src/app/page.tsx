@@ -466,7 +466,7 @@ export default async function HomePage() {
       <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(1.1rem, 3vw, 2rem)', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
-            // WUNNERDEX · TEAM ROCKET DATABASE
+            // RRR DATABASE
           </div>
           <TermHead text="THE BOSS IS WATCHING." size="lg" cursor={true} />
           <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>

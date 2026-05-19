@@ -47,7 +47,6 @@ export default function WunnerdexForm() {
         <div style={{ width: 32, height: 32, background: '#e3000f', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', flexShrink: 0 }}>⚡</div>
         <div>
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: '1rem', fontWeight: 700, color: '#cc0000', letterSpacing: '0.05em', textTransform: 'uppercase' }}>GRUNT REG.</div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#770000', letterSpacing: '0.07em', marginTop: 2 }}>// WUNNERDEX · TEAM ROCKET DATABASE</div>
         </div>
       </div>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
