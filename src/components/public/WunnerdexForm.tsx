@@ -69,7 +69,7 @@ export default function WunnerdexForm() {
         >
           {loading ? '[ PROCESSING... ]' : '[ REPORT FOR DUTY ]'}
         </button>
-        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#440000', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 1.8, marginTop: '0.2rem' }}>
+        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.78rem', color: '#880000', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 1.8, marginTop: '0.2rem' }}>
           WUNNERDEX v1.0 · NO SPAM · JUST DROPS AND RAIDS
         </div>
       </form>
