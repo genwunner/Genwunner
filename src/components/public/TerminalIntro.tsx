@@ -79,6 +79,22 @@ export default function TerminalIntro() {
     return audioCtxRef.current!
   }
 
+  function makeTone(ctx: AudioContext, when: number, freq: number, vol: number, dur: number) {
+    try {
+      const osc  = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.type = 'sine'
+      osc.frequency.setValueAtTime(freq, when)
+      gain.gain.setValueAtTime(vol, when)
+      gain.gain.setValueAtTime(vol, when + dur * 0.15)
+      gain.gain.exponentialRampToValueAtTime(0.0001, when + dur)
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      osc.start(when)
+      osc.stop(when + dur + 0.01)
+    } catch { /* ignore audio errors */ }
+  }
+
   // White noise burst through a bandpass filter — sounds like a mechanical keypress
   function makeClick(ctx: AudioContext, when: number, vol: number, freq: number, dur: number) {
     try {
@@ -123,10 +139,10 @@ export default function TerminalIntro() {
         makeClick(ctx, t,        0.22, 4500, 0.03)
         makeClick(ctx, t + 0.04, 0.18, 5500, 0.025)
       } else if (kind === 'launch') {
-        // Rapid keypress burst, accelerating like someone hammering Enter
-        for (let i = 0; i < 7; i++) {
-          makeClick(ctx, t + i * 0.055, 0.15 + i * 0.015, 3000 + i * 300, 0.025)
-        }
+        // Satisfying confirmation boop — ascending three-tone chord
+        makeTone(ctx, t,        0.28, 330, 0.18)
+        makeTone(ctx, t + 0.12, 0.30, 440, 0.22)
+        makeTone(ctx, t + 0.24, 0.25, 660, 0.30)
       } else if (kind === 'glitch') {
         // Harsh snap at random frequency
         makeClick(ctx, t, 0.22, 1000 + Math.random() * 6000, 0.018)

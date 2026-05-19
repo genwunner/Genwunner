@@ -385,7 +385,7 @@ export default function Nav() {
           const active = !item.external && isActive(item.href)
           const style: React.CSSProperties = {
             fontFamily: "'Courier New', monospace",
-            fontSize: '0.58rem',
+            fontSize: '0.78rem',
             fontWeight: 700,
             letterSpacing: '0.06em',
             display: 'flex',

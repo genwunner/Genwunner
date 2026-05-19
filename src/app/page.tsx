@@ -374,7 +374,7 @@ export default async function HomePage() {
         flexWrap: 'wrap' as const,
       }}>
         <div className="discord-banner-text">
-          <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.55rem', color: 'rgba(0,0,0,0.5)', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>
+          <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.85rem', fontWeight: 700, color: 'rgba(0,0,0,0.7)', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>
             // THE REGIME HAS A HOME BASE
           </div>
           <div style={{ fontFamily: 'var(--font-heading), "Courier New", Courier, monospace', fontWeight: 400, fontSize: 'clamp(1rem, 2.5vw, 1.6rem)', color: '#000', letterSpacing: '0.06em', textTransform: 'uppercase', lineHeight: 1 }}>
@@ -465,8 +465,8 @@ export default async function HomePage() {
       {/* ── SECTION 4: ENLISTMENT ── */}
       <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
-            // 004 · GRUNT REGISTRATION
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.9rem', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+            // WUNNERDEX · TEAM ROCKET DATABASE
           </div>
           <TermHead text="THE BOSS IS WATCHING." size="lg" cursor={true} />
           <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
@@ -474,12 +474,8 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="enlist-grid" style={{ display: 'grid', gap: '2rem', alignItems: 'start' }}>
+        <div className="enlist-grid" style={{ display: 'grid', gap: '1rem', alignItems: 'start' }}>
           <div>
-            <p className="dt-body-hi" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.72rem', color: '#880000', lineHeight: 1.85, letterSpacing: '0.04em', marginBottom: '1rem' }}>
-              <span className="hidden md:inline">Register in the Wunnerdex.{' '}</span>
-              <span style={{ color: '#cc0000' }}>Genwunner remembers who showed up early.</span>
-            </p>
             <div className="hidden md:block">
               {[
                 'Early access to drops & collector editions',

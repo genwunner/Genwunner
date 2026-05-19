@@ -45,7 +45,7 @@ export default function MusicPage() {
         </div>
 
         {/* ── Platform links ── */}
-        <div className="flex flex-wrap gap-3 justify-center mb-12">
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 sm:justify-center mb-12">
           {platforms.map(p => (
             <a
               key={p.label}
@@ -66,7 +66,8 @@ export default function MusicPage() {
         <div style={{ marginBottom: '1.25rem' }}>
           <div style={{
             fontFamily: "'Courier New', monospace",
-            fontSize: '0.55rem',
+            fontSize: '1rem',
+            fontWeight: 700,
             color: '#e3000f',
             letterSpacing: '0.12em',
             marginBottom: '1rem',
@@ -89,8 +90,9 @@ export default function MusicPage() {
             <div>
               <p style={{
                 fontFamily: "'Courier New', monospace",
-                fontSize: '0.5rem',
-                color: 'rgba(255,255,255,0.7)',
+                fontSize: '0.9rem',
+                fontWeight: 700,
+                color: 'rgba(255,255,255,0.85)',
                 letterSpacing: '0.12em',
                 marginBottom: '0.4rem',
               }}>
@@ -108,11 +110,11 @@ export default function MusicPage() {
               </h3>
               <p style={{
                 fontFamily: "'Courier New', monospace",
-                fontSize: '0.55rem',
-                color: 'rgba(255,255,255,0.65)',
+                fontSize: '0.9rem',
+                color: 'rgba(255,255,255,0.85)',
                 letterSpacing: '0.06em',
                 marginTop: '0.4rem',
-                lineHeight: 2,
+                lineHeight: 1.8,
               }}>
                 Gameboy cartridge USB · Holographic signed trainer card · Limit 2 per grunt
               </p>
