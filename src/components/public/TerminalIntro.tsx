@@ -79,11 +79,11 @@ export default function TerminalIntro() {
     return audioCtxRef.current!
   }
 
-  function makeTone(ctx: AudioContext, when: number, freq: number, vol: number, dur: number) {
+  function makeTone(ctx: AudioContext, when: number, freq: number, vol: number, dur: number, type: OscillatorType = 'sine') {
     try {
       const osc  = ctx.createOscillator()
       const gain = ctx.createGain()
-      osc.type = 'sine'
+      osc.type = type
       osc.frequency.setValueAtTime(freq, when)
       gain.gain.setValueAtTime(vol, when)
       gain.gain.setValueAtTime(vol, when + dur * 0.15)
@@ -126,26 +126,11 @@ export default function TerminalIntro() {
   function playConfirmed() {
     if (mutedRef.current) return
     try {
-      window.speechSynthesis.cancel()
-      const utterance = new SpeechSynthesisUtterance('confirmed')
-      utterance.pitch  = 0.75
-      utterance.rate   = 0.82
-      utterance.volume = 1
-
-      const speak = () => {
-        const voices = window.speechSynthesis.getVoices()
-        const female  = voices.find(v =>
-          /samantha|victoria|karen|moira|tessa|fiona|ava|zira|hazel|allison|susan/i.test(v.name)
-        ) ?? voices.find(v => /female|woman/i.test(v.name)) ?? voices[0]
-        if (female) utterance.voice = female
-        window.speechSynthesis.speak(utterance)
-      }
-
-      if (window.speechSynthesis.getVoices().length === 0) {
-        window.speechSynthesis.addEventListener('voiceschanged', speak, { once: true })
-      } else {
-        speak()
-      }
+      const ctx = getAudioCtx()
+      const t   = ctx.currentTime
+      // Two-note video game confirm boop — C5 → G5 perfect fifth, square wave
+      makeTone(ctx, t,        0.13, 523, 0.09, 'square')
+      makeTone(ctx, t + 0.11, 0.15, 784, 0.15, 'square')
     } catch { /* ignore */ }
   }
 
