@@ -169,7 +169,7 @@ export default async function HomePage() {
               letterSpacing: '0.04em',
             }}>
               <span style={{ color: '#cc0000' }}>&gt; MISSION:</span>{' '}
-              Conquer Kanto through PokéRage. Creator of Big Man Blastoise. Right hand of Giovanni.
+              Conquer Kanto through PokéRage.
             </p>
           </div>
 
@@ -202,7 +202,7 @@ export default async function HomePage() {
       {/* ── SECTION 2: ARSENAL ── */}
       <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
             // 001 · DEPLOYED OPERATIVES
           </div>
           <TermHead text="THE ARSENAL" size="lg" cursor={true} />
@@ -305,7 +305,7 @@ export default async function HomePage() {
       {/* ── SECTION 3: CITY RAIDS ── */}
       <section style={{ padding: '2.5rem 1.5rem', background: '#030000', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
             // 002 · ACTIVE CAMPAIGN
           </div>
           <TermHead text="CITY RAIDS" size="lg" cursor={true} />
@@ -404,7 +404,7 @@ export default async function HomePage() {
       {/* ── SECTION 3: SUPPLY DROP ── */}
       <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
             // 003 · SUPPLY DROP
           </div>
           <TermHead text="SUPPLY DROP" size="lg" cursor={true} />
@@ -465,7 +465,7 @@ export default async function HomePage() {
       {/* ── SECTION 4: ENLISTMENT ── */}
       <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.9rem', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(1.1rem, 3vw, 2rem)', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
             // WUNNERDEX · TEAM ROCKET DATABASE
           </div>
           <TermHead text="THE BOSS IS WATCHING." size="lg" cursor={true} />

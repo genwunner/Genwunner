@@ -43,7 +43,7 @@ export const homepageFeaturedSongs = [
     tag: 'GHOST TYPE · Shadow Operative',
     cover: '/images/covers/gengar.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/gengar',
-    lore: "The ghost that haunts every playlist. Gengar doesn't just appear — it takes over. Shadow game unmatched.",
+    lore: "Before the regime had a name, Gengar was already in the field. Song one. The operative that started it all.",
   },
   {
     title: 'GYARADOS!',

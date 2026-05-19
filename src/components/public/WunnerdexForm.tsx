@@ -46,8 +46,8 @@ export default function WunnerdexForm() {
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1rem' }}>
         <div style={{ width: 32, height: 32, background: '#e3000f', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.85rem', flexShrink: 0 }}>⚡</div>
         <div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', fontWeight: 700, color: '#cc0000', letterSpacing: '0.05em', textTransform: 'uppercase' }}>GRUNT REG.</div>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.36rem', color: '#440000', letterSpacing: '0.07em', marginTop: 2 }}>// WUNNERDEX · TEAM ROCKET DATABASE</div>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '1rem', fontWeight: 700, color: '#cc0000', letterSpacing: '0.05em', textTransform: 'uppercase' }}>GRUNT REG.</div>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#770000', letterSpacing: '0.07em', marginTop: 2 }}>// WUNNERDEX · TEAM ROCKET DATABASE</div>
         </div>
       </div>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
@@ -58,7 +58,7 @@ export default function WunnerdexForm() {
         <label className="brand-label">Comms Channel (Email) *</label>
         <input name="email" type="email" required className="brand-input" placeholder="your@email.com" />
         {error && (
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.44rem', color: '#ff5555', letterSpacing: '0.06em' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.7rem', color: '#ff5555', letterSpacing: '0.06em' }}>
             &gt; ERROR: {error}
           </div>
         )}
@@ -70,7 +70,7 @@ export default function WunnerdexForm() {
         >
           {loading ? '[ PROCESSING... ]' : '[ REPORT FOR DUTY ]'}
         </button>
-        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.3rem', color: '#1a0000', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 1.8, marginTop: '0.2rem' }}>
+        <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#440000', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 1.8, marginTop: '0.2rem' }}>
           WUNNERDEX v1.0 · NO SPAM · JUST DROPS AND RAIDS
         </div>
       </form>

@@ -139,10 +139,11 @@ export default function TerminalIntro() {
         makeClick(ctx, t,        0.22, 4500, 0.03)
         makeClick(ctx, t + 0.04, 0.18, 5500, 0.025)
       } else if (kind === 'launch') {
-        // Satisfying confirmation boop — ascending three-tone chord
-        makeTone(ctx, t,        0.28, 330, 0.18)
-        makeTone(ctx, t + 0.12, 0.30, 440, 0.22)
-        makeTone(ctx, t + 0.24, 0.25, 660, 0.30)
+        // Cute high-pitched confirm boop — rising C major arpeggio in high octave
+        makeTone(ctx, t,        0.20, 1047, 0.08)
+        makeTone(ctx, t + 0.07, 0.22, 1319, 0.10)
+        makeTone(ctx, t + 0.15, 0.20, 1568, 0.13)
+        makeTone(ctx, t + 0.24, 0.16, 2093, 0.20)
       } else if (kind === 'glitch') {
         // Harsh snap at random frequency
         makeClick(ctx, t, 0.22, 1000 + Math.random() * 6000, 0.018)

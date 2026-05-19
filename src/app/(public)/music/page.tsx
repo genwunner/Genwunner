@@ -23,7 +23,8 @@ export default function MusicPage() {
         <div className="text-center mb-12">
           <p style={{
             fontFamily: "'Courier New', monospace",
-            fontSize: '0.55rem',
+            fontSize: '0.9rem',
+            fontWeight: 700,
             color: '#e3000f',
             letterSpacing: '0.15em',
             marginBottom: '0.75rem',
@@ -35,8 +36,8 @@ export default function MusicPage() {
           </h1>
           <p className="mt-4" style={{
             fontFamily: "'Courier New', monospace",
-            fontSize: '0.72rem',
-            color: '#880000',
+            fontSize: '1rem',
+            color: '#aa0000',
             letterSpacing: '0.06em',
             lineHeight: 2,
           }}>
@@ -52,7 +53,7 @@ export default function MusicPage() {
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline btn-sm"
+              className="btn-outline"
             >
               {p.label} →
             </a>
@@ -105,18 +106,20 @@ export default function MusicPage() {
                 color: 'white',
                 letterSpacing: '0.05em',
                 textTransform: 'uppercase',
+                lineHeight: 1.2,
               }}>
-                Blue Version + Red Version EPs
+                <span style={{ display: 'block' }}>GENWUNNER: RED VERSION (EP)</span>
+                <span style={{ display: 'block' }}>GENWUNNER: BLUE VERSION (EP)</span>
               </h3>
               <p style={{
                 fontFamily: "'Courier New', monospace",
                 fontSize: '0.9rem',
                 color: 'rgba(255,255,255,0.85)',
                 letterSpacing: '0.06em',
-                marginTop: '0.4rem',
+                marginTop: '0.6rem',
                 lineHeight: 1.8,
               }}>
-                Gameboy cartridge USB · Holographic signed trainer card · Limit 2 per grunt
+                Giovanni commissioned two. Blue Version and Red Version. The first official documents of the regime. 6 songs each. Collector&apos;s Edition: OG Game-inspired box, Gameboy USB cartridge + more.
               </p>
             </div>
             <Link href="/wunnerdex" className="btn-outline flex-shrink-0" style={{ borderColor: 'white', color: 'white' }}>

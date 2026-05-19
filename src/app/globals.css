@@ -269,7 +269,7 @@ a {
   border-radius: 0;
   padding: 0.5rem 0.75rem;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   letter-spacing: 0.05em;
   width: 100%;
   transition: border-color 0.12s;
@@ -281,11 +281,11 @@ a {
   box-shadow: 0 0 0 1px rgba(227,0,15,0.3);
 }
 
-.brand-input::placeholder { color: #440000; }
+.brand-input::placeholder { color: #880000; }
 
 .brand-label {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 0.55rem;
+  font-size: 0.78rem;
   color: #ff5555;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -325,8 +325,8 @@ a {
 
 .stat-label {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 0.44rem;
-  color: #660000;
+  font-size: 0.68rem;
+  color: #990000;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-top: 0.3rem;
