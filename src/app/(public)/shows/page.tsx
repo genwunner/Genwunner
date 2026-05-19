@@ -25,7 +25,7 @@ export default async function ShowsPage() {
         <div className="text-center mb-16">
           <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: 'var(--color-brand-red)', letterSpacing: '0.15em', marginBottom: '0.75rem' }}>// 004 · ACTIVE CAMPAIGN</p>
           <h1 className="section-title" style={{ fontSize: 'clamp(3rem, 10vw, 7rem)' }}>CITY RAIDS</h1>
-          <p className="mt-4" style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.38rem', color: 'var(--color-brand-off)', letterSpacing: '0.08em', lineHeight: 2 }}>
+          <p className="mt-4" style={{ fontFamily: "'Courier New', monospace", fontSize: '0.9rem', color: 'var(--color-brand-off)', letterSpacing: '0.06em', lineHeight: 2 }}>
             Expanding the regime&apos;s reach across Kanto and beyond
           </p>
         </div>
@@ -43,7 +43,7 @@ export default async function ShowsPage() {
                 </div>
                 <div className="flex-1">
                   <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>{show.title}</h3>
-                  <p className="mt-1" style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.36rem', color: 'var(--color-brand-off)', letterSpacing: '0.05em' }}>// {show.city}{show.venue ? ` · ${show.venue}` : ''}{show.event_type ? ` · ${show.event_type}` : ''}</p>
+                  <p className="mt-1" style={{ fontFamily: "'Courier New', monospace", fontSize: '0.72rem', color: 'var(--color-brand-off)', letterSpacing: '0.05em' }}>// {show.city}{show.venue ? ` · ${show.venue}` : ''}{show.event_type ? ` · ${show.event_type}` : ''}</p>
                 </div>
                 {(show.ticket_url || show.rsvp_url) ? (
                   <a href={show.ticket_url || show.rsvp_url || '#'} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem' }}>Get Tickets →</a>
@@ -78,7 +78,7 @@ export default async function ShowsPage() {
         )}
 
         <div className="p-8 mb-16" style={{ background: 'var(--color-brand-gray)', border: '1px solid var(--color-brand-gray-mid)' }}>
-          <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: '#444', letterSpacing: '0.1em', marginBottom: '1rem' }}>// Previously Raided Venues</div>
+          <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.8rem', fontWeight: 700, color: '#888', letterSpacing: '0.1em', marginBottom: '1rem' }}>// Previously Raided Venues</div>
           <div className="flex flex-wrap gap-2">
             {performanceVenues.map(v => (
               <span key={v} style={{ fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--color-brand-off)', background: 'var(--color-brand-black)', border: '1px solid var(--color-brand-gray-mid)', padding: '0.35rem 0.75rem' }}>{v}</span>
@@ -87,9 +87,9 @@ export default async function ShowsPage() {
         </div>
 
         <div className="p-10 text-center" style={{ background: 'var(--color-brand-red)' }}>
-          <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.38rem', color: 'rgba(255,255,255,0.7)', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>// Request an Operative</p>
+          <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.8rem', fontWeight: 700, color: 'rgba(255,255,255,0.85)', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>// Request an Operative</p>
           <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: 'white', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Deploy Genwunner to Your Territory</h3>
-          <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.36rem', color: 'rgba(255,255,255,0.65)', letterSpacing: '0.06em', lineHeight: 2, marginBottom: '1.75rem' }}>Conventions · Gaming events · College shows · Brand activations</p>
+          <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.82rem', color: 'rgba(255,255,255,0.85)', letterSpacing: '0.06em', lineHeight: 2, marginBottom: '1.75rem' }}>Conventions · Gaming events · College shows · Brand activations</p>
           <Link href="/book" className="btn-outline" style={{ borderColor: 'white', color: 'white' }}>Submit Deployment Request →</Link>
         </div>
 

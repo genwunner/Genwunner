@@ -332,6 +332,11 @@ a {
   margin-top: 0.3rem;
 }
 
+@media (max-width: 767px) {
+  .stat-number { font-size: 1rem !important; }
+  .stat-label  { font-size: 0.44rem !important; }
+}
+
 /* ─────────────────────────────────────────────────
    TERMINAL DECORATORS
    ───────────────────────────────────────────────── */
