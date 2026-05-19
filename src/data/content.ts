@@ -8,15 +8,14 @@ export const artistStats = [
   { value: '195K', label: 'Playlist Adds' },
 ]
 
-export const songs = [
-  // ── Top 6 — featured on homepage Arsenal with ASCII art ──
+// Songs shown on the homepage Arsenal section (with ASCII art)
+export const homepageFeaturedSongs = [
   {
     title: 'BLASTOISE!',
     tag: 'BREAKOUT · Water Type',
     cover: '/images/covers/blastoise.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/blastoise',
     lore: 'The song that started it all. Big Man Blastoise summoned. 20M+ views, 1B+ UGC intercepts. The flagship operative.',
-    featured: true,
   },
   {
     title: 'CHARIZARD!',
@@ -24,7 +23,6 @@ export const songs = [
     cover: '/images/covers/charizard.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/charizard',
     lore: "The most beloved Pokémon gets the PokéRage treatment. Charizard doesn't lose. Neither does this one.",
-    featured: true,
   },
   {
     title: 'VENUSAUR!',
@@ -32,7 +30,6 @@ export const songs = [
     cover: '/images/covers/venusaur.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/venusaur',
     lore: "The starter nobody picks. The song everyone sleeps on. Venusaur always had it. They just weren't ready.",
-    featured: true,
   },
   {
     title: 'PSYDUCK!',
@@ -40,7 +37,6 @@ export const songs = [
     cover: '/images/covers/psyduck.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/psyduck',
     lore: "100K+ streams in under a month. Perpetually confused, permanently dangerous. PokéRage doesn't wait for anyone.",
-    featured: true,
   },
   {
     title: 'GENGAR!',
@@ -48,7 +44,6 @@ export const songs = [
     cover: '/images/covers/gengar.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/gengar',
     lore: "The ghost that haunts every playlist. Gengar doesn't just appear — it takes over. Shadow game unmatched.",
-    featured: true,
   },
   {
     title: 'GYARADOS!',
@@ -57,58 +52,24 @@ export const songs = [
     hypeddit: 'https://hypeddit.com/genwunner/gyarados',
     lore: "They said Magikarp couldn't do it. Then Gyarados appeared. The newest operative. The most dangerous evolution.",
     isNewest: true,
-    featured: true,
   },
-  // ── Extended roster — visible after SEE MORE on the Arsenal page ──
-  {
-    title: 'HITMONCHAN!',
-    tag: 'FIGHTING TYPE · The Champion',
-    cover: '/images/covers/hitmonchan.jpg',
-    hypeddit: 'https://hypeddit.com/genwunner/hitmonchan',
-    lore: '',
-  },
-  {
-    title: 'GASTLY!',
-    tag: 'GHOST TYPE · The Origin',
-    cover: '/images/covers/gastly.jpg',
-    hypeddit: 'https://hypeddit.com/genwunner/gastly',
-    lore: '',
-  },
-  {
-    title: 'TAUROS!',
-    tag: 'NORMAL TYPE · Wild Charge',
-    cover: '/images/covers/tauros.jpg',
-    hypeddit: 'https://hypeddit.com/genwunner/tauros',
-    lore: '',
-  },
-  {
-    title: 'HITMONLEE!',
-    tag: 'FIGHTING TYPE · Kick Master',
-    cover: '/images/covers/hitmonlee.jpg',
-    hypeddit: 'https://hypeddit.com/genwunner/hitmonlee',
-    lore: '',
-  },
-  {
-    title: 'SNORLAX!',
-    tag: 'NORMAL TYPE · The Wall',
-    cover: '/images/covers/snorlax.jpg',
-    hypeddit: 'https://hypeddit.com/genwunner/snorlax',
-    lore: '',
-  },
-  {
-    title: 'ELECTABUZZ!',
-    tag: 'ELECTRIC TYPE · High Voltage',
-    cover: '/images/covers/electabuzz.jpg',
-    hypeddit: 'https://hypeddit.com/genwunner/electabuzz',
-    lore: '',
-  },
-  {
-    title: 'RARE CANDY',
-    tag: 'ITEM · Level Up',
-    cover: '/images/covers/rarecandy.jpg',
-    hypeddit: 'https://hypeddit.com/genwunner/rarecandy',
-    lore: '',
-  },
+]
+
+// Full discography for THE ARSENAL page — ordered by Spotify popularity
+// ⚠ Hitmonchan, Gastly, Grimer: no confirmed Hypeddit link yet (placeholder URLs used)
+export const songs = [
+  { title: 'BLASTOISE!',         cover: '/images/covers/blastoise.jpg',  hypeddit: 'https://hypeddit.com/genwunner/blastoise'  },
+  { title: 'CHARIZARD!',         cover: '/images/covers/charizard.jpg',  hypeddit: 'https://hypeddit.com/genwunner/charizard'  },
+  { title: 'VENUSAUR!',          cover: '/images/covers/venusaur.jpg',   hypeddit: 'https://hypeddit.com/genwunner/venusaur'   },
+  { title: 'PSYDUCK!',           cover: '/images/covers/psyduck.jpg',    hypeddit: 'https://hypeddit.com/genwunner/psyduck'    },
+  { title: 'HITMONCHAN!',        cover: '/images/covers/hitmonchan.jpg', hypeddit: 'https://hypeddit.com/genwunner/hitmonchan' }, // ⚠ no Hypeddit link
+  { title: 'GASTLY!',            cover: '/images/covers/gastly.jpg',     hypeddit: 'https://hypeddit.com/genwunner/gastly'     }, // ⚠ no Hypeddit link
+  { title: 'GENGAR!',            cover: '/images/covers/gengar.jpg',     hypeddit: 'https://hypeddit.com/genwunner/gengar'     },
+  { title: 'TAUROS!',            cover: '/images/covers/tauros.jpg',     hypeddit: 'https://hypeddit.com/genwunner/tauros'     },
+  { title: 'GRIMER!',            cover: '/images/covers/grimer.jpg',     hypeddit: 'https://hypeddit.com/genwunner/grimer'     }, // ⚠ no Hypeddit link
+  { title: 'GENGAR II',          cover: '/images/covers/gengarii.jpg',   hypeddit: 'https://hypeddit.com/genwunner/gengarii'   },
+  { title: 'NINETAILS!',         cover: '/images/covers/ninetails.jpg',  hypeddit: 'https://hypeddit.com/genwunner/ninetails'  },
+  { title: 'POKEFLUTE! ft. Shofu', cover: '/images/covers/pokeflute.jpg', hypeddit: 'https://hypeddit.com/genwunner/pokeflute' },
 ]
 
 export const pressQuotes = [

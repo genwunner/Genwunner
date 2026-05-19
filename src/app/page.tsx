@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/public/Nav'
 import TerminalIntro from '@/components/public/TerminalIntro'
-import { songs, socialLinks, upcomingShows, artistStats, pressQuotes, products } from '@/data/content'
+import { homepageFeaturedSongs, socialLinks, upcomingShows, artistStats, pressQuotes, products } from '@/data/content'
 import { arsenalAscii } from '@/data/ascii'
 import PressTicker from '@/components/public/PressTicker'
 import WunnerdexForm from '@/components/public/WunnerdexForm'
@@ -218,7 +218,7 @@ export default async function HomePage() {
           background: '#0d0000',
           border: '1px solid #0d0000',
         }}>
-          {songs.filter(s => s.featured).map(song => {
+          {homepageFeaturedSongs.map(song => {
 
             return (
               <div key={song.title} className="brand-card arsenal-card" style={{ padding: '1rem', display: 'flex', flexDirection: 'column' }}>
