@@ -128,9 +128,28 @@ export default function TerminalIntro() {
     try {
       const ctx = getAudioCtx()
       const t   = ctx.currentTime
-      // Two-note video game confirm boop — C5 → G5 perfect fifth, square wave
-      makeTone(ctx, t,        0.13, 523, 0.09, 'square')
-      makeTone(ctx, t + 0.11, 0.15, 784, 0.15, 'square')
+
+      // GBC boot chime — square wave through low-pass filter (simulates GB speaker)
+      const osc = ctx.createOscillator()
+      osc.type = 'square'
+      osc.frequency.setValueAtTime(659.25, t) // E5
+
+      // Low-pass mimics the small GB speaker rolling off harsh highs
+      const lpf = ctx.createBiquadFilter()
+      lpf.type = 'lowpass'
+      lpf.frequency.value = 1800
+      lpf.Q.value = 0.7
+
+      const gain = ctx.createGain()
+      gain.gain.setValueAtTime(0.0001, t)
+      gain.gain.linearRampToValueAtTime(0.18, t + 0.006) // instant attack
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.7) // ring-out
+
+      osc.connect(lpf)
+      lpf.connect(gain)
+      gain.connect(ctx.destination)
+      osc.start(t)
+      osc.stop(t + 0.75)
     } catch { /* ignore */ }
   }
 
