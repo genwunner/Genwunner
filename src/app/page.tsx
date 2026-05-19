@@ -218,7 +218,7 @@ export default async function HomePage() {
           background: '#0d0000',
           border: '1px solid #0d0000',
         }}>
-          {songs.map(song => {
+          {songs.filter(s => s.featured).map(song => {
 
             return (
               <div key={song.title} className="brand-card arsenal-card" style={{ padding: '1rem', display: 'flex', flexDirection: 'column' }}>

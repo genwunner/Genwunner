@@ -9,16 +9,14 @@ export const artistStats = [
 ]
 
 export const songs = [
+  // ── Top 6 — featured on homepage Arsenal with ASCII art ──
   {
     title: 'BLASTOISE!',
     tag: 'BREAKOUT · Water Type',
     cover: '/images/covers/blastoise.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/blastoise',
     lore: 'The song that started it all. Big Man Blastoise summoned. 20M+ views, 1B+ UGC intercepts. The flagship operative.',
-    spotify: 'https://open.spotify.com/track/59z99kJAUvNHtNcIZkxlQt',
-    apple: 'https://music.apple.com/us/artist/genwunner/1630027337',
-    youtube: 'https://youtube.com/@genwunner',
-    tiktok: 'https://tiktok.com/@genwunnr',
+    featured: true,
   },
   {
     title: 'CHARIZARD!',
@@ -26,10 +24,7 @@ export const songs = [
     cover: '/images/covers/charizard.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/charizard',
     lore: "The most beloved Pokémon gets the PokéRage treatment. Charizard doesn't lose. Neither does this one.",
-    spotify: 'https://open.spotify.com/track/0COIEkVI89pag3LCSZ2gn4',
-    apple: 'https://music.apple.com/us/artist/genwunner/1630027337',
-    youtube: 'https://youtube.com/@genwunner',
-    tiktok: 'https://tiktok.com/@genwunnr',
+    featured: true,
   },
   {
     title: 'VENUSAUR!',
@@ -37,10 +32,7 @@ export const songs = [
     cover: '/images/covers/venusaur.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/venusaur',
     lore: "The starter nobody picks. The song everyone sleeps on. Venusaur always had it. They just weren't ready.",
-    spotify: 'https://open.spotify.com/track/3Zy2C2fdqUfZ8rciAdM1fG',
-    apple: 'https://music.apple.com/us/artist/genwunner/1630027337',
-    youtube: 'https://youtube.com/@genwunner',
-    tiktok: 'https://tiktok.com/@genwunnr',
+    featured: true,
   },
   {
     title: 'PSYDUCK!',
@@ -48,10 +40,7 @@ export const songs = [
     cover: '/images/covers/psyduck.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/psyduck',
     lore: "100K+ streams in under a month. Perpetually confused, permanently dangerous. PokéRage doesn't wait for anyone.",
-    spotify: 'https://open.spotify.com/track/72NoCpzTiZeVBiAhyM5Rtf',
-    apple: 'https://music.apple.com/us/artist/genwunner/1630027337',
-    youtube: 'https://youtube.com/@genwunner',
-    tiktok: 'https://tiktok.com/@genwunnr',
+    featured: true,
   },
   {
     title: 'GENGAR!',
@@ -59,10 +48,7 @@ export const songs = [
     cover: '/images/covers/gengar.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/gengar',
     lore: "The ghost that haunts every playlist. Gengar doesn't just appear — it takes over. Shadow game unmatched.",
-    spotify: 'https://hypeddit.com/genwunner/gengar',
-    apple: 'https://music.apple.com/us/artist/genwunner/1630027337',
-    youtube: 'https://youtube.com/@genwunner',
-    tiktok: 'https://tiktok.com/@genwunnr',
+    featured: true,
   },
   {
     title: 'GYARADOS!',
@@ -70,11 +56,58 @@ export const songs = [
     cover: '/images/covers/gyarados.jpg',
     hypeddit: 'https://hypeddit.com/genwunner/gyarados',
     lore: "They said Magikarp couldn't do it. Then Gyarados appeared. The newest operative. The most dangerous evolution.",
-    spotify: 'https://hypeddit.com/genwunner/gyarados',
-    apple: 'https://music.apple.com/us/artist/genwunner/1630027337',
-    youtube: 'https://youtube.com/@genwunner',
-    tiktok: 'https://tiktok.com/@genwunnr',
     isNewest: true,
+    featured: true,
+  },
+  // ── Extended roster — visible after SEE MORE on the Arsenal page ──
+  {
+    title: 'HITMONCHAN!',
+    tag: 'FIGHTING TYPE · The Champion',
+    cover: '/images/covers/hitmonchan.jpg',
+    hypeddit: 'https://hypeddit.com/genwunner/hitmonchan',
+    lore: '',
+  },
+  {
+    title: 'GASTLY!',
+    tag: 'GHOST TYPE · The Origin',
+    cover: '/images/covers/gastly.jpg',
+    hypeddit: 'https://hypeddit.com/genwunner/gastly',
+    lore: '',
+  },
+  {
+    title: 'TAUROS!',
+    tag: 'NORMAL TYPE · Wild Charge',
+    cover: '/images/covers/tauros.jpg',
+    hypeddit: 'https://hypeddit.com/genwunner/tauros',
+    lore: '',
+  },
+  {
+    title: 'HITMONLEE!',
+    tag: 'FIGHTING TYPE · Kick Master',
+    cover: '/images/covers/hitmonlee.jpg',
+    hypeddit: 'https://hypeddit.com/genwunner/hitmonlee',
+    lore: '',
+  },
+  {
+    title: 'SNORLAX!',
+    tag: 'NORMAL TYPE · The Wall',
+    cover: '/images/covers/snorlax.jpg',
+    hypeddit: 'https://hypeddit.com/genwunner/snorlax',
+    lore: '',
+  },
+  {
+    title: 'ELECTABUZZ!',
+    tag: 'ELECTRIC TYPE · High Voltage',
+    cover: '/images/covers/electabuzz.jpg',
+    hypeddit: 'https://hypeddit.com/genwunner/electabuzz',
+    lore: '',
+  },
+  {
+    title: 'RARE CANDY',
+    tag: 'ITEM · Level Up',
+    cover: '/images/covers/rarecandy.jpg',
+    hypeddit: 'https://hypeddit.com/genwunner/rarecandy',
+    lore: '',
   },
 ]
 
