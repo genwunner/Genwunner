@@ -333,8 +333,8 @@ a {
 }
 
 @media (max-width: 767px) {
-  .stat-number { font-size: 1rem !important; }
-  .stat-label  { font-size: 0.44rem !important; }
+  .stat-number { font-size: 1.1rem !important; }
+  .stat-label  { font-size: 0.5rem !important; }
 }
 
 /* ─────────────────────────────────────────────────
