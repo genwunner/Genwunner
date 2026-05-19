@@ -123,7 +123,33 @@ export default function TerminalIntro() {
     } catch { /* ignore audio errors */ }
   }
 
-  function playSound(kind: 'type' | 'logo' | 'highlight' | 'launch' | 'glitch') {
+  function playConfirmed() {
+    if (mutedRef.current) return
+    try {
+      window.speechSynthesis.cancel()
+      const utterance = new SpeechSynthesisUtterance('confirmed')
+      utterance.pitch  = 0.75
+      utterance.rate   = 0.82
+      utterance.volume = 1
+
+      const speak = () => {
+        const voices = window.speechSynthesis.getVoices()
+        const female  = voices.find(v =>
+          /samantha|victoria|karen|moira|tessa|fiona|ava|zira|hazel|allison|susan/i.test(v.name)
+        ) ?? voices.find(v => /female|woman/i.test(v.name)) ?? voices[0]
+        if (female) utterance.voice = female
+        window.speechSynthesis.speak(utterance)
+      }
+
+      if (window.speechSynthesis.getVoices().length === 0) {
+        window.speechSynthesis.addEventListener('voiceschanged', speak, { once: true })
+      } else {
+        speak()
+      }
+    } catch { /* ignore */ }
+  }
+
+  function playSound(kind: 'type' | 'logo' | 'highlight' | 'glitch') {
     if (mutedRef.current) return
     try {
       const ctx = getAudioCtx()
@@ -138,12 +164,6 @@ export default function TerminalIntro() {
         // Double-click, rising pitch — confirmation sound
         makeClick(ctx, t,        0.22, 4500, 0.03)
         makeClick(ctx, t + 0.04, 0.18, 5500, 0.025)
-      } else if (kind === 'launch') {
-        // Cute high-pitched confirm boop — rising C major arpeggio in high octave
-        makeTone(ctx, t,        0.20, 1047, 0.08)
-        makeTone(ctx, t + 0.07, 0.22, 1319, 0.10)
-        makeTone(ctx, t + 0.15, 0.20, 1568, 0.13)
-        makeTone(ctx, t + 0.24, 0.16, 2093, 0.20)
       } else if (kind === 'glitch') {
         // Harsh snap at random frequency
         makeClick(ctx, t, 0.22, 1000 + Math.random() * 6000, 0.018)
@@ -215,7 +235,7 @@ export default function TerminalIntro() {
     if (launching) return
     setLaunching(true)
     setShowLaunch(false)
-    playSound('launch')
+    playConfirmed()
 
     // Each visible line gets a random glitch delay then blinks out
     // Spread over ~800ms so they disappear haphazardly, not all at once
