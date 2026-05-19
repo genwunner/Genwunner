@@ -505,7 +505,7 @@ export default async function HomePage() {
           <div>
             <TermHead text="GENWUNNER" size="md" color="#cc0000" />
             <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.48rem', color: '#550000', letterSpacing: '0.08em', margin: '0.35rem 0 0.75rem' }}>
-              ROCKET RECRUITMENT REGIME · KANTO DIVISION · EST. 2022
+              ROCKET RECRUITMENT REGIME · KANTO DIVISION · EST. 1996
             </div>
             <div className="dt-foot" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#660000', lineHeight: 1.8, letterSpacing: '0.04em' }}>
               Creator of PokéRage.<br />
