@@ -458,7 +458,7 @@ export default async function HomePage() {
         </div>
 
         <div style={{ textAlign: 'center' }}>
-          <a href="https://genwunnr.myshopify.com" target="_blank" rel="noopener noreferrer" className="btn-outline">[ FULL SUPPLY DROP → ]</a>
+          <Link href="/merch" className="btn-outline">[ FULL SUPPLY DROP → ]</Link>
         </div>
       </section>
 
