@@ -50,32 +50,32 @@ const MODULES = [
   { href: '/dashboard/analytics', name: 'Analytics', desc: 'Unified Spotify, YouTube, TikTok, Instagram stats' },
 ]
 
+async function safeCount(supabase: Awaited<ReturnType<typeof createClient>>, table: string): Promise<number> {
+  try {
+    const { count } = await supabase.from(table).select('*', { count: 'exact', head: true })
+    return count ?? 0
+  } catch {
+    return 0
+  }
+}
+
 export default async function DashboardPage() {
   const supabase = await createClient()
 
-  const [
-    { count: fanCount },
-    { count: epkViews },
-    { count: trackCount },
-    { count: showCount },
-    { count: conventionCount },
-    { count: noteCount },
-  ] = await Promise.all([
-    supabase.from('fans').select('*', { count: 'exact', head: true }),
-    supabase.from('epk_views').select('*', { count: 'exact', head: true }),
-    supabase.from('tracks').select('*', { count: 'exact', head: true }),
-    supabase.from('shows').select('*', { count: 'exact', head: true }),
-    supabase.from('conventions').select('*', { count: 'exact', head: true }),
-    supabase.from('brain_dumps').select('*', { count: 'exact', head: true }),
+  const [fanCount, trackCount, showCount, conventionCount, noteCount] = await Promise.all([
+    safeCount(supabase, 'fans'),
+    safeCount(supabase, 'tracks'),
+    safeCount(supabase, 'shows'),
+    safeCount(supabase, 'conventions'),
+    safeCount(supabase, 'brain_dumps'),
   ])
 
   const stats = [
-    { label: 'Fans', value: fanCount ?? 0 },
-    { label: 'Tracks', value: trackCount ?? 0 },
-    { label: 'Shows', value: showCount ?? 0 },
-    { label: 'Conventions Tracked', value: conventionCount ?? 0 },
-    { label: 'Brain Dumps', value: noteCount ?? 0 },
-    { label: 'EPK Views', value: epkViews ?? 0 },
+    { label: 'Fans', value: fanCount },
+    { label: 'Tracks', value: trackCount },
+    { label: 'Shows', value: showCount },
+    { label: 'Conventions', value: conventionCount },
+    { label: 'Brain Dumps', value: noteCount },
   ]
 
   return (
@@ -86,7 +86,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 lg:grid-cols-6 gap-3 mb-10">
+      <div className="grid grid-cols-3 lg:grid-cols-5 gap-3 mb-10">
         {stats.map(({ label, value }) => (
           <div key={label} className="bg-black/5 border border-black/10 rounded-xl p-4">
             <p className="text-xs text-black/40 uppercase tracking-wider mb-1 leading-tight">{label}</p>
@@ -103,7 +103,7 @@ export default async function DashboardPage() {
             <Link
               key={a.href}
               href={a.href}
-              className={`block border rounded-xl p-5 hover:bg-black/3 transition-colors ${a.color}`}
+              className={`block border rounded-xl p-5 transition-colors ${a.color}`}
             >
               <div className="flex items-start justify-between mb-2">
                 <p className="font-semibold text-sm">{a.name}</p>
@@ -120,7 +120,7 @@ export default async function DashboardPage() {
         <h2 className="text-xs font-semibold uppercase tracking-widest text-black/30 mb-4">Supporting Modules</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {MODULES.map(m => (
-            <Link key={m.href} href={m.href} className="block border border-black/10 rounded-xl p-4 hover:border-black/25 hover:bg-black/3 transition-colors">
+            <Link key={m.href} href={m.href} className="block border border-black/10 rounded-xl p-4 hover:border-black/25 transition-colors">
               <p className="font-semibold text-sm mb-1">{m.name}</p>
               <p className="text-xs text-black/40 leading-relaxed">{m.desc}</p>
             </Link>
