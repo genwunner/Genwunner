@@ -37,7 +37,7 @@ export default function WunnerdexPage() {
           <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: 'var(--color-brand-red)', letterSpacing: '0.15em', marginBottom: '0.75rem' }}>// 006 · GRUNT REGISTRATION</p>
           <h1 className="section-title" style={{ fontSize: 'clamp(3rem, 10vw, 6rem)' }}>THE WUNNERDEX</h1>
           <p className="mt-4" style={{ fontSize: '0.88rem', color: 'var(--color-brand-off)', lineHeight: 1.75, maxWidth: 420, margin: '1rem auto 0' }}>
-            Giovanni keeps records on every operative. Register your trainer data. Get drops, shows, secret links, and Big Man Blastoise sightings before the civilians.
+            Giovanni keeps records on every operative. Register your trainer data. Get drops, shows, and secret links before the civilians.
           </p>
         </div>
 

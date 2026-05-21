@@ -138,48 +138,6 @@ export default function MerchPage() {
           </a>
         </div>
 
-        {/* Collector Edition Teaser */}
-        <div className="mt-4 p-8" style={{ background: 'var(--color-brand-red)' }}>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <p style={{
-                fontFamily: 'var(--font-pixel)',
-                fontSize: '0.38rem',
-                color: 'rgba(255,255,255,0.7)',
-                letterSpacing: '0.12em',
-                marginBottom: '0.4rem',
-              }}>
-                // INCOMING · SUMMER 2026 · LIMIT 2 PER GRUNT
-              </p>
-              <h3 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-                color: 'white',
-                letterSpacing: '0.05em',
-                textTransform: 'uppercase',
-              }}>
-                Blue Version + Red Version<br />Collector Editions
-              </h3>
-              <p style={{
-                fontFamily: 'var(--font-pixel)',
-                fontSize: '0.34rem',
-                color: 'rgba(255,255,255,0.65)',
-                letterSpacing: '0.06em',
-                marginTop: '0.4rem',
-                lineHeight: 2,
-              }}>
-                Gameboy cartridge USB · holographic signed trainer card · album booklet · poster
-              </p>
-            </div>
-            <a
-              href="/wunnerdex"
-              className="btn-outline flex-shrink-0"
-              style={{ borderColor: 'white', color: 'white' }}
-            >
-              Enlist for Early Access →
-            </a>
-          </div>
-        </div>
 
         <p style={{
           fontFamily: 'var(--font-pixel)',

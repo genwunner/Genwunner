@@ -27,12 +27,12 @@ export default function PressTicker({ quotes }: { quotes: Quote[] }) {
 
   return (
     <div style={{ padding: '1.75rem 1.5rem', borderBottom: '1px solid #1a0000', textAlign: 'center', background: '#030000' }}>
-      <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', fontWeight: 700, color: '#880000', letterSpacing: '0.12em', marginBottom: '0.65rem' }}>
+      <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(0.85rem, 2vw, 1.2rem)', fontWeight: 700, color: '#880000', letterSpacing: '0.12em', marginBottom: '0.65rem' }}>
         // INTERCEPTED CIVILIAN TRANSMISSION
       </div>
       <div className="dt-lore" style={{
         fontFamily: '"Courier New", monospace',
-        fontSize: 'clamp(1rem, 2.2vw, 1.4rem)',
+        fontSize: 'clamp(1rem, 2.8vw, 1.9rem)',
         color: '#cc0000',
         letterSpacing: '0.05em',
         fontStyle: 'italic',
@@ -44,7 +44,7 @@ export default function PressTicker({ quotes }: { quotes: Quote[] }) {
       </div>
       <div style={{
         fontFamily: '"Courier New", monospace',
-        fontSize: '0.8rem',
+        fontSize: 'clamp(0.8rem, 1.8vw, 1.1rem)',
         fontWeight: 700,
         color: '#e3000f',
         letterSpacing: '0.18em',
