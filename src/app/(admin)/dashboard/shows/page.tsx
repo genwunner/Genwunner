@@ -9,7 +9,7 @@ interface Show {
   city: string | null
   state: string | null
   country: string | null
-  date: string | null
+  event_date: string | null
   event_date_text: string | null
   status: 'upcoming' | 'completed' | 'cancelled'
   role: 'headliner' | 'opener' | 'support' | 'feature' | 'unknown' | null
@@ -55,8 +55,8 @@ function locationStr(show: Show) {
 }
 
 function dateStr(show: Show) {
-  if (show.date) {
-    return new Date(show.date + 'T00:00:00').toLocaleDateString(undefined, {
+  if (show.event_date) {
+    return new Date(show.event_date + 'T00:00:00').toLocaleDateString(undefined, {
       month: 'short', day: 'numeric', year: 'numeric',
     })
   }
@@ -75,7 +75,7 @@ export default function ShowsPage() {
   useEffect(() => { load() }, [])
 
   async function load() {
-    const { data } = await supabase.from('shows').select('*').order('date', { ascending: false, nullsFirst: false })
+    const { data } = await supabase.from('shows').select('*').order('event_date', { ascending: false, nullsFirst: false })
     setShows(data ?? [])
     setLoading(false)
   }
@@ -88,7 +88,7 @@ export default function ShowsPage() {
       city: form.city || null,
       state: form.state || null,
       country: form.country || null,
-      date: form.date || null,
+      event_date: form.date || null,
       status: form.status,
       role: form.role,
       headline_act: form.headline_act || null,
