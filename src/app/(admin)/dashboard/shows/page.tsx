@@ -122,9 +122,9 @@ export default function ShowsPage() {
   }
 
   const upcoming = shows.filter(s => s.status === 'upcoming').sort((a, b) => {
-    if (!a.date) return 1
-    if (!b.date) return -1
-    return a.date.localeCompare(b.date)
+    if (!a.event_date) return 1
+    if (!b.event_date) return -1
+    return a.event_date.localeCompare(b.event_date)
   })
   const past = shows.filter(s => s.status !== 'upcoming')
   const totalGuarantee = past.reduce((sum, s) => sum + (s.guarantee ?? 0), 0)
