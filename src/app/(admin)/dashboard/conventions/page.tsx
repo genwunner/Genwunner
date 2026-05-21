@@ -20,6 +20,7 @@ interface Convention {
   past_performers: string | null
   tier: 'S' | 'A' | 'B' | 'C'
   pokemon_friendly: boolean
+  performed_here: boolean
   score: number
   status: 'researching' | 'applied' | 'confirmed' | 'skip'
   city_fan_density: number
@@ -67,6 +68,8 @@ function computeScore(con: Partial<Convention>): number {
   score += tierBonus[con.tier ?? 'B'] ?? 8
   // Pokémon friendly (0-10 pts)
   if (con.pokemon_friendly) score += 10
+  // Performed here bonus (0-10 pts)
+  if (con.performed_here) score += 10
   // Submission deadline not passed (0-10 pts)
   if (con.submission_deadline) {
     const deadline = new Date(con.submission_deadline)
@@ -373,6 +376,7 @@ genwunnermgmt@gmail.com`
                       <span className="font-semibold text-sm">{con.name}</span>
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${TIER_COLORS[con.tier]}`}>Tier {con.tier}</span>
                       {con.pokemon_friendly && <span className="text-xs bg-yellow-50 text-yellow-600 border border-yellow-200 px-2 py-0.5 rounded-full">Pokémon ✓</span>}
+                      {con.performed_here && <span className="text-xs bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded-full">Performed here</span>}
                       <span className={`text-xs px-2 py-0.5 rounded-full ${STATUS_COLORS[con.status]}`}>{con.status}</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs text-black/40 flex-wrap">
@@ -435,6 +439,7 @@ genwunnermgmt@gmail.com`
                           <p>Fan density: {Math.min(con.city_fan_density ?? 0, 30)}/30 pts</p>
                           <p>Tier {con.tier}: {({ S: 20, A: 15, B: 8, C: 3 }[con.tier])} pts</p>
                           <p>Pokémon friendly: {con.pokemon_friendly ? '+10' : '0'} pts</p>
+                          <p>Performed here: {con.performed_here ? '+10' : '0'} pts</p>
                           {con.travel_cost_estimate && <p>Travel cost: -{con.travel_cost_estimate > 2000 ? 10 : con.travel_cost_estimate > 1000 ? 5 : 2} pts</p>}
                         </div>
                       </div>
