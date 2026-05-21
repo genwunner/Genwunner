@@ -394,12 +394,37 @@ genwunnermgmt@gmail.com`
                 {/* Expanded */}
                 {isExpanded && (
                   <div className="border-t border-black/8 bg-black/2 px-5 py-4 space-y-4">
+
+                    {/* Apply + Contact — prominent action row */}
+                    <div className="flex flex-wrap gap-3">
+                      {con.submission_url ? (
+                        <a
+                          href={con.submission_url}
+                          target="_blank"
+                          rel="noopener"
+                          className="inline-flex items-center gap-2 bg-black text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-black/80 transition-colors"
+                        >
+                          Apply / Submit →
+                        </a>
+                      ) : (
+                        <span className="inline-flex items-center text-sm text-black/30 px-4 py-2 border border-dashed border-black/20 rounded-lg">No apply link yet</span>
+                      )}
+                      {con.booking_email ? (
+                        <a
+                          href={`mailto:${con.booking_email}`}
+                          className="inline-flex items-center gap-2 border border-black/20 text-sm font-medium px-4 py-2 rounded-lg hover:bg-black/5 transition-colors"
+                        >
+                          ✉ {con.booking_email}
+                        </a>
+                      ) : (
+                        <span className="inline-flex items-center text-sm text-black/30 px-4 py-2 border border-dashed border-black/20 rounded-lg">No booking email yet</span>
+                      )}
+                    </div>
+
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         {con.venue && <p className="text-black/60 mb-1"><span className="font-medium">Venue:</span> {con.venue}</p>}
                         {con.organization && <p className="text-black/60 mb-1"><span className="font-medium">Org:</span> {con.organization}</p>}
-                        {con.booking_email && <p className="text-black/60 mb-1"><span className="font-medium">Booking:</span> <a href={`mailto:${con.booking_email}`} className="underline hover:text-black">{con.booking_email}</a></p>}
-                        {con.submission_url && <p className="text-black/60 mb-1"><span className="font-medium">Apply:</span> <a href={con.submission_url} target="_blank" rel="noopener" className="underline hover:text-black">Submission link →</a></p>}
                         {con.secondary_contacts && <p className="text-black/60 mb-1"><span className="font-medium">Other contacts:</span> {con.secondary_contacts}</p>}
                         {con.past_performers && <p className="text-black/60 mb-1"><span className="font-medium">Past performers:</span> {con.past_performers}</p>}
                         {con.notes && <p className="text-black/50 text-xs mt-2">{con.notes}</p>}
