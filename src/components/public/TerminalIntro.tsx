@@ -159,8 +159,8 @@ export default function TerminalIntro() {
       const ctx = getAudioCtx()
       const t   = ctx.currentTime
       if (kind === 'type') {
-        // MMBN-style text bleep — short square wave, consistent pitch
-        makeTone(ctx, t, 0.07, 880, 0.032, 'square')
+        // Subtle mechanical keypress — slight random pitch variation per keystroke
+        makeClick(ctx, t, 0.18, 2800 + Math.random() * 800, 0.025)
       } else if (kind === 'logo') {
         // Slightly crisper click for the RRR logo lines
         makeClick(ctx, t, 0.22, 3500, 0.03)
