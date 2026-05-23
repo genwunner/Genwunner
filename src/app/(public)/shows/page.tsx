@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
-import { performanceVenues, upcomingShows } from '@/data/content'
+import { upcomingShows } from '@/data/content'
 
 export const dynamic = 'force-dynamic'
 export const metadata = { title: 'City Raids | Genwunner' }
@@ -8,12 +8,13 @@ export const metadata = { title: 'City Raids | Genwunner' }
 export default async function ShowsPage() {
   const supabase = await createClient()
 
-  const [{ data: supabaseUpcoming }, { data: past }] = await Promise.all([
-    supabase.from('shows').select('*').eq('is_upcoming', true).order('event_date', { ascending: true }),
-    supabase.from('shows').select('*').eq('is_upcoming', false).order('event_date', { ascending: false }).limit(10),
-  ])
+  const { data: supabaseUpcoming } = await supabase
+    .from('shows')
+    .select('*')
+    .eq('status', 'upcoming')
+    .order('event_date', { ascending: true })
 
-  // Merge static shows with any Supabase shows, static first
+  // Merge static shows with DB upcoming shows, sorted by date
   const upcoming = [...upcomingShows, ...(supabaseUpcoming ?? [])].sort(
     (a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime()
   )
@@ -60,31 +61,6 @@ export default async function ShowsPage() {
             <Link href="/wunnerdex" className="btn-primary">Enlist Now →</Link>
           </div>
         )}
-
-        {past && past.length > 0 && (
-          <div className="mb-16">
-            <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: '#444', letterSpacing: '0.1em', marginBottom: '1.25rem' }}>// Past Operations: Territory Secured</div>
-            <div style={{ borderTop: '1px solid var(--color-brand-gray-mid)' }}>
-              {past.map((show: { id: string; event_date: string; city: string; title: string }) => (
-                <div key={show.id} className="flex items-center gap-4 py-3 border-b" style={{ borderColor: 'var(--color-brand-gray-mid)' }}>
-                  <span style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.34rem', color: '#444', letterSpacing: '0.05em', flexShrink: 0, minWidth: 100 }}>{new Date(show.event_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', letterSpacing: '0.04em', textTransform: 'uppercase', flex: 1, color: 'var(--color-brand-off)' }}>{show.title}</span>
-                  <span style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.34rem', color: '#444', letterSpacing: '0.04em' }}>{show.city}</span>
-                  <span style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.32rem', color: '#333', border: '1px solid #2a2a2a', padding: '0.2rem 0.5rem', letterSpacing: '0.06em', flexShrink: 0 }}>Secured</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="p-8 mb-16" style={{ background: 'var(--color-brand-gray)', border: '1px solid var(--color-brand-gray-mid)' }}>
-          <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.8rem', fontWeight: 700, color: '#888', letterSpacing: '0.1em', marginBottom: '1rem' }}>// Previously Raided Venues</div>
-          <div className="flex flex-wrap gap-2">
-            {performanceVenues.map(v => (
-              <span key={v} style={{ fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--color-brand-off)', background: 'var(--color-brand-black)', border: '1px solid var(--color-brand-gray-mid)', padding: '0.35rem 0.75rem' }}>{v}</span>
-            ))}
-          </div>
-        </div>
 
         <div className="p-10 text-center" style={{ background: 'var(--color-brand-red)' }}>
           <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.8rem', fontWeight: 700, color: 'rgba(255,255,255,0.85)', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>// Request an Operative</p>

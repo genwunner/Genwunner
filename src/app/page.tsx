@@ -74,7 +74,7 @@ export default async function HomePage() {
   const { data: supabaseShows } = await supabase
     .from('shows')
     .select('*')
-    .eq('is_upcoming', true)
+    .eq('status', 'upcoming')
     .order('event_date', { ascending: true })
 
   const shows = [...upcomingShows, ...(supabaseShows ?? [])]
