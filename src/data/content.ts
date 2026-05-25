@@ -103,6 +103,16 @@ export const socialLinks = {
 
 export const upcomingShows = [
   {
+    id: 'bit-0',
+    event_date: '2026-10-02',
+    title: 'EU TOUR: DUBLIN',
+    city: 'Dublin, Ireland',
+    venue: 'Sugar Club',
+    event_type: 'Tour',
+    ticket_url: '',
+    is_upcoming: true,
+  },
+  {
     id: 'bit-1',
     event_date: '2026-10-02',
     title: 'EU TOUR: BIRMINGHAM',
