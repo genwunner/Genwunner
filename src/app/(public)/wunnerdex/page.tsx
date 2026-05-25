@@ -119,7 +119,7 @@ export default function WunnerdexPage() {
             <button type="submit" disabled={loading} className="btn-primary w-full py-4" style={{ opacity: loading ? 0.6 : 1 }}>
               {loading ? 'Transmitting...' : '[ REPORT FOR DUTY ]'}
             </button>
-            <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.32rem', color: '#333', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 2 }}>
+            <p style={{ fontFamily: '"Courier New", monospace', fontSize: '0.72rem', color: '#880000', textAlign: 'center', letterSpacing: '0.06em', lineHeight: 2, marginTop: '1rem' }}>
               WUNNERDEX v1.0 · PROPERTY OF TEAM ROCKET · KANTO DIVISION<br />
               GIOVANNI IS WATCHING · NO SPAM · JUST DROPS AND RAIDS
             </p>
