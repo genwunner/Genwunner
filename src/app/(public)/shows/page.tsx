@@ -20,6 +20,7 @@ export default async function ShowsPage() {
   // Merge static and DB upcoming shows, deduplicate by date+city, sort ascending
   const upcoming = [...upcomingShows, ...(supabaseUpcoming ?? [])]
     .filter(s => s.event_date >= today)
+    .filter(s => !s.title?.toUpperCase().includes('PHANTOM BURIAL'))
     .filter((show, index, self) =>
       index === self.findIndex(s => s.event_date === show.event_date && s.city === show.city)
     )

@@ -82,6 +82,7 @@ export default async function HomePage() {
 
   const shows = [...upcomingShows, ...(supabaseShows ?? [])]
     .filter(s => s.event_date >= today)
+    .filter(s => !s.title?.toUpperCase().includes('PHANTOM BURIAL'))
     .filter((show, index, self) =>
       index === self.findIndex(s => s.event_date === show.event_date && s.city === show.city)
     )
