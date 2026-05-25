@@ -227,17 +227,18 @@ export default function BookPage() {
             </button>
 
             <p style={{
-              fontFamily: 'var(--font-pixel)',
-              fontSize: '0.32rem',
-              color: '#444',
+              fontFamily: '"Courier New", monospace',
+              fontSize: '0.75rem',
+              color: '#880000',
               textAlign: 'center',
               letterSpacing: '0.06em',
               lineHeight: 2,
+              marginTop: '1rem',
             }}>
               Urgent deployments:{' '}
               <a
                 href="mailto:genwunnermgmt@gmail.com"
-                style={{ color: 'var(--color-brand-red)', opacity: 0.7 }}
+                style={{ color: 'var(--color-brand-red)' }}
               >
                 genwunnermgmt@gmail.com
               </a>
