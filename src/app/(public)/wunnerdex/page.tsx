@@ -41,9 +41,21 @@ export default function WunnerdexPage() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2 justify-center mb-10">
+        {/* ── Perks tags — bigger and brighter ── */}
+        <div className="flex flex-wrap gap-3 justify-center mb-10">
           {['Early merch access', 'City raid alerts', 'Secret links', 'Fan challenges', 'Unreleased previews'].map(perk => (
-            <span key={perk} style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.36rem', letterSpacing: '0.06em', color: 'var(--color-brand-red)', background: 'rgba(227,0,15,0.06)', border: '1px solid rgba(227,0,15,0.3)', padding: '0.3rem 0.65rem' }}>▶ {perk}</span>
+            <span key={perk} style={{
+              fontFamily: '"Courier New", monospace',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              letterSpacing: '0.06em',
+              color: '#cc0000',
+              background: '#0a0000',
+              border: '1px solid #550000',
+              padding: '0.5rem 1rem',
+            }}>
+              ▶ {perk}
+            </span>
           ))}
         </div>
 
