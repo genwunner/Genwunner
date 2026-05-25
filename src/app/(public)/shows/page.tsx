@@ -17,8 +17,12 @@ export default async function ShowsPage() {
     .gte('event_date', today)
     .order('event_date', { ascending: true })
 
-  // Merge static and DB upcoming shows, both already filtered to future dates
-  const upcoming = [...upcomingShows.filter(s => s.event_date >= today), ...(supabaseUpcoming ?? [])]
+  // Merge static and DB upcoming shows, deduplicate by date+city, sort ascending
+  const upcoming = [...upcomingShows, ...(supabaseUpcoming ?? [])]
+    .filter(s => s.event_date >= today)
+    .filter((show, index, self) =>
+      index === self.findIndex(s => s.event_date === show.event_date && s.city === show.city)
+    )
     .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime())
 
   return (

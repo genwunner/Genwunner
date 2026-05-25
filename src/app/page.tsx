@@ -80,7 +80,11 @@ export default async function HomePage() {
     .gte('event_date', today)
     .order('event_date', { ascending: true })
 
-  const shows = [...upcomingShows.filter(s => s.event_date >= today), ...(supabaseShows ?? [])]
+  const shows = [...upcomingShows, ...(supabaseShows ?? [])]
+    .filter(s => s.event_date >= today)
+    .filter((show, index, self) =>
+      index === self.findIndex(s => s.event_date === show.event_date && s.city === show.city)
+    )
     .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime())
     .slice(0, 4)
 
