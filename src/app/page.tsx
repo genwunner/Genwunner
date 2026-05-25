@@ -77,7 +77,10 @@ export default async function HomePage() {
     .eq('status', 'upcoming')
     .order('event_date', { ascending: true })
 
+  const today = new Date().toISOString().split('T')[0]
+
   const shows = [...upcomingShows, ...(supabaseShows ?? [])]
+    .filter(s => s.event_date >= today)
     .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime())
     .slice(0, 4)
 

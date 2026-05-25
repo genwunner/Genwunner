@@ -14,10 +14,12 @@ export default async function ShowsPage() {
     .eq('status', 'upcoming')
     .order('event_date', { ascending: true })
 
-  // Merge static shows with DB upcoming shows, sorted by date
-  const upcoming = [...upcomingShows, ...(supabaseUpcoming ?? [])].sort(
-    (a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime()
-  )
+  const today = new Date().toISOString().split('T')[0]
+
+  // Merge static shows with DB upcoming shows, filter past dates, sorted by date
+  const upcoming = [...upcomingShows, ...(supabaseUpcoming ?? [])]
+    .filter(s => s.event_date >= today)
+    .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime())
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--color-brand-black)', color: 'var(--color-brand-white)' }}>
