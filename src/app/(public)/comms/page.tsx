@@ -28,7 +28,7 @@ export default function DiscordPage() {
   const activeChannelData = CHANNELS.find(c => c.id === activeChannel) || CHANNELS[0]
 
   return (
-    <div style={{ minHeight: '100vh', background: '#000', color: '#cc0000', fontFamily: '"Courier New", Courier, monospace' }}>
+    <div style={{ minHeight: '100vh', background: '#000', color: '#cc0000', fontFamily: '"Courier New", Courier, monospace', paddingBottom: '2rem' }}>
 
       {/* ── PAGE HEADER ── */}
       <div style={{ borderBottom: '1px solid #1a0000', padding: '2rem 1.5rem 1.5rem' }}>
@@ -88,7 +88,7 @@ export default function DiscordPage() {
       {/* ── MAIN LAYOUT — desktop ── */}
       <div
         className="hidden sm:grid"
-        style={{ gridTemplateColumns: '240px 1fr', height: 560, borderBottom: '1px solid #1a0000' }}
+        style={{ gridTemplateColumns: '240px 1fr', height: 500, maxHeight: '60vh', borderBottom: '1px solid #1a0000' }}
       >
         {/* LEFT — Channel selector */}
         <div style={{ borderRight: '1px solid #1a0000', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -246,7 +246,7 @@ export default function DiscordPage() {
       </div>
 
       {/* ── ENLIST CTA ── */}
-      <div style={{ padding: '2rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1.25rem', borderBottom: '1px solid #1a0000', background: '#030000' }}>
+      <div style={{ padding: '2rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1.25rem', borderBottom: '1px solid #1a0000', background: '#030000', position: 'relative', zIndex: 10 }}>
         <div>
           <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#880000', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>// NOT IN THE WUNNERDEX YET?</div>
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(1.1rem, 2.5vw, 1.7rem)', fontWeight: 700, color: '#cc0000', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
@@ -261,6 +261,8 @@ export default function DiscordPage() {
         </a>
       </div>
 
+      <div className="md:hidden" style={{ height: '5rem' }} />
+
       <style>{`
         @keyframes terminal-blink { 0%,49% { opacity:1; } 50%,100% { opacity:0; } }
         @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
@@ -268,8 +270,6 @@ export default function DiscordPage() {
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #330000; }
       `}</style>
-
-      <div style={{ height: '4rem' }} className="md:hidden" />
     </div>
   )
 }
