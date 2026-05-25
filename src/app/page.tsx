@@ -71,16 +71,16 @@ function TermHead({
 
 export default async function HomePage() {
   const supabase = await createClient()
+  const today = new Date().toISOString().split('T')[0]
+
   const { data: supabaseShows } = await supabase
     .from('shows')
     .select('*')
     .eq('status', 'upcoming')
+    .gte('event_date', today)
     .order('event_date', { ascending: true })
 
-  const today = new Date().toISOString().split('T')[0]
-
-  const shows = [...upcomingShows, ...(supabaseShows ?? [])]
-    .filter(s => s.event_date >= today)
+  const shows = [...upcomingShows.filter(s => s.event_date >= today), ...(supabaseShows ?? [])]
     .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime())
     .slice(0, 4)
 

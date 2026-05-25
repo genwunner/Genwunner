@@ -8,17 +8,17 @@ export const metadata = { title: 'City Raids | Genwunner' }
 export default async function ShowsPage() {
   const supabase = await createClient()
 
+  const today = new Date().toISOString().split('T')[0]
+
   const { data: supabaseUpcoming } = await supabase
     .from('shows')
     .select('*')
     .eq('status', 'upcoming')
+    .gte('event_date', today)
     .order('event_date', { ascending: true })
 
-  const today = new Date().toISOString().split('T')[0]
-
-  // Merge static shows with DB upcoming shows, filter past dates, sorted by date
-  const upcoming = [...upcomingShows, ...(supabaseUpcoming ?? [])]
-    .filter(s => s.event_date >= today)
+  // Merge static and DB upcoming shows, both already filtered to future dates
+  const upcoming = [...upcomingShows.filter(s => s.event_date >= today), ...(supabaseUpcoming ?? [])]
     .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime())
 
   return (
