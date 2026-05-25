@@ -36,7 +36,7 @@ export default function WunnerdexPage() {
         <div className="text-center mb-10">
           <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.4rem', color: 'var(--color-brand-red)', letterSpacing: '0.15em', marginBottom: '0.75rem' }}>// 006 · GRUNT REGISTRATION</p>
           <h1 className="section-title" style={{ fontSize: 'clamp(3rem, 10vw, 6rem)' }}>THE WUNNERDEX</h1>
-          <p className="mt-4" style={{ fontSize: '0.88rem', color: 'var(--color-brand-off)', lineHeight: 1.75, maxWidth: 420, margin: '1rem auto 0' }}>
+          <p className="mt-4" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', color: '#880000', lineHeight: 1.8, maxWidth: 420, margin: '1rem auto 0', letterSpacing: '0.04em' }}>
             Giovanni keeps records on every operative. Register your trainer data. Get drops, shows, and secret links before the civilians.
           </p>
         </div>
@@ -113,7 +113,7 @@ export default function WunnerdexPage() {
             </div>
             <label className="flex items-start gap-3 cursor-pointer p-4" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--color-brand-gray-mid)' }}>
               <input type="checkbox" name="want_in_city" value="true" className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ accentColor: 'var(--color-brand-red)' }} />
-              <span style={{ fontSize: '0.82rem', color: 'var(--color-brand-off)', lineHeight: 1.65 }}>I want Genwunner to raid my city. Deploy a show or pop-up.</span>
+              <span style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', color: '#880000', lineHeight: 1.65, letterSpacing: '0.04em' }}>I want Genwunner to raid my city. Deploy a show or pop-up.</span>
             </label>
             {error && <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '0.38rem', color: '#f87171', letterSpacing: '0.06em' }}>⚠ {error}</p>}
             <button type="submit" disabled={loading} className="btn-primary w-full py-4" style={{ opacity: loading ? 0.6 : 1 }}>

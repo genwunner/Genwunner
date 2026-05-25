@@ -25,11 +25,13 @@ export default function MerchPage() {
             SUPPLY DROP
           </h1>
           <p className="mt-4" style={{
-            fontFamily: 'var(--font-pixel)',
-            fontSize: '0.38rem',
-            color: 'var(--color-brand-off)',
-            letterSpacing: '0.08em',
-            lineHeight: 2,
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.85rem',
+            color: '#880000',
+            letterSpacing: '0.05em',
+            lineHeight: 1.8,
+            margin: '1rem auto 0',
+            maxWidth: 400,
           }}>
             Official Rocket Recruitment Regime gear.<br />
             Acquire your uniform. Represent the regime.
@@ -119,12 +121,12 @@ export default function MerchPage() {
           border: '1px solid var(--color-brand-gray-mid)',
         }}>
           <p style={{
-            fontFamily: 'var(--font-pixel)',
-            fontSize: '0.38rem',
-            color: 'var(--color-brand-off)',
-            letterSpacing: '0.1em',
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.75rem',
+            color: '#880000',
+            letterSpacing: '0.08em',
             marginBottom: '1rem',
-            lineHeight: 2,
+            lineHeight: 1.8,
           }}>
             Full inventory · size guides · order tracking
           </p>

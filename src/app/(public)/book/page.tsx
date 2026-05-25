@@ -82,11 +82,13 @@ export default function BookPage() {
             DEPLOY<br />GENWUNNER
           </h1>
           <p className="mt-4" style={{
-            fontSize: '0.88rem',
-            color: 'var(--color-brand-off)',
-            lineHeight: 1.75,
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.85rem',
+            color: '#880000',
+            lineHeight: 1.8,
             maxWidth: 420,
             margin: '1rem auto 0',
+            letterSpacing: '0.04em',
           }}>
             Conventions · gaming events · college shows · brand activations · fan meetups.
             Serious deployment requests only.
