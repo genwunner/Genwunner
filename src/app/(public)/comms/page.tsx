@@ -125,13 +125,7 @@ export default function DiscordPage() {
                 }}>
                   {ch.label}
                 </div>
-                <div style={{
-                  fontFamily: '"Courier New", monospace',
-                  fontSize: '0.62rem',
-                  color: '#880000',
-                  letterSpacing: '0.04em',
-                  lineHeight: 1.5,
-                }}>
+                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.68rem', color: '#aa0000', letterSpacing: '0.04em', lineHeight: 1.5 }}>
                   {ch.desc}
                 </div>
               </button>
@@ -231,8 +225,11 @@ export default function DiscordPage() {
         </div>
       </div>
 
-      {/* ── BOTTOM INFO STRIP ── */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: '#1a0000', borderBottom: '1px solid #1a0000' }}>
+      {/* ── BOTTOM INFO STRIP — stacks on mobile, 3 cols on desktop ── */}
+      <div
+        className="grid grid-cols-1 sm:grid-cols-3"
+        style={{ gap: '1px', background: '#1a0000', borderBottom: '1px solid #1a0000' }}
+      >
         {[
           { label: '// What is this',      body: 'Team Rocket HQ is the live command center for the Rocket Recruitment Regime. Direct comms, city raid alerts, supply drops, classified intel.' },
           { label: '// The Vault',          body: 'Wunnerdex-registered operatives unlock #the-vault — exclusive content, early previews, classified drops. Enlist at genwunner.com/wunnerdex.' },
