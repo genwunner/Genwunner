@@ -77,11 +77,11 @@ export default function ContactPage() {
             INTEL
           </h1>
           <p className="mt-4" style={{
-            fontFamily: 'var(--font-pixel)',
-            fontSize: '0.36rem',
-            color: 'var(--color-brand-off)',
-            letterSpacing: '0.08em',
-            lineHeight: 2,
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.85rem',
+            color: '#880000',
+            letterSpacing: '0.06em',
+            lineHeight: 1.8,
           }}>
             Use the right channel. Giovanni reads everything.
           </p>
@@ -92,7 +92,7 @@ export default function ContactPage() {
           {channels.map((ch, i) => (
             <div
               key={ch.title}
-              className="group flex flex-col sm:flex-row items-start sm:items-center gap-5 py-5 border-b"
+              className="group flex flex-col sm:flex-row items-start sm:items-center gap-5 py-6 border-b"
               style={{ borderColor: 'var(--color-brand-gray-mid)', position: 'relative' }}
             >
               {/* Red slash on hover */}
@@ -104,8 +104,9 @@ export default function ContactPage() {
               {/* Number */}
               <div className="flex-shrink-0" style={{ minWidth: 32 }}>
                 <span style={{
-                  fontFamily: 'var(--font-pixel)',
-                  fontSize: '0.38rem',
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
                   color: 'var(--color-brand-red)',
                   letterSpacing: '0.05em',
                 }}>
@@ -117,8 +118,9 @@ export default function ContactPage() {
               <div className="flex-1">
                 <div className="flex items-baseline gap-3 flex-wrap">
                   <h3 style={{
-                    fontFamily: 'var(--font-display)',
+                    fontFamily: '"Courier New", monospace',
                     fontSize: 'clamp(1.2rem, 2.5vw, 1.6rem)',
+                    fontWeight: 700,
                     letterSpacing: '0.04em',
                     textTransform: 'uppercase',
                     color: 'var(--color-brand-white)',
@@ -126,18 +128,19 @@ export default function ContactPage() {
                     {ch.title}
                   </h3>
                   <span style={{
-                    fontFamily: 'var(--font-pixel)',
-                    fontSize: '0.34rem',
-                    color: 'var(--color-brand-off)',
+                    fontFamily: '"Courier New", monospace',
+                    fontSize: '0.7rem',
+                    fontWeight: 700,
+                    color: '#880000',
                     letterSpacing: '0.06em',
                   }}>
                     // {ch.sub}
                   </span>
                 </div>
                 <p className="mt-1" style={{
-                  fontFamily: 'var(--font-pixel)',
-                  fontSize: '0.34rem',
-                  color: 'var(--color-brand-off)',
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '0.75rem',
+                  color: '#880000',
                   letterSpacing: '0.04em',
                   lineHeight: 1.8,
                 }}>
@@ -153,12 +156,7 @@ export default function ContactPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={ch.primary ? 'btn-primary' : 'btn-outline'}
-                    style={{
-                      fontFamily: 'var(--font-pixel)',
-                      fontSize: '0.38rem',
-                      whiteSpace: 'nowrap',
-                      flexShrink: 0,
-                    }}
+                    style={{ whiteSpace: 'nowrap', flexShrink: 0 }}
                   >
                     {ch.cta}
                   </a>
@@ -166,12 +164,7 @@ export default function ContactPage() {
                   <Link
                     href={ch.href}
                     className={ch.primary ? 'btn-primary' : 'btn-outline'}
-                    style={{
-                      fontFamily: 'var(--font-pixel)',
-                      fontSize: '0.38rem',
-                      whiteSpace: 'nowrap',
-                      flexShrink: 0,
-                    }}
+                    style={{ whiteSpace: 'nowrap', flexShrink: 0 }}
                   >
                     {ch.cta}
                   </Link>
@@ -180,12 +173,7 @@ export default function ContactPage() {
                 <a
                   href={`mailto:${'email' in ch ? ch.email : ''}`}
                   className="btn-outline"
-                  style={{
-                    fontFamily: 'var(--font-pixel)',
-                    fontSize: '0.38rem',
-                    whiteSpace: 'nowrap',
-                    flexShrink: 0,
-                  }}
+                  style={{ whiteSpace: 'nowrap', flexShrink: 0 }}
                 >
                   {ch.cta}
                 </a>
@@ -200,9 +188,10 @@ export default function ContactPage() {
           border: '1px solid var(--color-brand-gray-mid)',
         }}>
           <p style={{
-            fontFamily: 'var(--font-pixel)',
-            fontSize: '0.38rem',
-            color: 'var(--color-brand-off)',
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            color: '#880000',
             letterSpacing: '0.1em',
             marginBottom: '0.75rem',
           }}>
@@ -211,20 +200,20 @@ export default function ContactPage() {
           <a
             href="mailto:genwunnermgmt@gmail.com"
             style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(1.2rem, 2.5vw, 1.6rem)',
+              fontFamily: '"Courier New", monospace',
+              fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
+              fontWeight: 700,
               letterSpacing: '0.05em',
               color: 'var(--color-brand-red)',
-              transition: 'color 0.15s',
+              textDecoration: 'none',
             }}
-            className="hover:!text-[var(--color-brand-red-dark)]"
           >
             genwunnermgmt@gmail.com
           </a>
-          <p className="mt-3" style={{
-            fontFamily: 'var(--font-pixel)',
-            fontSize: '0.34rem',
-            color: '#444',
+          <p className="mt-4" style={{
+            fontFamily: '"Courier New", monospace',
+            fontSize: '0.75rem',
+            color: '#880000',
             letterSpacing: '0.06em',
             lineHeight: 2,
           }}>

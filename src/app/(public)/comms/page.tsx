@@ -1,18 +1,16 @@
 'use client'
 
 // src/app/(public)/comms/page.tsx
-// RRR Discord page — Widgetbot live embed + terminal aesthetic
-
 import { useEffect, useState } from 'react'
 
-const SERVER_ID  = '1387304356810068110'
+const SERVER_ID = '1387304356810068110'
 
 const CHANNELS = [
-  { id: '1504613787632799744', label: "#giovanni's-journal", desc: 'Direct transmissions from Genwunner'         },
-  { id: '1504614368732774441', label: '#team-rocket-hq',     desc: 'General — the crew'                          },
-  { id: '1504613383067013161', label: '#city-raids',         desc: 'Show announcements & raid reports'           },
-  { id: '1504613417200124025', label: '#supply-drops',       desc: 'Merch drops & collector editions'            },
-  { id: '1504613454261125280', label: '#grunt-intros',       desc: 'New operative introductions'                 },
+  { id: '1504613787632799744', label: "#giovanni's-journal", desc: 'Direct transmissions from Genwunner'     },
+  { id: '1504614368732774441', label: '#team-rocket-hq',     desc: 'General — the crew'                      },
+  { id: '1504613383067013161', label: '#city-raids',         desc: 'Show announcements & raid reports'       },
+  { id: '1504613417200124025', label: '#supply-drops',       desc: 'Merch drops & collector editions'        },
+  { id: '1504613454261125280', label: '#grunt-intros',       desc: 'New operative introductions'             },
 ]
 
 export default function DiscordPage() {
@@ -34,16 +32,16 @@ export default function DiscordPage() {
 
       {/* ── PAGE HEADER ── */}
       <div style={{ borderBottom: '1px solid #1a0000', padding: '2rem 1.5rem 1.5rem' }}>
-        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#660000', letterSpacing: '0.15em', marginBottom: '0.75rem' }}>
+        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#880000', letterSpacing: '0.15em', marginBottom: '0.75rem' }}>
           // TEAM ROCKET HQ · LIVE COMMS · ROCKET RECRUITMENT REGIME
         </div>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <h1 style={{
               margin: '0 0 0.25rem',
-              fontFamily: 'var(--font-heading), "Courier New", Courier, monospace',
+              fontFamily: '"Courier New", Courier, monospace',
               fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-              fontWeight: 400,
+              fontWeight: 700,
               color: '#cc0000',
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
@@ -69,15 +67,18 @@ export default function DiscordPage() {
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+          {/* Online count */}
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '1.2rem', fontWeight: 700, color: '#ff5555', lineHeight: 1 }}>
+              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '1.4rem', fontWeight: 700, color: '#ff5555', lineHeight: 1 }}>
                 {onlineCount !== null ? `${onlineCount}` : '—'}
               </div>
-              <div style={{ fontSize: '0.5rem', color: '#660000', letterSpacing: '0.08em', marginTop: 2 }}>ONLINE NOW</div>
+              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', fontWeight: 700, color: '#880000', letterSpacing: '0.08em', marginTop: 4 }}>
+                ONLINE NOW
+              </div>
             </div>
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#44cc44', boxShadow: '0 0 8px rgba(68,204,68,0.8)', animation: 'pulse 2s ease infinite' }} />
-            <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#44cc44', letterSpacing: '0.1em', fontWeight: 700 }}>
+            <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#44cc44', boxShadow: '0 0 8px rgba(68,204,68,0.8)', animation: 'pulse 2s ease infinite', flexShrink: 0 }} />
+            <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.75rem', fontWeight: 700, color: '#44cc44', letterSpacing: '0.1em' }}>
               LIVE
             </div>
           </div>
@@ -87,15 +88,11 @@ export default function DiscordPage() {
       {/* ── MAIN LAYOUT — desktop ── */}
       <div
         className="hidden sm:grid"
-        style={{
-          gridTemplateColumns: '220px 1fr',
-          height: 560,
-          borderBottom: '1px solid #1a0000',
-        }}
+        style={{ gridTemplateColumns: '240px 1fr', height: 560, borderBottom: '1px solid #1a0000' }}
       >
         {/* LEFT — Channel selector */}
         <div style={{ borderRight: '1px solid #1a0000', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-          <div style={{ padding: '0.75rem 1rem', borderBottom: '1px solid #0d0000', fontSize: '0.6rem', fontWeight: 700, color: '#660000', letterSpacing: '0.12em' }}>
+          <div style={{ padding: '0.75rem 1rem', borderBottom: '1px solid #0d0000', fontSize: '0.65rem', fontWeight: 700, color: '#880000', letterSpacing: '0.12em' }}>
             // CHANNELS
           </div>
 
@@ -110,7 +107,7 @@ export default function DiscordPage() {
                   border: 'none',
                   borderBottom: '1px solid #080000',
                   borderLeft: activeChannel === ch.id ? '2px solid #e3000f' : '2px solid transparent',
-                  padding: '0.75rem 1rem',
+                  padding: '0.85rem 1rem',
                   textAlign: 'left',
                   cursor: 'pointer',
                   transition: 'all 0.12s',
@@ -118,10 +115,23 @@ export default function DiscordPage() {
                 onMouseEnter={e => { if (activeChannel !== ch.id) (e.currentTarget as HTMLElement).style.background = '#060000' }}
                 onMouseLeave={e => { if (activeChannel !== ch.id) (e.currentTarget as HTMLElement).style.background = 'transparent' }}
               >
-                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.72rem', color: activeChannel === ch.id ? '#e3000f' : '#880000', letterSpacing: '0.05em', fontWeight: activeChannel === ch.id ? 700 : 400, marginBottom: '0.2rem' }}>
+                <div style={{
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '0.78rem',
+                  fontWeight: 700,
+                  color: activeChannel === ch.id ? '#e3000f' : '#cc0000',
+                  letterSpacing: '0.05em',
+                  marginBottom: '0.3rem',
+                }}>
                   {ch.label}
                 </div>
-                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#550000', letterSpacing: '0.04em', lineHeight: 1.4 }}>
+                <div style={{
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '0.62rem',
+                  color: '#880000',
+                  letterSpacing: '0.04em',
+                  lineHeight: 1.5,
+                }}>
                   {ch.desc}
                 </div>
               </button>
@@ -136,7 +146,7 @@ export default function DiscordPage() {
               style={{
                 display: 'block',
                 fontFamily: '"Courier New", monospace',
-                fontSize: '0.6rem',
+                fontSize: '0.65rem',
                 fontWeight: 700,
                 letterSpacing: '0.1em',
                 color: '#000',
@@ -148,7 +158,7 @@ export default function DiscordPage() {
                 textTransform: 'uppercase',
               }}
             >
-              join the regime
+              [ JOIN THE REGIME ]
             </a>
           </div>
         </div>
@@ -157,10 +167,10 @@ export default function DiscordPage() {
         <div style={{ position: 'relative', background: '#000' }}>
           {!loaded && (
             <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#000', zIndex: 2 }}>
-              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#440000', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#660000', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
                 &gt; CONNECTING TO {activeChannelData.label.toUpperCase()}...
               </div>
-              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#280000', letterSpacing: '0.08em' }}>
+              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.55rem', color: '#440000', letterSpacing: '0.08em' }}>
                 &gt; ESTABLISHING SECURE UPLINK...
               </div>
             </div>
@@ -178,7 +188,6 @@ export default function DiscordPage() {
 
       {/* ── MAIN LAYOUT — mobile ── */}
       <div className="sm:hidden" style={{ borderBottom: '1px solid #1a0000' }}>
-        {/* Horizontal channel tabs */}
         <div style={{ display: 'flex', overflowX: 'auto', borderBottom: '1px solid #0d0000', scrollbarWidth: 'none' }}>
           {CHANNELS.map(ch => (
             <button
@@ -192,8 +201,8 @@ export default function DiscordPage() {
                 padding: '0.65rem 0.85rem',
                 cursor: 'pointer',
                 fontFamily: '"Courier New", monospace',
-                fontSize: '0.62rem',
-                color: activeChannel === ch.id ? '#e3000f' : '#770000',
+                fontSize: '0.65rem',
+                color: activeChannel === ch.id ? '#e3000f' : '#880000',
                 letterSpacing: '0.04em',
                 whiteSpace: 'nowrap',
                 fontWeight: activeChannel === ch.id ? 700 : 400,
@@ -203,11 +212,10 @@ export default function DiscordPage() {
             </button>
           ))}
         </div>
-        {/* Square iframe */}
         <div style={{ position: 'relative', background: '#000', width: '100%', aspectRatio: '1 / 1' }}>
           {!loaded && (
             <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000', zIndex: 2 }}>
-              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.6rem', color: '#440000', letterSpacing: '0.1em' }}>
+              <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#660000', letterSpacing: '0.1em' }}>
                 &gt; CONNECTING...
               </div>
             </div>
@@ -226,9 +234,9 @@ export default function DiscordPage() {
       {/* ── BOTTOM INFO STRIP ── */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: '#1a0000', borderBottom: '1px solid #1a0000' }}>
         {[
-          { label: '// What is this',       body: 'Team Rocket HQ is the live command center for the Rocket Recruitment Regime. Direct comms, city raid alerts, supply drops, classified intel.' },
-          { label: '// The Vault',           body: 'Wunnerdex-registered operatives unlock #the-vault — exclusive content, early previews, classified drops. Enlist at genwunner.com/wunnerdex.' },
-          { label: "// Giovanni's Journal",  body: 'Direct transmissions from Genwunner himself. Personal updates, behind the scenes, mission intel. The most direct line to the operative.' },
+          { label: '// What is this',      body: 'Team Rocket HQ is the live command center for the Rocket Recruitment Regime. Direct comms, city raid alerts, supply drops, classified intel.' },
+          { label: '// The Vault',          body: 'Wunnerdex-registered operatives unlock #the-vault — exclusive content, early previews, classified drops. Enlist at genwunner.com/wunnerdex.' },
+          { label: "// Giovanni's Journal", body: 'Direct transmissions from Genwunner himself. Personal updates, behind the scenes, mission intel. The most direct line to the operative.' },
         ].map(item => (
           <div key={item.label} style={{ background: '#000', padding: '1.5rem' }}>
             <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.6rem' }}>{item.label}</div>
@@ -240,7 +248,7 @@ export default function DiscordPage() {
       {/* ── ENLIST CTA ── */}
       <div style={{ padding: '2rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1.25rem', borderBottom: '1px solid #1a0000', background: '#030000' }}>
         <div>
-          <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#660000', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>// NOT IN THE WUNNERDEX YET?</div>
+          <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#880000', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>// NOT IN THE WUNNERDEX YET?</div>
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(1.1rem, 2.5vw, 1.7rem)', fontWeight: 700, color: '#cc0000', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
             Register to unlock #the-vault
           </div>
