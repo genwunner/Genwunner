@@ -96,18 +96,19 @@ export default function BookPage() {
         </div>
 
         {/* ── Deployment types ── */}
-        <div className="flex flex-wrap gap-2 justify-center mb-10">
+        <div className="flex flex-wrap gap-3 justify-center mb-10">
           {deploymentTypes.map(t => (
             <span
               key={t}
               style={{
-                fontFamily: 'var(--font-pixel)',
-                fontSize: '0.34rem',
+                fontFamily: '"Courier New", monospace',
+                fontSize: '0.75rem',
+                fontWeight: 700,
                 letterSpacing: '0.06em',
-                color: 'var(--color-brand-off)',
-                background: 'var(--color-brand-gray)',
-                border: '1px solid var(--color-brand-gray-mid)',
-                padding: '0.3rem 0.65rem',
+                color: '#cc0000',
+                background: '#0a0000',
+                border: '1px solid #550000',
+                padding: '0.5rem 1rem',
               }}
             >
               {t}

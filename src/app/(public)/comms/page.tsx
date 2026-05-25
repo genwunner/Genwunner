@@ -268,6 +268,8 @@ export default function DiscordPage() {
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #330000; }
       `}</style>
+
+      <div style={{ height: '4rem' }} className="md:hidden" />
     </div>
   )
 }
