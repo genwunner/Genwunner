@@ -33,7 +33,8 @@ export default function DiscordPage() {
       {/* ── PAGE HEADER ── */}
       <div style={{ borderBottom: '1px solid #1a0000', padding: '2rem 1.5rem 1.5rem' }}>
         <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#880000', letterSpacing: '0.15em', marginBottom: '0.75rem' }}>
-          // TEAM ROCKET HQ · LIVE COMMS · ROCKET RECRUITMENT REGIME
+          // TEAM ROCKET HQ · LIVE COMMS<br />
+          ROCKET RECRUITMENT REGIME
         </div>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
