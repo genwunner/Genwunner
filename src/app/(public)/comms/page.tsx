@@ -62,9 +62,6 @@ export default function DiscordPage() {
                 boxShadow: '0 0 8px rgba(227,0,15,0.7)',
               }} />
             </h1>
-            <p style={{ margin: 0, fontSize: '0.8rem', color: '#880000', letterSpacing: '0.1em', fontWeight: 700 }}>
-              Rocket Recruitment Regime · Kanto Division · Live
-            </p>
           </div>
 
           {/* Online count */}
