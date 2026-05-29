@@ -314,7 +314,68 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── SECTION 3: CITY RAIDS ── */}
+      {/* ── SECTION 3: SUPPLY DROP ── */}
+      <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+            // 003 · SUPPLY DROP
+          </div>
+          <TermHead text="SUPPLY DROP" size="lg" cursor={true} />
+          <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
+            &gt; Official Regime gear. Represent the RRR.
+          </div>
+        </div>
+
+        <div
+          className="grid grid-cols-2 sm:grid-cols-3"
+          style={{ gap: '1px', background: '#0d0000', border: '1px solid #0d0000', marginBottom: '1.25rem' }}
+        >
+          {products.slice(0, 6).map(p => (
+            <a
+              key={p.handle}
+              href={`https://genwunnr.myshopify.com/products/${p.handle}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group brand-card"
+              style={{ display: 'block', textDecoration: 'none', padding: 0 }}
+            >
+              <div style={{ position: 'relative', aspectRatio: '1 / 1', overflow: 'hidden' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+                  style={{ background: 'rgba(227,0,15,0.15)' }}
+                />
+                <div
+                  className="absolute left-0 top-0 bottom-0 scale-y-0 group-hover:scale-y-100 transition-transform duration-200 origin-bottom"
+                  style={{ width: 3, background: '#e3000f' }}
+                />
+              </div>
+              <div style={{ padding: '0.6rem', borderTop: '1px solid #0d0000', textAlign: 'center' }}>
+                <div
+                  className="group-hover:text-[#e3000f]"
+                  style={{ fontFamily: 'var(--font-heading), "Courier New", Courier, monospace', fontWeight: 400, fontSize: 'clamp(0.6rem, 1.6vw, 1.1rem)', color: '#cc0000', letterSpacing: '0.04em', textTransform: 'uppercase', lineHeight: 1.1, marginBottom: '0.25rem', transition: 'color 0.12s' }}
+                >
+                  {p.title}
+                </div>
+                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#e3000f', fontWeight: 700, letterSpacing: '0.06em' }}>
+                  {p.price}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div style={{ textAlign: 'center' }}>
+          <Link href="/merch" className="btn-outline">[ FULL SUPPLY DROP → ]</Link>
+        </div>
+      </section>
+
+      {/* ── SECTION 4: CITY RAIDS ── */}
       <section style={{ padding: '2.5rem 1.5rem', background: '#030000', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
@@ -413,68 +474,7 @@ export default async function HomePage() {
         </a>
       </section>
 
-      {/* ── SECTION 3: SUPPLY DROP ── */}
-      <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
-        <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
-            // 003 · SUPPLY DROP
-          </div>
-          <TermHead text="SUPPLY DROP" size="lg" cursor={true} />
-          <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
-            &gt; Official Regime gear. Represent the RRR.
-          </div>
-        </div>
-
-        <div
-          className="grid grid-cols-2 sm:grid-cols-3"
-          style={{ gap: '1px', background: '#0d0000', border: '1px solid #0d0000', marginBottom: '1.25rem' }}
-        >
-          {products.slice(0, 6).map(p => (
-            <a
-              key={p.handle}
-              href={`https://genwunnr.myshopify.com/products/${p.handle}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group brand-card"
-              style={{ display: 'block', textDecoration: 'none', padding: 0 }}
-            >
-              <div style={{ position: 'relative', aspectRatio: '1 / 1', overflow: 'hidden' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                />
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-                  style={{ background: 'rgba(227,0,15,0.15)' }}
-                />
-                <div
-                  className="absolute left-0 top-0 bottom-0 scale-y-0 group-hover:scale-y-100 transition-transform duration-200 origin-bottom"
-                  style={{ width: 3, background: '#e3000f' }}
-                />
-              </div>
-              <div style={{ padding: '0.6rem', borderTop: '1px solid #0d0000', textAlign: 'center' }}>
-                <div
-                  className="group-hover:text-[#e3000f]"
-                  style={{ fontFamily: 'var(--font-heading), "Courier New", Courier, monospace', fontWeight: 400, fontSize: 'clamp(0.6rem, 1.6vw, 1.1rem)', color: '#cc0000', letterSpacing: '0.04em', textTransform: 'uppercase', lineHeight: 1.1, marginBottom: '0.25rem', transition: 'color 0.12s' }}
-                >
-                  {p.title}
-                </div>
-                <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#e3000f', fontWeight: 700, letterSpacing: '0.06em' }}>
-                  {p.price}
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <div style={{ textAlign: 'center' }}>
-          <Link href="/merch" className="btn-outline">[ FULL SUPPLY DROP → ]</Link>
-        </div>
-      </section>
-
-      {/* ── SECTION 4: ENLISTMENT ── */}
+      {/* ── SECTION 5: ENLISTMENT ── */}
       <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(1.1rem, 3vw, 2rem)', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
