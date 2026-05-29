@@ -1,10 +1,51 @@
 // src/app/(public)/merch/page.tsx
 import Image from 'next/image'
-import { products } from '@/data/content'
+import { products as staticProducts } from '@/data/content'
 
 export const metadata = { title: 'Supply Drop | Genwunner · Rocket Recruitment Regime' }
 
-export default function MerchPage() {
+interface Product {
+  handle: string
+  title: string
+  tag: string
+  price: string
+  image: string
+}
+
+async function getLiveProducts(): Promise<Product[] | null> {
+  try {
+    const res = await fetch(
+      'https://genwunnr.myshopify.com/products.json?limit=250',
+      { next: { revalidate: 3600 } }
+    )
+    if (!res.ok) return null
+    const data = await res.json()
+
+    return data.products?.map((p: any) => ({
+      handle: p.handle,
+      title: p.title,
+      tag: p.product_type || deriveTag(p.title),
+      price: `$${parseFloat(p.variants[0].price).toFixed(2)}`,
+      image: p.images[0]?.src ?? '',
+    })) ?? null
+  } catch {
+    return null
+  }
+}
+
+function deriveTag(title: string): string {
+  const t = title.toUpperCase()
+  if (t.includes('HOODIE')) return 'APPAREL · Hoodie'
+  if (t.includes('T-SHIRT') || t.includes('TEE')) return 'APPAREL · Tee'
+  if (t.includes('HAT') || t.includes('CAP')) return 'APPAREL · Hat'
+  if (t.includes('POSTER')) return 'POSTER · Print'
+  return 'GEAR'
+}
+
+export default async function MerchPage() {
+  const liveProducts = await getLiveProducts()
+  const products = (liveProducts && liveProducts.length > 0) ? liveProducts : staticProducts
+
   return (
     <div className="min-h-screen py-20 px-4"
       style={{ background: 'var(--color-brand-black)', color: 'var(--color-brand-white)' }}>
@@ -56,13 +97,15 @@ export default function MerchPage() {
                 className="relative aspect-square overflow-hidden"
                 style={{ background: 'var(--color-brand-gray)' }}
               >
-                <Image
-                  src={p.image}
-                  alt={p.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+                {p.image && (
+                  <Image
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                )}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
                   style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%)' }}
