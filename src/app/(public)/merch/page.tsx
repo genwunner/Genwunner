@@ -1,49 +1,12 @@
 // src/app/(public)/merch/page.tsx
 import Image from 'next/image'
 import { products as staticProducts } from '@/data/content'
+import { getShopifyProducts } from '@/lib/shopify'
 
 export const metadata = { title: 'Supply Drop | Genwunner · Rocket Recruitment Regime' }
 
-interface Product {
-  handle: string
-  title: string
-  tag: string
-  price: string
-  image: string
-}
-
-async function getLiveProducts(): Promise<Product[] | null> {
-  try {
-    const res = await fetch(
-      'https://genwunnr.myshopify.com/products.json?limit=250',
-      { next: { revalidate: 3600 } }
-    )
-    if (!res.ok) return null
-    const data = await res.json()
-
-    return data.products?.map((p: any) => ({
-      handle: p.handle,
-      title: p.title,
-      tag: p.product_type || deriveTag(p.title),
-      price: `$${parseFloat(p.variants[0].price).toFixed(2)}`,
-      image: p.images[0]?.src ?? '',
-    })) ?? null
-  } catch {
-    return null
-  }
-}
-
-function deriveTag(title: string): string {
-  const t = title.toUpperCase()
-  if (t.includes('HOODIE')) return 'APPAREL · Hoodie'
-  if (t.includes('T-SHIRT') || t.includes('TEE')) return 'APPAREL · Tee'
-  if (t.includes('HAT') || t.includes('CAP')) return 'APPAREL · Hat'
-  if (t.includes('POSTER')) return 'POSTER · Print'
-  return 'GEAR'
-}
-
 export default async function MerchPage() {
-  const liveProducts = await getLiveProducts()
+  const liveProducts = await getShopifyProducts()
   const products = (liveProducts && liveProducts.length > 0) ? liveProducts : staticProducts
 
   return (

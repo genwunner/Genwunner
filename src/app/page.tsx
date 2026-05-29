@@ -3,7 +3,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/public/Nav'
 import TerminalIntro from '@/components/public/TerminalIntro'
-import { homepageFeaturedSongs, socialLinks, upcomingShows, artistStats, pressQuotes, products } from '@/data/content'
+import { homepageFeaturedSongs, socialLinks, upcomingShows, artistStats, pressQuotes, products as staticProducts } from '@/data/content'
+import { getShopifyProducts } from '@/lib/shopify'
 import { arsenalAscii } from '@/data/ascii'
 import PressTicker from '@/components/public/PressTicker'
 import WunnerdexForm from '@/components/public/WunnerdexForm'
@@ -79,6 +80,9 @@ export default async function HomePage() {
     .eq('status', 'upcoming')
     .gte('event_date', today)
     .order('event_date', { ascending: true })
+
+  const liveProducts = await getShopifyProducts()
+  const products = (liveProducts && liveProducts.length > 0) ? liveProducts : staticProducts
 
   const shows = [...upcomingShows, ...(supabaseShows ?? [])]
     .filter(s => s.event_date >= today)
