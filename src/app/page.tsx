@@ -318,7 +318,7 @@ export default async function HomePage() {
       <section style={{ padding: '2.5rem 1.5rem', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
-            // 003 · SUPPLY DROP
+            // 002 · SUPPLY DROP
           </div>
           <TermHead text="SUPPLY DROP" size="lg" cursor={true} />
           <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
@@ -375,11 +375,50 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── DISCORD BANNER ── */}
+      <section className="discord-banner-section" style={{
+        background: '#e3000f',
+        padding: '2rem 1.5rem',
+        borderBottom: '1px solid #880000',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '1.5rem',
+        flexWrap: 'wrap' as const,
+      }}>
+        <div className="discord-banner-text">
+          <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.85rem', fontWeight: 700, color: 'rgba(0,0,0,0.7)', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>
+            // THE REGIME HAS A HOME BASE
+          </div>
+          <div style={{ fontFamily: 'var(--font-heading), "Courier New", Courier, monospace', fontWeight: 400, fontSize: 'clamp(1rem, 2.5vw, 1.6rem)', color: '#000', letterSpacing: '0.06em', textTransform: 'uppercase', lineHeight: 1 }}>
+            JOIN THE DISCORD
+          </div>
+          <div style={{ fontFamily: "'Courier New', monospace", fontSize: 'clamp(0.75rem, 2vw, 0.85rem)', color: 'rgba(0,0,0,0.65)', letterSpacing: '0.06em', marginTop: '0.4rem', lineHeight: 1.8 }}>
+            City raid alerts · classified drops<span className="block md:inline"> · Giovanni&apos;s journal</span>
+          </div>
+        </div>
+        <a href={socialLinks.discord} target="_blank" rel="noopener noreferrer" style={{
+          fontFamily: '"Courier New", monospace',
+          fontSize: '0.65rem',
+          fontWeight: 700,
+          letterSpacing: '0.1em',
+          color: '#e3000f',
+          background: '#000',
+          border: '1px solid #000',
+          padding: '0.6rem 1.5rem',
+          textDecoration: 'none',
+          whiteSpace: 'nowrap' as const,
+          flexShrink: 0,
+        }}>
+          [ ENTER HQ → ]
+        </a>
+      </section>
+
       {/* ── SECTION 4: CITY RAIDS ── */}
       <section style={{ padding: '2.5rem 1.5rem', background: '#030000', borderBottom: '1px solid #1a0000' }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <div style={{ fontFamily: '"Courier New", monospace', fontSize: '0.85rem', fontWeight: 700, color: '#e3000f', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
-            // 002 · ACTIVE CAMPAIGN
+            // 003 · ACTIVE CAMPAIGN
           </div>
           <TermHead text="CITY RAIDS" size="lg" cursor={true} />
           <div className="dt-body" style={{ fontFamily: '"Courier New", monospace', fontSize: '0.65rem', color: '#770000', letterSpacing: '0.06em', marginTop: '0.4rem' }}>
@@ -433,45 +472,6 @@ export default async function HomePage() {
           <Link href="/shows" className="btn-outline">[ ALL CITY RAIDS → ]</Link>
           <Link href="/book" className="btn-primary">[ DEPLOY GENWUNNER ]</Link>
         </div>
-      </section>
-
-      {/* ── DISCORD BANNER ── */}
-      <section className="discord-banner-section" style={{
-        background: '#e3000f',
-        padding: '2rem 1.5rem',
-        borderBottom: '1px solid #880000',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '1.5rem',
-        flexWrap: 'wrap' as const,
-      }}>
-        <div className="discord-banner-text">
-          <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.85rem', fontWeight: 700, color: 'rgba(0,0,0,0.7)', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>
-            // THE REGIME HAS A HOME BASE
-          </div>
-          <div style={{ fontFamily: 'var(--font-heading), "Courier New", Courier, monospace', fontWeight: 400, fontSize: 'clamp(1rem, 2.5vw, 1.6rem)', color: '#000', letterSpacing: '0.06em', textTransform: 'uppercase', lineHeight: 1 }}>
-            JOIN THE DISCORD
-          </div>
-          <div style={{ fontFamily: "'Courier New', monospace", fontSize: 'clamp(0.75rem, 2vw, 0.85rem)', color: 'rgba(0,0,0,0.65)', letterSpacing: '0.06em', marginTop: '0.4rem', lineHeight: 1.8 }}>
-            City raid alerts · classified drops<span className="block md:inline"> · Giovanni&apos;s journal</span>
-          </div>
-        </div>
-        <a href={socialLinks.discord} target="_blank" rel="noopener noreferrer" style={{
-          fontFamily: '"Courier New", monospace',
-          fontSize: '0.65rem',
-          fontWeight: 700,
-          letterSpacing: '0.1em',
-          color: '#e3000f',
-          background: '#000',
-          border: '1px solid #000',
-          padding: '0.6rem 1.5rem',
-          textDecoration: 'none',
-          whiteSpace: 'nowrap' as const,
-          flexShrink: 0,
-        }}>
-          [ ENTER HQ → ]
-        </a>
       </section>
 
       {/* ── SECTION 5: ENLISTMENT ── */}
