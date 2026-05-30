@@ -55,18 +55,25 @@ export default function Nav() {
   return (
     <>
       {/* ── Ticker ── */}
-      <div style={{
-        background: '#0a0000',
-        borderBottom: '1px solid #1a0000',
-        height: 28,
-        overflow: 'hidden',
-        display: 'flex',
-        alignItems: 'center',
-        position: 'fixed',
-        top: 0, left: 0, right: 0,
-        zIndex: 50,
-      }}>
-        <div style={{
+      <div
+        className="nav-ticker-wrapper"
+        style={{
+          background: '#0a0000',
+          borderBottom: '1px solid #1a0000',
+          height: 28,
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'fixed',
+          top: 0, left: 0, right: 0,
+          zIndex: 50,
+          cursor: 'default',
+        }}
+        onTouchStart={e => (e.currentTarget.classList.add('touch-paused'))}
+        onTouchEnd={e => (e.currentTarget.classList.remove('touch-paused'))}
+        onTouchCancel={e => (e.currentTarget.classList.remove('touch-paused'))}
+      >
+        <div className="nav-ticker-track" style={{
           fontFamily: "'Courier New', monospace",
           fontSize: '0.65rem',
           fontWeight: 700,
@@ -74,11 +81,20 @@ export default function Nav() {
           letterSpacing: '0.12em',
           textShadow: '0 0 10px rgba(227,0,15,0.5)',
           whiteSpace: 'nowrap',
-          animation: 'ticker 40s linear infinite',
         }}>
+          {/* Duplicated so seamless -50% loop works */}
           &gt;&gt;&nbsp;{TICKER_TEXT}&nbsp;·&nbsp;&gt;&gt;&nbsp;{TICKER_TEXT}&nbsp;·&nbsp;
         </div>
       </div>
+      <style>{`
+        .nav-ticker-track {
+          animation: ticker 38s linear infinite;
+        }
+        .nav-ticker-wrapper:hover .nav-ticker-track,
+        .nav-ticker-wrapper.touch-paused .nav-ticker-track {
+          animation-play-state: paused;
+        }
+      `}</style>
 
       {/* ── Main Nav ── */}
       <nav style={{
