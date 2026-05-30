@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 interface Quote {
   quote: string
@@ -8,52 +8,71 @@ interface Quote {
 }
 
 export default function PressTicker({ quotes }: { quotes: Quote[] }) {
-  const [index, setIndex] = useState(0)
-  const [visible, setVisible] = useState(true)
+  const [paused, setPaused] = useState(false)
 
-  useEffect(() => {
-    if (quotes.length <= 1) return
-    const interval = setInterval(() => {
-      setVisible(false)
-      setTimeout(() => {
-        setIndex(i => (i + 1) % quotes.length)
-        setVisible(true)
-      }, 600)
-    }, 6000)
-    return () => clearInterval(interval)
-  }, [quotes.length])
-
-  const current = quotes[index]
+  // Duplicate so the loop is seamless — animation runs 0 → -50%
+  const items = [...quotes, ...quotes]
 
   return (
-    <div style={{ padding: '1.75rem 1.5rem', borderBottom: '1px solid #1a0000', textAlign: 'center', background: '#030000' }}>
-      <div style={{ fontFamily: '"Courier New", monospace', fontSize: 'clamp(0.85rem, 2vw, 1.2rem)', fontWeight: 700, color: '#880000', letterSpacing: '0.12em', marginBottom: '0.65rem' }}>
-        // INTERCEPTED CIVILIAN TRANSMISSION
-      </div>
-      <div className="dt-lore" style={{
-        fontFamily: '"Courier New", monospace',
-        fontSize: 'clamp(1rem, 2.8vw, 1.9rem)',
-        color: '#cc0000',
-        letterSpacing: '0.05em',
-        fontStyle: 'italic',
-        lineHeight: 1.6,
-        opacity: visible ? 1 : 0,
-        transition: 'opacity 0.5s ease',
-      }}>
-        &ldquo;{current.quote}&rdquo;
-      </div>
+    <div style={{ borderBottom: '1px solid #1a0000', background: '#030000' }}>
       <div style={{
         fontFamily: '"Courier New", monospace',
-        fontSize: 'clamp(0.8rem, 1.8vw, 1.1rem)',
+        fontSize: 'clamp(0.65rem, 1.5vw, 0.8rem)',
         fontWeight: 700,
-        color: '#e3000f',
-        letterSpacing: '0.18em',
-        marginTop: '0.65rem',
-        opacity: visible ? 1 : 0,
-        transition: 'opacity 0.5s ease',
+        color: '#880000',
+        letterSpacing: '0.12em',
+        padding: '0.6rem 1.5rem 0',
+        userSelect: 'none',
       }}>
-        — {current.source}
+        // INTERCEPTED CIVILIAN TRANSMISSION
       </div>
+
+      <div
+        style={{ overflow: 'hidden', padding: '0.6rem 0 0.9rem', cursor: 'default' }}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        onTouchStart={() => setPaused(true)}
+        onTouchEnd={() => setPaused(false)}
+        onTouchCancel={() => setPaused(false)}
+      >
+        <div style={{
+          display: 'flex',
+          whiteSpace: 'nowrap',
+          animation: 'ticker-scroll 38s linear infinite',
+          animationPlayState: paused ? 'paused' : 'running',
+        }}>
+          {items.map((q, i) => (
+            <span key={i} style={{ display: 'inline-flex', alignItems: 'baseline', gap: '0.6em', paddingRight: '4rem' }}>
+              <span style={{
+                fontFamily: '"Courier New", monospace',
+                fontSize: 'clamp(0.9rem, 2.2vw, 1.5rem)',
+                color: '#cc0000',
+                letterSpacing: '0.04em',
+                fontStyle: 'italic',
+              }}>
+                &ldquo;{q.quote}&rdquo;
+              </span>
+              <span style={{
+                fontFamily: '"Courier New", monospace',
+                fontSize: 'clamp(0.75rem, 1.6vw, 1rem)',
+                fontWeight: 700,
+                color: '#e3000f',
+                letterSpacing: '0.15em',
+              }}>
+                — {q.source}
+              </span>
+              <span style={{ color: '#2a0000', paddingLeft: '2rem', letterSpacing: '0.2em' }}>///</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes ticker-scroll {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+      `}</style>
     </div>
   )
 }
