@@ -8,7 +8,7 @@ interface Quote {
 }
 
 export default function PressTicker({ quotes }: { quotes: Quote[] }) {
-  const [paused, setPaused] = useState(false)
+  const [touchPaused, setTouchPaused] = useState(false)
 
   // Duplicate so the loop is seamless — animation runs 0 → -50%
   const items = [...quotes, ...quotes]
@@ -28,19 +28,13 @@ export default function PressTicker({ quotes }: { quotes: Quote[] }) {
       </div>
 
       <div
+        className={`ticker-wrapper${touchPaused ? ' touch-paused' : ''}`}
         style={{ overflow: 'hidden', padding: '0.6rem 0 0.9rem', cursor: 'default' }}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onTouchStart={() => setPaused(true)}
-        onTouchEnd={() => setPaused(false)}
-        onTouchCancel={() => setPaused(false)}
+        onTouchStart={() => setTouchPaused(true)}
+        onTouchEnd={() => setTouchPaused(false)}
+        onTouchCancel={() => setTouchPaused(false)}
       >
-        <div style={{
-          display: 'flex',
-          whiteSpace: 'nowrap',
-          animation: 'ticker-scroll 38s linear infinite',
-          animationPlayState: paused ? 'paused' : 'running',
-        }}>
+        <div className="ticker-track" style={{ display: 'flex', whiteSpace: 'nowrap' }}>
           {items.map((q, i) => (
             <span key={i} style={{ display: 'inline-flex', alignItems: 'baseline', gap: '0.6em', paddingRight: '4rem' }}>
               <span style={{
@@ -71,6 +65,13 @@ export default function PressTicker({ quotes }: { quotes: Quote[] }) {
         @keyframes ticker-scroll {
           from { transform: translateX(0); }
           to   { transform: translateX(-50%); }
+        }
+        .ticker-track {
+          animation: ticker-scroll 38s linear infinite;
+        }
+        .ticker-wrapper:hover .ticker-track,
+        .ticker-wrapper.touch-paused .ticker-track {
+          animation-play-state: paused;
         }
       `}</style>
     </div>
