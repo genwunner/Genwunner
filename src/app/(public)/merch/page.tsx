@@ -44,7 +44,7 @@ export default async function MerchPage() {
 
         {/* Product Grid */}
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px"
+          className="grid grid-cols-2 lg:grid-cols-3 gap-px"
           style={{ background: 'var(--color-brand-gray-mid)', border: '1px solid var(--color-brand-gray-mid)' }}
         >
           {products.map(p => (
@@ -88,7 +88,7 @@ export default async function MerchPage() {
                 />
               </div>
 
-              <div className="p-4" style={{ borderTop: '1px solid var(--color-brand-gray-mid)' }}>
+              <div className="p-2 sm:p-4" style={{ borderTop: '1px solid var(--color-brand-gray-mid)' }}>
                 <p style={{
                   fontFamily: 'var(--font-pixel)',
                   fontSize: '0.32rem',
@@ -100,7 +100,7 @@ export default async function MerchPage() {
                 </p>
                 <h3 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: '1.1rem',
+                  fontSize: 'clamp(0.7rem, 2.5vw, 1.1rem)',
                   letterSpacing: '0.04em',
                   textTransform: 'uppercase',
                   color: 'var(--color-brand-white)',
