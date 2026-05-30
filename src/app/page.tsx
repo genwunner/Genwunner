@@ -82,7 +82,19 @@ export default async function HomePage() {
     .order('event_date', { ascending: true })
 
   const liveProducts = await getShopifyProducts()
-  const products = (liveProducts && liveProducts.length > 0) ? liveProducts : staticProducts
+  const allProducts = (liveProducts && liveProducts.length > 0) ? liveProducts : staticProducts
+
+  const HOMEPAGE_HANDLES = [
+    'kanto-propagranda-sticker-pack-001',
+    'big-body-camo-t-shirt',
+    'big-man-camo-t-shirt',
+    'box-logo-dupe-t-shirt',
+    'wunnwill-t-shirt',
+    'big-man-vintage-stoise-t-shirt',
+  ]
+  const products = HOMEPAGE_HANDLES
+    .map(h => allProducts.find(p => p.handle === h))
+    .filter((p): p is NonNullable<typeof p> => p !== undefined)
 
   const shows = [...upcomingShows, ...(supabaseShows ?? [])]
     .filter(s => s.event_date >= today)
@@ -330,7 +342,7 @@ export default async function HomePage() {
           className="grid grid-cols-2 sm:grid-cols-3"
           style={{ gap: '1px', background: '#0d0000', border: '1px solid #0d0000', marginBottom: '1.25rem' }}
         >
-          {products.slice(0, 6).map(p => (
+          {products.map(p => (
             <a
               key={p.handle}
               href={`https://genwunnr.myshopify.com/products/${p.handle}`}
