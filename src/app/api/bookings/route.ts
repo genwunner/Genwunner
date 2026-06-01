@@ -2,11 +2,6 @@ import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
 import { sendFanEmail } from '@/lib/resend'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
 const MANAGEMENT_EMAIL = process.env.MANAGEMENT_EMAIL || 'genwunnermgmt@gmail.com'
 
 function bookingNotificationEmail(data: Record<string, string | null | undefined>) {
@@ -98,6 +93,10 @@ function bookingConfirmationEmail({ name, event_city, event_type }: { name: stri
 }
 
 export async function POST(req: NextRequest) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
   const body = await req.json()
   const { name, company, email, phone, event_city, event_date, venue, event_type, budget, expected_attendance, performance_length, message } = body
 

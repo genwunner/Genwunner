@@ -2,11 +2,6 @@ import { createClient } from '@supabase/supabase-js'
 import { NextRequest, NextResponse } from 'next/server'
 import { sendFanEmail } from '@/lib/resend'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
 const MANAGEMENT_EMAIL = process.env.MANAGEMENT_EMAIL || 'genwunnermgmt@gmail.com'
 
 function wunnerdexWelcomeEmail({ name, city }: { name: string; city: string }) {
@@ -55,6 +50,10 @@ function wunnerdexWelcomeEmail({ name, city }: { name: string; city: string }) {
 }
 
 export async function POST(req: NextRequest) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
   const body = await req.json()
   const { name, email, phone, city, favorite_pokemon, favorite_song, social_handle, want_in_city } = body
 
