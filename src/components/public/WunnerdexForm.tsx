@@ -53,7 +53,7 @@ export default function WunnerdexForm() {
         <label className="brand-label">Trainer Name</label>
         <input name="name" type="text" className="brand-input" placeholder="your name" />
         <label className="brand-label">Home Territory</label>
-        <input name="city" type="text" className="brand-input" placeholder="city, state / country" />
+        <input name="city" type="text" required className="brand-input" placeholder="city, state / country" />
         <label className="brand-label">Comms Channel (Email) *</label>
         <input name="email" type="email" required className="brand-input" placeholder="your@email.com" />
         {error && (
