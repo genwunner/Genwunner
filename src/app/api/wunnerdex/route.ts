@@ -62,7 +62,6 @@ export async function POST(req: NextRequest) {
   }
 
   const { error } = await supabase.from('wunnerdex_signups').insert({
-    name: name || null,
     email,
     phone: phone || null,
     city,
