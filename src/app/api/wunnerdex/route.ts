@@ -73,8 +73,11 @@ export async function POST(req: NextRequest) {
     want_in_city: want_in_city === 'true' || want_in_city === true,
   })
 
-  if (error && !error.message.includes('duplicate')) {
-    return NextResponse.json({ error: 'DB error' }, { status: 500 })
+  if (error) {
+    console.error('[wunnerdex] supabase insert error:', JSON.stringify(error))
+    if (!error.message.includes('duplicate')) {
+      return NextResponse.json({ error: 'DB error' }, { status: 500 })
+    }
   }
 
   await supabase.from('fans').insert({
