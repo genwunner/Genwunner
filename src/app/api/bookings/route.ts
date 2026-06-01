@@ -118,8 +118,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'DB error' }, { status: 500 })
   }
 
+  console.log('[bookings] RESEND_API_KEY present:', !!process.env.RESEND_API_KEY)
+  console.log('[bookings] RESEND_FROM_EMAIL:', process.env.RESEND_FROM_EMAIL)
+
   if (process.env.RESEND_API_KEY) {
-    await Promise.allSettled([
+    const results = await Promise.allSettled([
       sendFanEmail({
         to: MANAGEMENT_EMAIL,
         subject: `⚡ NEW DEPLOYMENT REQUEST — ${name} · ${event_city}`,
@@ -131,6 +134,7 @@ export async function POST(req: NextRequest) {
         html: bookingConfirmationEmail({ name, event_city, event_type }),
       }),
     ])
+    console.log('[bookings] email results:', JSON.stringify(results))
   }
 
   return NextResponse.json({ ok: true, redirect: '/book/thank-you' })

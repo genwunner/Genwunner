@@ -84,6 +84,9 @@ export async function POST(req: NextRequest) {
     source: 'wunnerdex',
   }).then(() => {})
 
+  console.log('[wunnerdex] RESEND_API_KEY present:', !!process.env.RESEND_API_KEY)
+  console.log('[wunnerdex] RESEND_FROM_EMAIL:', process.env.RESEND_FROM_EMAIL)
+
   if (process.env.RESEND_API_KEY) {
     const mgmtHtml = `
       <div style="background:#000;color:#cc0000;padding:40px;font-family:'Courier New',Courier,monospace;max-width:600px;margin:0 auto;">
@@ -100,7 +103,7 @@ export async function POST(req: NextRequest) {
         </table>
       </div>
     `
-    await Promise.allSettled([
+    const results = await Promise.allSettled([
       sendFanEmail({
         to: MANAGEMENT_EMAIL,
         subject: `🚀 NEW ENLISTMENT — ${name || 'Unknown'} · ${city}`,
@@ -112,6 +115,7 @@ export async function POST(req: NextRequest) {
         html: wunnerdexWelcomeEmail({ name: name || 'OPERATIVE', city }),
       }),
     ])
+    console.log('[wunnerdex] email results:', JSON.stringify(results))
   }
 
   return NextResponse.json({ ok: true, redirect: '/wunnerdex/welcome' })
