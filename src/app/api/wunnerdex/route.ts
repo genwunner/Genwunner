@@ -4,7 +4,7 @@ import { sendFanEmail } from '@/lib/resend'
 
 const MANAGEMENT_EMAIL = process.env.MANAGEMENT_EMAIL || 'genwunnermgmt@gmail.com'
 
-function wunnerdexWelcomeEmail({ name, city }: { name: string; city: string }) {
+function wunnerdexWelcomeEmail({ city }: { name: string; city: string }) {
   return `
     <div style="background:#000;color:#cc0000;padding:40px;font-family:'Courier New',Courier,monospace;max-width:600px;margin:0 auto;">
       <div style="border-bottom:1px solid #1a0000;padding-bottom:20px;margin-bottom:24px;">
@@ -15,7 +15,7 @@ function wunnerdexWelcomeEmail({ name, city }: { name: string; city: string }) {
       </div>
 
       <p style="font-size:0.75rem;color:#880000;letter-spacing:0.06em;margin:0 0 20px;">
-        OPERATIVE: <span style="color:#cc0000;">${name.toUpperCase()}</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+        OPERATIVE LEVEL: <span style="color:#cc0000;">GRUNT</span>&nbsp;&nbsp;|&nbsp;&nbsp;
         TERRITORY: <span style="color:#cc0000;">${city.toUpperCase()}</span>
       </p>
 
@@ -25,7 +25,7 @@ function wunnerdexWelcomeEmail({ name, city }: { name: string; city: string }) {
       </p>
 
       <div style="border:1px solid #1a0000;padding:20px;margin-bottom:24px;">
-        <p style="font-size:0.5rem;color:#e3000f;letter-spacing:0.12em;margin:0 0 12px;">// YOUR ORDERS</p>
+        <p style="font-size:0.5rem;color:#e3000f;letter-spacing:0.12em;margin:0 0 12px;">// YOUR PERKS</p>
         <ul style="list-style:none;padding:0;margin:0;font-size:0.7rem;color:#880000;line-height:2.2;">
           <li>▶ City raid alerts — you hear first</li>
           <li>▶ Early merch access before civilians</li>
