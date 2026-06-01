@@ -41,10 +41,10 @@ export default function WunnerdexWelcomePage() {
               key={i}
               style={{
                 fontFamily: "'Courier New', monospace",
-                fontSize: '0.65rem',
+                fontSize: '0.85rem',
                 letterSpacing: '0.08em',
                 lineHeight: 2,
-                color: visibleLines.includes(i) ? (line.highlight ? '#e3000f' : '#550000') : 'transparent',
+                color: visibleLines.includes(i) ? (line.highlight ? '#e3000f' : '#880000') : 'transparent',
                 transition: 'color 0.3s',
                 textShadow: line.highlight && visibleLines.includes(i) ? '0 0 8px rgba(227,0,15,0.5)' : 'none',
               }}
@@ -71,8 +71,8 @@ export default function WunnerdexWelcomePage() {
               style={{ gap: '1px', background: '#1a0000', border: '1px solid #1a0000', marginBottom: '3rem' }}
             >
               <div style={{ background: '#030000', padding: '1.5rem' }}>
-                <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.5rem', color: '#e3000f', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>// YOUR ORDERS</p>
-                <ul style={{ fontFamily: "'Courier New', monospace", fontSize: '0.65rem', color: '#880000', letterSpacing: '0.04em', lineHeight: 2, listStyle: 'none', padding: 0, margin: 0 }}>
+                <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.75rem', color: '#e3000f', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>// YOUR ORDERS</p>
+                <ul style={{ fontFamily: "'Courier New', monospace", fontSize: '0.8rem', color: '#aa0000', letterSpacing: '0.04em', lineHeight: 2, listStyle: 'none', padding: 0, margin: 0 }}>
                   {[
                     'City raid alerts — first to know',
                     'Early merch access before civilians',
@@ -88,12 +88,12 @@ export default function WunnerdexWelcomePage() {
                 </ul>
               </div>
               <div style={{ background: '#030000', padding: '1.5rem' }}>
-                <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.5rem', color: '#e3000f', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>// OPERATIVE STATUS</p>
-                <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.65rem', color: '#550000', lineHeight: 2 }}>
+                <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.75rem', color: '#e3000f', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>// OPERATIVE STATUS</p>
+                <div style={{ fontFamily: "'Courier New', monospace", fontSize: '0.8rem', color: '#880000', lineHeight: 2 }}>
                   <p><span style={{ color: '#770000' }}>RANK:</span>&nbsp;<span style={{ color: '#cc0000' }}>GRUNT — NEWLY ENLISTED</span></p>
                   <p><span style={{ color: '#770000' }}>CLEARANCE:</span>&nbsp;<span style={{ color: '#cc0000' }}>LEVEL 1</span></p>
                   <p><span style={{ color: '#770000' }}>STATUS:</span>&nbsp;<span style={{ color: '#e3000f', textShadow: '0 0 6px rgba(227,0,15,0.4)' }}>ACTIVE</span></p>
-                  <p style={{ marginTop: '1rem', fontSize: '0.55rem', color: '#440000', lineHeight: 1.8 }}>
+                  <p style={{ marginTop: '1rem', fontSize: '0.75rem', color: '#880000', lineHeight: 1.8 }}>
                     Check your email — your operative<br />confirmation has been dispatched.
                   </p>
                 </div>

@@ -40,10 +40,10 @@ export default function BookThankYouPage() {
               key={i}
               style={{
                 fontFamily: "'Courier New', monospace",
-                fontSize: '0.65rem',
+                fontSize: '0.85rem',
                 letterSpacing: '0.08em',
                 lineHeight: 2,
-                color: visibleLines.includes(i) ? (line.highlight ? '#e3000f' : '#550000') : 'transparent',
+                color: visibleLines.includes(i) ? (line.highlight ? '#e3000f' : '#880000') : 'transparent',
                 transition: 'color 0.3s',
                 textShadow: line.highlight && visibleLines.includes(i) ? '0 0 8px rgba(227,0,15,0.5)' : 'none',
               }}
@@ -70,8 +70,8 @@ export default function BookThankYouPage() {
               style={{ gap: '1px', background: '#1a0000', border: '1px solid #1a0000', marginBottom: '2rem' }}
             >
               <div style={{ background: '#030000', padding: '1.5rem' }}>
-                <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.5rem', color: '#e3000f', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>// WHAT HAPPENS NEXT</p>
-                <ul style={{ fontFamily: "'Courier New', monospace", fontSize: '0.65rem', color: '#880000', letterSpacing: '0.04em', lineHeight: 2, listStyle: 'none', padding: 0, margin: 0 }}>
+                <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.75rem', color: '#e3000f', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>// WHAT HAPPENS NEXT</p>
+                <ul style={{ fontFamily: "'Courier New', monospace", fontSize: '0.8rem', color: '#aa0000', letterSpacing: '0.04em', lineHeight: 2, listStyle: 'none', padding: 0, margin: 0 }}>
                   {[
                     'Management reviews your request',
                     'Response within 48 hours',
@@ -87,14 +87,14 @@ export default function BookThankYouPage() {
                 </ul>
               </div>
               <div style={{ background: '#030000', padding: '1.5rem' }}>
-                <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.5rem', color: '#e3000f', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>// URGENT INQUIRIES</p>
-                <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.65rem', color: '#550000', lineHeight: 2 }}>
+                <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.75rem', color: '#e3000f', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>// URGENT INQUIRIES</p>
+                <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.8rem', color: '#880000', lineHeight: 2 }}>
                   Can&apos;t wait 48 hours?<br />
                   Transmit directly to management:
                 </p>
                 <a
                   href="mailto:genwunnermgmt@gmail.com"
-                  style={{ fontFamily: "'Courier New', monospace", fontSize: '0.65rem', color: '#e3000f', letterSpacing: '0.04em', display: 'block', marginTop: '0.75rem', wordBreak: 'break-all' }}
+                  style={{ fontFamily: "'Courier New', monospace", fontSize: '0.8rem', color: '#e3000f', letterSpacing: '0.04em', display: 'block', marginTop: '0.75rem', wordBreak: 'break-all' }}
                 >
                   genwunnermgmt@gmail.com →
                 </a>
