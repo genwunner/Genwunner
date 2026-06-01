@@ -7,6 +7,8 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
+const MANAGEMENT_EMAIL = process.env.MANAGEMENT_EMAIL || 'genwunnermgmt@gmail.com'
+
 function wunnerdexWelcomeEmail({ name, city }: { name: string; city: string }) {
   return `
     <div style="background:#000;color:#cc0000;padding:40px;font-family:'Courier New',Courier,monospace;max-width:600px;margin:0 auto;">
@@ -83,11 +85,33 @@ export async function POST(req: NextRequest) {
   }).then(() => {})
 
   if (process.env.RESEND_API_KEY) {
-    await sendFanEmail({
-      to: email,
-      subject: 'OPERATIVE REGISTERED — WELCOME TO THE ROCKET RECRUITMENT REGIME',
-      html: wunnerdexWelcomeEmail({ name: name || 'OPERATIVE', city }),
-    }).catch(() => {})
+    const mgmtHtml = `
+      <div style="background:#000;color:#cc0000;padding:40px;font-family:'Courier New',Courier,monospace;max-width:600px;margin:0 auto;">
+        <p style="font-size:0.5rem;color:#e3000f;letter-spacing:0.15em;margin:0 0 8px;">// NEW WUNNERDEX ENLISTMENT</p>
+        <h1 style="font-size:1.5rem;font-weight:700;color:#e3000f;margin:0 0 24px;">NEW OPERATIVE: ${(name || 'UNKNOWN').toUpperCase()}</h1>
+        <table style="width:100%;border-collapse:collapse;font-size:0.65rem;">
+          <tr><td style="padding:8px;border-bottom:1px solid #1a0000;color:#550000;width:35%;">NAME</td><td style="padding:8px;border-bottom:1px solid #1a0000;color:#cc0000;">${name || '—'}</td></tr>
+          <tr><td style="padding:8px;border-bottom:1px solid #1a0000;color:#550000;">EMAIL</td><td style="padding:8px;border-bottom:1px solid #1a0000;color:#cc0000;">${email}</td></tr>
+          <tr><td style="padding:8px;border-bottom:1px solid #1a0000;color:#550000;">CITY</td><td style="padding:8px;border-bottom:1px solid #1a0000;color:#cc0000;">${city}</td></tr>
+          ${phone ? `<tr><td style="padding:8px;border-bottom:1px solid #1a0000;color:#550000;">PHONE</td><td style="padding:8px;border-bottom:1px solid #1a0000;color:#cc0000;">${phone}</td></tr>` : ''}
+          ${favorite_pokemon ? `<tr><td style="padding:8px;border-bottom:1px solid #1a0000;color:#550000;">POKÉMON</td><td style="padding:8px;border-bottom:1px solid #1a0000;color:#cc0000;">${favorite_pokemon}</td></tr>` : ''}
+          ${social_handle ? `<tr><td style="padding:8px;border-bottom:1px solid #1a0000;color:#550000;">HANDLE</td><td style="padding:8px;border-bottom:1px solid #1a0000;color:#cc0000;">${social_handle}</td></tr>` : ''}
+          ${want_in_city ? `<tr><td style="padding:8px;border-bottom:1px solid #1a0000;color:#550000;">WANTS SHOW</td><td style="padding:8px;border-bottom:1px solid #1a0000;color:#e3000f;">YES</td></tr>` : ''}
+        </table>
+      </div>
+    `
+    await Promise.allSettled([
+      sendFanEmail({
+        to: MANAGEMENT_EMAIL,
+        subject: `🚀 NEW ENLISTMENT — ${name || 'Unknown'} · ${city}`,
+        html: mgmtHtml,
+      }),
+      sendFanEmail({
+        to: email,
+        subject: 'OPERATIVE REGISTERED — WELCOME TO THE ROCKET RECRUITMENT REGIME',
+        html: wunnerdexWelcomeEmail({ name: name || 'OPERATIVE', city }),
+      }),
+    ])
   }
 
   return NextResponse.json({ ok: true, redirect: '/wunnerdex/welcome' })
