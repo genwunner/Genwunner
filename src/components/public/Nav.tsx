@@ -133,9 +133,30 @@ export default function Nav() {
           </span>
         </Link>
 
-        {/* Right side — spinning logo + menu toggle */}
+        {/* Right side — spinning logo + login + menu toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <SpinningPokeball size={38} speed="4s" className="hidden md:block" />
+          <Link
+            href="/login"
+            style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: 'clamp(0.42rem, 1.8vw, 0.6rem)',
+              fontWeight: 700,
+              letterSpacing: 'clamp(0.04em, 0.4vw, 0.1em)',
+              color: '#cc0000',
+              border: '1px solid #550000',
+              background: 'transparent',
+              padding: '0.3rem 0.55rem',
+              textDecoration: 'none',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+              transition: 'color 0.12s, border-color 0.12s',
+            }}
+            onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = '#e3000f'; el.style.borderColor = '#e3000f' }}
+            onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = '#cc0000'; el.style.borderColor = '#550000' }}
+          >
+            [ LOG IN ]
+          </Link>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             style={{
@@ -385,19 +406,22 @@ export default function Nav() {
             onClick={() => setMenuOpen(false)}
             style={{
               fontFamily: "'Courier New', monospace",
-              fontSize: '0.6rem',
+              fontSize: '0.65rem',
               fontWeight: 700,
               letterSpacing: '0.12em',
-              color: '#550000',
+              color: '#cc0000',
+              border: '1px solid #550000',
+              background: 'transparent',
+              padding: '0.6rem 1.5rem',
               textTransform: 'uppercase',
               textDecoration: 'none',
-              transition: 'color 0.12s',
+              transition: 'color 0.12s, border-color 0.12s',
               alignSelf: 'flex-start',
             }}
-            onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e3000f'}
-            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#550000'}
+            onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = '#e3000f'; el.style.borderColor = '#e3000f' }}
+            onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = '#cc0000'; el.style.borderColor = '#550000' }}
           >
-            // Operative Command Terminal →
+            [ LOG IN · COMMAND TERMINAL ]
           </Link>
         </div>
       </div>
