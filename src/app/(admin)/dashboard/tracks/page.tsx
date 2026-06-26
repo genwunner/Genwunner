@@ -240,6 +240,7 @@ export default function TracksPage() {
                 <Link
                   href={`/dashboard/tracks/${track.id}`}
                   className="text-xs bg-black text-white px-3 py-1.5 rounded-lg hover:bg-black/80 transition-colors opacity-0 group-hover:opacity-100"
+                  style={{ color: '#fff' }}
                 >
                   Open Checklist →
                 </Link>

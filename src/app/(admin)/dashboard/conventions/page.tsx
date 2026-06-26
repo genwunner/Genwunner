@@ -463,6 +463,7 @@ genwunnermgmt@gmail.com`
                                 <a
                                   href={`mailto:${con.booking_email}?subject=${encodeURIComponent(`Genwunner — Pokémon Rap Performance Inquiry for ${con.name}`)}&body=${encodeURIComponent(pitchDraft.text)}`}
                                   className="text-xs bg-black text-white px-3 py-1.5 rounded-lg hover:bg-black/80 transition-colors"
+                                  style={{ color: '#fff' }}
                                 >
                                   Open in Email →
                                 </a>
