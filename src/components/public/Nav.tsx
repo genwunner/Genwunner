@@ -378,6 +378,27 @@ export default function Nav() {
           >
             ⚡ [ ENLIST IN THE REGIME ]
           </Link>
+
+          {/* Operative / admin access */}
+          <Link
+            href="/login"
+            onClick={() => setMenuOpen(false)}
+            style={{
+              fontFamily: "'Courier New', monospace",
+              fontSize: '0.6rem',
+              fontWeight: 700,
+              letterSpacing: '0.12em',
+              color: '#550000',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              transition: 'color 0.12s',
+              alignSelf: 'flex-start',
+            }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e3000f'}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#550000'}
+          >
+            // Operative Command Terminal →
+          </Link>
         </div>
       </div>
 
