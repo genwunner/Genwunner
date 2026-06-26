@@ -28,3 +28,5 @@ Image assets/
 
 # raw photo assets — too large for git
 public/images/photos/
+.vercel
+.env*
