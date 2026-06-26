@@ -187,8 +187,8 @@ export default function EPKAdminPage() {
             <div className="mb-14" style={{ position: 'relative' }}>
               <div style={{ position: 'relative', width: '100%', aspectRatio: '3 / 4', overflow: 'hidden', border: '1px solid #1a0000' }}>
                 <Image
-                  src="/images/hero-stage.jpg"
-                  alt="Genwunner performing live"
+                  src="/images/epk-hero.jpg"
+                  alt="Genwunner"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'center top', filter: 'brightness(0.9) contrast(1.05)' }}
                 />

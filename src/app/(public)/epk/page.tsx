@@ -132,8 +132,8 @@ export default async function EPKPage() {
         <div className="mb-16" style={{ position: 'relative' }}>
           <div style={{ position: 'relative', width: '100%', aspectRatio: '3 / 4', overflow: 'hidden', border: '1px solid #1a0000' }}>
             <Image
-              src="/images/hero-stage.jpg"
-              alt="Genwunner performing live"
+              src="/images/epk-hero.jpg"
+              alt="Genwunner"
               fill
               style={{ objectFit: 'cover', objectPosition: 'center top', filter: 'brightness(0.9) contrast(1.05)' }}
               priority
